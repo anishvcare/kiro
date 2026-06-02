@@ -1,0 +1,1002 @@
+<!-- ============================================================
+     LOPUS ELECTRONICS – ABOUT US PAGE
+     Drop this entire block into an Elementor "HTML" widget.
+     Self-contained: all CSS scoped with .lopus- prefix.
+     Replace placehold.co URLs with your real images.
+============================================================ -->
+
+<style>
+  /* ---------- RESET (scoped) ---------- */
+  .lopus-about *,
+  .lopus-about *::before,
+  .lopus-about *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .lopus-about {
+    --lopus-navy: #0A1A3A;
+    --lopus-navy-2: #122452;
+    --lopus-blue: #1E3A8A;
+    --lopus-accent: #FF4D2E;
+    --lopus-accent-2: #FFB800;
+    --lopus-light: #F5F7FB;
+    --lopus-text: #1F2937;
+    --lopus-muted: #6B7280;
+    --lopus-white: #ffffff;
+    --lopus-radius: 18px;
+    --lopus-shadow: 0 20px 50px rgba(10,26,58,0.12);
+    --lopus-shadow-lg: 0 30px 70px rgba(10,26,58,0.20);
+
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--lopus-text);
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  .lopus-about img { max-width: 100%; display: block; }
+  .lopus-about a { text-decoration: none; color: inherit; }
+
+  /* ---------- LAYOUT ---------- */
+  .lopus-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .lopus-section {
+    padding: 90px 0;
+    position: relative;
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .lopus-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lopus-accent);
+    padding: 8px 18px;
+    border: 1px solid rgba(255,77,46,0.25);
+    border-radius: 50px;
+    background: rgba(255,77,46,0.06);
+    margin-bottom: 18px;
+  }
+
+  .lopus-heading {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    color: var(--lopus-navy);
+    line-height: 1.15;
+    margin-bottom: 18px;
+    letter-spacing: -0.5px;
+  }
+  .lopus-heading span {
+    background: linear-gradient(90deg, var(--lopus-accent) 0%, var(--lopus-accent-2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .lopus-subheading {
+    font-size: 17px;
+    color: var(--lopus-muted);
+    max-width: 720px;
+    margin: 0 auto 50px;
+  }
+  .lopus-center { text-align: center; }
+
+  /* ============================================================
+     1. HERO SECTION
+  ============================================================ */
+  .lopus-hero {
+    position: relative;
+    background: linear-gradient(135deg, #0A1A3A 0%, #122452 50%, #1E3A8A 100%);
+    color: #fff;
+    padding: 130px 0 110px;
+    overflow: hidden;
+    border-radius: 0 0 40px 40px;
+  }
+  .lopus-hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(255,77,46,0.45) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .lopus-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -160px; left: -100px;
+    width: 460px; height: 460px;
+    background: radial-gradient(circle, rgba(255,184,0,0.30) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .lopus-hero-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .lopus-hero-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #FFB800;
+    padding: 8px 18px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50px;
+    margin-bottom: 22px;
+  }
+  .lopus-hero h1 {
+    font-size: clamp(34px, 5.5vw, 60px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1px;
+    margin-bottom: 22px;
+  }
+  .lopus-hero h1 .lopus-grad {
+    background: linear-gradient(90deg, #FF4D2E 0%, #FFB800 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .lopus-hero p {
+    font-size: 18px;
+    color: rgba(255,255,255,0.82);
+    max-width: 560px;
+    margin-bottom: 36px;
+  }
+  .lopus-hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .lopus-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 32px;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 50px;
+    transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.3px;
+  }
+  .lopus-btn-primary {
+    background: linear-gradient(90deg, #FF4D2E 0%, #FF7A2E 100%);
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(255,77,46,0.4);
+  }
+  .lopus-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(255,77,46,0.55); }
+  .lopus-btn-ghost {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+  }
+  .lopus-btn-ghost:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
+
+  /* Hero visual */
+  .lopus-hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 460px;
+    margin-left: auto;
+  }
+  .lopus-hero-visual .lopus-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,77,46,0.55) 0%, transparent 60%);
+    filter: blur(30px);
+    animation: lopusPulse 4s ease-in-out infinite;
+  }
+  .lopus-hero-visual .lopus-img-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.15);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  }
+  .lopus-hero-visual .lopus-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Floating badge */
+  .lopus-floating-badge {
+    position: absolute;
+    bottom: 30px; left: -30px;
+    z-index: 3;
+    background: #fff;
+    color: var(--lopus-navy);
+    padding: 16px 22px;
+    border-radius: 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: lopusFloat 3.5s ease-in-out infinite;
+  }
+  .lopus-floating-badge .lopus-fb-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 20px;
+  }
+  .lopus-floating-badge .lopus-fb-num { font-size: 22px; font-weight: 800; line-height: 1; }
+  .lopus-floating-badge .lopus-fb-label { font-size: 12px; color: var(--lopus-muted); }
+
+  @keyframes lopusPulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+  }
+  @keyframes lopusFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* ============================================================
+     2. STATS BAR
+  ============================================================ */
+  .lopus-stats {
+    margin-top: -50px;
+    position: relative;
+    z-index: 5;
+  }
+  .lopus-stats-inner {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--lopus-shadow-lg);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  .lopus-stat { text-align: center; position: relative; }
+  .lopus-stat:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -15px; top: 15%;
+    width: 1px; height: 70%;
+    background: linear-gradient(180deg, transparent, #e5e7eb, transparent);
+  }
+  .lopus-stat-num {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--lopus-navy), var(--lopus-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .lopus-stat-num span { color: var(--lopus-accent); -webkit-text-fill-color: var(--lopus-accent); }
+  .lopus-stat-label {
+    font-size: 14px;
+    color: var(--lopus-muted);
+    font-weight: 500;
+  }
+
+  /* ============================================================
+     3. WHO WE ARE
+  ============================================================ */
+  .lopus-who {
+    background: var(--lopus-light);
+  }
+  .lopus-who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+  }
+  .lopus-who-img {
+    position: relative;
+  }
+  .lopus-who-img .lopus-main-img {
+    border-radius: var(--lopus-radius);
+    overflow: hidden;
+    box-shadow: var(--lopus-shadow-lg);
+    aspect-ratio: 4/5;
+  }
+  .lopus-who-img .lopus-main-img img { width: 100%; height: 100%; object-fit: cover; }
+  .lopus-who-img::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 100px; height: 100px;
+    border: 4px solid var(--lopus-accent);
+    border-radius: 16px;
+    z-index: -1;
+  }
+  .lopus-who-img::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 140px; height: 140px;
+    background: linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2));
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0.85;
+  }
+  .lopus-who h2 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: var(--lopus-navy);
+    line-height: 1.15;
+    margin-bottom: 22px;
+    letter-spacing: -0.5px;
+  }
+  .lopus-who p {
+    color: var(--lopus-muted);
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+  .lopus-who-features {
+    list-style: none;
+    margin-top: 26px;
+  }
+  .lopus-who-features li {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    font-weight: 500;
+    color: var(--lopus-text);
+  }
+  .lopus-who-features li::before {
+    content: '';
+    width: 28px; height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2));
+    background-image:
+      linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2)),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E");
+    background-size: cover, 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 8px 20px rgba(255,77,46,0.35);
+  }
+
+  /* ============================================================
+     4. PRODUCT RANGE
+  ============================================================ */
+  .lopus-products {
+    background: #fff;
+    position: relative;
+  }
+  .lopus-products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .lopus-product-card {
+    position: relative;
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(10,26,58,0.08);
+    transition: all 0.5s cubic-bezier(0.2,0.8,0.2,1);
+    border: 1px solid #eef0f5;
+  }
+  .lopus-product-card:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--lopus-shadow-lg);
+    border-color: transparent;
+  }
+  .lopus-product-card .lopus-pc-img {
+    position: relative;
+    aspect-ratio: 16/11;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0A1A3A, #1E3A8A);
+  }
+  .lopus-product-card .lopus-pc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+  .lopus-product-card:hover .lopus-pc-img img { transform: scale(1.08); }
+  .lopus-product-card .lopus-pc-tag {
+    position: absolute;
+    top: 18px; left: 18px;
+    background: rgba(255,255,255,0.95);
+    color: var(--lopus-navy);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 50px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .lopus-product-card .lopus-pc-body {
+    padding: 28px 26px 32px;
+  }
+  .lopus-product-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--lopus-navy);
+    margin-bottom: 12px;
+  }
+  .lopus-product-card p {
+    color: var(--lopus-muted);
+    font-size: 15px;
+    line-height: 1.65;
+  }
+  .lopus-product-card .lopus-pc-icon {
+    position: absolute;
+    top: -25px; right: 24px;
+    z-index: 3;
+    width: 60px; height: 60px;
+    background: linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2));
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 12px 30px rgba(255,77,46,0.35);
+    color: #fff;
+    font-size: 26px;
+  }
+
+  /* ============================================================
+     5. WHY CHOOSE US
+  ============================================================ */
+  .lopus-why {
+    background: linear-gradient(135deg, #0A1A3A 0%, #122452 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .lopus-why::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,77,46,0.18) 0%, transparent 65%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .lopus-why .lopus-heading { color: #fff; }
+  .lopus-why .lopus-subheading { color: rgba(255,255,255,0.7); }
+  .lopus-why-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .lopus-why-grid > :nth-child(4),
+  .lopus-why-grid > :nth-child(5) {
+    grid-column: span 1;
+  }
+  .lopus-why-card {
+    background: rgba(255,255,255,0.04);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 20px;
+    padding: 36px 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .lopus-why-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,77,46,0.12), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  .lopus-why-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,77,46,0.4);
+    background: rgba(255,255,255,0.06);
+  }
+  .lopus-why-card:hover::before { opacity: 1; }
+  .lopus-why-card .lopus-wc-icon {
+    width: 60px; height: 60px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin-bottom: 22px;
+    box-shadow: 0 10px 30px rgba(255,77,46,0.35);
+    position: relative; z-index: 1;
+  }
+  .lopus-why-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    position: relative; z-index: 1;
+  }
+  .lopus-why-card p {
+    color: rgba(255,255,255,0.7);
+    font-size: 15px;
+    line-height: 1.65;
+    position: relative; z-index: 1;
+  }
+
+  /* ============================================================
+     6. MISSION / VISION / COMMITMENT
+  ============================================================ */
+  .lopus-mvc {
+    background: var(--lopus-light);
+  }
+  .lopus-mvc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  .lopus-mvc-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 44px 34px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 30px rgba(10,26,58,0.06);
+    border-top: 4px solid transparent;
+  }
+  .lopus-mvc-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--lopus-shadow-lg);
+    border-top-color: var(--lopus-accent);
+  }
+  .lopus-mvc-card .lopus-mvc-num {
+    position: absolute;
+    top: 20px; right: 24px;
+    font-size: 80px;
+    font-weight: 900;
+    color: rgba(10,26,58,0.05);
+    line-height: 1;
+  }
+  .lopus-mvc-card .lopus-mvc-icon {
+    width: 64px; height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(255,77,46,0.12), rgba(255,184,0,0.12));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--lopus-accent);
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+  .lopus-mvc-card h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--lopus-navy);
+    margin-bottom: 14px;
+  }
+  .lopus-mvc-card p {
+    color: var(--lopus-muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ============================================================
+     7. CONTACT CTA
+  ============================================================ */
+  .lopus-cta {
+    padding: 100px 0;
+    background: #fff;
+  }
+  .lopus-cta-card {
+    position: relative;
+    background: linear-gradient(135deg, #0A1A3A 0%, #1E3A8A 60%, #FF4D2E 140%);
+    border-radius: 30px;
+    padding: 70px 60px;
+    overflow: hidden;
+    color: #fff;
+  }
+  .lopus-cta-card::before {
+    content: '';
+    position: absolute;
+    top: -150px; right: -150px;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(255,184,0,0.35) 0%, transparent 65%);
+    border-radius: 50%;
+  }
+  .lopus-cta-grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .lopus-cta h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .lopus-cta p {
+    color: rgba(255,255,255,0.78);
+    font-size: 16px;
+    margin-bottom: 0;
+  }
+  .lopus-contact-info {
+    display: grid;
+    gap: 18px;
+  }
+  .lopus-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    transition: all 0.3s ease;
+  }
+  .lopus-contact-item:hover {
+    background: rgba(255,255,255,0.14);
+    transform: translateX(6px);
+  }
+  .lopus-contact-item .lopus-ci-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--lopus-accent), var(--lopus-accent-2));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .lopus-contact-item .lopus-ci-label {
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+  .lopus-contact-item .lopus-ci-value {
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+  }
+
+  /* ============================================================
+     CLOSING TAGLINE
+  ============================================================ */
+  .lopus-tagline {
+    text-align: center;
+    padding: 60px 24px;
+    background: var(--lopus-light);
+  }
+  .lopus-tagline h3 {
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 800;
+    color: var(--lopus-navy);
+    letter-spacing: -0.5px;
+  }
+  .lopus-tagline h3 span {
+    background: linear-gradient(90deg, var(--lopus-accent), var(--lopus-accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .lopus-tagline p {
+    margin-top: 14px;
+    color: var(--lopus-muted);
+    font-size: 15px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+  ============================================================ */
+  @media (max-width: 992px) {
+    .lopus-section { padding: 70px 0; }
+    .lopus-hero { padding: 90px 0 80px; }
+    .lopus-hero-grid { grid-template-columns: 1fr; gap: 50px; }
+    .lopus-hero-visual { margin: 0 auto; max-width: 380px; }
+    .lopus-stats-inner { grid-template-columns: repeat(2, 1fr); gap: 30px 20px; }
+    .lopus-stat:nth-child(2)::after { display: none; }
+    .lopus-who-grid { grid-template-columns: 1fr; gap: 60px; }
+    .lopus-who-img { max-width: 460px; margin: 0 auto; }
+    .lopus-products-grid,
+    .lopus-why-grid,
+    .lopus-mvc-grid { grid-template-columns: repeat(2, 1fr); }
+    .lopus-cta-grid { grid-template-columns: 1fr; gap: 36px; }
+    .lopus-cta-card { padding: 50px 36px; }
+  }
+  @media (max-width: 600px) {
+    .lopus-section { padding: 60px 0; }
+    .lopus-hero { padding: 70px 0 70px; border-radius: 0 0 24px 24px; }
+    .lopus-stats { margin-top: -40px; }
+    .lopus-stats-inner { padding: 28px 20px; grid-template-columns: 1fr 1fr; }
+    .lopus-stat-num { font-size: 28px; }
+    .lopus-products-grid,
+    .lopus-why-grid,
+    .lopus-mvc-grid { grid-template-columns: 1fr; }
+    .lopus-floating-badge { left: 10px; padding: 12px 16px; }
+    .lopus-floating-badge .lopus-fb-num { font-size: 18px; }
+    .lopus-cta-card { padding: 40px 24px; border-radius: 22px; }
+    .lopus-hero-actions { flex-direction: column; }
+    .lopus-btn { width: 100%; justify-content: center; }
+  }
+
+  /* Reveal animation */
+  .lopus-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: lopusReveal 0.9s cubic-bezier(0.2,0.8,0.2,1) forwards;
+  }
+  .lopus-d1 { animation-delay: 0.1s; }
+  .lopus-d2 { animation-delay: 0.25s; }
+  .lopus-d3 { animation-delay: 0.4s; }
+  .lopus-d4 { animation-delay: 0.55s; }
+  @keyframes lopusReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<!-- Optional Google font (works in Elementor HTML widget) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<div class="lopus-about">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="lopus-hero">
+    <div class="lopus-container">
+      <div class="lopus-hero-grid">
+        <div class="lopus-reveal lopus-d1">
+          <span class="lopus-hero-eyebrow">About LOPUS Electronics</span>
+          <h1>Innovating the Future <br>with <span class="lopus-grad">Smart Electronics</span></h1>
+          <p>A trusted name in innovative consumer electronics and home entertainment solutions — bringing cutting-edge technology, exceptional quality, and reliable performance to homes across India.</p>
+          <div class="lopus-hero-actions">
+            <a href="#products" class="lopus-btn lopus-btn-primary">Explore Products &nbsp;→</a>
+            <a href="#contact" class="lopus-btn lopus-btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="lopus-hero-visual lopus-reveal lopus-d2">
+          <div class="lopus-glow"></div>
+          <div class="lopus-img-frame">
+            <!-- Replace with your hero image (Smart TV / lifestyle shot) -->
+            <img src="https://placehold.co/600x600/0A1A3A/FFFFFF?text=Hero+Image%0A600x600" alt="LOPUS Smart Electronics">
+          </div>
+          <div class="lopus-floating-badge">
+            <div class="lopus-fb-icon">★</div>
+            <div>
+              <div class="lopus-fb-num">15+ Years</div>
+              <div class="lopus-fb-label">Industry Excellence</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <section class="lopus-stats">
+    <div class="lopus-container">
+      <div class="lopus-stats-inner">
+        <div class="lopus-stat">
+          <div class="lopus-stat-num">15<span>+</span></div>
+          <div class="lopus-stat-label">Years in Cable TV<br>& Broadband</div>
+        </div>
+        <div class="lopus-stat">
+          <div class="lopus-stat-num">4<span>+</span></div>
+          <div class="lopus-stat-label">Years in Consumer<br>Electronics</div>
+        </div>
+        <div class="lopus-stat">
+          <div class="lopus-stat-num">100<span>%</span></div>
+          <div class="lopus-stat-label">Quality Tested<br>Products</div>
+        </div>
+        <div class="lopus-stat">
+          <div class="lopus-stat-num">10K<span>+</span></div>
+          <div class="lopus-stat-label">Happy Customers<br>Across India</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHO WE ARE ===================== -->
+  <section class="lopus-section lopus-who">
+    <div class="lopus-container">
+      <div class="lopus-who-grid">
+        <div class="lopus-who-img">
+          <div class="lopus-main-img">
+            <!-- Replace with team / showroom / product line image -->
+            <img src="https://placehold.co/520x650/1E3A8A/FFFFFF?text=Who+We+Are%0A520x650" alt="Who we are - LOPUS">
+          </div>
+        </div>
+        <div>
+          <span class="lopus-eyebrow">Who We Are</span>
+          <h2>Making Advanced Technology <span style="color:var(--lopus-accent)">Accessible</span> to Everyone</h2>
+          <p>LOPUS Electronics was established with a vision to make advanced technology accessible to everyone. Our product range is designed to enhance your entertainment experience while maintaining the highest standards of quality and performance.</p>
+          <p>From Smart LED TVs to Sound Systems and Audio Solutions, every LOPUS product is carefully developed to deliver superior viewing, listening, and connectivity experiences.</p>
+          <ul class="lopus-who-features">
+            <li>Crafted for quality, durability and value for money</li>
+            <li>Engineered for modern Indian households</li>
+            <li>Backed by 15+ years of telecom & broadband expertise</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUCT RANGE ===================== -->
+  <section class="lopus-section lopus-products" id="products">
+    <div class="lopus-container">
+      <div class="lopus-center">
+        <span class="lopus-eyebrow">Our Product Range</span>
+        <h2 class="lopus-heading">Built to <span>Elevate</span> Your Entertainment</h2>
+        <p class="lopus-subheading">A complete line-up of smart electronics, designed to deliver superior viewing, listening and connectivity experiences for every home.</p>
+      </div>
+
+      <div class="lopus-products-grid">
+        <!-- Card 1 -->
+        <div class="lopus-product-card">
+          <div class="lopus-pc-img">
+            <img src="https://placehold.co/500x340/0A1A3A/FFB800?text=Smart+LED+TV%0A500x340" alt="Smart LED TVs">
+            <span class="lopus-pc-tag">Vision</span>
+          </div>
+          <div class="lopus-pc-icon">📺</div>
+          <div class="lopus-pc-body">
+            <h3>Smart LED TVs</h3>
+            <p>Experience stunning visuals, vibrant colors, and seamless connectivity with our range of Smart LED TVs available in multiple screen sizes.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="lopus-product-card">
+          <div class="lopus-pc-img">
+            <img src="https://placehold.co/500x340/122452/FF4D2E?text=Sound+Bars%0A500x340" alt="Sound Bars & Audio Systems">
+            <span class="lopus-pc-tag">Sound</span>
+          </div>
+          <div class="lopus-pc-icon">🎵</div>
+          <div class="lopus-pc-body">
+            <h3>Sound Bars &amp; Audio Systems</h3>
+            <p>Powerful sound solutions designed to transform your home entertainment experience with immersive audio and deep, room-filling bass.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="lopus-product-card">
+          <div class="lopus-pc-img">
+            <img src="https://placehold.co/500x340/1E3A8A/FFFFFF?text=Home+Entertainment%0A500x340" alt="Home Entertainment">
+            <span class="lopus-pc-tag">Connect</span>
+          </div>
+          <div class="lopus-pc-icon">🏠</div>
+          <div class="lopus-pc-body">
+            <h3>Home Entertainment</h3>
+            <p>Modern products engineered to bring convenience, connectivity, and performance into your everyday life — built for the way you live.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE US ===================== -->
+  <section class="lopus-section lopus-why">
+    <div class="lopus-container">
+      <div class="lopus-center">
+        <span class="lopus-eyebrow" style="color:#FFB800;border-color:rgba(255,184,0,0.3);background:rgba(255,184,0,0.08);">Why Choose LOPUS</span>
+        <h2 class="lopus-heading">Five Reasons to <span>Trust Us</span></h2>
+        <p class="lopus-subheading">From premium quality to dedicated after-sales support — every detail is designed around you.</p>
+      </div>
+
+      <div class="lopus-why-grid">
+        <div class="lopus-why-card">
+          <div class="lopus-wc-icon">✦</div>
+          <h3>Premium Quality</h3>
+          <p>Every product undergoes strict quality checks to ensure reliability and long-lasting performance you can depend on.</p>
+        </div>
+        <div class="lopus-why-card">
+          <div class="lopus-wc-icon">⚡</div>
+          <h3>Advanced Technology</h3>
+          <p>We integrate the latest innovations to deliver smarter, faster, and more enjoyable entertainment experiences.</p>
+        </div>
+        <div class="lopus-why-card">
+          <div class="lopus-wc-icon">♥</div>
+          <h3>Customer-Centric</h3>
+          <p>Our customers are at the heart of everything we do. We focus on excellent service and dependable support.</p>
+        </div>
+        <div class="lopus-why-card">
+          <div class="lopus-wc-icon">₹</div>
+          <h3>Value for Money</h3>
+          <p>High-quality products at competitive prices, making advanced technology accessible to more households.</p>
+        </div>
+        <div class="lopus-why-card">
+          <div class="lopus-wc-icon">🛡</div>
+          <h3>Trusted Support</h3>
+          <p>Dedicated customer support and after-sales service ensure complete peace of mind, every step of the way.</p>
+        </div>
+        <div class="lopus-why-card">
+          <div class="lopus-wc-icon">🇮🇳</div>
+          <h3>Made for India</h3>
+          <p>Products designed with Indian homes, climate, and viewing habits in mind — tested for real-world performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MISSION / VISION / COMMITMENT ===================== -->
+  <section class="lopus-section lopus-mvc">
+    <div class="lopus-container">
+      <div class="lopus-center">
+        <span class="lopus-eyebrow">Our Promise</span>
+        <h2 class="lopus-heading">Driven by <span>Purpose</span>, Powered by Innovation</h2>
+      </div>
+
+      <div class="lopus-mvc-grid">
+        <div class="lopus-mvc-card">
+          <div class="lopus-mvc-num">01</div>
+          <div class="lopus-mvc-icon">◎</div>
+          <h3>Our Mission</h3>
+          <p>To provide innovative, reliable, and affordable electronics that enhance everyday life while building lasting relationships with our customers through trust, quality, and exceptional service.</p>
+        </div>
+
+        <div class="lopus-mvc-card">
+          <div class="lopus-mvc-num">02</div>
+          <div class="lopus-mvc-icon">✧</div>
+          <h3>Our Vision</h3>
+          <p>To become one of India's most trusted electronics brands by delivering world-class products and customer experiences that inspire confidence and satisfaction.</p>
+        </div>
+
+        <div class="lopus-mvc-card">
+          <div class="lopus-mvc-num">03</div>
+          <div class="lopus-mvc-icon">♛</div>
+          <h3>Our Commitment</h3>
+          <p>We believe technology should simplify life, connect people, and create memorable experiences. Our commitment to innovation, quality, and customer satisfaction drives us to continuously exceed expectations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT CTA ===================== -->
+  <section class="lopus-cta" id="contact">
+    <div class="lopus-container">
+      <div class="lopus-cta-card">
+        <div class="lopus-cta-grid">
+          <div>
+            <span class="lopus-hero-eyebrow" style="background:rgba(255,255,255,0.12);color:#FFB800;">Get in Touch</span>
+            <h2 style="margin-top:18px;">Have a Question? <br>We're Here to <span style="color:#FFB800;">Help You</span>.</h2>
+            <p>Reach out to LOPUS Electronics for product enquiries, dealership opportunities, or dedicated after-sales support.</p>
+          </div>
+
+          <div class="lopus-contact-info">
+            <a href="tel:+918606916399" class="lopus-contact-item">
+              <div class="lopus-ci-icon">📞</div>
+              <div>
+                <div class="lopus-ci-label">Customer Support</div>
+                <div class="lopus-ci-value">+91 86069 16399</div>
+              </div>
+            </a>
+            <a href="https://www.lopuselectronics.com" class="lopus-contact-item">
+              <div class="lopus-ci-icon">🌐</div>
+              <div>
+                <div class="lopus-ci-label">Website</div>
+                <div class="lopus-ci-value">www.lopuselectronics.com</div>
+              </div>
+            </a>
+            <div class="lopus-contact-item">
+              <div class="lopus-ci-icon">📍</div>
+              <div>
+                <div class="lopus-ci-label">Head Office</div>
+                <div class="lopus-ci-value">Mavoor, Kozhikode, Kerala – 673661</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TAGLINE ===================== -->
+  <section class="lopus-tagline">
+    <h3>LOPUS Electronics – <span>Innovate the Future.</span></h3>
+    <p>Quality • Innovation • Trust</p>
+  </section>
+
+</div>
+<!-- ============================================================
+     END OF LOPUS ABOUT PAGE
+============================================================ -->
