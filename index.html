@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CakeReels — Freshly Baked, Beautifully Delivered</title>
+  <meta name="description" content="CakeReels — premium handcrafted cakes, cupcakes & desserts baked fresh and delivered to your door." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       BRAND TOKENS — swap these to match your real logo palette
+       ========================================================= */
+    :root {
+      --brand-primary:   #E91E63;   /* rose pink — primary brand */
+      --brand-primary-2: #FF6B9D;   /* soft pink highlight */
+      --brand-accent:    #D4A24C;   /* warm gold accent */
+      --brand-dark:      #3B1F2B;   /* chocolate / dark plum */
+      --brand-cream:     #FFF6EE;   /* cream / sweet background */
+      --brand-cream-2:   #FCE9DC;   /* peach cream */
+      --text-dark:       #2A1A22;
+      --text-muted:      #7a6a72;
+      --white:           #ffffff;
+      --shadow-sm: 0 6px 18px rgba(233, 30, 99, 0.10);
+      --shadow-md: 0 18px 40px rgba(59, 31, 43, 0.15);
+      --shadow-lg: 0 30px 60px rgba(59, 31, 43, 0.20);
+      --radius-sm: 14px;
+      --radius-md: 22px;
+      --radius-lg: 32px;
+      --gradient-warm: linear-gradient(135deg, #FFE5EC 0%, #FFF6EE 60%, #FCE9DC 100%);
+      --gradient-brand: linear-gradient(135deg, var(--brand-primary) 0%, #ff7aa8 100%);
+    }
+
+    /* =========================================================
+       BASE
+       ========================================================= */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      background: var(--brand-cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      color: var(--brand-dark);
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1200px, 92%); margin-inline: auto; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--brand-primary);
+      padding: 8px 16px;
+      background: rgba(233, 30, 99, 0.08);
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: "";
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--brand-primary);
+      box-shadow: 0 0 0 4px rgba(233, 30, 99, .15);
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .section-subtitle {
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 50px;
+      text-align: center;
+    }
+    .section-head { text-align: center; margin-bottom: 50px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: .95rem;
+      cursor: pointer;
+      border: none;
+      transition: all .35s ease;
+      letter-spacing: .3px;
+    }
+    .btn-primary {
+      background: var(--gradient-brand);
+      color: var(--white);
+      box-shadow: 0 12px 28px rgba(233, 30, 99, 0.35);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(233, 30, 99, 0.45); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--brand-dark);
+      border: 2px solid var(--brand-dark);
+    }
+    .btn-ghost:hover { background: var(--brand-dark); color: var(--white); }
+    .btn svg { width: 18px; height: 18px; }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      background: var(--gradient-warm);
+      overflow: hidden;
+      padding: 80px 0;
+    }
+    .hero::before {
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(600px circle at 85% 20%, rgba(255,107,157,.25), transparent 60%),
+        radial-gradient(500px circle at 10% 90%, rgba(212,162,76,.20), transparent 60%);
+      pointer-events:none;
+    }
+    .hero .container {
+      position: relative; z-index: 2;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+    .hero-content h1 .accent {
+      color: var(--brand-primary);
+      font-style: italic;
+      position: relative;
+      display: inline-block;
+    }
+    .hero-content h1 .accent::after {
+      content:"";
+      position:absolute; left:0; right:0; bottom:6px; height:10px;
+      background: rgba(212, 162, 76, .35);
+      z-index:-1; border-radius: 6px;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 40px; }
+
+    .hero-stats {
+      display: flex; gap: 36px; flex-wrap: wrap;
+      padding-top: 28px;
+      border-top: 1px solid rgba(59,31,43,.12);
+    }
+    .stat-num {
+      font-family:'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--brand-dark);
+      display:block;
+    }
+    .stat-label { font-size: .85rem; color: var(--text-muted); }
+
+    /* Hero visual: stacked cake reel cards */
+    .hero-visual {
+      position: relative;
+      height: 560px;
+    }
+    .reel-card {
+      position: absolute;
+      width: 240px; height: 360px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      background: #f3d6c2;
+      transition: transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .reel-card img {
+      width:100%; height:100%; object-fit:cover;
+      transition: transform 1.2s ease;
+    }
+    .reel-card:hover img { transform: scale(1.08); }
+    .reel-card .play {
+      position:absolute; bottom:18px; left:18px;
+      width: 46px; height: 46px; border-radius:50%;
+      background: rgba(255,255,255,.92);
+      display:flex; align-items:center; justify-content:center;
+      color: var(--brand-primary);
+      box-shadow: 0 6px 18px rgba(0,0,0,.15);
+    }
+    .reel-card .tag {
+      position:absolute; top:14px; left:14px;
+      padding: 6px 12px; border-radius:999px;
+      background: rgba(255,255,255,.9);
+      font-size:.75rem; font-weight:600;
+      color: var(--brand-primary);
+    }
+    .reel-1 { top: 20px; right: 200px; transform: rotate(-6deg); }
+    .reel-2 { top: 90px; right: 0px;   transform: rotate(5deg); z-index: 2; }
+    .reel-3 { bottom: 0;  right: 240px; transform: rotate(8deg); }
+    .reel-card:hover { transform: rotate(0deg) scale(1.04) translateY(-6px); z-index: 5; }
+
+    .floating-badge {
+      position:absolute;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      box-shadow: var(--shadow-md);
+      display:flex; align-items:center; gap:12px;
+      animation: float 4s ease-in-out infinite;
+    }
+    .floating-badge .icon {
+      width:42px; height:42px; border-radius:50%;
+      background: var(--gradient-brand);
+      color: var(--white);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .floating-badge strong { display:block; font-size:.95rem; }
+    .floating-badge span   { font-size:.78rem; color: var(--text-muted); }
+    .badge-1 { top: 10%; left: -20px; animation-delay: 0s; }
+    .badge-2 { bottom: 8%; right: -10px; animation-delay: 1.5s; }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-12px); }
+    }
+
+    /* =========================================================
+       MARQUEE
+       ========================================================= */
+    .marquee {
+      background: var(--brand-dark);
+      color: var(--white);
+      padding: 18px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee-track {
+      display: flex; gap: 60px;
+      width: max-content;
+      animation: scroll 30s linear infinite;
+      font-family:'Playfair Display', serif;
+      font-size: 1.4rem; font-style: italic;
+    }
+    .marquee-track span { display:flex; align-items:center; gap:60px; }
+    .marquee-track .dot { width:8px; height:8px; border-radius:50%; background: var(--brand-accent); }
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* =========================================================
+       CATEGORIES
+       ========================================================= */
+    .categories { padding: 100px 0; background: var(--white); }
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .category-card {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+    .category-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); }
+    .category-card img {
+      width:100%; height:100%; object-fit:cover;
+      transition: transform .8s ease;
+    }
+    .category-card:hover img { transform: scale(1.1); }
+    .category-overlay {
+      position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(59,31,43,.85) 0%, transparent 60%);
+      display:flex; flex-direction:column; justify-content:flex-end;
+      padding: 24px;
+      color: var(--white);
+    }
+    .category-overlay h3 {
+      color: var(--white);
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+    .category-overlay span {
+      font-size:.85rem; opacity:.85;
+      display: inline-flex; align-items:center; gap:6px;
+    }
+
+    /* =========================================================
+       FEATURED PRODUCTS
+       ========================================================= */
+    .products { padding: 100px 0; background: var(--brand-cream); }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all .4s ease;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(59,31,43,.05);
+    }
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-md);
+    }
+    .product-thumb {
+      position: relative;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: var(--brand-cream-2);
+    }
+    .product-thumb img {
+      width:100%; height:100%; object-fit:cover;
+      transition: transform .8s ease;
+    }
+    .product-card:hover .product-thumb img { transform: scale(1.1); }
+    .product-badge {
+      position:absolute; top:14px; left:14px;
+      background: var(--brand-primary);
+      color: var(--white);
+      padding: 6px 12px; border-radius: 999px;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .5px; text-transform: uppercase;
+    }
+    .product-badge.gold { background: var(--brand-accent); }
+    .quick-add {
+      position:absolute; right: 14px; bottom: 14px;
+      width: 44px; height: 44px; border-radius:50%;
+      background: var(--white); color: var(--brand-primary);
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: var(--shadow-sm);
+      transform: translateY(20px); opacity:0;
+      transition: all .35s ease;
+      cursor: pointer; border:none;
+    }
+    .product-card:hover .quick-add { transform: translateY(0); opacity:1; }
+    .quick-add:hover { background: var(--brand-primary); color: var(--white); }
+
+    .product-body { padding: 20px 22px 24px; }
+    .product-body .cat {
+      font-size: .75rem; color: var(--brand-primary);
+      font-weight:600; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .product-body h4 {
+      font-size: 1.15rem; margin: 6px 0 10px;
+      font-weight: 600;
+    }
+    .stars { color: var(--brand-accent); font-size: .85rem; margin-bottom: 10px; }
+    .stars .count { color: var(--text-muted); margin-left: 6px; }
+    .price { display:flex; align-items:baseline; gap:10px; }
+    .price .now { font-size: 1.3rem; font-weight: 700; color: var(--brand-dark); }
+    .price .was { color: var(--text-muted); text-decoration: line-through; font-size:.95rem; }
+
+    .products-cta { text-align:center; margin-top: 50px; }
+
+    /* =========================================================
+       STORY / ABOUT
+       ========================================================= */
+    .story {
+      padding: 110px 0;
+      background: linear-gradient(135deg, var(--brand-cream-2) 0%, var(--brand-cream) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .story-img-wrap {
+      position: relative;
+    }
+    .story-img-wrap .main-img {
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      width: 100%;
+    }
+    .story-img-wrap .accent-img {
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 55%;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      border: 8px solid var(--brand-cream);
+    }
+    .story-content h2 { margin-bottom: 22px; }
+    .story-content p { color: var(--text-muted); margin-bottom: 18px; font-size: 1.02rem; }
+    .story-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin: 32px 0;
+    }
+    .story-features .feat {
+      display:flex; align-items:flex-start; gap:14px;
+    }
+    .story-features .feat-ic {
+      width:44px; height:44px; border-radius: 12px;
+      background: var(--gradient-brand);
+      color: var(--white);
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .story-features h4 { font-size: 1rem; margin-bottom: 4px; font-family:'Poppins'; font-weight: 600; }
+    .story-features p { font-size:.85rem; margin: 0; }
+
+    /* =========================================================
+       REELS  (signature CakeReels feature)
+       ========================================================= */
+    .reels-section {
+      padding: 110px 0;
+      background: var(--brand-dark);
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .reels-section::before {
+      content:""; position:absolute; inset:0;
+      background:
+        radial-gradient(500px circle at 90% 0%, rgba(233,30,99,.25), transparent 60%),
+        radial-gradient(400px circle at 0% 100%, rgba(212,162,76,.18), transparent 60%);
+    }
+    .reels-section .container { position: relative; z-index:1; }
+    .reels-section h2, .reels-section .section-title { color: var(--white); }
+    .reels-section .section-subtitle { color: rgba(255,255,255,.7); }
+    .reels-section .eyebrow {
+      background: rgba(255,255,255,.12);
+      color: #ffb6cd;
+    }
+    .reels-section .eyebrow::before { background:#ffb6cd; box-shadow: 0 0 0 4px rgba(255,182,205,.2); }
+
+    .reels-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+    .reel-tile {
+      position: relative;
+      aspect-ratio: 9/16;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+    }
+    .reel-tile img {
+      width:100%; height:100%; object-fit:cover;
+      transition: transform .8s ease;
+    }
+    .reel-tile:hover img { transform: scale(1.08); }
+    .reel-tile .ovr {
+      position:absolute; inset:0;
+      background: linear-gradient(to top, rgba(0,0,0,.7), transparent 50%);
+      display:flex; align-items:flex-end; padding: 16px;
+      color: var(--white);
+    }
+    .reel-tile .ovr h4 {
+      color: var(--white); font-size: .95rem; font-weight:600;
+      font-family:'Poppins';
+    }
+    .reel-tile .play-ic {
+      position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);
+      width:54px; height:54px; border-radius:50%;
+      background: rgba(255,255,255,.25);
+      backdrop-filter: blur(8px);
+      display:flex; align-items:center; justify-content:center;
+      color: var(--white);
+      transition: all .3s ease;
+    }
+    .reel-tile:hover .play-ic {
+      background: var(--brand-primary);
+      transform: translate(-50%,-50%) scale(1.1);
+    }
+    .reel-tile .views {
+      position:absolute; top:14px; right:14px;
+      background: rgba(0,0,0,.5);
+      color: var(--white);
+      padding: 4px 10px; border-radius:999px;
+      font-size:.72rem; display:flex; align-items:center; gap:5px;
+    }
+
+    /* =========================================================
+       TESTIMONIALS
+       ========================================================= */
+    .testimonials { padding: 110px 0; background: var(--white); }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .testi-card {
+      background: var(--brand-cream);
+      padding: 36px 30px;
+      border-radius: var(--radius-md);
+      position: relative;
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+    .testi-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      background: var(--white);
+    }
+    .testi-card .quote {
+      position:absolute; top:-10px; right: 24px;
+      font-family:'Playfair Display', serif;
+      font-size: 5rem; line-height:1;
+      color: var(--brand-primary);
+      opacity:.3;
+    }
+    .testi-card .stars { margin-bottom: 14px; font-size:1rem; }
+    .testi-card p {
+      color: var(--brand-dark);
+      font-size: 1rem;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testi-author { display:flex; align-items:center; gap:14px; }
+    .testi-author img {
+      width:48px; height:48px; border-radius:50%;
+      object-fit:cover;
+      border: 3px solid var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    .testi-author strong { display:block; font-size:.95rem; }
+    .testi-author span { font-size: .8rem; color: var(--text-muted); }
+
+    /* =========================================================
+       CTA
+       ========================================================= */
+    .cta-band {
+      padding: 100px 0;
+      background:
+        linear-gradient(135deg, rgba(59,31,43,.85), rgba(233,30,99,.75)),
+        url('https://images.unsplash.com/photo-1535141192574-5d4897c12636?w=1600&auto=format&fit=crop&q=70') center/cover;
+      color: var(--white);
+      text-align: center;
+    }
+    .cta-band h2 {
+      color: var(--white);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      max-width: 800px; margin: 0 auto 18px;
+    }
+    .cta-band p {
+      max-width: 560px; margin: 0 auto 32px;
+      opacity:.92; font-size: 1.05rem;
+    }
+    .cta-band .btn-primary {
+      background: var(--white);
+      color: var(--brand-primary);
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+    }
+    .cta-band .btn-primary:hover {
+      background: var(--brand-accent);
+      color: var(--white);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+    @media (max-width: 1024px) {
+      .hero .container { grid-template-columns: 1fr; }
+      .hero-visual { height: 480px; max-width: 540px; margin: 0 auto; }
+      .story-grid { grid-template-columns: 1fr; gap: 60px; }
+      .product-grid, .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .reels-grid { grid-template-columns: repeat(3, 1fr); }
+      .testi-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .product-grid, .category-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .reels-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-stats { gap: 22px; }
+      .stat-num { font-size: 1.5rem; }
+      .reel-1 { right: 130px; width: 180px; height: 270px; }
+      .reel-2 { right: 0;     width: 180px; height: 270px; }
+      .reel-3 { right: 160px; width: 180px; height: 270px; }
+      .hero-visual { height: 420px; }
+      .badge-1, .badge-2 { display:none; }
+      .story-features { grid-template-columns: 1fr; }
+    }
+
+    /* Reveal-on-scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content reveal">
+        <span class="eyebrow">Freshly Baked Daily</span>
+        <h1>Cakes that taste as <span class="accent">stunning</span> as they look.</h1>
+        <p>Handcrafted celebration cakes, gourmet cupcakes, and decadent desserts — baked with premium ingredients and delivered to your door, fresh from our oven.</p>
+        <div class="hero-cta">
+          <a href="#shop" class="btn btn-primary">
+            Shop Cakes
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="#reels" class="btn btn-ghost">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Watch Our Reels
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><span class="stat-num">15K+</span><span class="stat-label">Happy Customers</span></div>
+          <div><span class="stat-num">200+</span><span class="stat-label">Cake Designs</span></div>
+          <div><span class="stat-num">4.9★</span><span class="stat-label">Average Rating</span></div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="reel-card reel-1">
+          <span class="tag">Bestseller</span>
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80" alt="Strawberry cake reel">
+          <div class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="reel-card reel-2">
+          <span class="tag">New</span>
+          <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&auto=format&fit=crop&q=80" alt="Chocolate cake reel">
+          <div class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+        <div class="reel-card reel-3">
+          <span class="tag">Trending</span>
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&auto=format&fit=crop&q=80" alt="Cupcake reel">
+          <div class="play"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        </div>
+
+        <div class="floating-badge badge-1">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4Z"/></svg>
+          </div>
+          <div><strong>Same-Day Delivery</strong><span>Order before 2 PM</span></div>
+        </div>
+        <div class="floating-badge badge-2">
+          <div class="icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 15.09 8.26 22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div><strong>Premium Quality</strong><span>100% organic</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       MARQUEE
+       ========================================================= -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Freshly Baked <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Premium Ingredients <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Same-Day Delivery <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Custom Designs <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Eggless Options <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Freshly Baked <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Premium Ingredients <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Same-Day Delivery <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Custom Designs <i class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--brand-accent);margin-left:60px;"></i></span>
+      <span>Eggless Options</span>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       CATEGORIES
+       ========================================================= -->
+  <section class="categories">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Shop by Category</span>
+        <h2 class="section-title">Find your perfect treat</h2>
+        <p class="section-subtitle">From birthday showstoppers to wedding masterpieces, we've baked something special for every moment.</p>
+      </div>
+      <div class="category-grid">
+        <a class="category-card reveal" href="#">
+          <img src="https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=600&auto=format&fit=crop&q=80" alt="Birthday Cakes">
+          <div class="category-overlay">
+            <h3>Birthday Cakes</h3>
+            <span>48 designs <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+        <a class="category-card reveal" href="#">
+          <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=600&auto=format&fit=crop&q=80" alt="Wedding Cakes">
+          <div class="category-overlay">
+            <h3>Wedding Cakes</h3>
+            <span>36 designs <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+        <a class="category-card reveal" href="#">
+          <img src="https://images.unsplash.com/photo-1599785209707-a456fc1337bb?w=600&auto=format&fit=crop&q=80" alt="Cupcakes">
+          <div class="category-overlay">
+            <h3>Cupcakes</h3>
+            <span>62 flavors <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+        <a class="category-card reveal" href="#">
+          <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600&auto=format&fit=crop&q=80" alt="Desserts">
+          <div class="category-overlay">
+            <h3>Desserts &amp; Bites</h3>
+            <span>54 items <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FEATURED PRODUCTS
+       ========================================================= -->
+  <section class="products" id="shop">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Bestsellers</span>
+        <h2 class="section-title">Customer favourites</h2>
+        <p class="section-subtitle">The cakes that keep coming back for seconds. Handpicked, loved, and rated 5 stars.</p>
+      </div>
+
+      <div class="product-grid">
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <span class="product-badge">-15%</span>
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=80" alt="Strawberry Bliss">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Birthday</span>
+            <h4>Strawberry Bliss Cake</h4>
+            <div class="stars">★★★★★ <span class="count">(124)</span></div>
+            <div class="price"><span class="now">$42.00</span><span class="was">$49.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <span class="product-badge gold">New</span>
+            <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=500&auto=format&fit=crop&q=80" alt="Belgian Chocolate">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Premium</span>
+            <h4>Belgian Chocolate Tower</h4>
+            <div class="stars">★★★★★ <span class="count">(98)</span></div>
+            <div class="price"><span class="now">$58.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&auto=format&fit=crop&q=80" alt="Vanilla cupcakes">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Cupcakes</span>
+            <h4>Vanilla Bean Box (12)</h4>
+            <div class="stars">★★★★★ <span class="count">(212)</span></div>
+            <div class="price"><span class="now">$28.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <span class="product-badge">Hot</span>
+            <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=500&auto=format&fit=crop&q=80" alt="Wedding tier">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Wedding</span>
+            <h4>Ivory Pearl Tier Cake</h4>
+            <div class="stars">★★★★★ <span class="count">(76)</span></div>
+            <div class="price"><span class="now">$185.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=500&auto=format&fit=crop&q=80" alt="Macarons">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Desserts</span>
+            <h4>French Macaron Set</h4>
+            <div class="stars">★★★★★ <span class="count">(154)</span></div>
+            <div class="price"><span class="now">$32.00</span><span class="was">$38.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <span class="product-badge gold">Limited</span>
+            <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&auto=format&fit=crop&q=80" alt="Red velvet">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Premium</span>
+            <h4>Royal Red Velvet</h4>
+            <div class="stars">★★★★★ <span class="count">(189)</span></div>
+            <div class="price"><span class="now">$48.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=500&auto=format&fit=crop&q=80" alt="Donuts">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Bites</span>
+            <h4>Glazed Donut Box</h4>
+            <div class="stars">★★★★★ <span class="count">(88)</span></div>
+            <div class="price"><span class="now">$18.00</span></div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-thumb">
+            <span class="product-badge">-20%</span>
+            <img src="https://images.unsplash.com/photo-1464195244916-405fa0a82545?w=500&auto=format&fit=crop&q=80" alt="Fruit cake">
+            <button class="quick-add" aria-label="Add to cart">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+          </div>
+          <div class="product-body">
+            <span class="cat">Birthday</span>
+            <h4>Tropical Fruit Tart</h4>
+            <div class="stars">★★★★★ <span class="count">(67)</span></div>
+            <div class="price"><span class="now">$36.00</span><span class="was">$45.00</span></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="products-cta reveal">
+        <a href="#" class="btn btn-primary">
+          View Full Menu
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       STORY / ABOUT
+       ========================================================= -->
+  <section class="story">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-img-wrap reveal">
+          <img class="main-img" src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=900&auto=format&fit=crop&q=80" alt="Baker decorating cake">
+          <img class="accent-img" src="https://images.unsplash.com/photo-1542826438-bd32f43d626f?w=600&auto=format&fit=crop&q=80" alt="Cake detail">
+        </div>
+        <div class="story-content reveal">
+          <span class="eyebrow">Our Story</span>
+          <h2 class="section-title">Crafted with love, baked with passion</h2>
+          <p>Every CakeReels creation begins long before the oven warms up. We source organic flour from local farms, real Madagascar vanilla, and fair-trade Belgian chocolate to make every bite worth savouring.</p>
+          <p>Our master pastry chefs hand-decorate each cake — no shortcuts, no preservatives, no compromise. Just real ingredients, real artistry, real joy.</p>
+
+          <div class="story-features">
+            <div class="feat">
+              <div class="feat-ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="m4.93 10.93 1.41 1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41 1.41"/><path d="M22 22H2"/><path d="m16 6-4 4-4-4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
+              </div>
+              <div><h4>Fresh Daily</h4><p>Baked each morning, never frozen.</p></div>
+            </div>
+            <div class="feat">
+              <div class="feat-ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+              </div>
+              <div><h4>100% Organic</h4><p>Real ingredients, no shortcuts.</p></div>
+            </div>
+            <div class="feat">
+              <div class="feat-ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M21 3 13.5 10.5"/><path d="M8 21H3v-5"/><path d="M3 21l7.5-7.5"/></svg>
+              </div>
+              <div><h4>Fast Delivery</h4><p>Same-day across the city.</p></div>
+            </div>
+            <div class="feat">
+              <div class="feat-ic">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div><h4>Custom Designs</h4><p>Tell us your idea, we'll bake it.</p></div>
+            </div>
+          </div>
+
+          <a href="#" class="btn btn-primary">
+            Discover More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       REELS — signature CakeReels feature
+       ========================================================= -->
+  <section class="reels-section" id="reels">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Watch &amp; Shop</span>
+        <h2 class="section-title">CakeReels in motion</h2>
+        <p class="section-subtitle">Behind every cake is a story. Tap any reel to watch how it's made — then add it to your cart.</p>
+      </div>
+      <div class="reels-grid">
+        <div class="reel-tile reveal">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="views"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg> 12.4K</div>
+          <div class="play-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="ovr"><h4>Strawberry Bliss</h4></div>
+        </div>
+        <div class="reel-tile reveal">
+          <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="views"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg> 28.1K</div>
+          <div class="play-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="ovr"><h4>Chocolate Drip</h4></div>
+        </div>
+        <div class="reel-tile reveal">
+          <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="views"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg> 18.6K</div>
+          <div class="play-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="ovr"><h4>Cupcake Studio</h4></div>
+        </div>
+        <div class="reel-tile reveal">
+          <img src="https://images.unsplash.com/photo-1557925923-cd4648e211a0?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="views"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg> 45.2K</div>
+          <div class="play-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="ovr"><h4>Birthday Magic</h4></div>
+        </div>
+        <div class="reel-tile reveal">
+          <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=500&auto=format&fit=crop&q=80" alt="">
+          <div class="views"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></svg> 67.8K</div>
+          <div class="play-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+          <div class="ovr"><h4>Wedding Tier</h4></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TESTIMONIALS
+       ========================================================= -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sweet Words</span>
+        <h2 class="section-title">Loved by 15,000+ customers</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal">
+          <span class="quote">&ldquo;</span>
+          <div class="stars">★★★★★</div>
+          <p>The strawberry bliss cake was the highlight of my daughter's birthday. Beautifully decorated, perfectly moist, and delivered right on time. Already ordering again!</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80" alt="">
+            <div><strong>Sarah Johnson</strong><span>Verified Buyer</span></div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <span class="quote">&ldquo;</span>
+          <div class="stars">★★★★★</div>
+          <p>I ordered a custom wedding cake and CakeReels nailed every detail. Guests couldn't stop taking photos. Quality, taste, and presentation — all flawless.</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=100&auto=format&fit=crop&q=80" alt="">
+            <div><strong>Michael Chen</strong><span>Verified Buyer</span></div>
+          </div>
+        </div>
+        <div class="testi-card reveal">
+          <span class="quote">&ldquo;</span>
+          <div class="stars">★★★★★</div>
+          <p>Their reels made me click and the taste made me a regular. Belgian chocolate tower is now my official "good news" cake. Five stars from the whole family!</p>
+          <div class="testi-author">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80" alt="">
+            <div><strong>Priya Sharma</strong><span>Verified Buyer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CTA BAND
+       ========================================================= -->
+  <section class="cta-band">
+    <div class="container reveal">
+      <h2>Got a moment to celebrate?<br>We'll bake the cake.</h2>
+      <p>Custom designs, same-day delivery, and a smile in every box. Order now and make your day a little sweeter.</p>
+      <a href="#shop" class="btn btn-primary">
+        Order Your Cake
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <script>
+    // Reveal-on-scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
