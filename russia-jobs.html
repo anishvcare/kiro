@@ -1,820 +1,1298 @@
-<!-- Russia Jobs for Indians - Elementor HTML Block -->
+<!-- Russia Jobs for Indians - NexusFlow Services LLP - Elementor HTML Block -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 
-<div class="russia-jobs-wrapper" id="russiaJobsWrapper">
+<div class="nf-russia-wrapper" id="nfRussiaWrapper">
 
 <style>
-.russia-jobs-wrapper {
+/* ========== BASE & RESET ========== */
+.nf-russia-wrapper {
   font-family: 'Poppins', sans-serif;
-  color: #1a1a2e;
+  color: #1a237e;
   overflow: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
+  position: relative;
 }
-.russia-jobs-wrapper * {
+.nf-russia-wrapper * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Animations */
-@keyframes rjw-fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
+/* ========== KEYFRAMES ========== */
+@keyframes nf-fadeInUp {
+  from { opacity: 0; transform: translateY(50px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes rjw-fadeInLeft {
-  from { opacity: 0; transform: translateX(-40px); }
+@keyframes nf-fadeInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
   to { opacity: 1; transform: translateX(0); }
 }
-@keyframes rjw-fadeInRight {
-  from { opacity: 0; transform: translateX(40px); }
+@keyframes nf-fadeInRight {
+  from { opacity: 0; transform: translateX(50px); }
   to { opacity: 1; transform: translateX(0); }
 }
-@keyframes rjw-scaleIn {
-  from { opacity: 0; transform: scale(0.8); }
+@keyframes nf-scaleIn {
+  from { opacity: 0; transform: scale(0.85); }
   to { opacity: 1; transform: scale(1); }
 }
-@keyframes rjw-pulse {
+@keyframes nf-pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.08); }
 }
-@keyframes rjw-float {
+@keyframes nf-float {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+  50% { transform: translateY(-12px); }
 }
-@keyframes rjw-gradient {
+@keyframes nf-gradient {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-@keyframes rjw-shimmer {
+@keyframes nf-shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
-@keyframes rjw-countUp {
-  from { opacity: 0; transform: translateY(20px); }
+@keyframes nf-borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes nf-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(76, 175, 80, 0.4), 0 0 10px rgba(76, 175, 80, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(76, 175, 80, 0.6), 0 0 40px rgba(76, 175, 80, 0.3); }
+}
+@keyframes nf-ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes nf-rotateGradient {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+@keyframes nf-slideInDown {
+  from { opacity: 0; transform: translateY(-30px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes rjw-borderGlow {
-  0%, 100% { box-shadow: 0 0 5px rgba(0, 57, 166, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(0, 57, 166, 0.6); }
+@keyframes nf-bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
 }
-@keyframes rjw-slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes nf-ripple {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+@keyframes nf-swoosh {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes nf-whatsappBounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+@keyframes nf-borderDance {
+  0% { border-image-source: linear-gradient(0deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700); }
+  25% { border-image-source: linear-gradient(90deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700); }
+  50% { border-image-source: linear-gradient(180deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700); }
+  75% { border-image-source: linear-gradient(270deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700); }
+  100% { border-image-source: linear-gradient(360deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700); }
 }
 
-.russia-jobs-wrapper .rjw-animate {
+/* ========== ANIMATION CLASSES ========== */
+.nf-russia-wrapper .nf-animate {
   opacity: 0;
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.russia-jobs-wrapper .rjw-animate.rjw-visible {
+.nf-russia-wrapper .nf-animate.nf-visible {
   opacity: 1;
 }
-.russia-jobs-wrapper .rjw-animate.rjw-fade-up.rjw-visible {
-  animation: rjw-fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.nf-russia-wrapper .nf-animate.nf-fade-up.nf-visible {
+  animation: nf-fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-.russia-jobs-wrapper .rjw-animate.rjw-fade-left.rjw-visible {
-  animation: rjw-fadeInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.nf-russia-wrapper .nf-animate.nf-fade-left.nf-visible {
+  animation: nf-fadeInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-.russia-jobs-wrapper .rjw-animate.rjw-fade-right.rjw-visible {
-  animation: rjw-fadeInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.nf-russia-wrapper .nf-animate.nf-fade-right.nf-visible {
+  animation: nf-fadeInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
-.russia-jobs-wrapper .rjw-animate.rjw-scale-in.rjw-visible {
-  animation: rjw-scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+.nf-russia-wrapper .nf-animate.nf-scale-in.nf-visible {
+  animation: nf-scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.nf-russia-wrapper .nf-animate.nf-bounce-in.nf-visible {
+  animation: nf-bounceIn 1s forwards;
 }
 
-/* Hero Section */
-.russia-jobs-wrapper .rjw-hero {
-  background: linear-gradient(135deg, #0039a6 0%, #1a1a2e 40%, #d52b1e 100%);
-  background-size: 200% 200%;
-  animation: rjw-gradient 8s ease infinite;
-  padding: 80px 20px;
-  text-align: center;
+/* ========== RAINBOW SWOOSH DIVIDER ========== */
+.nf-russia-wrapper .nf-swoosh-divider {
+  height: 4px;
+  background: linear-gradient(90deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700, #1a237e);
+  background-size: 200% 100%;
+  animation: nf-swoosh 4s linear infinite;
+  border-radius: 2px;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 600px;
+}
+
+/* ========== GLASSMORPHISM UTILITY ========== */
+.nf-russia-wrapper .nf-glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+}
+
+/* ========== ANIMATED BORDER UTILITY ========== */
+.nf-russia-wrapper .nf-animated-border {
   position: relative;
   border-radius: 16px;
+  overflow: hidden;
+}
+.nf-russia-wrapper .nf-animated-border::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: conic-gradient(from 0deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700, #1a237e);
+  border-radius: 18px;
+  animation: nf-borderRotate 4s linear infinite;
+  z-index: -1;
+}
+
+/* ========== TICKER MARQUEE ========== */
+.nf-russia-wrapper .nf-ticker {
+  background: linear-gradient(90deg, #1a237e, #0039a6);
+  padding: 12px 0;
+  overflow: hidden;
+  border-radius: 12px;
   margin-bottom: 40px;
 }
-.russia-jobs-wrapper .rjw-hero::before {
+.nf-russia-wrapper .nf-ticker-track {
+  display: flex;
+  animation: nf-ticker 30s linear infinite;
+  white-space: nowrap;
+}
+.nf-russia-wrapper .nf-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 30px;
+  color: #ffd700;
+  font-size: 0.9rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.nf-russia-wrapper .nf-ticker-item i {
+  color: #4caf50;
+}
+
+/* ========== HERO SECTION ========== */
+.nf-russia-wrapper .nf-hero {
+  position: relative;
+  padding: 100px 20px 80px;
+  text-align: center;
+  border-radius: 20px;
+  margin-bottom: 0;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a237e 0%, #0039a6 30%, #1a237e 60%, #0d1b4a 100%);
+  background-size: 300% 300%;
+  animation: nf-gradient 10s ease infinite;
+}
+.nf-russia-wrapper .nf-hero::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  border-radius: 16px;
+  background: radial-gradient(ellipse at 30% 20%, rgba(76, 175, 80, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, rgba(255, 152, 0, 0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 50%, rgba(156, 39, 176, 0.08) 0%, transparent 70%);
+  z-index: 1;
 }
-.russia-jobs-wrapper .rjw-hero-content {
+.nf-russia-wrapper .nf-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: 1;
+}
+.nf-russia-wrapper .nf-hero-content {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 }
-.russia-jobs-wrapper .rjw-hero h1 {
-  font-size: 3rem;
-  font-weight: 900;
-  color: #ffffff;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  line-height: 1.2;
-}
-.russia-jobs-wrapper .rjw-hero h1 span {
-  background: linear-gradient(90deg, #ffd700, #ff6b35, #ffd700);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: rjw-shimmer 3s linear infinite;
-}
-.russia-jobs-wrapper .rjw-hero p {
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 30px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.russia-jobs-wrapper .rjw-hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-.russia-jobs-wrapper .rjw-stat-box {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 12px;
-  padding: 20px 30px;
-  min-width: 160px;
-}
-.russia-jobs-wrapper .rjw-stat-box .rjw-stat-number {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #ffd700;
-  display: block;
-}
-.russia-jobs-wrapper .rjw-stat-box .rjw-stat-label {
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.8);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* WhatsApp CTA Button */
-.russia-jobs-wrapper .rjw-whatsapp-btn {
+.nf-russia-wrapper .nf-hero .nf-brand-badge {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, #25d366, #128c7e);
-  color: #ffffff;
-  text-decoration: none;
-  padding: 16px 32px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
-  font-size: 1.1rem;
+  padding: 8px 20px;
+  margin-bottom: 25px;
+  font-size: 0.85rem;
+  color: #ffd700;
   font-weight: 600;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-  animation: rjw-pulse 2s infinite;
+  letter-spacing: 0.5px;
 }
-.russia-jobs-wrapper .rjw-whatsapp-btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+.nf-russia-wrapper .nf-hero .nf-brand-badge img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.nf-russia-wrapper .nf-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 900;
   color: #ffffff;
-  text-decoration: none;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  line-height: 1.15;
 }
-.russia-jobs-wrapper .rjw-whatsapp-btn i {
-  font-size: 1.4rem;
-}
-
-/* Section Styles */
-.russia-jobs-wrapper .rjw-section {
-  padding: 60px 20px;
-  max-width: 1200px;
-  margin: 0 auto 40px;
-}
-.russia-jobs-wrapper .rjw-section-title {
-  text-align: center;
-  font-size: 2.2rem;
-  font-weight: 800;
-  margin-bottom: 15px;
-  background: linear-gradient(135deg, #0039a6, #d52b1e);
+.nf-russia-wrapper .nf-hero h1 .nf-gradient-text {
+  background: linear-gradient(90deg, #ffd700, #ff9800, #4caf50, #ffd700);
+  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: nf-shimmer 4s linear infinite;
 }
-.russia-jobs-wrapper .rjw-section-subtitle {
-  text-align: center;
-  font-size: 1.1rem;
-  color: #555;
-  margin-bottom: 50px;
-  max-width: 600px;
+.nf-russia-wrapper .nf-hero .nf-tagline {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  margin-bottom: 10px;
+}
+.nf-russia-wrapper .nf-hero p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 35px;
+  max-width: 750px;
   margin-left: auto;
   margin-right: auto;
 }
-.russia-jobs-wrapper .rjw-section-cta {
-  text-align: center;
-  margin-top: 40px;
+.nf-russia-wrapper .nf-hero-image {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  border-radius: 16px;
+  margin: 0 auto 35px;
+  display: block;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+.nf-russia-wrapper .nf-hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 35px;
+}
+.nf-russia-wrapper .nf-stat-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 22px 30px;
+  min-width: 170px;
+  transition: all 0.3s ease;
+}
+.nf-russia-wrapper .nf-stat-box:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-4px);
+  border-color: rgba(255, 215, 0, 0.4);
+}
+.nf-russia-wrapper .nf-stat-box .nf-stat-number {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #ffd700;
+  display: block;
+  font-family: 'Playfair Display', serif;
+}
+.nf-russia-wrapper .nf-stat-box .nf-stat-label {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.75);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-top: 4px;
 }
 
-/* Benefits Section */
-.russia-jobs-wrapper .rjw-benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-}
-.russia-jobs-wrapper .rjw-benefit-card {
-  background: linear-gradient(145deg, #ffffff, #f8f9ff);
-  border-radius: 16px;
-  padding: 30px;
-  border: 1px solid rgba(0, 57, 166, 0.1);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+/* ========== WHATSAPP CTA BUTTON ========== */
+.nf-russia-wrapper .nf-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  animation: nf-pulse 2.5s infinite;
   position: relative;
   overflow: hidden;
 }
-.russia-jobs-wrapper .rjw-benefit-card::before {
+.nf-russia-wrapper .nf-whatsapp-btn::before {
   content: '';
   position: absolute;
-  top: 0; left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, #0039a6, #d52b1e);
-  border-radius: 4px 0 0 4px;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
-.russia-jobs-wrapper .rjw-benefit-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 57, 166, 0.15);
-  border-color: rgba(0, 57, 166, 0.3);
+.nf-russia-wrapper .nf-whatsapp-btn:hover::before {
+  left: 100%;
 }
-.russia-jobs-wrapper .rjw-benefit-card .rjw-benefit-icon {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, #0039a6, #1e56b0);
-  border-radius: 12px;
+.nf-russia-wrapper .nf-whatsapp-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+  color: #ffffff;
+  text-decoration: none;
+}
+.nf-russia-wrapper .nf-whatsapp-btn i {
+  font-size: 1.5rem;
+}
+
+/* ========== FLOATING WHATSAPP BUTTON ========== */
+.nf-russia-wrapper .nf-floating-whatsapp {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
-  font-size: 1.3rem;
-  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+  z-index: 9999;
+  animation: nf-whatsappBounce 2s infinite;
+  transition: all 0.3s ease;
 }
-.russia-jobs-wrapper .rjw-benefit-card h3 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 8px;
+.nf-russia-wrapper .nf-floating-whatsapp:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.7);
+  color: #ffffff;
+  text-decoration: none;
 }
-.russia-jobs-wrapper .rjw-benefit-card p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.5;
+.nf-russia-wrapper .nf-floating-whatsapp::after {
+  content: '';
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: nf-ripple 1.5s infinite;
 }
 
-/* Job Categories Section */
-.russia-jobs-wrapper .rjw-jobs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 25px;
+/* ========== SECTION STYLES ========== */
+.nf-russia-wrapper .nf-section {
+  padding: 70px 20px;
+  max-width: 1200px;
+  margin: 0 auto 20px;
 }
-.russia-jobs-wrapper .rjw-job-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 30px;
+.nf-russia-wrapper .nf-section-title {
   text-align: center;
-  border: 1px solid #eee;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, #1a237e, #0039a6, #4caf50);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nf-russia-wrapper .nf-section-subtitle {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #555;
+  margin-bottom: 50px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.nf-russia-wrapper .nf-section-cta {
+  text-align: center;
+  margin-top: 45px;
+}
+
+/* ========== PARALLAX IMAGE SECTION ========== */
+.nf-russia-wrapper .nf-parallax-section {
+  position: relative;
+  padding: 100px 20px;
+  text-align: center;
+  border-radius: 20px;
+  margin: 40px 0;
+  overflow: hidden;
+}
+.nf-russia-wrapper .nf-parallax-bg {
+  position: absolute;
+  top: -20%; left: 0; right: 0; bottom: -20%;
+  background-image: url('https://placehold.co/1400x600/1a237e/ffffff?text=Russia+Skyline');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 0;
+}
+.nf-russia-wrapper .nf-parallax-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(26, 35, 126, 0.88), rgba(0, 57, 166, 0.85));
+  z-index: 1;
+}
+.nf-russia-wrapper .nf-parallax-content {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+.nf-russia-wrapper .nf-parallax-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+.nf-russia-wrapper .nf-parallax-content p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 650px;
+  margin: 0 auto 30px;
+}
+
+/* ========== BENEFITS SECTION ========== */
+.nf-russia-wrapper .nf-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 28px;
+}
+.nf-russia-wrapper .nf-benefit-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 35px 28px;
+  border: 1px solid rgba(26, 35, 126, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+.nf-russia-wrapper .nf-benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 4px;
+  background: linear-gradient(90deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700);
+  background-size: 200% 100%;
+  animation: nf-swoosh 3s linear infinite;
+}
+.nf-russia-wrapper .nf-benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(26, 35, 126, 0.15);
+  border-color: rgba(0, 57, 166, 0.2);
+}
+.nf-russia-wrapper .nf-benefit-card .nf-benefit-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #1a237e, #0039a6);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  transition: all 0.3s ease;
+}
+.nf-russia-wrapper .nf-benefit-card:hover .nf-benefit-icon {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+  transform: rotate(-5deg) scale(1.1);
+}
+.nf-russia-wrapper .nf-benefit-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 10px;
+}
+.nf-russia-wrapper .nf-benefit-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ========== JOB CATEGORIES ========== */
+.nf-russia-wrapper .nf-jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+}
+.nf-russia-wrapper .nf-job-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 35px 25px;
+  text-align: center;
+  border: 2px solid transparent;
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
-.russia-jobs-wrapper .rjw-job-card::after {
+.nf-russia-wrapper .nf-job-card::before {
   content: '';
   position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #0039a6, #d52b1e);
-  transform: scaleX(0);
-  transition: transform 0.4s ease;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(76, 175, 80, 0.05), transparent, rgba(255, 152, 0, 0.05), transparent);
+  animation: nf-borderRotate 8s linear infinite;
 }
-.russia-jobs-wrapper .rjw-job-card:hover::after {
-  transform: scaleX(1);
+.nf-russia-wrapper .nf-job-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 45px rgba(26, 35, 126, 0.12);
+  border-color: #4caf50;
 }
-.russia-jobs-wrapper .rjw-job-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+.nf-russia-wrapper .nf-job-card .nf-job-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 18px;
 }
-.russia-jobs-wrapper .rjw-job-card .rjw-job-icon {
+.nf-russia-wrapper .nf-job-card .nf-job-icon {
   width: 70px;
   height: 70px;
-  margin: 0 auto 20px;
-  background: linear-gradient(135deg, rgba(0,57,166,0.1), rgba(213,43,30,0.1));
+  margin: 0 auto 18px;
+  background: linear-gradient(135deg, rgba(26, 35, 126, 0.08), rgba(76, 175, 80, 0.08));
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
-  color: #0039a6;
-  transition: all 0.3s ease;
+  color: #1a237e;
+  transition: all 0.4s ease;
 }
-.russia-jobs-wrapper .rjw-job-card:hover .rjw-job-icon {
-  background: linear-gradient(135deg, #0039a6, #d52b1e);
+.nf-russia-wrapper .nf-job-card:hover .nf-job-icon {
+  background: linear-gradient(135deg, #1a237e, #4caf50);
   color: #ffffff;
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(-5deg);
 }
-.russia-jobs-wrapper .rjw-job-card h3 {
+.nf-russia-wrapper .nf-job-card h3 {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1a1a2e;
+  color: #1a237e;
   margin-bottom: 10px;
+  position: relative;
 }
-.russia-jobs-wrapper .rjw-job-card p {
-  font-size: 0.85rem;
+.nf-russia-wrapper .nf-job-card p {
+  font-size: 0.88rem;
   color: #666;
-  line-height: 1.5;
+  line-height: 1.6;
+  position: relative;
 }
 
-/* Salary Section */
-.russia-jobs-wrapper .rjw-salary-section {
-  background: linear-gradient(135deg, #f8f9ff, #fff5f5);
-  border-radius: 20px;
-  padding: 60px 30px;
+/* ========== SALARY SECTION ========== */
+.nf-russia-wrapper .nf-salary-section {
+  background: linear-gradient(145deg, #f8f9ff, #f0f4ff, #fafff8);
+  border-radius: 24px;
+  padding: 70px 30px;
+  position: relative;
+  overflow: hidden;
 }
-.russia-jobs-wrapper .rjw-salary-cards {
+.nf-russia-wrapper .nf-salary-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #1a237e, #0039a6, #4caf50, #ff9800, #9c27b0, #ffd700);
+  background-size: 200% 100%;
+  animation: nf-swoosh 4s linear infinite;
+}
+.nf-russia-wrapper .nf-salary-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+  gap: 28px;
   max-width: 1100px;
   margin: 0 auto;
 }
-.russia-jobs-wrapper .rjw-salary-card {
+.nf-russia-wrapper .nf-salary-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 35px;
+  border-radius: 20px;
+  padding: 38px;
   text-align: center;
   border: 2px solid transparent;
   transition: all 0.4s ease;
   position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
-.russia-jobs-wrapper .rjw-salary-card.rjw-featured {
-  border-color: #0039a6;
-  transform: scale(1.02);
-  box-shadow: 0 10px 30px rgba(0, 57, 166, 0.15);
+.nf-russia-wrapper .nf-salary-card.nf-featured {
+  border-color: #4caf50;
+  transform: scale(1.03);
+  box-shadow: 0 15px 40px rgba(76, 175, 80, 0.15);
 }
-.russia-jobs-wrapper .rjw-salary-card.rjw-featured::before {
+.nf-russia-wrapper .nf-salary-card.nf-featured::before {
   content: 'MOST POPULAR';
   position: absolute;
-  top: -12px;
+  top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #0039a6, #d52b1e);
+  background: linear-gradient(135deg, #4caf50, #388e3c);
   color: #fff;
-  padding: 4px 16px;
+  padding: 5px 20px;
   border-radius: 20px;
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
 }
-.russia-jobs-wrapper .rjw-salary-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+.nf-russia-wrapper .nf-salary-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
 }
-.russia-jobs-wrapper .rjw-salary-card .rjw-salary-tier {
+.nf-russia-wrapper .nf-salary-card .nf-salary-tier {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #0039a6;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 10px;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
 }
-.russia-jobs-wrapper .rjw-salary-card .rjw-salary-amount {
-  font-size: 2.5rem;
+.nf-russia-wrapper .nf-salary-card .nf-salary-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
   font-weight: 800;
-  color: #1a1a2e;
+  color: #1a237e;
   margin-bottom: 5px;
 }
-.russia-jobs-wrapper .rjw-salary-card .rjw-salary-inr {
+.nf-russia-wrapper .nf-salary-card .nf-salary-inr {
   font-size: 1rem;
-  color: #d52b1e;
+  color: #4caf50;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
-.russia-jobs-wrapper .rjw-salary-card ul {
+.nf-russia-wrapper .nf-salary-card ul {
   list-style: none;
   text-align: left;
   padding: 0;
 }
-.russia-jobs-wrapper .rjw-salary-card ul li {
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+.nf-russia-wrapper .nf-salary-card ul li {
+  padding: 9px 0;
+  border-bottom: 1px solid #f5f5f5;
   font-size: 0.9rem;
-  color: #555;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.russia-jobs-wrapper .rjw-salary-card ul li i {
-  color: #25d366;
-  font-size: 0.8rem;
-}
-
-/* Visa Process Timeline */
-.russia-jobs-wrapper .rjw-timeline {
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  padding: 20px 0;
-}
-.russia-jobs-wrapper .rjw-timeline::before {
-  content: '';
-  position: absolute;
-  left: 30px;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg, #0039a6, #d52b1e);
-  border-radius: 3px;
-}
-.russia-jobs-wrapper .rjw-timeline-item {
-  position: relative;
-  padding-left: 75px;
-  margin-bottom: 35px;
-}
-.russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-dot {
-  position: absolute;
-  left: 18px;
-  top: 5px;
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(135deg, #0039a6, #1e56b0);
-  border-radius: 50%;
-  border: 4px solid #ffffff;
-  box-shadow: 0 2px 8px rgba(0,57,166,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-}
-.russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-content {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px 25px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  border: 1px solid #f0f0f0;
-  transition: all 0.3s ease;
-}
-.russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-content:hover {
-  box-shadow: 0 8px 25px rgba(0,57,166,0.1);
-  border-color: rgba(0,57,166,0.2);
-}
-.russia-jobs-wrapper .rjw-timeline-item h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #1a1a2e;
-  margin-bottom: 6px;
-}
-.russia-jobs-wrapper .rjw-timeline-item p {
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.5;
-}
-
-/* Requirements Section */
-.russia-jobs-wrapper .rjw-requirements {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
-}
-.russia-jobs-wrapper .rjw-req-box {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-  border: 1px solid #f0f0f0;
-}
-.russia-jobs-wrapper .rjw-req-box h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #0039a6;
-  margin-bottom: 20px;
+  color: #444;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-.russia-jobs-wrapper .rjw-req-box ul {
+.nf-russia-wrapper .nf-salary-card ul li:last-child { border-bottom: none; }
+.nf-russia-wrapper .nf-salary-card ul li i {
+  color: #4caf50;
+  font-size: 0.85rem;
+}
+
+/* ========== TIMELINE (VISA PROCESS) ========== */
+.nf-russia-wrapper .nf-timeline {
+  max-width: 850px;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0;
+}
+.nf-russia-wrapper .nf-timeline::before {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #1a237e, #0039a6, #4caf50, #ff9800);
+  border-radius: 3px;
+}
+.nf-russia-wrapper .nf-timeline-item {
+  position: relative;
+  padding-left: 80px;
+  margin-bottom: 35px;
+}
+.nf-russia-wrapper .nf-timeline-item .nf-timeline-dot {
+  position: absolute;
+  left: 19px;
+  top: 8px;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #1a237e, #0039a6);
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0 3px 12px rgba(26, 35, 126, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.nf-russia-wrapper .nf-timeline-item .nf-timeline-content {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px 28px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(26, 35, 126, 0.06);
+  transition: all 0.3s ease;
+}
+.nf-russia-wrapper .nf-timeline-item .nf-timeline-content:hover {
+  box-shadow: 0 10px 30px rgba(26, 35, 126, 0.1);
+  border-color: rgba(76, 175, 80, 0.3);
+  transform: translateX(5px);
+}
+.nf-russia-wrapper .nf-timeline-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 6px;
+}
+.nf-russia-wrapper .nf-timeline-item p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* ========== REQUIREMENTS SECTION ========== */
+.nf-russia-wrapper .nf-requirements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+}
+.nf-russia-wrapper .nf-req-box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(26, 35, 126, 0.06);
+  transition: all 0.3s ease;
+}
+.nf-russia-wrapper .nf-req-box:hover {
+  box-shadow: 0 15px 40px rgba(26, 35, 126, 0.1);
+  transform: translateY(-5px);
+}
+.nf-russia-wrapper .nf-req-box h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a237e;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.nf-russia-wrapper .nf-req-box h3 i {
+  color: #4caf50;
+}
+.nf-russia-wrapper .nf-req-box ul {
   list-style: none;
   padding: 0;
 }
-.russia-jobs-wrapper .rjw-req-box ul li {
-  padding: 10px 0;
+.nf-russia-wrapper .nf-req-box ul li {
+  padding: 11px 0;
   border-bottom: 1px solid #f5f5f5;
   font-size: 0.95rem;
   color: #444;
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
 }
-.russia-jobs-wrapper .rjw-req-box ul li:last-child {
-  border-bottom: none;
-}
-.russia-jobs-wrapper .rjw-req-box ul li i {
+.nf-russia-wrapper .nf-req-box ul li:last-child { border-bottom: none; }
+.nf-russia-wrapper .nf-req-box ul li i {
   color: #0039a6;
-  margin-top: 3px;
+  margin-top: 4px;
   flex-shrink: 0;
 }
 
-/* Cost Section */
-.russia-jobs-wrapper .rjw-cost-section {
-  background: linear-gradient(135deg, #1a1a2e 0%, #0039a6 100%);
-  border-radius: 20px;
-  padding: 60px 30px;
+/* ========== COST SECTION ========== */
+.nf-russia-wrapper .nf-cost-section {
+  background: linear-gradient(135deg, #1a237e 0%, #0039a6 50%, #1a237e 100%);
+  border-radius: 24px;
+  padding: 70px 30px;
   color: #ffffff;
+  position: relative;
+  overflow: hidden;
 }
-.russia-jobs-wrapper .rjw-cost-section .rjw-section-title {
+.nf-russia-wrapper .nf-cost-section::before {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(76, 175, 80, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 40%);
+  animation: nf-float 8s ease-in-out infinite;
+}
+.nf-russia-wrapper .nf-cost-section .nf-section-title {
   background: none;
   -webkit-background-clip: unset;
   -webkit-text-fill-color: #ffffff;
   background-clip: unset;
 }
-.russia-jobs-wrapper .rjw-cost-section .rjw-section-subtitle {
-  color: rgba(255,255,255,0.7);
+.nf-russia-wrapper .nf-cost-section .nf-section-subtitle {
+  color: rgba(255, 255, 255, 0.7);
 }
-.russia-jobs-wrapper .rjw-cost-cards {
+.nf-russia-wrapper .nf-cost-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 25px;
-  max-width: 900px;
+  max-width: 950px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
-.russia-jobs-wrapper .rjw-cost-card {
-  background: rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 16px;
-  padding: 30px;
+.nf-russia-wrapper .nf-cost-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 35px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
-.russia-jobs-wrapper .rjw-cost-card:hover {
-  background: rgba(255,255,255,0.15);
-  transform: translateY(-5px);
+.nf-russia-wrapper .nf-cost-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-8px);
+  border-color: rgba(255, 215, 0, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
-.russia-jobs-wrapper .rjw-cost-card .rjw-cost-icon {
-  font-size: 2rem;
+.nf-russia-wrapper .nf-cost-card .nf-cost-icon {
+  font-size: 2.2rem;
   margin-bottom: 15px;
   color: #ffd700;
 }
-.russia-jobs-wrapper .rjw-cost-card h3 {
+.nf-russia-wrapper .nf-cost-card h3 {
   font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: #ffffff;
 }
-.russia-jobs-wrapper .rjw-cost-card .rjw-cost-amount {
-  font-size: 1.5rem;
+.nf-russia-wrapper .nf-cost-card .nf-cost-amount {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
   font-weight: 800;
   color: #ffd700;
 }
 
-/* Final CTA */
-.russia-jobs-wrapper .rjw-final-cta {
-  background: linear-gradient(135deg, #d52b1e, #b71c1c);
+/* ========== TESTIMONIALS SECTION ========== */
+.nf-russia-wrapper .nf-testimonials-section {
+  padding: 70px 20px;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+}
+.nf-russia-wrapper .nf-testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 28px;
+}
+.nf-russia-wrapper .nf-testimonial-card {
+  background: #ffffff;
   border-radius: 20px;
-  padding: 60px 30px;
+  padding: 35px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(26, 35, 126, 0.06);
+  transition: all 0.4s ease;
+  position: relative;
+}
+.nf-russia-wrapper .nf-testimonial-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  font-size: 4rem;
+  font-family: 'Playfair Display', serif;
+  color: rgba(76, 175, 80, 0.15);
+  line-height: 1;
+}
+.nf-russia-wrapper .nf-testimonial-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(26, 35, 126, 0.1);
+}
+.nf-russia-wrapper .nf-testimonial-card .nf-testimonial-content {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+  position: relative;
+  z-index: 1;
+}
+.nf-russia-wrapper .nf-testimonial-card .nf-testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.nf-russia-wrapper .nf-testimonial-card .nf-testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4caf50;
+}
+.nf-russia-wrapper .nf-testimonial-card .nf-testimonial-name {
+  font-weight: 700;
+  color: #1a237e;
+  font-size: 0.95rem;
+}
+.nf-russia-wrapper .nf-testimonial-card .nf-testimonial-role {
+  font-size: 0.8rem;
+  color: #888;
+}
+.nf-russia-wrapper .nf-testimonial-card .nf-testimonial-stars {
+  color: #ffd700;
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+/* ========== FINAL CTA ========== */
+.nf-russia-wrapper .nf-final-cta {
+  background: linear-gradient(135deg, #1a237e, #0039a6, #1a237e);
+  background-size: 200% 200%;
+  animation: nf-gradient 8s ease infinite;
+  border-radius: 24px;
+  padding: 80px 30px;
   text-align: center;
   position: relative;
   overflow: hidden;
+  margin-top: 40px;
 }
-.russia-jobs-wrapper .rjw-final-cta::before {
+.nf-russia-wrapper .nf-final-cta::before {
   content: '';
   position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-  animation: rjw-float 6s ease-in-out infinite;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(76, 175, 80, 0.08) 0%, transparent 40%);
+  animation: nf-float 8s ease-in-out infinite;
 }
-.russia-jobs-wrapper .rjw-final-cta h2 {
-  font-size: 2.2rem;
+.nf-russia-wrapper .nf-final-cta::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #ffd700, #ff9800, #4caf50, #9c27b0, #0039a6, #ffd700);
+  background-size: 200% 100%;
+  animation: nf-swoosh 3s linear infinite;
+}
+.nf-russia-wrapper .nf-final-cta h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 15px;
   position: relative;
 }
-.russia-jobs-wrapper .rjw-final-cta p {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 30px;
-  max-width: 600px;
+.nf-russia-wrapper .nf-final-cta p {
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 35px;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
 }
-.russia-jobs-wrapper .rjw-final-cta .rjw-whatsapp-btn {
-  font-size: 1.2rem;
-  padding: 18px 40px;
+.nf-russia-wrapper .nf-final-cta .nf-whatsapp-btn {
+  font-size: 1.25rem;
+  padding: 20px 45px;
+  position: relative;
+}
+.nf-russia-wrapper .nf-final-cta .nf-brand-footer {
+  margin-top: 30px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
   position: relative;
 }
 
-/* Responsive */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
-  .russia-jobs-wrapper .rjw-hero h1 {
-    font-size: 2rem;
+  .nf-russia-wrapper .nf-hero {
+    padding: 60px 15px 50px;
   }
-  .russia-jobs-wrapper .rjw-hero p {
+  .nf-russia-wrapper .nf-hero h1 {
+    font-size: 2.2rem;
+  }
+  .nf-russia-wrapper .nf-hero p {
     font-size: 1rem;
   }
-  .russia-jobs-wrapper .rjw-hero-stats {
-    gap: 15px;
+  .nf-russia-wrapper .nf-hero-stats {
+    gap: 12px;
   }
-  .russia-jobs-wrapper .rjw-stat-box {
+  .nf-russia-wrapper .nf-stat-box {
     padding: 15px 20px;
     min-width: 130px;
   }
-  .russia-jobs-wrapper .rjw-stat-box .rjw-stat-number {
-    font-size: 1.6rem;
+  .nf-russia-wrapper .nf-stat-box .nf-stat-number {
+    font-size: 1.8rem;
   }
-  .russia-jobs-wrapper .rjw-section-title {
-    font-size: 1.7rem;
+  .nf-russia-wrapper .nf-section-title {
+    font-size: 1.8rem;
   }
-  .russia-jobs-wrapper .rjw-salary-card .rjw-salary-amount {
+  .nf-russia-wrapper .nf-salary-card .nf-salary-amount {
     font-size: 2rem;
   }
-  .russia-jobs-wrapper .rjw-timeline::before {
-    left: 20px;
+  .nf-russia-wrapper .nf-timeline::before {
+    left: 22px;
   }
-  .russia-jobs-wrapper .rjw-timeline-item {
-    padding-left: 55px;
+  .nf-russia-wrapper .nf-timeline-item {
+    padding-left: 60px;
   }
-  .russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-dot {
-    left: 8px;
-    width: 24px;
-    height: 24px;
+  .nf-russia-wrapper .nf-timeline-item .nf-timeline-dot {
+    left: 9px;
+    width: 26px;
+    height: 26px;
   }
-  .russia-jobs-wrapper .rjw-final-cta h2 {
-    font-size: 1.7rem;
+  .nf-russia-wrapper .nf-final-cta h2 {
+    font-size: 1.8rem;
   }
-  .russia-jobs-wrapper .rjw-cost-section,
-  .russia-jobs-wrapper .rjw-salary-section {
-    padding: 40px 20px;
+  .nf-russia-wrapper .nf-cost-section,
+  .nf-russia-wrapper .nf-salary-section {
+    padding: 50px 20px;
+  }
+  .nf-russia-wrapper .nf-parallax-bg {
+    background-attachment: scroll;
+  }
+  .nf-russia-wrapper .nf-parallax-section {
+    padding: 60px 15px;
+  }
+  .nf-russia-wrapper .nf-parallax-content h2 {
+    font-size: 1.8rem;
+  }
+  .nf-russia-wrapper .nf-testimonials-grid {
+    grid-template-columns: 1fr;
   }
 }
 @media (max-width: 480px) {
-  .russia-jobs-wrapper .rjw-hero {
-    padding: 50px 15px;
+  .nf-russia-wrapper .nf-hero {
+    padding: 45px 12px 35px;
+    border-radius: 14px;
   }
-  .russia-jobs-wrapper .rjw-hero h1 {
-    font-size: 1.6rem;
+  .nf-russia-wrapper .nf-hero h1 {
+    font-size: 1.7rem;
   }
-  .russia-jobs-wrapper .rjw-section {
-    padding: 40px 15px;
+  .nf-russia-wrapper .nf-section {
+    padding: 45px 12px;
   }
-  .russia-jobs-wrapper .rjw-whatsapp-btn {
+  .nf-russia-wrapper .nf-whatsapp-btn {
     padding: 14px 24px;
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+  .nf-russia-wrapper .nf-floating-whatsapp {
+    width: 52px;
+    height: 52px;
+    font-size: 1.5rem;
+    bottom: 20px;
+    right: 20px;
+  }
+  .nf-russia-wrapper .nf-benefits-grid,
+  .nf-russia-wrapper .nf-jobs-grid {
+    grid-template-columns: 1fr;
+  }
+  .nf-russia-wrapper .nf-salary-cards {
+    grid-template-columns: 1fr;
+  }
+  .nf-russia-wrapper .nf-salary-card.nf-featured {
+    transform: none;
   }
 }
 </style>
 
+<!-- TICKER MARQUEE -->
+<div class="nf-ticker nf-animate nf-fade-up">
+  <div class="nf-ticker-track">
+    <span class="nf-ticker-item"><i class="fas fa-fire"></i> 71,817+ Jobs Available</span>
+    <span class="nf-ticker-item"><i class="fas fa-money-bill-wave"></i> Salary up to &#8377;1,68,000/month</span>
+    <span class="nf-ticker-item"><i class="fas fa-home"></i> Free Accommodation</span>
+    <span class="nf-ticker-item"><i class="fas fa-heartbeat"></i> Medical Insurance Covered</span>
+    <span class="nf-ticker-item"><i class="fas fa-plane-departure"></i> Fast Visa Processing</span>
+    <span class="nf-ticker-item"><i class="fas fa-users"></i> Family Visa After 1 Year</span>
+    <span class="nf-ticker-item"><i class="fas fa-award"></i> NexusFlow Services LLP</span>
+    <span class="nf-ticker-item"><i class="fas fa-fire"></i> 71,817+ Jobs Available</span>
+    <span class="nf-ticker-item"><i class="fas fa-money-bill-wave"></i> Salary up to &#8377;1,68,000/month</span>
+    <span class="nf-ticker-item"><i class="fas fa-home"></i> Free Accommodation</span>
+    <span class="nf-ticker-item"><i class="fas fa-heartbeat"></i> Medical Insurance Covered</span>
+    <span class="nf-ticker-item"><i class="fas fa-plane-departure"></i> Fast Visa Processing</span>
+    <span class="nf-ticker-item"><i class="fas fa-users"></i> Family Visa After 1 Year</span>
+    <span class="nf-ticker-item"><i class="fas fa-award"></i> NexusFlow Services LLP</span>
+  </div>
+</div>
+
 <!-- HERO SECTION -->
-<section class="rjw-hero">
-  <div class="rjw-hero-content">
-    <h1 class="rjw-animate rjw-fade-up"><span>Work in Russia</span><br>High-Paying Jobs for Indians</h1>
-    <p class="rjw-animate rjw-fade-up" style="animation-delay: 0.2s;">Russia is actively hiring Indian workers with 71,817+ job slots available. Start your international career today with salaries up to &#8377;1,68,000/month!</p>
-    
-    <div class="rjw-hero-stats rjw-animate rjw-fade-up" style="animation-delay: 0.4s;">
-      <div class="rjw-stat-box">
-        <span class="rjw-stat-number" data-target="71817">71,817+</span>
-        <span class="rjw-stat-label">Job Slots for Indians</span>
+<section class="nf-hero">
+  <div class="nf-hero-content">
+    <div class="nf-brand-badge nf-animate nf-fade-up">
+      <img src="https://placehold.co/60x60/1a237e/ffd700?text=NF" alt="NexusFlow Logo">
+      <span>NexusFlow Services LLP</span>
+    </div>
+    <p class="nf-tagline nf-animate nf-fade-up">Connecting Talent. Empowering Futures.</p>
+    <h1 class="nf-animate nf-fade-up"><span class="nf-gradient-text">Work in Russia</span><br>High-Paying Jobs for Indians</h1>
+    <p class="nf-animate nf-fade-up" style="animation-delay: 0.2s;">Russia is actively hiring Indian workers with 71,817+ job slots available. Launch your international career today with trusted manpower recruiting by NexusFlow Services LLP!</p>
+
+    <img src="https://placehold.co/700x350/0039a6/ffffff?text=Russia+Career+Opportunities" alt="Russia Career Opportunities" class="nf-hero-image nf-animate nf-scale-in" style="animation-delay: 0.3s;">
+
+    <div class="nf-hero-stats nf-animate nf-fade-up" style="animation-delay: 0.4s;">
+      <div class="nf-stat-box">
+        <span class="nf-stat-number" data-target="71817">71,817+</span>
+        <span class="nf-stat-label">Job Slots for Indians</span>
       </div>
-      <div class="rjw-stat-box">
-        <span class="rjw-stat-number">56,000+</span>
-        <span class="rjw-stat-label">Work Permits Issued</span>
+      <div class="nf-stat-box">
+        <span class="nf-stat-number">56,000+</span>
+        <span class="nf-stat-label">Work Permits Issued</span>
       </div>
-      <div class="rjw-stat-box">
-        <span class="rjw-stat-number">&#8377;1.68L</span>
-        <span class="rjw-stat-label">Max Monthly Salary</span>
+      <div class="nf-stat-box">
+        <span class="nf-stat-number">&#8377;1.68L</span>
+        <span class="nf-stat-label">Max Monthly Salary</span>
       </div>
     </div>
 
-    <div class="rjw-animate rjw-fade-up" style="animation-delay: 0.6s;">
-      <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20jobs.%20Please%20share%20details." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+    <div class="nf-animate nf-fade-up" style="animation-delay: 0.6s;">
+      <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20jobs.%20Please%20share%20details." class="nf-whatsapp-btn" target="_blank" rel="noopener">
         <i class="fab fa-whatsapp"></i> Apply Now on WhatsApp
       </a>
     </div>
   </div>
 </section>
 
+<!-- RAINBOW SWOOSH DIVIDER -->
+<div class="nf-swoosh-divider" style="margin: 40px auto;"></div>
+
 <!-- WHY WORK IN RUSSIA -->
-<section class="rjw-section">
-  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Why Work in Russia?</h2>
-  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">India and Russia have signed a labor mobility agreement opening thousands of opportunities</p>
-  
-  <div class="rjw-benefits-grid">
-    <div class="rjw-benefit-card rjw-animate rjw-fade-up">
-      <div class="rjw-benefit-icon"><i class="fas fa-briefcase"></i></div>
+<section class="nf-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Why Work in Russia?</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">India and Russia have signed a labor mobility agreement opening thousands of opportunities for Indian professionals</p>
+
+  <img src="https://placehold.co/1100x300/f0f4ff/1a237e?text=India+Russia+Partnership+-+71000%2B+Jobs" alt="India Russia Partnership" style="width:100%;max-width:1100px;height:auto;border-radius:16px;margin:0 auto 40px;display:block;box-shadow:0 10px 30px rgba(0,0,0,0.08);" class="nf-animate nf-scale-in">
+
+  <div class="nf-benefits-grid">
+    <div class="nf-benefit-card nf-animate nf-fade-up">
+      <div class="nf-benefit-icon"><i class="fas fa-briefcase"></i></div>
       <h3>High Demand = Easy Placement</h3>
-      <p>Over 70,000 slots reserved for Indian workers in 2025-2026 quota</p>
+      <p>Over 70,000 slots reserved for Indian workers in 2025-2026 quota with guaranteed placement</p>
     </div>
-    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.1s;">
-      <div class="rjw-benefit-icon"><i class="fas fa-home"></i></div>
+    <div class="nf-benefit-card nf-animate nf-fade-up" style="animation-delay: 0.1s;">
+      <div class="nf-benefit-icon"><i class="fas fa-home"></i></div>
       <h3>Free Accommodation & Food</h3>
-      <p>Many employers provide free housing and meals to workers</p>
+      <p>Many employers provide free housing and meals to workers, saving you thousands</p>
     </div>
-    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.2s;">
-      <div class="rjw-benefit-icon"><i class="fas fa-heartbeat"></i></div>
+    <div class="nf-benefit-card nf-animate nf-fade-up" style="animation-delay: 0.2s;">
+      <div class="nf-benefit-icon"><i class="fas fa-heartbeat"></i></div>
       <h3>Medical Insurance Covered</h3>
-      <p>Employer-sponsored medical insurance for all workers</p>
+      <p>Complete employer-sponsored medical insurance and healthcare for all workers</p>
     </div>
-    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.3s;">
-      <div class="rjw-benefit-icon"><i class="fas fa-clock"></i></div>
+    <div class="nf-benefit-card nf-animate nf-fade-up" style="animation-delay: 0.3s;">
+      <div class="nf-benefit-icon"><i class="fas fa-clock"></i></div>
       <h3>Overtime Pay Available</h3>
-      <p>Earn extra income through overtime and bonuses</p>
+      <p>Earn significant extra income through overtime hours and performance bonuses</p>
     </div>
-    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.4s;">
-      <div class="rjw-benefit-icon"><i class="fas fa-sync-alt"></i></div>
+    <div class="nf-benefit-card nf-animate nf-fade-up" style="animation-delay: 0.4s;">
+      <div class="nf-benefit-icon"><i class="fas fa-sync-alt"></i></div>
       <h3>Contract Renewal Options</h3>
-      <p>Extend your contract and continue earning abroad</p>
+      <p>Extend your contract and continue building your career abroad</p>
     </div>
-    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.5s;">
-      <div class="rjw-benefit-icon"><i class="fas fa-users"></i></div>
+    <div class="nf-benefit-card nf-animate nf-fade-up" style="animation-delay: 0.5s;">
+      <div class="nf-benefit-icon"><i class="fas fa-users"></i></div>
       <h3>Family Visa After 1 Year</h3>
-      <p>Bring your family to Russia and pathway to permanent residency</p>
+      <p>Bring your family to Russia with pathway to permanent residency</p>
     </div>
   </div>
 
-  <div class="rjw-section-cta rjw-animate rjw-fade-up">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20more%20about%20benefits%20of%20working%20in%20Russia." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20more%20about%20benefits%20of%20working%20in%20Russia.%20NexusFlow%20Services." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Know More - Chat on WhatsApp
     </a>
   </div>
 </section>
 
+<!-- PARALLAX SECTION -->
+<section class="nf-parallax-section">
+  <div class="nf-parallax-bg"></div>
+  <div class="nf-parallax-overlay"></div>
+  <div class="nf-parallax-content">
+    <h2 class="nf-animate nf-fade-up">Your International Career Starts Here</h2>
+    <p class="nf-animate nf-fade-up">NexusFlow Services LLP has helped thousands of Indians achieve their dream of working abroad. Our expert team handles everything from documentation to placement.</p>
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20free%20consultation%20for%20Russia%20jobs.%20NexusFlow." class="nf-whatsapp-btn nf-animate nf-fade-up" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Get Free Consultation
+    </a>
+  </div>
+</section>
+
 <!-- JOB CATEGORIES -->
-<section class="rjw-section">
-  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Available Job Categories</h2>
-  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Wide range of opportunities for skilled and unskilled workers</p>
-  
-  <div class="rjw-jobs-grid">
-    <div class="rjw-job-card rjw-animate rjw-scale-in">
-      <div class="rjw-job-icon"><i class="fas fa-hard-hat"></i></div>
+<section class="nf-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Available Job Categories</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">Wide range of opportunities for skilled and unskilled workers across Russia</p>
+
+  <div class="nf-jobs-grid">
+    <div class="nf-job-card nf-animate nf-scale-in">
+      <img src="https://placehold.co/300x140/ff9800/ffffff?text=Construction+Jobs" alt="Construction Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-hard-hat"></i></div>
       <h3>Construction</h3>
       <p>Mason, Carpenter, Painter, Plumber, Electrician, Steel Fixer, Heavy Equipment Operator</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.1s;">
-      <div class="rjw-job-icon"><i class="fas fa-fire"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.1s;">
+      <img src="https://placehold.co/300x140/4caf50/ffffff?text=Welding+Jobs" alt="Welding Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-fire"></i></div>
       <h3>Welding & Fabrication</h3>
-      <p>Welders, Pipe Fitters, Fabricators</p>
+      <p>Welders, Pipe Fitters, Fabricators with attractive salary packages</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.2s;">
-      <div class="rjw-job-icon"><i class="fas fa-industry"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.2s;">
+      <img src="https://placehold.co/300x140/9c27b0/ffffff?text=Factory+Jobs" alt="Factory Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-industry"></i></div>
       <h3>Factory / Manufacturing</h3>
       <p>Machine Operators, Assembly Line Workers, Quality Inspectors</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.3s;">
-      <div class="rjw-job-icon"><i class="fas fa-oil-can"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.3s;">
+      <img src="https://placehold.co/300x140/1a237e/ffffff?text=Oil+%26+Gas+Jobs" alt="Oil and Gas Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-oil-can"></i></div>
       <h3>Oil & Gas / Mining</h3>
-      <p>Drilling Operators, Pipeline Workers, Mining Laborers</p>
+      <p>Drilling Operators, Pipeline Workers, Mining Laborers with high pay</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.4s;">
-      <div class="rjw-job-icon"><i class="fas fa-truck-loading"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.4s;">
+      <img src="https://placehold.co/300x140/0039a6/ffffff?text=Logistics+Jobs" alt="Logistics Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-truck-loading"></i></div>
       <h3>Logistics & Warehousing</h3>
-      <p>Forklift Operators, Packers, Store Keepers</p>
+      <p>Forklift Operators, Packers, Store Keepers, Drivers</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.5s;">
-      <div class="rjw-job-icon"><i class="fas fa-concierge-bell"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.5s;">
+      <img src="https://placehold.co/300x140/ffd700/1a237e?text=Hospitality+Jobs" alt="Hospitality Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-concierge-bell"></i></div>
       <h3>Hospitality & Services</h3>
-      <p>Cooks, Housekeeping Staff, Security Guards</p>
+      <p>Cooks, Housekeeping Staff, Security Guards, Hotel Staff</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.6s;">
-      <div class="rjw-job-icon"><i class="fas fa-seedling"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.6s;">
+      <img src="https://placehold.co/300x140/388e3c/ffffff?text=Agriculture+Jobs" alt="Agriculture Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-seedling"></i></div>
       <h3>Agriculture</h3>
-      <p>Farm Workers, Greenhouse Workers</p>
+      <p>Farm Workers, Greenhouse Workers, Agricultural Technicians</p>
     </div>
-    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.7s;">
-      <div class="rjw-job-icon"><i class="fas fa-laptop-code"></i></div>
+    <div class="nf-job-card nf-animate nf-scale-in" style="animation-delay: 0.7s;">
+      <img src="https://placehold.co/300x140/9c27b0/ffffff?text=IT+Jobs" alt="IT Jobs" class="nf-job-img">
+      <div class="nf-job-icon"><i class="fas fa-laptop-code"></i></div>
       <h3>IT & Technology</h3>
-      <p>Software Developers, Data Analysts</p>
+      <p>Software Developers, Data Analysts, System Administrators</p>
     </div>
   </div>
 
-  <div class="rjw-section-cta rjw-animate rjw-fade-up">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20job%20categories.%20Please%20help." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20job%20categories.%20Please%20help.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Check Available Vacancies
     </a>
   </div>
 </section>
 
+<!-- RAINBOW SWOOSH DIVIDER -->
+<div class="nf-swoosh-divider"></div>
+
 <!-- SALARY SECTION -->
-<section class="rjw-salary-section">
-  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Salary Details</h2>
-  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Attractive salary packages with additional benefits</p>
-  
-  <div class="rjw-salary-cards">
-    <div class="rjw-salary-card rjw-animate rjw-fade-left">
-      <div class="rjw-salary-tier">Entry Level</div>
-      <div class="rjw-salary-amount">$500-$600</div>
-      <div class="rjw-salary-inr">&#8377;42,000 - &#8377;50,000/month</div>
+<section class="nf-salary-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Salary Packages</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">Attractive salary packages with additional benefits for every skill level</p>
+
+  <div class="nf-salary-cards">
+    <div class="nf-salary-card nf-animate nf-fade-left">
+      <div class="nf-salary-tier">Entry Level</div>
+      <div class="nf-salary-amount">$500-$600</div>
+      <div class="nf-salary-inr">&#8377;42,000 - &#8377;50,000/month</div>
       <ul>
         <li><i class="fas fa-check-circle"></i> Unskilled workers</li>
         <li><i class="fas fa-check-circle"></i> Helpers & laborers</li>
@@ -823,10 +1301,10 @@
         <li><i class="fas fa-check-circle"></i> Medical insurance</li>
       </ul>
     </div>
-    <div class="rjw-salary-card rjw-featured rjw-animate rjw-fade-up">
-      <div class="rjw-salary-tier">Skilled Workers</div>
-      <div class="rjw-salary-amount">$800-$1,200</div>
-      <div class="rjw-salary-inr">&#8377;67,000 - &#8377;1,00,000/month</div>
+    <div class="nf-salary-card nf-featured nf-animate nf-fade-up">
+      <div class="nf-salary-tier">Skilled Workers</div>
+      <div class="nf-salary-amount">$800-$1,200</div>
+      <div class="nf-salary-inr">&#8377;67,000 - &#8377;1,00,000/month</div>
       <ul>
         <li><i class="fas fa-check-circle"></i> Welders & Electricians</li>
         <li><i class="fas fa-check-circle"></i> Machine Operators</li>
@@ -836,10 +1314,10 @@
         <li><i class="fas fa-check-circle"></i> Contract renewal</li>
       </ul>
     </div>
-    <div class="rjw-salary-card rjw-animate rjw-fade-right">
-      <div class="rjw-salary-tier">Professionals</div>
-      <div class="rjw-salary-amount">$1,000-$2,000+</div>
-      <div class="rjw-salary-inr">&#8377;84,000 - &#8377;1,68,000/month</div>
+    <div class="nf-salary-card nf-animate nf-fade-right">
+      <div class="nf-salary-tier">Professionals</div>
+      <div class="nf-salary-amount">$1,000-$2,000+</div>
+      <div class="nf-salary-inr">&#8377;84,000 - &#8377;1,68,000/month</div>
       <ul>
         <li><i class="fas fa-check-circle"></i> IT professionals</li>
         <li><i class="fas fa-check-circle"></i> Engineers & Managers</li>
@@ -850,95 +1328,97 @@
     </div>
   </div>
 
-  <div class="rjw-section-cta rjw-animate rjw-fade-up">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20salary%20details%20for%20Russia%20jobs." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20salary%20details%20for%20Russia%20jobs.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Get Salary Details on WhatsApp
     </a>
   </div>
 </section>
 
 <!-- VISA PROCESS -->
-<section class="rjw-section">
-  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Visa Process - Step by Step</h2>
-  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Simple and streamlined process to start working in Russia</p>
-  
-  <div class="rjw-timeline">
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left">
-      <div class="rjw-timeline-dot">1</div>
-      <div class="rjw-timeline-content">
+<section class="nf-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Visa Process - Step by Step</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">NexusFlow Services LLP makes your visa process simple and hassle-free</p>
+
+  <img src="https://placehold.co/900x250/f0f4ff/1a237e?text=Visa+Process+Timeline+-+NexusFlow+Services" alt="Visa Process" style="width:100%;max-width:900px;height:auto;border-radius:16px;margin:0 auto 40px;display:block;box-shadow:0 8px 25px rgba(0,0,0,0.06);" class="nf-animate nf-scale-in">
+
+  <div class="nf-timeline">
+    <div class="nf-timeline-item nf-animate nf-fade-left">
+      <div class="nf-timeline-dot">1</div>
+      <div class="nf-timeline-content">
         <h3>Find a Russian Employer</h3>
-        <p>Get a valid job offer from a registered Russian employer through our agency</p>
+        <p>Get a valid job offer from a registered Russian employer through NexusFlow Services LLP</p>
       </div>
     </div>
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.1s;">
-      <div class="rjw-timeline-dot">2</div>
-      <div class="rjw-timeline-content">
+    <div class="nf-timeline-item nf-animate nf-fade-left" style="animation-delay: 0.1s;">
+      <div class="nf-timeline-dot">2</div>
+      <div class="nf-timeline-content">
         <h3>Work Permit Application</h3>
         <p>Employer applies for your work permit from the Russian Ministry of Internal Affairs</p>
       </div>
     </div>
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.2s;">
-      <div class="rjw-timeline-dot">3</div>
-      <div class="rjw-timeline-content">
+    <div class="nf-timeline-item nf-animate nf-fade-left" style="animation-delay: 0.2s;">
+      <div class="nf-timeline-dot">3</div>
+      <div class="nf-timeline-content">
         <h3>Receive Invitation Letter</h3>
         <p>Official invitation letter issued from Russia for visa processing</p>
       </div>
     </div>
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.3s;">
-      <div class="rjw-timeline-dot">4</div>
-      <div class="rjw-timeline-content">
+    <div class="nf-timeline-item nf-animate nf-fade-left" style="animation-delay: 0.3s;">
+      <div class="nf-timeline-dot">4</div>
+      <div class="nf-timeline-content">
         <h3>Gather Documents</h3>
         <p>Valid passport (6+ months), visa form, photos, medical certificate, employment contract, educational certificates</p>
       </div>
     </div>
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.4s;">
-      <div class="rjw-timeline-dot">5</div>
-      <div class="rjw-timeline-content">
+    <div class="nf-timeline-item nf-animate nf-fade-left" style="animation-delay: 0.4s;">
+      <div class="nf-timeline-dot">5</div>
+      <div class="nf-timeline-content">
         <h3>Apply at Russian Embassy / VFS Global</h3>
         <p>Submit your visa application at the nearest Russian Embassy or VFS Global center</p>
       </div>
     </div>
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.5s;">
-      <div class="rjw-timeline-dot">6</div>
-      <div class="rjw-timeline-content">
+    <div class="nf-timeline-item nf-animate nf-fade-left" style="animation-delay: 0.5s;">
+      <div class="nf-timeline-dot">6</div>
+      <div class="nf-timeline-content">
         <h3>Processing (5-30 Business Days)</h3>
         <p>Wait for visa approval. Processing typically takes 5 to 30 business days</p>
       </div>
     </div>
-    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.6s;">
-      <div class="rjw-timeline-dot">7</div>
-      <div class="rjw-timeline-content">
+    <div class="nf-timeline-item nf-animate nf-fade-left" style="animation-delay: 0.6s;">
+      <div class="nf-timeline-dot">7</div>
+      <div class="nf-timeline-content">
         <h3>Travel to Russia & Register</h3>
         <p>Arrive in Russia and complete registration within 7 days of arrival</p>
       </div>
     </div>
   </div>
 
-  <div class="rjw-section-cta rjw-animate rjw-fade-up">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20need%20help%20with%20Russia%20work%20visa%20process." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20need%20help%20with%20Russia%20work%20visa%20process.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Get Visa Assistance on WhatsApp
     </a>
   </div>
 </section>
 
 <!-- REQUIREMENTS & DOCUMENTS -->
-<section class="rjw-section">
-  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Requirements & Documents</h2>
-  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Everything you need to prepare for your Russia work visa</p>
-  
-  <div class="rjw-requirements">
-    <div class="rjw-req-box rjw-animate rjw-fade-left">
+<section class="nf-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Requirements & Documents</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">Everything you need to prepare for your Russia work visa</p>
+
+  <div class="nf-requirements">
+    <div class="nf-req-box nf-animate nf-fade-left">
       <h3><i class="fas fa-user-check"></i> Eligibility Requirements</h3>
       <ul>
         <li><i class="fas fa-chevron-right"></i> Age: 21-45 years preferred</li>
-        <li><i class="fas fa-chevron-right"></i> Valid passport with 18+ months validity</li>
+        <li><i class="fas fa-chevron-right"></i> Valid passport with 6+ months validity</li>
         <li><i class="fas fa-chevron-right"></i> Medical fitness certificate</li>
         <li><i class="fas fa-chevron-right"></i> No criminal record</li>
         <li><i class="fas fa-chevron-right"></i> Relevant work experience (2-5 years for skilled roles)</li>
         <li><i class="fas fa-chevron-right"></i> Basic English/Russian knowledge (plus but not mandatory)</li>
       </ul>
     </div>
-    <div class="rjw-req-box rjw-animate rjw-fade-right">
+    <div class="nf-req-box nf-animate nf-fade-right">
       <h3><i class="fas fa-file-alt"></i> Documents Required</h3>
       <ul>
         <li><i class="fas fa-chevron-right"></i> Valid passport (minimum 6 months validity)</li>
@@ -952,103 +1432,187 @@
     </div>
   </div>
 
-  <div class="rjw-section-cta rjw-animate rjw-fade-up">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20need%20help%20with%20documents%20for%20Russia%20work%20visa." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20need%20help%20with%20documents%20for%20Russia%20work%20visa.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Get Document Checklist on WhatsApp
     </a>
   </div>
 </section>
 
 <!-- COST BREAKDOWN -->
-<section class="rjw-cost-section">
-  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Cost Breakdown</h2>
-  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Transparent pricing with no hidden charges</p>
-  
-  <div class="rjw-cost-cards">
-    <div class="rjw-cost-card rjw-animate rjw-scale-in">
-      <div class="rjw-cost-icon"><i class="fas fa-passport"></i></div>
+<section class="nf-cost-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Cost Breakdown</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">Transparent pricing with no hidden charges from NexusFlow Services LLP</p>
+
+  <div class="nf-cost-cards">
+    <div class="nf-cost-card nf-animate nf-scale-in">
+      <div class="nf-cost-icon"><i class="fas fa-passport"></i></div>
       <h3>Visa Fee</h3>
-      <div class="rjw-cost-amount">&#8377;5,000 - &#8377;10,000</div>
+      <div class="nf-cost-amount">&#8377;5,000 - &#8377;10,000</div>
     </div>
-    <div class="rjw-cost-card rjw-animate rjw-scale-in" style="animation-delay: 0.1s;">
-      <div class="rjw-cost-icon"><i class="fas fa-stethoscope"></i></div>
+    <div class="nf-cost-card nf-animate nf-scale-in" style="animation-delay: 0.1s;">
+      <div class="nf-cost-icon"><i class="fas fa-stethoscope"></i></div>
       <h3>Medical Tests</h3>
-      <div class="rjw-cost-amount">&#8377;3,000 - &#8377;5,000</div>
+      <div class="nf-cost-amount">&#8377;3,000 - &#8377;5,000</div>
     </div>
-    <div class="rjw-cost-card rjw-animate rjw-scale-in" style="animation-delay: 0.2s;">
-      <div class="rjw-cost-icon"><i class="fas fa-file-invoice"></i></div>
+    <div class="nf-cost-card nf-animate nf-scale-in" style="animation-delay: 0.2s;">
+      <div class="nf-cost-icon"><i class="fas fa-file-invoice"></i></div>
       <h3>Total Processing Cost</h3>
-      <div class="rjw-cost-amount">&#8377;1,50,000 - &#8377;2,50,000</div>
+      <div class="nf-cost-amount">&#8377;1,50,000 - &#8377;2,50,000</div>
     </div>
   </div>
 
-  <p style="text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.9rem;" class="rjw-animate rjw-fade-up">
+  <p style="text-align: center; margin-top: 25px; color: rgba(255,255,255,0.65); font-size: 0.9rem; position: relative; z-index: 1;" class="nf-animate nf-fade-up">
     *Includes visa, medical, documentation, and travel assistance
   </p>
 
-  <div class="rjw-section-cta rjw-animate rjw-fade-up">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20the%20total%20cost%20for%20Russia%20work%20visa." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+  <div class="nf-section-cta nf-animate nf-fade-up" style="position: relative; z-index: 1;">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20the%20total%20cost%20for%20Russia%20work%20visa.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Get Exact Cost Details
     </a>
   </div>
 </section>
 
+<!-- TESTIMONIALS SECTION -->
+<section class="nf-testimonials-section">
+  <h2 class="nf-section-title nf-animate nf-fade-up">Success Stories</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">Hear from Indians who successfully started their career in Russia through NexusFlow Services LLP</p>
+
+  <div class="nf-testimonials-grid">
+    <div class="nf-testimonial-card nf-animate nf-fade-up">
+      <div class="nf-testimonial-content">
+        "NexusFlow Services made my dream of working abroad a reality. Within 3 months, I was in Moscow working as a welder earning 3x my Indian salary. The entire process was smooth and transparent."
+      </div>
+      <div class="nf-testimonial-author">
+        <img src="https://placehold.co/50x50/4caf50/ffffff?text=RK" alt="Rajesh Kumar" class="nf-testimonial-avatar">
+        <div>
+          <div class="nf-testimonial-name">Rajesh Kumar</div>
+          <div class="nf-testimonial-role">Welder - Moscow, Russia</div>
+          <div class="nf-testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="nf-testimonial-card nf-animate nf-fade-up" style="animation-delay: 0.15s;">
+      <div class="nf-testimonial-content">
+        "I was skeptical at first, but NexusFlow team guided me through every step. Now I work in a Russian factory with free accommodation and food. I save more than I ever could in India."
+      </div>
+      <div class="nf-testimonial-author">
+        <img src="https://placehold.co/50x50/ff9800/ffffff?text=AS" alt="Amit Singh" class="nf-testimonial-avatar">
+        <div>
+          <div class="nf-testimonial-name">Amit Singh</div>
+          <div class="nf-testimonial-role">Machine Operator - St. Petersburg</div>
+          <div class="nf-testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="nf-testimonial-card nf-animate nf-fade-up" style="animation-delay: 0.3s;">
+      <div class="nf-testimonial-content">
+        "Best decision of my life! The visa process was faster than expected. NexusFlow handled everything professionally. Now my family is planning to join me next year."
+      </div>
+      <div class="nf-testimonial-author">
+        <img src="https://placehold.co/50x50/9c27b0/ffffff?text=MP" alt="Mohammed Patel" class="nf-testimonial-avatar">
+        <div>
+          <div class="nf-testimonial-name">Mohammed Patel</div>
+          <div class="nf-testimonial-role">Electrician - Kazan, Russia</div>
+          <div class="nf-testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20saw%20the%20success%20stories.%20I%20want%20to%20apply%20for%20Russia%20jobs.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Start Your Success Story
+    </a>
+  </div>
+</section>
+
+<!-- RAINBOW SWOOSH DIVIDER -->
+<div class="nf-swoosh-divider"></div>
+
+<!-- ABOUT NEXUSFLOW SECTION -->
+<section class="nf-section" style="text-align: center;">
+  <h2 class="nf-section-title nf-animate nf-fade-up">About NexusFlow Services LLP</h2>
+  <p class="nf-section-subtitle nf-animate nf-fade-up">Your trusted partner in Manpower Recruiting and Educational Services</p>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; align-items: center; margin-bottom: 30px;" class="nf-animate nf-fade-up">
+    <img src="https://placehold.co/200x200/1a237e/ffd700?text=NexusFlow+Logo" alt="NexusFlow Services LLP Logo" style="width: 180px; height: 180px; border-radius: 20px; box-shadow: 0 10px 30px rgba(26, 35, 126, 0.2);">
+    <div style="text-align: left; max-width: 550px;">
+      <p style="font-size: 1rem; color: #444; line-height: 1.8; margin-bottom: 15px;">NexusFlow Services LLP is a leading manpower recruiting and educational services company. We specialize in connecting talented Indian professionals with high-paying international opportunities.</p>
+      <p style="font-size: 1rem; color: #444; line-height: 1.8;"><strong style="color: #1a237e;">Our Services:</strong> Manpower Recruiting | Educational Services | Visa Processing | Career Counseling | Document Assistance</p>
+    </div>
+  </div>
+
+  <div class="nf-section-cta nf-animate nf-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20more%20about%20NexusFlow%20Services%20LLP." class="nf-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Contact NexusFlow Services
+    </a>
+  </div>
+</section>
+
 <!-- FINAL CTA SECTION -->
-<section class="rjw-final-cta" style="margin-top: 40px;">
-  <h2 class="rjw-animate rjw-fade-up">Ready to Start Your Career in Russia?</h2>
-  <p class="rjw-animate rjw-fade-up">Don't miss this opportunity! 71,817+ jobs available for Indian workers. Contact us now for free consultation and fast processing.</p>
-  <div class="rjw-animate rjw-fade-up" style="animation-delay: 0.2s;">
-    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20ready%20to%20apply%20for%20Russia%20jobs.%20Please%20guide%20me." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+<section class="nf-final-cta">
+  <img src="https://placehold.co/120x120/ffffff/1a237e?text=NF" alt="NexusFlow" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 20px; box-shadow: 0 8px 20px rgba(0,0,0,0.2); position: relative;" class="nf-animate nf-bounce-in">
+  <h2 class="nf-animate nf-fade-up">Ready to Start Your Career in Russia?</h2>
+  <p class="nf-animate nf-fade-up">Do not miss this opportunity! 71,817+ jobs available for Indian workers. Contact NexusFlow Services LLP now for free consultation and fast processing.</p>
+  <div class="nf-animate nf-fade-up" style="animation-delay: 0.2s;">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20ready%20to%20apply%20for%20Russia%20jobs.%20Please%20guide%20me.%20NexusFlow." class="nf-whatsapp-btn" target="_blank" rel="noopener">
       <i class="fab fa-whatsapp"></i> Start Your Application Now
     </a>
   </div>
-  <p style="margin-top: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.8); position: relative;" class="rjw-animate rjw-fade-up">
-    <i class="fas fa-phone-alt"></i> WhatsApp: +91 94008 74758
+  <p class="nf-brand-footer nf-animate nf-fade-up" style="animation-delay: 0.3s;">
+    <i class="fas fa-phone-alt"></i> WhatsApp: +91 94008 74758<br>
+    <strong>NexusFlow Services LLP</strong> - Connecting Talent. Empowering Futures.
   </p>
 </section>
 
-<!-- JavaScript for Scroll Animations -->
+<!-- FLOATING WHATSAPP BUTTON -->
+<a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20jobs.%20NexusFlow%20Services." class="nf-floating-whatsapp" target="_blank" rel="noopener" title="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- JAVASCRIPT FOR ANIMATIONS -->
 <script>
 (function() {
   // Intersection Observer for scroll-triggered animations
-  const rjwObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  var nfObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        entry.target.classList.add('rjw-visible');
-        rjwObserver.unobserve(entry.target);
+        entry.target.classList.add('nf-visible');
+        nfObserver.unobserve(entry.target);
       }
     });
   }, {
     threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    rootMargin: '0px 0px -60px 0px'
   });
 
   // Observe all animated elements
-  function rjwInitAnimations() {
-    const wrapper = document.getElementById('russiaJobsWrapper');
+  function nfInitAnimations() {
+    var wrapper = document.getElementById('nfRussiaWrapper');
     if (!wrapper) return;
-    const animElements = wrapper.querySelectorAll('.rjw-animate');
-    animElements.forEach(el => {
-      rjwObserver.observe(el);
+    var animElements = wrapper.querySelectorAll('.nf-animate');
+    animElements.forEach(function(el) {
+      nfObserver.observe(el);
     });
   }
 
   // Animated counter for stats
-  function rjwAnimateCounters() {
-    const wrapper = document.getElementById('russiaJobsWrapper');
+  function nfAnimateCounters() {
+    var wrapper = document.getElementById('nfRussiaWrapper');
     if (!wrapper) return;
-    const statNumbers = wrapper.querySelectorAll('.rjw-stat-number[data-target]');
-    
-    statNumbers.forEach(stat => {
-      const target = parseInt(stat.getAttribute('data-target'));
-      const duration = 2000;
-      const step = target / (duration / 16);
-      let current = 0;
-      
-      const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    var statNumbers = wrapper.querySelectorAll('.nf-stat-number[data-target]');
+
+    statNumbers.forEach(function(stat) {
+      var target = parseInt(stat.getAttribute('data-target'));
+      var duration = 2500;
+      var step = target / (duration / 16);
+      var current = 0;
+
+      var counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            const timer = setInterval(() => {
+            var timer = setInterval(function() {
               current += step;
               if (current >= target) {
                 current = target;
@@ -1060,20 +1624,37 @@
           }
         });
       }, { threshold: 0.5 });
-      
+
       counterObserver.observe(stat);
+    });
+  }
+
+  // Parallax effect on scroll
+  function nfParallax() {
+    var parallaxBg = document.querySelector('.nf-parallax-bg');
+    if (!parallaxBg) return;
+    window.addEventListener('scroll', function() {
+      var scrolled = window.pageYOffset;
+      var section = parallaxBg.parentElement;
+      var rect = section.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        var speed = 0.3;
+        parallaxBg.style.transform = 'translateY(' + (scrolled * speed - section.offsetTop * speed) + 'px)';
+      }
     });
   }
 
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
-      rjwInitAnimations();
-      rjwAnimateCounters();
+      nfInitAnimations();
+      nfAnimateCounters();
+      nfParallax();
     });
   } else {
-    rjwInitAnimations();
-    rjwAnimateCounters();
+    nfInitAnimations();
+    nfAnimateCounters();
+    nfParallax();
   }
 })();
 </script>
