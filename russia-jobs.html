@@ -1,0 +1,1081 @@
+<!-- Russia Jobs for Indians - Elementor HTML Block -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<div class="russia-jobs-wrapper" id="russiaJobsWrapper">
+
+<style>
+.russia-jobs-wrapper {
+  font-family: 'Poppins', sans-serif;
+  color: #1a1a2e;
+  overflow: hidden;
+  line-height: 1.6;
+}
+.russia-jobs-wrapper * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Animations */
+@keyframes rjw-fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes rjw-fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes rjw-fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes rjw-scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes rjw-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes rjw-float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes rjw-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes rjw-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes rjw-countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes rjw-borderGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 57, 166, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(0, 57, 166, 0.6); }
+}
+@keyframes rjw-slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.russia-jobs-wrapper .rjw-animate {
+  opacity: 0;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.russia-jobs-wrapper .rjw-animate.rjw-visible {
+  opacity: 1;
+}
+.russia-jobs-wrapper .rjw-animate.rjw-fade-up.rjw-visible {
+  animation: rjw-fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.russia-jobs-wrapper .rjw-animate.rjw-fade-left.rjw-visible {
+  animation: rjw-fadeInLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.russia-jobs-wrapper .rjw-animate.rjw-fade-right.rjw-visible {
+  animation: rjw-fadeInRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.russia-jobs-wrapper .rjw-animate.rjw-scale-in.rjw-visible {
+  animation: rjw-scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Hero Section */
+.russia-jobs-wrapper .rjw-hero {
+  background: linear-gradient(135deg, #0039a6 0%, #1a1a2e 40%, #d52b1e 100%);
+  background-size: 200% 200%;
+  animation: rjw-gradient 8s ease infinite;
+  padding: 80px 20px;
+  text-align: center;
+  position: relative;
+  border-radius: 16px;
+  margin-bottom: 40px;
+}
+.russia-jobs-wrapper .rjw-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  border-radius: 16px;
+}
+.russia-jobs-wrapper .rjw-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.russia-jobs-wrapper .rjw-hero h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  line-height: 1.2;
+}
+.russia-jobs-wrapper .rjw-hero h1 span {
+  background: linear-gradient(90deg, #ffd700, #ff6b35, #ffd700);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: rjw-shimmer 3s linear infinite;
+}
+.russia-jobs-wrapper .rjw-hero p {
+  font-size: 1.2rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.russia-jobs-wrapper .rjw-hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+.russia-jobs-wrapper .rjw-stat-box {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 20px 30px;
+  min-width: 160px;
+}
+.russia-jobs-wrapper .rjw-stat-box .rjw-stat-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffd700;
+  display: block;
+}
+.russia-jobs-wrapper .rjw-stat-box .rjw-stat-label {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* WhatsApp CTA Button */
+.russia-jobs-wrapper .rjw-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 16px 32px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  animation: rjw-pulse 2s infinite;
+}
+.russia-jobs-wrapper .rjw-whatsapp-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+  color: #ffffff;
+  text-decoration: none;
+}
+.russia-jobs-wrapper .rjw-whatsapp-btn i {
+  font-size: 1.4rem;
+}
+
+/* Section Styles */
+.russia-jobs-wrapper .rjw-section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+}
+.russia-jobs-wrapper .rjw-section-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #0039a6, #d52b1e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.russia-jobs-wrapper .rjw-section-subtitle {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 50px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.russia-jobs-wrapper .rjw-section-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* Benefits Section */
+.russia-jobs-wrapper .rjw-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+.russia-jobs-wrapper .rjw-benefit-card {
+  background: linear-gradient(145deg, #ffffff, #f8f9ff);
+  border-radius: 16px;
+  padding: 30px;
+  border: 1px solid rgba(0, 57, 166, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.russia-jobs-wrapper .rjw-benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, #0039a6, #d52b1e);
+  border-radius: 4px 0 0 4px;
+}
+.russia-jobs-wrapper .rjw-benefit-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 57, 166, 0.15);
+  border-color: rgba(0, 57, 166, 0.3);
+}
+.russia-jobs-wrapper .rjw-benefit-card .rjw-benefit-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #0039a6, #1e56b0);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+}
+.russia-jobs-wrapper .rjw-benefit-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+.russia-jobs-wrapper .rjw-benefit-card p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Job Categories Section */
+.russia-jobs-wrapper .rjw-jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+}
+.russia-jobs-wrapper .rjw-job-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid #eee;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+.russia-jobs-wrapper .rjw-job-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0039a6, #d52b1e);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+.russia-jobs-wrapper .rjw-job-card:hover::after {
+  transform: scaleX(1);
+}
+.russia-jobs-wrapper .rjw-job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+.russia-jobs-wrapper .rjw-job-card .rjw-job-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, rgba(0,57,166,0.1), rgba(213,43,30,0.1));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #0039a6;
+  transition: all 0.3s ease;
+}
+.russia-jobs-wrapper .rjw-job-card:hover .rjw-job-icon {
+  background: linear-gradient(135deg, #0039a6, #d52b1e);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+.russia-jobs-wrapper .rjw-job-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+.russia-jobs-wrapper .rjw-job-card p {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Salary Section */
+.russia-jobs-wrapper .rjw-salary-section {
+  background: linear-gradient(135deg, #f8f9ff, #fff5f5);
+  border-radius: 20px;
+  padding: 60px 30px;
+}
+.russia-jobs-wrapper .rjw-salary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.russia-jobs-wrapper .rjw-salary-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 35px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+}
+.russia-jobs-wrapper .rjw-salary-card.rjw-featured {
+  border-color: #0039a6;
+  transform: scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 57, 166, 0.15);
+}
+.russia-jobs-wrapper .rjw-salary-card.rjw-featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #0039a6, #d52b1e);
+  color: #fff;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.russia-jobs-wrapper .rjw-salary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+.russia-jobs-wrapper .rjw-salary-card .rjw-salary-tier {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0039a6;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+.russia-jobs-wrapper .rjw-salary-card .rjw-salary-amount {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 5px;
+}
+.russia-jobs-wrapper .rjw-salary-card .rjw-salary-inr {
+  font-size: 1rem;
+  color: #d52b1e;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.russia-jobs-wrapper .rjw-salary-card ul {
+  list-style: none;
+  text-align: left;
+  padding: 0;
+}
+.russia-jobs-wrapper .rjw-salary-card ul li {
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.russia-jobs-wrapper .rjw-salary-card ul li i {
+  color: #25d366;
+  font-size: 0.8rem;
+}
+
+/* Visa Process Timeline */
+.russia-jobs-wrapper .rjw-timeline {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0;
+}
+.russia-jobs-wrapper .rjw-timeline::before {
+  content: '';
+  position: absolute;
+  left: 30px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, #0039a6, #d52b1e);
+  border-radius: 3px;
+}
+.russia-jobs-wrapper .rjw-timeline-item {
+  position: relative;
+  padding-left: 75px;
+  margin-bottom: 35px;
+}
+.russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-dot {
+  position: absolute;
+  left: 18px;
+  top: 5px;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(135deg, #0039a6, #1e56b0);
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0,57,166,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+.russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+.russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-content:hover {
+  box-shadow: 0 8px 25px rgba(0,57,166,0.1);
+  border-color: rgba(0,57,166,0.2);
+}
+.russia-jobs-wrapper .rjw-timeline-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+.russia-jobs-wrapper .rjw-timeline-item p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Requirements Section */
+.russia-jobs-wrapper .rjw-requirements {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+.russia-jobs-wrapper .rjw-req-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #f0f0f0;
+}
+.russia-jobs-wrapper .rjw-req-box h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0039a6;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.russia-jobs-wrapper .rjw-req-box ul {
+  list-style: none;
+  padding: 0;
+}
+.russia-jobs-wrapper .rjw-req-box ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f5f5f5;
+  font-size: 0.95rem;
+  color: #444;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.russia-jobs-wrapper .rjw-req-box ul li:last-child {
+  border-bottom: none;
+}
+.russia-jobs-wrapper .rjw-req-box ul li i {
+  color: #0039a6;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* Cost Section */
+.russia-jobs-wrapper .rjw-cost-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0039a6 100%);
+  border-radius: 20px;
+  padding: 60px 30px;
+  color: #ffffff;
+}
+.russia-jobs-wrapper .rjw-cost-section .rjw-section-title {
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #ffffff;
+  background-clip: unset;
+}
+.russia-jobs-wrapper .rjw-cost-section .rjw-section-subtitle {
+  color: rgba(255,255,255,0.7);
+}
+.russia-jobs-wrapper .rjw-cost-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.russia-jobs-wrapper .rjw-cost-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.russia-jobs-wrapper .rjw-cost-card:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-5px);
+}
+.russia-jobs-wrapper .rjw-cost-card .rjw-cost-icon {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  color: #ffd700;
+}
+.russia-jobs-wrapper .rjw-cost-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+.russia-jobs-wrapper .rjw-cost-card .rjw-cost-amount {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffd700;
+}
+
+/* Final CTA */
+.russia-jobs-wrapper .rjw-final-cta {
+  background: linear-gradient(135deg, #d52b1e, #b71c1c);
+  border-radius: 20px;
+  padding: 60px 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.russia-jobs-wrapper .rjw-final-cta::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+  animation: rjw-float 6s ease-in-out infinite;
+}
+.russia-jobs-wrapper .rjw-final-cta h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 15px;
+  position: relative;
+}
+.russia-jobs-wrapper .rjw-final-cta p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+.russia-jobs-wrapper .rjw-final-cta .rjw-whatsapp-btn {
+  font-size: 1.2rem;
+  padding: 18px 40px;
+  position: relative;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .russia-jobs-wrapper .rjw-hero h1 {
+    font-size: 2rem;
+  }
+  .russia-jobs-wrapper .rjw-hero p {
+    font-size: 1rem;
+  }
+  .russia-jobs-wrapper .rjw-hero-stats {
+    gap: 15px;
+  }
+  .russia-jobs-wrapper .rjw-stat-box {
+    padding: 15px 20px;
+    min-width: 130px;
+  }
+  .russia-jobs-wrapper .rjw-stat-box .rjw-stat-number {
+    font-size: 1.6rem;
+  }
+  .russia-jobs-wrapper .rjw-section-title {
+    font-size: 1.7rem;
+  }
+  .russia-jobs-wrapper .rjw-salary-card .rjw-salary-amount {
+    font-size: 2rem;
+  }
+  .russia-jobs-wrapper .rjw-timeline::before {
+    left: 20px;
+  }
+  .russia-jobs-wrapper .rjw-timeline-item {
+    padding-left: 55px;
+  }
+  .russia-jobs-wrapper .rjw-timeline-item .rjw-timeline-dot {
+    left: 8px;
+    width: 24px;
+    height: 24px;
+  }
+  .russia-jobs-wrapper .rjw-final-cta h2 {
+    font-size: 1.7rem;
+  }
+  .russia-jobs-wrapper .rjw-cost-section,
+  .russia-jobs-wrapper .rjw-salary-section {
+    padding: 40px 20px;
+  }
+}
+@media (max-width: 480px) {
+  .russia-jobs-wrapper .rjw-hero {
+    padding: 50px 15px;
+  }
+  .russia-jobs-wrapper .rjw-hero h1 {
+    font-size: 1.6rem;
+  }
+  .russia-jobs-wrapper .rjw-section {
+    padding: 40px 15px;
+  }
+  .russia-jobs-wrapper .rjw-whatsapp-btn {
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+}
+</style>
+
+<!-- HERO SECTION -->
+<section class="rjw-hero">
+  <div class="rjw-hero-content">
+    <h1 class="rjw-animate rjw-fade-up"><span>Work in Russia</span><br>High-Paying Jobs for Indians</h1>
+    <p class="rjw-animate rjw-fade-up" style="animation-delay: 0.2s;">Russia is actively hiring Indian workers with 71,817+ job slots available. Start your international career today with salaries up to &#8377;1,68,000/month!</p>
+    
+    <div class="rjw-hero-stats rjw-animate rjw-fade-up" style="animation-delay: 0.4s;">
+      <div class="rjw-stat-box">
+        <span class="rjw-stat-number" data-target="71817">71,817+</span>
+        <span class="rjw-stat-label">Job Slots for Indians</span>
+      </div>
+      <div class="rjw-stat-box">
+        <span class="rjw-stat-number">56,000+</span>
+        <span class="rjw-stat-label">Work Permits Issued</span>
+      </div>
+      <div class="rjw-stat-box">
+        <span class="rjw-stat-number">&#8377;1.68L</span>
+        <span class="rjw-stat-label">Max Monthly Salary</span>
+      </div>
+    </div>
+
+    <div class="rjw-animate rjw-fade-up" style="animation-delay: 0.6s;">
+      <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20jobs.%20Please%20share%20details." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+        <i class="fab fa-whatsapp"></i> Apply Now on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY WORK IN RUSSIA -->
+<section class="rjw-section">
+  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Why Work in Russia?</h2>
+  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">India and Russia have signed a labor mobility agreement opening thousands of opportunities</p>
+  
+  <div class="rjw-benefits-grid">
+    <div class="rjw-benefit-card rjw-animate rjw-fade-up">
+      <div class="rjw-benefit-icon"><i class="fas fa-briefcase"></i></div>
+      <h3>High Demand = Easy Placement</h3>
+      <p>Over 70,000 slots reserved for Indian workers in 2025-2026 quota</p>
+    </div>
+    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.1s;">
+      <div class="rjw-benefit-icon"><i class="fas fa-home"></i></div>
+      <h3>Free Accommodation & Food</h3>
+      <p>Many employers provide free housing and meals to workers</p>
+    </div>
+    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.2s;">
+      <div class="rjw-benefit-icon"><i class="fas fa-heartbeat"></i></div>
+      <h3>Medical Insurance Covered</h3>
+      <p>Employer-sponsored medical insurance for all workers</p>
+    </div>
+    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.3s;">
+      <div class="rjw-benefit-icon"><i class="fas fa-clock"></i></div>
+      <h3>Overtime Pay Available</h3>
+      <p>Earn extra income through overtime and bonuses</p>
+    </div>
+    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.4s;">
+      <div class="rjw-benefit-icon"><i class="fas fa-sync-alt"></i></div>
+      <h3>Contract Renewal Options</h3>
+      <p>Extend your contract and continue earning abroad</p>
+    </div>
+    <div class="rjw-benefit-card rjw-animate rjw-fade-up" style="animation-delay: 0.5s;">
+      <div class="rjw-benefit-icon"><i class="fas fa-users"></i></div>
+      <h3>Family Visa After 1 Year</h3>
+      <p>Bring your family to Russia and pathway to permanent residency</p>
+    </div>
+  </div>
+
+  <div class="rjw-section-cta rjw-animate rjw-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20more%20about%20benefits%20of%20working%20in%20Russia." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Know More - Chat on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- JOB CATEGORIES -->
+<section class="rjw-section">
+  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Available Job Categories</h2>
+  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Wide range of opportunities for skilled and unskilled workers</p>
+  
+  <div class="rjw-jobs-grid">
+    <div class="rjw-job-card rjw-animate rjw-scale-in">
+      <div class="rjw-job-icon"><i class="fas fa-hard-hat"></i></div>
+      <h3>Construction</h3>
+      <p>Mason, Carpenter, Painter, Plumber, Electrician, Steel Fixer, Heavy Equipment Operator</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.1s;">
+      <div class="rjw-job-icon"><i class="fas fa-fire"></i></div>
+      <h3>Welding & Fabrication</h3>
+      <p>Welders, Pipe Fitters, Fabricators</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.2s;">
+      <div class="rjw-job-icon"><i class="fas fa-industry"></i></div>
+      <h3>Factory / Manufacturing</h3>
+      <p>Machine Operators, Assembly Line Workers, Quality Inspectors</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.3s;">
+      <div class="rjw-job-icon"><i class="fas fa-oil-can"></i></div>
+      <h3>Oil & Gas / Mining</h3>
+      <p>Drilling Operators, Pipeline Workers, Mining Laborers</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.4s;">
+      <div class="rjw-job-icon"><i class="fas fa-truck-loading"></i></div>
+      <h3>Logistics & Warehousing</h3>
+      <p>Forklift Operators, Packers, Store Keepers</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.5s;">
+      <div class="rjw-job-icon"><i class="fas fa-concierge-bell"></i></div>
+      <h3>Hospitality & Services</h3>
+      <p>Cooks, Housekeeping Staff, Security Guards</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.6s;">
+      <div class="rjw-job-icon"><i class="fas fa-seedling"></i></div>
+      <h3>Agriculture</h3>
+      <p>Farm Workers, Greenhouse Workers</p>
+    </div>
+    <div class="rjw-job-card rjw-animate rjw-scale-in" style="animation-delay: 0.7s;">
+      <div class="rjw-job-icon"><i class="fas fa-laptop-code"></i></div>
+      <h3>IT & Technology</h3>
+      <p>Software Developers, Data Analysts</p>
+    </div>
+  </div>
+
+  <div class="rjw-section-cta rjw-animate rjw-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20interested%20in%20Russia%20job%20categories.%20Please%20help." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Check Available Vacancies
+    </a>
+  </div>
+</section>
+
+<!-- SALARY SECTION -->
+<section class="rjw-salary-section">
+  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Salary Details</h2>
+  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Attractive salary packages with additional benefits</p>
+  
+  <div class="rjw-salary-cards">
+    <div class="rjw-salary-card rjw-animate rjw-fade-left">
+      <div class="rjw-salary-tier">Entry Level</div>
+      <div class="rjw-salary-amount">$500-$600</div>
+      <div class="rjw-salary-inr">&#8377;42,000 - &#8377;50,000/month</div>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Unskilled workers</li>
+        <li><i class="fas fa-check-circle"></i> Helpers & laborers</li>
+        <li><i class="fas fa-check-circle"></i> Free accommodation</li>
+        <li><i class="fas fa-check-circle"></i> Free food provided</li>
+        <li><i class="fas fa-check-circle"></i> Medical insurance</li>
+      </ul>
+    </div>
+    <div class="rjw-salary-card rjw-featured rjw-animate rjw-fade-up">
+      <div class="rjw-salary-tier">Skilled Workers</div>
+      <div class="rjw-salary-amount">$800-$1,200</div>
+      <div class="rjw-salary-inr">&#8377;67,000 - &#8377;1,00,000/month</div>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> Welders & Electricians</li>
+        <li><i class="fas fa-check-circle"></i> Machine Operators</li>
+        <li><i class="fas fa-check-circle"></i> Overtime bonuses</li>
+        <li><i class="fas fa-check-circle"></i> Free accommodation</li>
+        <li><i class="fas fa-check-circle"></i> Medical insurance</li>
+        <li><i class="fas fa-check-circle"></i> Contract renewal</li>
+      </ul>
+    </div>
+    <div class="rjw-salary-card rjw-animate rjw-fade-right">
+      <div class="rjw-salary-tier">Professionals</div>
+      <div class="rjw-salary-amount">$1,000-$2,000+</div>
+      <div class="rjw-salary-inr">&#8377;84,000 - &#8377;1,68,000/month</div>
+      <ul>
+        <li><i class="fas fa-check-circle"></i> IT professionals</li>
+        <li><i class="fas fa-check-circle"></i> Engineers & Managers</li>
+        <li><i class="fas fa-check-circle"></i> Performance bonuses</li>
+        <li><i class="fas fa-check-circle"></i> Family visa support</li>
+        <li><i class="fas fa-check-circle"></i> PR pathway</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rjw-section-cta rjw-animate rjw-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20salary%20details%20for%20Russia%20jobs." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Get Salary Details on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- VISA PROCESS -->
+<section class="rjw-section">
+  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Visa Process - Step by Step</h2>
+  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Simple and streamlined process to start working in Russia</p>
+  
+  <div class="rjw-timeline">
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left">
+      <div class="rjw-timeline-dot">1</div>
+      <div class="rjw-timeline-content">
+        <h3>Find a Russian Employer</h3>
+        <p>Get a valid job offer from a registered Russian employer through our agency</p>
+      </div>
+    </div>
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.1s;">
+      <div class="rjw-timeline-dot">2</div>
+      <div class="rjw-timeline-content">
+        <h3>Work Permit Application</h3>
+        <p>Employer applies for your work permit from the Russian Ministry of Internal Affairs</p>
+      </div>
+    </div>
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.2s;">
+      <div class="rjw-timeline-dot">3</div>
+      <div class="rjw-timeline-content">
+        <h3>Receive Invitation Letter</h3>
+        <p>Official invitation letter issued from Russia for visa processing</p>
+      </div>
+    </div>
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.3s;">
+      <div class="rjw-timeline-dot">4</div>
+      <div class="rjw-timeline-content">
+        <h3>Gather Documents</h3>
+        <p>Valid passport (6+ months), visa form, photos, medical certificate, employment contract, educational certificates</p>
+      </div>
+    </div>
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.4s;">
+      <div class="rjw-timeline-dot">5</div>
+      <div class="rjw-timeline-content">
+        <h3>Apply at Russian Embassy / VFS Global</h3>
+        <p>Submit your visa application at the nearest Russian Embassy or VFS Global center</p>
+      </div>
+    </div>
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.5s;">
+      <div class="rjw-timeline-dot">6</div>
+      <div class="rjw-timeline-content">
+        <h3>Processing (5-30 Business Days)</h3>
+        <p>Wait for visa approval. Processing typically takes 5 to 30 business days</p>
+      </div>
+    </div>
+    <div class="rjw-timeline-item rjw-animate rjw-fade-left" style="animation-delay: 0.6s;">
+      <div class="rjw-timeline-dot">7</div>
+      <div class="rjw-timeline-content">
+        <h3>Travel to Russia & Register</h3>
+        <p>Arrive in Russia and complete registration within 7 days of arrival</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="rjw-section-cta rjw-animate rjw-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20need%20help%20with%20Russia%20work%20visa%20process." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Get Visa Assistance on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- REQUIREMENTS & DOCUMENTS -->
+<section class="rjw-section">
+  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Requirements & Documents</h2>
+  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Everything you need to prepare for your Russia work visa</p>
+  
+  <div class="rjw-requirements">
+    <div class="rjw-req-box rjw-animate rjw-fade-left">
+      <h3><i class="fas fa-user-check"></i> Eligibility Requirements</h3>
+      <ul>
+        <li><i class="fas fa-chevron-right"></i> Age: 21-45 years preferred</li>
+        <li><i class="fas fa-chevron-right"></i> Valid passport with 18+ months validity</li>
+        <li><i class="fas fa-chevron-right"></i> Medical fitness certificate</li>
+        <li><i class="fas fa-chevron-right"></i> No criminal record</li>
+        <li><i class="fas fa-chevron-right"></i> Relevant work experience (2-5 years for skilled roles)</li>
+        <li><i class="fas fa-chevron-right"></i> Basic English/Russian knowledge (plus but not mandatory)</li>
+      </ul>
+    </div>
+    <div class="rjw-req-box rjw-animate rjw-fade-right">
+      <h3><i class="fas fa-file-alt"></i> Documents Required</h3>
+      <ul>
+        <li><i class="fas fa-chevron-right"></i> Valid passport (minimum 6 months validity)</li>
+        <li><i class="fas fa-chevron-right"></i> Completed visa application form</li>
+        <li><i class="fas fa-chevron-right"></i> Passport-size photographs</li>
+        <li><i class="fas fa-chevron-right"></i> Medical certificate (including HIV test)</li>
+        <li><i class="fas fa-chevron-right"></i> Employment contract from Russian employer</li>
+        <li><i class="fas fa-chevron-right"></i> Educational certificates</li>
+        <li><i class="fas fa-chevron-right"></i> Work experience letters</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rjw-section-cta rjw-animate rjw-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20need%20help%20with%20documents%20for%20Russia%20work%20visa." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Get Document Checklist on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- COST BREAKDOWN -->
+<section class="rjw-cost-section">
+  <h2 class="rjw-section-title rjw-animate rjw-fade-up">Cost Breakdown</h2>
+  <p class="rjw-section-subtitle rjw-animate rjw-fade-up">Transparent pricing with no hidden charges</p>
+  
+  <div class="rjw-cost-cards">
+    <div class="rjw-cost-card rjw-animate rjw-scale-in">
+      <div class="rjw-cost-icon"><i class="fas fa-passport"></i></div>
+      <h3>Visa Fee</h3>
+      <div class="rjw-cost-amount">&#8377;5,000 - &#8377;10,000</div>
+    </div>
+    <div class="rjw-cost-card rjw-animate rjw-scale-in" style="animation-delay: 0.1s;">
+      <div class="rjw-cost-icon"><i class="fas fa-stethoscope"></i></div>
+      <h3>Medical Tests</h3>
+      <div class="rjw-cost-amount">&#8377;3,000 - &#8377;5,000</div>
+    </div>
+    <div class="rjw-cost-card rjw-animate rjw-scale-in" style="animation-delay: 0.2s;">
+      <div class="rjw-cost-icon"><i class="fas fa-file-invoice"></i></div>
+      <h3>Total Processing Cost</h3>
+      <div class="rjw-cost-amount">&#8377;1,50,000 - &#8377;2,50,000</div>
+    </div>
+  </div>
+
+  <p style="text-align: center; margin-top: 20px; color: rgba(255,255,255,0.7); font-size: 0.9rem;" class="rjw-animate rjw-fade-up">
+    *Includes visa, medical, documentation, and travel assistance
+  </p>
+
+  <div class="rjw-section-cta rjw-animate rjw-fade-up">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20want%20to%20know%20the%20total%20cost%20for%20Russia%20work%20visa." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Get Exact Cost Details
+    </a>
+  </div>
+</section>
+
+<!-- FINAL CTA SECTION -->
+<section class="rjw-final-cta" style="margin-top: 40px;">
+  <h2 class="rjw-animate rjw-fade-up">Ready to Start Your Career in Russia?</h2>
+  <p class="rjw-animate rjw-fade-up">Don't miss this opportunity! 71,817+ jobs available for Indian workers. Contact us now for free consultation and fast processing.</p>
+  <div class="rjw-animate rjw-fade-up" style="animation-delay: 0.2s;">
+    <a href="https://wa.me/919400874758?text=Hi%2C%20I%20am%20ready%20to%20apply%20for%20Russia%20jobs.%20Please%20guide%20me." class="rjw-whatsapp-btn" target="_blank" rel="noopener">
+      <i class="fab fa-whatsapp"></i> Start Your Application Now
+    </a>
+  </div>
+  <p style="margin-top: 20px; font-size: 0.9rem; color: rgba(255,255,255,0.8); position: relative;" class="rjw-animate rjw-fade-up">
+    <i class="fas fa-phone-alt"></i> WhatsApp: +91 94008 74758
+  </p>
+</section>
+
+<!-- JavaScript for Scroll Animations -->
+<script>
+(function() {
+  // Intersection Observer for scroll-triggered animations
+  const rjwObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('rjw-visible');
+        rjwObserver.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  // Observe all animated elements
+  function rjwInitAnimations() {
+    const wrapper = document.getElementById('russiaJobsWrapper');
+    if (!wrapper) return;
+    const animElements = wrapper.querySelectorAll('.rjw-animate');
+    animElements.forEach(el => {
+      rjwObserver.observe(el);
+    });
+  }
+
+  // Animated counter for stats
+  function rjwAnimateCounters() {
+    const wrapper = document.getElementById('russiaJobsWrapper');
+    if (!wrapper) return;
+    const statNumbers = wrapper.querySelectorAll('.rjw-stat-number[data-target]');
+    
+    statNumbers.forEach(stat => {
+      const target = parseInt(stat.getAttribute('data-target'));
+      const duration = 2000;
+      const step = target / (duration / 16);
+      let current = 0;
+      
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              stat.textContent = Math.floor(current).toLocaleString() + '+';
+            }, 16);
+            counterObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      counterObserver.observe(stat);
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      rjwInitAnimations();
+      rjwAnimateCounters();
+    });
+  } else {
+    rjwInitAnimations();
+    rjwAnimateCounters();
+  }
+})();
+</script>
+
+</div>
