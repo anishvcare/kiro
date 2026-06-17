@@ -262,8 +262,8 @@ prod_header = column([
 ], 100)
 
 # WooCommerce "Products" widget (Elementor Pro). Images & prices come from WooCommerce.
-# Tuned: 4x2 bestsellers, clean homepage layout (no pagination/ordering/count),
-# featured-products source, sale flash + rating + add-to-cart visible.
+# Tuned: 4x2 bestsellers, clean homepage layout (no pagination/ordering/count).
+# No category/featured restriction -> shows any products (ordered by popularity).
 woo_products = widget("woocommerce-products", {
     "_title": "Featured Products",
     # Layout
@@ -272,13 +272,13 @@ woo_products = widget("woocommerce-products", {
     "paginate": "",                 # no pagination on homepage
     "allow_order": "",              # hide the "default sorting" dropdown
     "show_result_count": "",        # hide "Showing 1-8 of N results"
-    # Ordering -> show bestsellers first
+    # Ordering -> show bestsellers / most popular first
     "orderby": "popularity",
     "order": "desc",
-    # Query / source
+    # Query / source -> all products, no featured/category filter
     "query_post_type": "product",
     "query_query_id": "mf_featured",
-    "query_include": ["featured"],  # pull WooCommerce "Featured" products
+    "query_include": [],
     "query_exclude": [],
     "query_avoid_duplicates": "",
     # Card content toggles (WooCommerce catalog drives image/title/price)

@@ -4,7 +4,7 @@
   "type": "page",
   "content": [
     {
-      "id": "5d67af2e",
+      "id": "520f1df1",
       "elType": "section",
       "settings": {
         "gap": "no",
@@ -21,7 +21,7 @@
       },
       "elements": [
         {
-          "id": "33deab41",
+          "id": "e03bf2f7",
           "elType": "column",
           "settings": {
             "_column_size": 25,
@@ -30,7 +30,7 @@
           },
           "elements": [
             {
-              "id": "87fd7de8",
+              "id": "d94f0d4c",
               "elType": "widget",
               "settings": {
                 "title": "Meridien Foods",
@@ -65,7 +65,7 @@
           "isInner": false
         },
         {
-          "id": "818e145e",
+          "id": "4272e97f",
           "elType": "column",
           "settings": {
             "_column_size": 45,
@@ -74,7 +74,7 @@
           },
           "elements": [
             {
-              "id": "24b4a38c",
+              "id": "33132c2c",
               "elType": "widget",
               "settings": {
                 "html": "<div style=\"display:flex;gap:32px;flex-wrap:wrap;align-items:center;font-family:Inter,sans-serif;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Home</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Shop</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Categories</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">About Us</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">FAQs</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Contact</a></div>"
@@ -86,7 +86,7 @@
           "isInner": false
         },
         {
-          "id": "5a9ce0c9",
+          "id": "69bc5445",
           "elType": "column",
           "settings": {
             "_column_size": 30,
@@ -95,7 +95,7 @@
           },
           "elements": [
             {
-              "id": "7d7d67d7",
+              "id": "2952344f",
               "elType": "widget",
               "settings": {
                 "html": "<div style=\"display:flex;gap:16px;align-items:center;justify-content:flex-end;flex-wrap:wrap;font-family:Inter,sans-serif;\"><a href=\"tel:+918714136486\" style=\"color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;\">&#128222; +91 87141 36486</a><a href=\"https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20order%20from%20Meridien%20Foods\" style=\"background:#C0271A;color:#fff;font-size:13px;font-weight:600;padding:9px 20px;border-radius:6px;text-decoration:none;\">Order Now</a></div>"
@@ -110,7 +110,7 @@
       "isInner": false
     },
     {
-      "id": "57217c85",
+      "id": "5e8dd9b4",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -140,7 +140,7 @@
       },
       "elements": [
         {
-          "id": "329d26b1",
+          "id": "1257257a",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -148,7 +148,7 @@
           },
           "elements": [
             {
-              "id": "c9ed8f70",
+              "id": "e6781303",
               "elType": "widget",
               "settings": {
                 "title": "Fresh · Hygienic · Premium",
@@ -186,7 +186,7 @@
               "widgetType": "heading"
             },
             {
-              "id": "9736d0e7",
+              "id": "ae530b30",
               "elType": "widget",
               "settings": {
                 "title": "Premium Meat, Delivered <em style='color:#C0271A;font-style:normal'>Fresh</em> to Your Door",
@@ -218,7 +218,7 @@
               "widgetType": "heading"
             },
             {
-              "id": "60e0ec3e",
+              "id": "82573626",
               "elType": "widget",
               "settings": {
                 "editor": "<p>Trusted by hotels, restaurants, caterers &amp; retail stores across South India. Premium processed meats &mdash; FSSAI certified, halal assured, cold-chain delivered to your door.</p>",
@@ -248,7 +248,7 @@
               "widgetType": "text-editor"
             },
             {
-              "id": "62d7f8b1",
+              "id": "e5d4340f",
               "elType": "section",
               "settings": {
                 "gap": "narrow",
@@ -256,7 +256,7 @@
               },
               "elements": [
                 {
-                  "id": "27077b5d",
+                  "id": "36d2e3f8",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -264,7 +264,7 @@
                   },
                   "elements": [
                     {
-                      "id": "a52560ed",
+                      "id": "d42c6824",
                       "elType": "widget",
                       "settings": {
                         "text": "Shop Now",
@@ -309,7 +309,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "de213a2a",
+                  "id": "f4409259",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -317,7 +317,7 @@
                   },
                   "elements": [
                     {
-                      "id": "1b552574",
+                      "id": "7d9a1e02",
                       "elType": "widget",
                       "settings": {
                         "text": "WhatsApp Order",
@@ -375,7 +375,7 @@
               "isInner": true
             },
             {
-              "id": "68668788",
+              "id": "c959474d",
               "elType": "widget",
               "settings": {
                 "html": "<div style=\"display:flex;gap:28px;margin-top:36px;flex-wrap:wrap;font-family:Inter,sans-serif;\"><div style=\"display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:13px;\"><span style=\"width:32px;height:32px;border-radius:50%;background:rgba(192,39,26,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:15px;\">&#129482;</span>Cold Chain Delivery</div><div style=\"display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:13px;\"><span style=\"width:32px;height:32px;border-radius:50%;background:rgba(192,39,26,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:15px;\">&#9989;</span>FSSAI Certified</div><div style=\"display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:13px;\"><span style=\"width:32px;height:32px;border-radius:50%;background:rgba(192,39,26,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:15px;\">&#9889;</span>Same-Day Dispatch</div></div>"
@@ -390,7 +390,7 @@
       "isInner": false
     },
     {
-      "id": "0764675c",
+      "id": "92215f84",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -407,7 +407,7 @@
       },
       "elements": [
         {
-          "id": "0e7df3f2",
+          "id": "13ab66f9",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -415,7 +415,7 @@
           },
           "elements": [
             {
-              "id": "86863ce7",
+              "id": "ac314aaa",
               "elType": "widget",
               "settings": {
                 "html": "<div style=\"display:flex;gap:24px 40px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:Inter,sans-serif;\"><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#128666; Free delivery above &#8377;500</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#128230; Vacuum-sealed packaging</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#129482; Cold chain maintained</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#9989; 100% halal certified</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#127961; Chennai · Coimbatore · Kochi</span></div>"
@@ -430,7 +430,7 @@
       "isInner": false
     },
     {
-      "id": "2b2faf3d",
+      "id": "feffe24c",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -447,7 +447,7 @@
       },
       "elements": [
         {
-          "id": "128c6174",
+          "id": "46907809",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -455,7 +455,7 @@
           },
           "elements": [
             {
-              "id": "e5c655e2",
+              "id": "91ba955a",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -463,7 +463,7 @@
               },
               "elements": [
                 {
-                  "id": "3b0cae74",
+                  "id": "d09d5057",
                   "elType": "column",
                   "settings": {
                     "_column_size": 70,
@@ -471,7 +471,7 @@
                   },
                   "elements": [
                     {
-                      "id": "7eb260c1",
+                      "id": "9a71f769",
                       "elType": "widget",
                       "settings": {
                         "title": "SHOP BY TYPE",
@@ -509,7 +509,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "5aff40f3",
+                      "id": "4fb5303c",
                       "elType": "widget",
                       "settings": {
                         "title": "What are you cooking today?",
@@ -536,7 +536,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "d8bfc02f",
+                  "id": "068ce912",
                   "elType": "column",
                   "settings": {
                     "_column_size": 30,
@@ -545,7 +545,7 @@
                   },
                   "elements": [
                     {
-                      "id": "7222e18d",
+                      "id": "59ac6938",
                       "elType": "widget",
                       "settings": {
                         "text": "View all categories",
@@ -604,7 +604,7 @@
               "isInner": true
             },
             {
-              "id": "53cd82b3",
+              "id": "c1a1792a",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -612,7 +612,7 @@
               },
               "elements": [
                 {
-                  "id": "19c8b86c",
+                  "id": "29b2bf22",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -620,7 +620,7 @@
                   },
                   "elements": [
                     {
-                      "id": "5f69e103",
+                      "id": "a2246f91",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/chicken.png\" alt=\"Chicken\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Chicken'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Chicken</div><div style=\"font-size:12px;color:#6B6B6B;\">20+ products</div></a>"
@@ -632,7 +632,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "17a1b4f5",
+                  "id": "737767a1",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -640,7 +640,7 @@
                   },
                   "elements": [
                     {
-                      "id": "05204a26",
+                      "id": "f9ea97ef",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Mutton.png\" alt=\"Mutton\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Mutton'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Mutton</div><div style=\"font-size:12px;color:#6B6B6B;\">12+ products</div></a>"
@@ -652,7 +652,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "8880c52d",
+                  "id": "31e31116",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -660,7 +660,7 @@
                   },
                   "elements": [
                     {
-                      "id": "3aced59e",
+                      "id": "3a946738",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/seafood.png\" alt=\"Seafood\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Seafood'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Seafood</div><div style=\"font-size:12px;color:#6B6B6B;\">15+ products</div></a>"
@@ -672,7 +672,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "1fad7083",
+                  "id": "8d5526a7",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -680,7 +680,7 @@
                   },
                   "elements": [
                     {
-                      "id": "672214f9",
+                      "id": "c2a456f2",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Buffalo.png\" alt=\"Buffalo\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Buffalo'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Buffalo</div><div style=\"font-size:12px;color:#6B6B6B;\">8+ products</div></a>"
@@ -695,7 +695,7 @@
               "isInner": true
             },
             {
-              "id": "6a533fb8",
+              "id": "01feb986",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -703,7 +703,7 @@
               },
               "elements": [
                 {
-                  "id": "184219c4",
+                  "id": "e5a12333",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -711,7 +711,7 @@
                   },
                   "elements": [
                     {
-                      "id": "b63ae1d3",
+                      "id": "9f233386",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Rabbit.png\" alt=\"Rabbit\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Rabbit'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Rabbit</div><div style=\"font-size:12px;color:#6B6B6B;\">4+ products</div></a>"
@@ -723,7 +723,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "b5d83e71",
+                  "id": "c6bdd805",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -731,7 +731,7 @@
                   },
                   "elements": [
                     {
-                      "id": "e740d144",
+                      "id": "a1430203",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Quails.png\" alt=\"Quails\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Quails'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Quails</div><div style=\"font-size:12px;color:#6B6B6B;\">5+ products</div></a>"
@@ -743,7 +743,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "baf410bb",
+                  "id": "b5eda08e",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -751,7 +751,7 @@
                   },
                   "elements": [
                     {
-                      "id": "48394248",
+                      "id": "5ff1decb",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Turkey.png\" alt=\"Turkey\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Turkey'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Turkey</div><div style=\"font-size:12px;color:#6B6B6B;\">6+ products</div></a>"
@@ -763,7 +763,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "8bd5482e",
+                  "id": "f00f26d3",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -771,7 +771,7 @@
                   },
                   "elements": [
                     {
-                      "id": "c2589d01",
+                      "id": "3f532deb",
                       "elType": "widget",
                       "settings": {
                         "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Ducky.png\" alt=\"Duck\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Duck'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Duck</div><div style=\"font-size:12px;color:#6B6B6B;\">5+ products</div></a>"
@@ -792,7 +792,7 @@
       "isInner": false
     },
     {
-      "id": "d0194a99",
+      "id": "711cd575",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -809,7 +809,7 @@
       },
       "elements": [
         {
-          "id": "078d1a56",
+          "id": "59746b80",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -817,7 +817,7 @@
           },
           "elements": [
             {
-              "id": "61363b51",
+              "id": "f36ad75a",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -825,7 +825,7 @@
               },
               "elements": [
                 {
-                  "id": "5d5f6b6b",
+                  "id": "6f99c3a1",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -833,7 +833,7 @@
                   },
                   "elements": [
                     {
-                      "id": "cd791819",
+                      "id": "6a36bc08",
                       "elType": "widget",
                       "settings": {
                         "title": "BESTSELLERS",
@@ -871,7 +871,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "98c54896",
+                      "id": "e7155da2",
                       "elType": "widget",
                       "settings": {
                         "title": "Popular Products",
@@ -909,7 +909,7 @@
               "isInner": true
             },
             {
-              "id": "ccf49778",
+              "id": "b90c2d31",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -917,7 +917,7 @@
               },
               "elements": [
                 {
-                  "id": "e2296d85",
+                  "id": "1a46f717",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -925,7 +925,7 @@
                   },
                   "elements": [
                     {
-                      "id": "f77f91e2",
+                      "id": "f6a0c333",
                       "elType": "widget",
                       "settings": {
                         "_title": "Featured Products",
@@ -938,9 +938,7 @@
                         "order": "desc",
                         "query_post_type": "product",
                         "query_query_id": "mf_featured",
-                        "query_include": [
-                          "featured"
-                        ],
+                        "query_include": [],
                         "query_exclude": [],
                         "query_avoid_duplicates": "",
                         "show_rating": "yes",
@@ -967,7 +965,7 @@
               "isInner": true
             },
             {
-              "id": "5b7552d3",
+              "id": "275a1f06",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -975,7 +973,7 @@
               },
               "elements": [
                 {
-                  "id": "d56bebf7",
+                  "id": "f329aacf",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -983,7 +981,7 @@
                   },
                   "elements": [
                     {
-                      "id": "01d51fdb",
+                      "id": "9eabb5e0",
                       "elType": "widget",
                       "settings": {
                         "text": "Browse All Products",
@@ -1056,7 +1054,7 @@
       "isInner": false
     },
     {
-      "id": "9041be86",
+      "id": "e8d6fded",
       "elType": "section",
       "settings": {
         "gap": "wide",
@@ -1073,7 +1071,7 @@
       },
       "elements": [
         {
-          "id": "5cb598db",
+          "id": "9c0f4433",
           "elType": "column",
           "settings": {
             "_column_size": 50,
@@ -1081,7 +1079,7 @@
           },
           "elements": [
             {
-              "id": "23b54d28",
+              "id": "eff30ae2",
               "elType": "widget",
               "settings": {
                 "title": "WHY MERIDIEN FOODS",
@@ -1119,7 +1117,7 @@
               "widgetType": "heading"
             },
             {
-              "id": "cc9d5112",
+              "id": "d259342b",
               "elType": "widget",
               "settings": {
                 "title": "Quality you can taste, hygiene you can trust",
@@ -1151,7 +1149,7 @@
               "widgetType": "heading"
             },
             {
-              "id": "55c11758",
+              "id": "013ef41b",
               "elType": "widget",
               "settings": {
                 "editor": "<p>Since 2014, Meridien Foods has been the preferred supplier for hotels, restaurants, caterers, and retail stores across South India. Every cut is processed in our FSSAI-certified facility and cold-chain handled from source to your kitchen.</p>",
@@ -1181,7 +1179,7 @@
               "widgetType": "text-editor"
             },
             {
-              "id": "6dc04adb",
+              "id": "9fbc56c1",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1189,7 +1187,7 @@
               },
               "elements": [
                 {
-                  "id": "c953779c",
+                  "id": "5fd6b96d",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -1197,7 +1195,7 @@
                   },
                   "elements": [
                     {
-                      "id": "6c0e0315",
+                      "id": "1ebb4b86",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#127777;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">Cold chain delivery</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">Maintained below 4°C from our unit to your door</div></div>"
@@ -1209,7 +1207,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "225c6c2e",
+                  "id": "43417c00",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -1217,7 +1215,7 @@
                   },
                   "elements": [
                     {
-                      "id": "5995ed57",
+                      "id": "ffead81a",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#9989;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">FSSAI certified</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">Processed in a licensed, hygienic facility</div></div>"
@@ -1232,7 +1230,7 @@
               "isInner": true
             },
             {
-              "id": "b9b018be",
+              "id": "4dfba291",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1240,7 +1238,7 @@
               },
               "elements": [
                 {
-                  "id": "2e2b340c",
+                  "id": "a7e56439",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -1248,7 +1246,7 @@
                   },
                   "elements": [
                     {
-                      "id": "f5f73eef",
+                      "id": "e6f1b52b",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#128278;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">Halal assured</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">100% halal certified across all meat categories</div></div>"
@@ -1260,7 +1258,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "3d377fd0",
+                  "id": "e2a94767",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -1268,7 +1266,7 @@
                   },
                   "elements": [
                     {
-                      "id": "1872ae82",
+                      "id": "f74f8af5",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#128230;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">Vacuum sealed</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">Extended freshness, zero contamination packaging</div></div>"
@@ -1286,7 +1284,7 @@
           "isInner": false
         },
         {
-          "id": "03ecceb8",
+          "id": "2077c1a8",
           "elType": "column",
           "settings": {
             "_column_size": 50,
@@ -1295,7 +1293,7 @@
           },
           "elements": [
             {
-              "id": "8fc1d9b1",
+              "id": "d66ee6db",
               "elType": "widget",
               "settings": {
                 "html": "<div style=\"border-radius:16px;overflow:hidden;height:480px;position:relative;\"><img src=\"https://placehold.co/600x480/2A2A2A/C0271A?text=Meat+Processing+Photo\" alt=\"Meridien Foods processing facility\" style=\"width:100%;height:100%;object-fit:cover;\"><div style=\"position:absolute;bottom:20px;left:20px;background:#C0271A;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:Inter,sans-serif;\">&#127981; Coimbatore &amp; Kochi Units</div></div>"
@@ -1310,7 +1308,7 @@
       "isInner": false
     },
     {
-      "id": "faf8a247",
+      "id": "3985fb67",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -1327,7 +1325,7 @@
       },
       "elements": [
         {
-          "id": "53e3de95",
+          "id": "350b5ae9",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -1335,7 +1333,7 @@
           },
           "elements": [
             {
-              "id": "8d190ac3",
+              "id": "75a4a8b4",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1343,7 +1341,7 @@
               },
               "elements": [
                 {
-                  "id": "95a00250",
+                  "id": "e1358bca",
                   "elType": "column",
                   "settings": {
                     "_column_size": 65,
@@ -1351,7 +1349,7 @@
                   },
                   "elements": [
                     {
-                      "id": "07b7a0e2",
+                      "id": "6b0e0da6",
                       "elType": "widget",
                       "settings": {
                         "title": "WHO WE SUPPLY TO",
@@ -1389,7 +1387,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "6dbd9afb",
+                      "id": "e3198e55",
                       "elType": "widget",
                       "settings": {
                         "title": "Built for businesses that demand the best",
@@ -1421,7 +1419,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "0dab3bd3",
+                      "id": "d1d8b013",
                       "elType": "widget",
                       "settings": {
                         "editor": "<p>From cloud kitchens to five-star banquet halls &mdash; Meridien Foods powers South India's food businesses with consistent, bulk-ready, cold-chain delivered meat.</p>",
@@ -1446,7 +1444,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "224c9953",
+                  "id": "47178de1",
                   "elType": "column",
                   "settings": {
                     "_column_size": 35,
@@ -1455,7 +1453,7 @@
                   },
                   "elements": [
                     {
-                      "id": "23254945",
+                      "id": "857e765b",
                       "elType": "widget",
                       "settings": {
                         "text": "Get a bulk quote",
@@ -1504,7 +1502,7 @@
               "isInner": true
             },
             {
-              "id": "a7eefa55",
+              "id": "6168de49",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1512,7 +1510,7 @@
               },
               "elements": [
                 {
-                  "id": "ae5ceac5",
+                  "id": "e0790b2f",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -1520,7 +1518,7 @@
                   },
                   "elements": [
                     {
-                      "id": "14222ed9",
+                      "id": "a78d5c3f",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127976;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Hotels</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">Premium cuts for banquets, buffets, and à la carte menus. Consistent quality across every batch.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Bulk packs</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Weekly supply</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Custom cuts</span></div></div>"
@@ -1532,7 +1530,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "1d0fa5b6",
+                  "id": "022e1a0a",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -1540,7 +1538,7 @@
                   },
                   "elements": [
                     {
-                      "id": "5c25c7c6",
+                      "id": "f08bd494",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127869;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Restaurants</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">From QSRs and cloud kitchens to fine dining &mdash; ready-to-cook portions, marinated items, and cold cuts.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Ready to cook</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Consistent sizing</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Daily delivery</span></div></div>"
@@ -1552,7 +1550,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "c0c09c9f",
+                  "id": "d62894c6",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -1560,7 +1558,7 @@
                   },
                   "elements": [
                     {
-                      "id": "1296ca4e",
+                      "id": "cb49abe5",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127882;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Caterers</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">Handle large events without the sourcing stress. Bulk quantities on schedule for weddings and festivals.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Event volumes</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Pre-order facility</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Halal cert</span></div></div>"
@@ -1572,7 +1570,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "7bd2f5cc",
+                  "id": "a369f8a4",
                   "elType": "column",
                   "settings": {
                     "_column_size": 25,
@@ -1580,7 +1578,7 @@
                   },
                   "elements": [
                     {
-                      "id": "b41294f1",
+                      "id": "50da481a",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127978;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Retail Stores</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">Shelf-ready, vacuum-sealed cold cuts and processed meats under your brand or ours.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Private label</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Shelf-ready packs</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">FSSAI labeled</span></div></div>"
@@ -1595,7 +1593,7 @@
               "isInner": true
             },
             {
-              "id": "43639c87",
+              "id": "0d7b6953",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1603,7 +1601,7 @@
               },
               "elements": [
                 {
-                  "id": "e1a2c2dd",
+                  "id": "7bc1b78d",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -1611,7 +1609,7 @@
                   },
                   "elements": [
                     {
-                      "id": "d03c525f",
+                      "id": "96ae405d",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:40px;font-family:Inter,sans-serif;\"><div style=\"background:rgba(255,255,255,0.03);padding:28px 24px;text-align:center;\"><div style=\"font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#C0271A;margin-bottom:5px;\">200+</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);\">Business clients served</div></div><div style=\"background:rgba(255,255,255,0.03);padding:28px 24px;text-align:center;\"><div style=\"font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#C0271A;margin-bottom:5px;\">3</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);\">Cities with active B2B delivery</div></div><div style=\"background:rgba(255,255,255,0.03);padding:28px 24px;text-align:center;\"><div style=\"font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#C0271A;margin-bottom:5px;\">10+</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);\">Years supplying the food industry</div></div></div>"
@@ -1626,7 +1624,7 @@
               "isInner": true
             },
             {
-              "id": "c6738f49",
+              "id": "ce967beb",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1642,7 +1640,7 @@
               },
               "elements": [
                 {
-                  "id": "a4ecfc95",
+                  "id": "2d4b754f",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -1650,7 +1648,7 @@
                   },
                   "elements": [
                     {
-                      "id": "7fbc23a0",
+                      "id": "3ff25355",
                       "elType": "widget",
                       "settings": {
                         "text": "WhatsApp for bulk enquiry",
@@ -1696,7 +1694,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "615cf901",
+                  "id": "e4e21d4a",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -1704,7 +1702,7 @@
                   },
                   "elements": [
                     {
-                      "id": "b94b585d",
+                      "id": "3b9d422e",
                       "elType": "widget",
                       "settings": {
                         "text": "📞 Call us directly",
@@ -1769,7 +1767,7 @@
       "isInner": false
     },
     {
-      "id": "57d6979c",
+      "id": "decf25c5",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -1786,7 +1784,7 @@
       },
       "elements": [
         {
-          "id": "e31df0c2",
+          "id": "66a2f0c8",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -1794,7 +1792,7 @@
           },
           "elements": [
             {
-              "id": "49fd6f0d",
+              "id": "361036e4",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1802,7 +1800,7 @@
               },
               "elements": [
                 {
-                  "id": "90a4838b",
+                  "id": "98ea14c5",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -1810,7 +1808,7 @@
                   },
                   "elements": [
                     {
-                      "id": "1ed5fb4e",
+                      "id": "41fc24cc",
                       "elType": "widget",
                       "settings": {
                         "title": "WE DELIVER TO",
@@ -1848,7 +1846,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "ffb2439f",
+                      "id": "339e71a9",
                       "elType": "widget",
                       "settings": {
                         "title": "Our delivery cities",
@@ -1880,7 +1878,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "84c3fc5d",
+                      "id": "3b320884",
                       "elType": "widget",
                       "settings": {
                         "editor": "<p>Premium meat delivered the same day or next day across South India's major cities.</p>",
@@ -1916,7 +1914,7 @@
               "isInner": true
             },
             {
-              "id": "7911fc49",
+              "id": "3f2ccb53",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -1924,7 +1922,7 @@
               },
               "elements": [
                 {
-                  "id": "7b69211a",
+                  "id": "7c7f436c",
                   "elType": "column",
                   "settings": {
                     "_column_size": 33,
@@ -1932,7 +1930,7 @@
                   },
                   "elements": [
                     {
-                      "id": "ac23570a",
+                      "id": "8f4dd245",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;overflow:hidden;text-align:center;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://placehold.co/400x160/1C1C1C/C0271A?text=Chennai\" alt=\"Chennai\" style=\"width:100%;height:160px;object-fit:cover;display:block;\"><div style=\"padding:20px;\"><div style=\"font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1C1C1C;margin-bottom:5px;\">Chennai</div><div style=\"font-size:12px;color:#C0271A;font-weight:600;\">Same-day delivery available</div></div></div>"
@@ -1944,7 +1942,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "3ec1695b",
+                  "id": "7d80748c",
                   "elType": "column",
                   "settings": {
                     "_column_size": 33,
@@ -1952,7 +1950,7 @@
                   },
                   "elements": [
                     {
-                      "id": "423288b9",
+                      "id": "95df0f3e",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;overflow:hidden;text-align:center;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://placehold.co/400x160/1C1C1C/C0271A?text=Coimbatore\" alt=\"Coimbatore\" style=\"width:100%;height:160px;object-fit:cover;display:block;\"><div style=\"padding:20px;\"><div style=\"font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1C1C1C;margin-bottom:5px;\">Coimbatore</div><div style=\"font-size:12px;color:#C0271A;font-weight:600;\">Head office &amp; processing unit</div></div></div>"
@@ -1964,7 +1962,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "3a300bdf",
+                  "id": "15cb6341",
                   "elType": "column",
                   "settings": {
                     "_column_size": 33,
@@ -1972,7 +1970,7 @@
                   },
                   "elements": [
                     {
-                      "id": "bd6bb67e",
+                      "id": "a0173088",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;overflow:hidden;text-align:center;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://placehold.co/400x160/1C1C1C/C0271A?text=Kochi\" alt=\"Kochi\" style=\"width:100%;height:160px;object-fit:cover;display:block;\"><div style=\"padding:20px;\"><div style=\"font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1C1C1C;margin-bottom:5px;\">Kochi</div><div style=\"font-size:12px;color:#C0271A;font-weight:600;\">Kerala distribution hub</div></div></div>"
@@ -1993,7 +1991,7 @@
       "isInner": false
     },
     {
-      "id": "b93179a4",
+      "id": "8111f70a",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -2010,7 +2008,7 @@
       },
       "elements": [
         {
-          "id": "d604292f",
+          "id": "bf35fb7f",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -2018,7 +2016,7 @@
           },
           "elements": [
             {
-              "id": "161aedf1",
+              "id": "5231b680",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -2026,7 +2024,7 @@
               },
               "elements": [
                 {
-                  "id": "9fbaa730",
+                  "id": "78a0003a",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -2034,7 +2032,7 @@
                   },
                   "elements": [
                     {
-                      "id": "13abb719",
+                      "id": "78800787",
                       "elType": "widget",
                       "settings": {
                         "title": "CUSTOMER REVIEWS",
@@ -2072,7 +2070,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "e6b3b4cd",
+                      "id": "e532c328",
                       "elType": "widget",
                       "settings": {
                         "title": "What our customers say",
@@ -2110,7 +2108,7 @@
               "isInner": true
             },
             {
-              "id": "e8e5df32",
+              "id": "848179c3",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -2118,7 +2116,7 @@
               },
               "elements": [
                 {
-                  "id": "1d72ac04",
+                  "id": "0033f5b2",
                   "elType": "column",
                   "settings": {
                     "_column_size": 33,
@@ -2126,7 +2124,7 @@
                   },
                   "elements": [
                     {
-                      "id": "0ea41318",
+                      "id": "00468461",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px;height:100%;font-family:Inter,sans-serif;\"><div style=\"color:#E8A020;font-size:15px;margin-bottom:12px;letter-spacing:2px;\">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style=\"font-size:14px;color:#1C1C1C;line-height:1.7;margin:0 0 18px;font-style:italic;\">\"The chicken lollipops came perfectly packed and tasted amazing. Couldn't tell the difference from fresh &mdash; that's how good the cold chain is.\"</p><div style=\"display:flex;align-items:center;gap:10px;\"><div style=\"width:38px;height:38px;border-radius:50%;background:#F5E8E6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#C0271A;\">AR</div><div><div style=\"font-size:13px;font-weight:600;color:#1C1C1C;\">Arjun Rajan</div><div style=\"font-size:12px;color:#6B6B6B;\">Chennai</div></div></div></div>"
@@ -2138,7 +2136,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "43f1e390",
+                  "id": "83e2a5b4",
                   "elType": "column",
                   "settings": {
                     "_column_size": 33,
@@ -2146,7 +2144,7 @@
                   },
                   "elements": [
                     {
-                      "id": "7dc0c045",
+                      "id": "ff404305",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px;height:100%;font-family:Inter,sans-serif;\"><div style=\"color:#E8A020;font-size:15px;margin-bottom:12px;letter-spacing:2px;\">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style=\"font-size:14px;color:#1C1C1C;line-height:1.7;margin:0 0 18px;font-style:italic;\">\"We've been ordering from Meridien for our restaurant. Quality is consistent, prices are fair, and delivery is always on time. Highly recommend!\"</p><div style=\"display:flex;align-items:center;gap:10px;\"><div style=\"width:38px;height:38px;border-radius:50%;background:#F5E8E6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#C0271A;\">PK</div><div><div style=\"font-size:13px;font-weight:600;color:#1C1C1C;\">Priya Krishnan</div><div style=\"font-size:12px;color:#6B6B6B;\">Coimbatore</div></div></div></div>"
@@ -2158,7 +2156,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "5939759e",
+                  "id": "c38f30cc",
                   "elType": "column",
                   "settings": {
                     "_column_size": 33,
@@ -2166,7 +2164,7 @@
                   },
                   "elements": [
                     {
-                      "id": "96064c97",
+                      "id": "1eb31004",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px;height:100%;font-family:Inter,sans-serif;\"><div style=\"color:#E8A020;font-size:15px;margin-bottom:12px;letter-spacing:2px;\">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style=\"font-size:14px;color:#1C1C1C;line-height:1.7;margin:0 0 18px;font-style:italic;\">\"The Sheekh Kababs were a hit at our party. Fresh, well-seasoned, and vacuum sealed &mdash; arrived in perfect condition to Kochi.\"</p><div style=\"display:flex;align-items:center;gap:10px;\"><div style=\"width:38px;height:38px;border-radius:50%;background:#F5E8E6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#C0271A;\">SM</div><div><div style=\"font-size:13px;font-weight:600;color:#1C1C1C;\">Sameer Mohammed</div><div style=\"font-size:12px;color:#6B6B6B;\">Kochi</div></div></div></div>"
@@ -2187,7 +2185,7 @@
       "isInner": false
     },
     {
-      "id": "4f9fb538",
+      "id": "e26ded63",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -2204,7 +2202,7 @@
       },
       "elements": [
         {
-          "id": "b207c729",
+          "id": "d58c36f1",
           "elType": "column",
           "settings": {
             "_column_size": 60,
@@ -2212,7 +2210,7 @@
           },
           "elements": [
             {
-              "id": "24e2d461",
+              "id": "bdc12d36",
               "elType": "widget",
               "settings": {
                 "title": "Ready to order?",
@@ -2244,7 +2242,7 @@
               "widgetType": "heading"
             },
             {
-              "id": "7fa35248",
+              "id": "b34cc5ff",
               "elType": "widget",
               "settings": {
                 "editor": "<p>Shop online or WhatsApp us &mdash; we'll handle the rest.</p>",
@@ -2269,7 +2267,7 @@
           "isInner": false
         },
         {
-          "id": "71e566a4",
+          "id": "504ed6e6",
           "elType": "column",
           "settings": {
             "_column_size": 40,
@@ -2278,7 +2276,7 @@
           },
           "elements": [
             {
-              "id": "db4ec2e2",
+              "id": "477f292f",
               "elType": "section",
               "settings": {
                 "gap": "narrow",
@@ -2286,7 +2284,7 @@
               },
               "elements": [
                 {
-                  "id": "0277865d",
+                  "id": "0dd06d01",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -2294,7 +2292,7 @@
                   },
                   "elements": [
                     {
-                      "id": "680cec9c",
+                      "id": "f2407774",
                       "elType": "widget",
                       "settings": {
                         "text": "Shop Online",
@@ -2339,7 +2337,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "3565109f",
+                  "id": "8b640b83",
                   "elType": "column",
                   "settings": {
                     "_column_size": 50,
@@ -2347,7 +2345,7 @@
                   },
                   "elements": [
                     {
-                      "id": "9dc66af8",
+                      "id": "00ccb7a3",
                       "elType": "widget",
                       "settings": {
                         "text": "WhatsApp Order",
@@ -2401,7 +2399,7 @@
       "isInner": false
     },
     {
-      "id": "98ba857e",
+      "id": "f2cfcd36",
       "elType": "section",
       "settings": {
         "gap": "default",
@@ -2418,7 +2416,7 @@
       },
       "elements": [
         {
-          "id": "26bd8744",
+          "id": "5f3c9ff9",
           "elType": "column",
           "settings": {
             "_column_size": 100,
@@ -2426,7 +2424,7 @@
           },
           "elements": [
             {
-              "id": "bcfedba9",
+              "id": "26f6442f",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -2434,7 +2432,7 @@
               },
               "elements": [
                 {
-                  "id": "0862c734",
+                  "id": "5752f3c8",
                   "elType": "column",
                   "settings": {
                     "_column_size": 40,
@@ -2442,7 +2440,7 @@
                   },
                   "elements": [
                     {
-                      "id": "7adbf7c2",
+                      "id": "b628926e",
                       "elType": "widget",
                       "settings": {
                         "title": "Meridien Foods",
@@ -2474,7 +2472,7 @@
                       "widgetType": "heading"
                     },
                     {
-                      "id": "10293ec7",
+                      "id": "6e042a92",
                       "elType": "widget",
                       "settings": {
                         "editor": "<p>Premium processed meats delivered fresh across South India. FSSAI certified, halal assured, cold chain maintained from our facility to your door since 2014.</p>",
@@ -2504,7 +2502,7 @@
                       "widgetType": "text-editor"
                     },
                     {
-                      "id": "d0d13152",
+                      "id": "c96ffb1f",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"font-family:Inter,sans-serif;\"><a href=\"tel:+918714136486\" style=\"color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;display:block;margin-bottom:6px;\">&#128222; +91 87141 36486</a><a href=\"mailto:info@meridienfoods.com\" style=\"color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;display:block;\">&#9993; info@meridienfoods.com</a></div>"
@@ -2516,7 +2514,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "e92f42c0",
+                  "id": "08241c96",
                   "elType": "column",
                   "settings": {
                     "_column_size": 20,
@@ -2524,7 +2522,7 @@
                   },
                   "elements": [
                     {
-                      "id": "065726b0",
+                      "id": "bcf12936",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"font-family:Inter,sans-serif;\"><div style=\"font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:18px;\">Categories</div><ul style=\"list-style:none;padding:0;margin:0;\"><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Chicken</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Mutton</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Seafood</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Buffalo</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Quails &amp; Turkey</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Duck &amp; Rabbit</a></li></ul></div>"
@@ -2536,7 +2534,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "1d784119",
+                  "id": "66bc7412",
                   "elType": "column",
                   "settings": {
                     "_column_size": 20,
@@ -2544,7 +2542,7 @@
                   },
                   "elements": [
                     {
-                      "id": "5f9176d4",
+                      "id": "88098181",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"font-family:Inter,sans-serif;\"><div style=\"font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:18px;\">Company</div><ul style=\"list-style:none;padding:0;margin:0;\"><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">About Us</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">FAQs</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Contact</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Privacy Policy</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Refund Policy</a></li></ul></div>"
@@ -2556,7 +2554,7 @@
                   "isInner": false
                 },
                 {
-                  "id": "ba0581ad",
+                  "id": "0669a414",
                   "elType": "column",
                   "settings": {
                     "_column_size": 20,
@@ -2564,7 +2562,7 @@
                   },
                   "elements": [
                     {
-                      "id": "15d4b6f4",
+                      "id": "612328e4",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"font-family:Inter,sans-serif;\"><div style=\"font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:18px;\">Our offices</div><p style=\"font-size:12px;line-height:1.8;margin:0 0 14px;color:rgba(255,255,255,0.6);\">13/2, Ramalakshmanan Nager,<br>Anna Nager, Peelamedu,<br><strong style=\"color:rgba(255,255,255,0.8)\">Coimbatore</strong> &ndash; 641004</p><p style=\"font-size:12px;line-height:1.8;margin:0;color:rgba(255,255,255,0.6);\">Bluemoon Silver, Jawahar Nagar,<br>Kadavanthara, Ernakulam,<br><strong style=\"color:rgba(255,255,255,0.8)\">Kochi</strong> &ndash; 682020</p></div>"
@@ -2579,7 +2577,7 @@
               "isInner": true
             },
             {
-              "id": "6f46abe2",
+              "id": "0d8d1a79",
               "elType": "section",
               "settings": {
                 "gap": "default",
@@ -2595,7 +2593,7 @@
               },
               "elements": [
                 {
-                  "id": "6d60a996",
+                  "id": "f08ea775",
                   "elType": "column",
                   "settings": {
                     "_column_size": 100,
@@ -2603,7 +2601,7 @@
                   },
                   "elements": [
                     {
-                      "id": "f72c5721",
+                      "id": "c17a8125",
                       "elType": "widget",
                       "settings": {
                         "html": "<div style=\"border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-size:12px;gap:16px;flex-wrap:wrap;font-family:Inter,sans-serif;color:rgba(255,255,255,0.5);\"><span>&copy; 2026 Meridien Foods. All rights reserved.</span><span style=\"color:rgba(255,255,255,0.35);\">Developed by <a href=\"https://www.incomeinn.in\" target=\"_blank\" rel=\"noopener\" style=\"color:rgba(255,255,255,0.45);\">Income Inn Technologies</a></span></div>"
