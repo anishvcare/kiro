@@ -1,0 +1,2630 @@
+{
+  "version": "0.4",
+  "title": "Meridien Foods - Homepage (Native)",
+  "type": "page",
+  "content": [
+    {
+      "id": "5d67af2e",
+      "elType": "section",
+      "settings": {
+        "gap": "no",
+        "background_background": "classic",
+        "background_color": "#1C1C1C",
+        "padding": {
+          "unit": "px",
+          "top": "12",
+          "right": "48",
+          "bottom": "12",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "33deab41",
+          "elType": "column",
+          "settings": {
+            "_column_size": 25,
+            "_inline_size": 25,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "87fd7de8",
+              "elType": "widget",
+              "settings": {
+                "title": "Meridien Foods",
+                "header_size": "div",
+                "title_color": "#FFFFFF",
+                "typography_typography": "custom",
+                "typography_font_family": "Playfair Display",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 22,
+                  "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.2,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "818e145e",
+          "elType": "column",
+          "settings": {
+            "_column_size": 45,
+            "_inline_size": 45,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "24b4a38c",
+              "elType": "widget",
+              "settings": {
+                "html": "<div style=\"display:flex;gap:32px;flex-wrap:wrap;align-items:center;font-family:Inter,sans-serif;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Home</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Shop</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Categories</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">About Us</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">FAQs</a><a href=\"#\" style=\"color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;font-weight:500;\">Contact</a></div>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "5a9ce0c9",
+          "elType": "column",
+          "settings": {
+            "_column_size": 30,
+            "_inline_size": 30,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "7d7d67d7",
+              "elType": "widget",
+              "settings": {
+                "html": "<div style=\"display:flex;gap:16px;align-items:center;justify-content:flex-end;flex-wrap:wrap;font-family:Inter,sans-serif;\"><a href=\"tel:+918714136486\" style=\"color:rgba(255,255,255,0.7);font-size:13px;text-decoration:none;\">&#128222; +91 87141 36486</a><a href=\"https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20order%20from%20Meridien%20Foods\" style=\"background:#C0271A;color:#fff;font-size:13px;font-weight:600;padding:9px 20px;border-radius:6px;text-decoration:none;\">Order Now</a></div>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "57217c85",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#1C1C1C",
+        "background_image": {
+          "url": "https://placehold.co/1600x900/1C1C1C/C0271A?text=Hero+Image",
+          "id": ""
+        },
+        "background_position": "center center",
+        "background_size": "cover",
+        "background_overlay_background": "classic",
+        "background_overlay_color": "rgba(28,28,28,0.85)",
+        "min_height": {
+          "unit": "px",
+          "size": 580,
+          "sizes": []
+        },
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "329d26b1",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "c9ed8f70",
+              "elType": "widget",
+              "settings": {
+                "title": "Fresh · Hygienic · Premium",
+                "header_size": "div",
+                "title_color": "#C0271A",
+                "typography_typography": "custom",
+                "typography_font_family": "Inter",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 12,
+                  "sizes": []
+                },
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.4,
+                  "sizes": []
+                },
+                "typography_letter_spacing": {
+                  "unit": "px",
+                  "size": 2,
+                  "sizes": []
+                },
+                "typography_text_transform": "uppercase",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "18",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "9736d0e7",
+              "elType": "widget",
+              "settings": {
+                "title": "Premium Meat, Delivered <em style='color:#C0271A;font-style:normal'>Fresh</em> to Your Door",
+                "header_size": "h1",
+                "title_color": "#FFFFFF",
+                "typography_typography": "custom",
+                "typography_font_family": "Playfair Display",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 60,
+                  "sizes": []
+                },
+                "typography_font_weight": "900",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.05,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "20",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "60e0ec3e",
+              "elType": "widget",
+              "settings": {
+                "editor": "<p>Trusted by hotels, restaurants, caterers &amp; retail stores across South India. Premium processed meats &mdash; FSSAI certified, halal assured, cold-chain delivered to your door.</p>",
+                "text_color": "rgba(255,255,255,0.65)",
+                "typography_typography": "custom",
+                "typography_font_family": "Inter",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.7,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "30",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            },
+            {
+              "id": "62d7f8b1",
+              "elType": "section",
+              "settings": {
+                "gap": "narrow",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "27077b5d",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "a52560ed",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "Shop Now",
+                        "link": {
+                          "url": "#",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "#C0271A",
+                        "button_text_color": "#FFFFFF",
+                        "hover_color": "#FFFFFF",
+                        "button_background_hover_color": "#8B1A10",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "de213a2a",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "1b552574",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "WhatsApp Order",
+                        "link": {
+                          "url": "https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20place%20an%20order",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "rgba(0,0,0,0)",
+                        "button_text_color": "rgba(255,255,255,0.85)",
+                        "hover_color": "rgba(255,255,255,0.85)",
+                        "button_background_hover_color": "rgba(255,255,255,0.1)",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "border_border": "solid",
+                        "border_width": {
+                          "unit": "px",
+                          "top": "1.5",
+                          "right": "1.5",
+                          "bottom": "1.5",
+                          "left": "1.5",
+                          "isLinked": false
+                        },
+                        "border_color": "rgba(255,255,255,0.3)"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "68668788",
+              "elType": "widget",
+              "settings": {
+                "html": "<div style=\"display:flex;gap:28px;margin-top:36px;flex-wrap:wrap;font-family:Inter,sans-serif;\"><div style=\"display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:13px;\"><span style=\"width:32px;height:32px;border-radius:50%;background:rgba(192,39,26,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:15px;\">&#129482;</span>Cold Chain Delivery</div><div style=\"display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:13px;\"><span style=\"width:32px;height:32px;border-radius:50%;background:rgba(192,39,26,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:15px;\">&#9989;</span>FSSAI Certified</div><div style=\"display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:13px;\"><span style=\"width:32px;height:32px;border-radius:50%;background:rgba(192,39,26,0.2);display:inline-flex;align-items:center;justify-content:center;font-size:15px;\">&#9889;</span>Same-Day Dispatch</div></div>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "0764675c",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#C0271A",
+        "padding": {
+          "unit": "px",
+          "top": "14",
+          "right": "48",
+          "bottom": "14",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "0e7df3f2",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "86863ce7",
+              "elType": "widget",
+              "settings": {
+                "html": "<div style=\"display:flex;gap:24px 40px;align-items:center;justify-content:center;flex-wrap:wrap;font-family:Inter,sans-serif;\"><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#128666; Free delivery above &#8377;500</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#128230; Vacuum-sealed packaging</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#129482; Cold chain maintained</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#9989; 100% halal certified</span><span style=\"color:rgba(255,255,255,0.3);\">|</span><span style=\"color:rgba(255,255,255,0.92);font-size:13px;font-weight:500;\">&#127961; Chennai · Coimbatore · Kochi</span></div>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "2b2faf3d",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#FBF7F2",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "128c6174",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "e5c655e2",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "3b0cae74",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 70,
+                    "_inline_size": 70
+                  },
+                  "elements": [
+                    {
+                      "id": "7eb260c1",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "SHOP BY TYPE",
+                        "header_size": "div",
+                        "title_color": "#C0271A",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 11,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.4,
+                          "sizes": []
+                        },
+                        "typography_letter_spacing": {
+                          "unit": "px",
+                          "size": 2.5,
+                          "sizes": []
+                        },
+                        "typography_text_transform": "uppercase",
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "10",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "5aff40f3",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "What are you cooking today?",
+                        "header_size": "h2",
+                        "title_color": "#1C1C1C",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Playfair Display",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 42,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.15,
+                          "sizes": []
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "d8bfc02f",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 30,
+                    "_inline_size": 30,
+                    "content_position": "bottom"
+                  },
+                  "elements": [
+                    {
+                      "id": "7222e18d",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "View all categories",
+                        "link": {
+                          "url": "#",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "rgba(0,0,0,0)",
+                        "button_text_color": "#C0271A",
+                        "hover_color": "#C0271A",
+                        "button_background_hover_color": "#C0271A",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "align": "right",
+                        "border_border": "solid",
+                        "border_width": {
+                          "unit": "px",
+                          "top": "1.5",
+                          "right": "1.5",
+                          "bottom": "1.5",
+                          "left": "1.5",
+                          "isLinked": false
+                        },
+                        "border_color": "#C0271A"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "53cd82b3",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "19c8b86c",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "5f69e103",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/chicken.png\" alt=\"Chicken\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Chicken'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Chicken</div><div style=\"font-size:12px;color:#6B6B6B;\">20+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "17a1b4f5",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "05204a26",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Mutton.png\" alt=\"Mutton\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Mutton'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Mutton</div><div style=\"font-size:12px;color:#6B6B6B;\">12+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "8880c52d",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "3aced59e",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/seafood.png\" alt=\"Seafood\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Seafood'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Seafood</div><div style=\"font-size:12px;color:#6B6B6B;\">15+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "1fad7083",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "672214f9",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Buffalo.png\" alt=\"Buffalo\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Buffalo'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Buffalo</div><div style=\"font-size:12px;color:#6B6B6B;\">8+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "6a533fb8",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "184219c4",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "b63ae1d3",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Rabbit.png\" alt=\"Rabbit\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Rabbit'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Rabbit</div><div style=\"font-size:12px;color:#6B6B6B;\">4+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "b5d83e71",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "e740d144",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Quails.png\" alt=\"Quails\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Quails'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Quails</div><div style=\"font-size:12px;color:#6B6B6B;\">5+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "baf410bb",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "48394248",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Turkey.png\" alt=\"Turkey\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Turkey'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Turkey</div><div style=\"font-size:12px;color:#6B6B6B;\">6+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "8bd5482e",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "c2589d01",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<a href=\"#\" style=\"display:block;background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px 16px;text-align:center;text-decoration:none;color:#1C1C1C;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Ducky.png\" alt=\"Duck\" style=\"width:80px;height:80px;object-fit:contain;margin:0 auto 14px;display:block;\" onerror=\"this.src='https://placehold.co/80x80/FBF7F2/C0271A?text=Duck'\"><div style=\"font-size:14px;font-weight:600;margin-bottom:4px;\">Duck</div><div style=\"font-size:12px;color:#6B6B6B;\">5+ products</div></a>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "d0194a99",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "078d1a56",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "61363b51",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "5d5f6b6b",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "cd791819",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "BESTSELLERS",
+                        "header_size": "div",
+                        "title_color": "#C0271A",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 11,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.4,
+                          "sizes": []
+                        },
+                        "typography_letter_spacing": {
+                          "unit": "px",
+                          "size": 2.5,
+                          "sizes": []
+                        },
+                        "typography_text_transform": "uppercase",
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "10",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "98c54896",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "Popular Products",
+                        "header_size": "h2",
+                        "title_color": "#1C1C1C",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Playfair Display",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 42,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.15,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "30",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "ccf49778",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "e2296d85",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "f77f91e2",
+                      "elType": "widget",
+                      "settings": {
+                        "_title": "Featured Products",
+                        "columns": "4",
+                        "rows": "2",
+                        "paginate": "",
+                        "allow_order": "",
+                        "show_result_count": "",
+                        "orderby": "popularity",
+                        "order": "desc",
+                        "query_post_type": "product",
+                        "query_query_id": "mf_featured",
+                        "query_include": [
+                          "featured"
+                        ],
+                        "query_exclude": [],
+                        "query_avoid_duplicates": "",
+                        "show_rating": "yes",
+                        "show_add_to_cart": "yes",
+                        "show_sale_flash": "yes",
+                        "column_gap": {
+                          "unit": "px",
+                          "size": 20,
+                          "sizes": []
+                        },
+                        "row_gap": {
+                          "unit": "px",
+                          "size": 20,
+                          "sizes": []
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "woocommerce-products"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "5b7552d3",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "d56bebf7",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "01d51fdb",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "Browse All Products",
+                        "link": {
+                          "url": "#",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "rgba(0,0,0,0)",
+                        "button_text_color": "#C0271A",
+                        "hover_color": "#C0271A",
+                        "button_background_hover_color": "#C0271A",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "align": "center",
+                        "border_border": "solid",
+                        "border_width": {
+                          "unit": "px",
+                          "top": "1.5",
+                          "right": "1.5",
+                          "bottom": "1.5",
+                          "left": "1.5",
+                          "isLinked": false
+                        },
+                        "border_color": "#C0271A",
+                        "_margin": {
+                          "unit": "px",
+                          "top": "36",
+                          "right": "0",
+                          "bottom": "0",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "9041be86",
+      "elType": "section",
+      "settings": {
+        "gap": "wide",
+        "background_background": "classic",
+        "background_color": "#1C1C1C",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "5cb598db",
+          "elType": "column",
+          "settings": {
+            "_column_size": 50,
+            "_inline_size": 50
+          },
+          "elements": [
+            {
+              "id": "23b54d28",
+              "elType": "widget",
+              "settings": {
+                "title": "WHY MERIDIEN FOODS",
+                "header_size": "div",
+                "title_color": "#C0271A",
+                "typography_typography": "custom",
+                "typography_font_family": "Inter",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 11,
+                  "sizes": []
+                },
+                "typography_font_weight": "600",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.4,
+                  "sizes": []
+                },
+                "typography_letter_spacing": {
+                  "unit": "px",
+                  "size": 2.5,
+                  "sizes": []
+                },
+                "typography_text_transform": "uppercase",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "14",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "cc9d5112",
+              "elType": "widget",
+              "settings": {
+                "title": "Quality you can taste, hygiene you can trust",
+                "header_size": "h2",
+                "title_color": "#FFFFFF",
+                "typography_typography": "custom",
+                "typography_font_family": "Playfair Display",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 40,
+                  "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.15,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "20",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "55c11758",
+              "elType": "widget",
+              "settings": {
+                "editor": "<p>Since 2014, Meridien Foods has been the preferred supplier for hotels, restaurants, caterers, and retail stores across South India. Every cut is processed in our FSSAI-certified facility and cold-chain handled from source to your kitchen.</p>",
+                "text_color": "rgba(255,255,255,0.6)",
+                "typography_typography": "custom",
+                "typography_font_family": "Inter",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 15,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.75,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "30",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            },
+            {
+              "id": "6dc04adb",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "c953779c",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "6c0e0315",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#127777;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">Cold chain delivery</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">Maintained below 4°C from our unit to your door</div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "225c6c2e",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "5995ed57",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#9989;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">FSSAI certified</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">Processed in a licensed, hygienic facility</div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "b9b018be",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "2e2b340c",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "f5f73eef",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#128278;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">Halal assured</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">100% halal certified across all meat categories</div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "3d377fd0",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "1872ae82",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:20px;height:100%;\"><div style=\"font-size:26px;margin-bottom:10px;\">&#128230;</div><div style=\"font-size:14px;font-weight:600;color:#FFFFFF;margin-bottom:5px;font-family:Inter,sans-serif;\">Vacuum sealed</div><div style=\"font-size:12px;color:rgba(255,255,255,0.5);line-height:1.6;font-family:Inter,sans-serif;\">Extended freshness, zero contamination packaging</div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "03ecceb8",
+          "elType": "column",
+          "settings": {
+            "_column_size": 50,
+            "_inline_size": 50,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "8fc1d9b1",
+              "elType": "widget",
+              "settings": {
+                "html": "<div style=\"border-radius:16px;overflow:hidden;height:480px;position:relative;\"><img src=\"https://placehold.co/600x480/2A2A2A/C0271A?text=Meat+Processing+Photo\" alt=\"Meridien Foods processing facility\" style=\"width:100%;height:100%;object-fit:cover;\"><div style=\"position:absolute;bottom:20px;left:20px;background:#C0271A;color:#fff;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:Inter,sans-serif;\">&#127981; Coimbatore &amp; Kochi Units</div></div>"
+              },
+              "elements": [],
+              "widgetType": "html"
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "faf8a247",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#1C1C1C",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "53e3de95",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "8d190ac3",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "95a00250",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 65,
+                    "_inline_size": 65
+                  },
+                  "elements": [
+                    {
+                      "id": "07b7a0e2",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "WHO WE SUPPLY TO",
+                        "header_size": "div",
+                        "title_color": "#C0271A",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 11,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.4,
+                          "sizes": []
+                        },
+                        "typography_letter_spacing": {
+                          "unit": "px",
+                          "size": 2.5,
+                          "sizes": []
+                        },
+                        "typography_text_transform": "uppercase",
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "12",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "6dbd9afb",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "Built for businesses that demand the best",
+                        "header_size": "h2",
+                        "title_color": "#FFFFFF",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Playfair Display",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 40,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.15,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "10",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "0dab3bd3",
+                      "elType": "widget",
+                      "settings": {
+                        "editor": "<p>From cloud kitchens to five-star banquet halls &mdash; Meridien Foods powers South India's food businesses with consistent, bulk-ready, cold-chain delivered meat.</p>",
+                        "text_color": "rgba(255,255,255,0.55)",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 15,
+                          "sizes": []
+                        },
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.6,
+                          "sizes": []
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "text-editor"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "224c9953",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 35,
+                    "_inline_size": 35,
+                    "content_position": "bottom"
+                  },
+                  "elements": [
+                    {
+                      "id": "23254945",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "Get a bulk quote",
+                        "link": {
+                          "url": "https://wa.me/918714136486?text=Hi%2C%20I%20am%20a%20business%20owner%20and%20want%20to%20discuss%20bulk%20supply%20from%20Meridien%20Foods",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "#C0271A",
+                        "button_text_color": "#FFFFFF",
+                        "hover_color": "#FFFFFF",
+                        "button_background_hover_color": "#8B1A10",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "align": "right"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "a7eefa55",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "ae5ceac5",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "14222ed9",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127976;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Hotels</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">Premium cuts for banquets, buffets, and à la carte menus. Consistent quality across every batch.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Bulk packs</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Weekly supply</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Custom cuts</span></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "1d0fa5b6",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "5c25c7c6",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127869;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Restaurants</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">From QSRs and cloud kitchens to fine dining &mdash; ready-to-cook portions, marinated items, and cold cuts.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Ready to cook</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Consistent sizing</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Daily delivery</span></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "c0c09c9f",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "1296ca4e",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127882;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Caterers</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">Handle large events without the sourcing stress. Bulk quantities on schedule for weddings and festivals.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Event volumes</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Pre-order facility</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Halal cert</span></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "7bd2f5cc",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 25,
+                    "_inline_size": 25
+                  },
+                  "elements": [
+                    {
+                      "id": "b41294f1",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:32px 24px 28px;height:100%;font-family:Inter,sans-serif;\"><div style=\"width:56px;height:56px;border-radius:12px;background:rgba(192,39,26,0.15);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px;\">&#127978;</div><div style=\"font-size:18px;font-weight:700;color:#fff;margin-bottom:8px;font-family:'Playfair Display',serif;\">Retail Stores</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);line-height:1.65;margin-bottom:20px;\">Shelf-ready, vacuum-sealed cold cuts and processed meats under your brand or ours.</div><div style=\"display:flex;flex-wrap:wrap;gap:6px;\"><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Private label</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">Shelf-ready packs</span><span style=\"font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.12);\">FSSAI labeled</span></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "43639c87",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "e1a2c2dd",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "d03c525f",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;margin-top:40px;font-family:Inter,sans-serif;\"><div style=\"background:rgba(255,255,255,0.03);padding:28px 24px;text-align:center;\"><div style=\"font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#C0271A;margin-bottom:5px;\">200+</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);\">Business clients served</div></div><div style=\"background:rgba(255,255,255,0.03);padding:28px 24px;text-align:center;\"><div style=\"font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#C0271A;margin-bottom:5px;\">3</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);\">Cities with active B2B delivery</div></div><div style=\"background:rgba(255,255,255,0.03);padding:28px 24px;text-align:center;\"><div style=\"font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#C0271A;margin-bottom:5px;\">10+</div><div style=\"font-size:13px;color:rgba(255,255,255,0.5);\">Years supplying the food industry</div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "c6738f49",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full",
+                "_margin": {
+                  "unit": "px",
+                  "top": "40",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "a4ecfc95",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "7fbc23a0",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "WhatsApp for bulk enquiry",
+                        "link": {
+                          "url": "https://wa.me/918714136486?text=Hi%2C%20I%20need%20a%20bulk%20meat%20supply%20quote%20for%20my%20business",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "#25D366",
+                        "button_text_color": "#FFFFFF",
+                        "hover_color": "#FFFFFF",
+                        "button_background_hover_color": "#1da851",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "align": "right"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "615cf901",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "b94b585d",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "📞 Call us directly",
+                        "link": {
+                          "url": "tel:+918714136486",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "rgba(0,0,0,0)",
+                        "button_text_color": "rgba(255,255,255,0.75)",
+                        "hover_color": "rgba(255,255,255,0.75)",
+                        "button_background_hover_color": "rgba(255,255,255,0.1)",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "align": "left",
+                        "border_border": "solid",
+                        "border_width": {
+                          "unit": "px",
+                          "top": "1",
+                          "right": "1",
+                          "bottom": "1",
+                          "left": "1",
+                          "isLinked": false
+                        },
+                        "border_color": "rgba(255,255,255,0.2)"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "57d6979c",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#FBF7F2",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "e31df0c2",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "49fd6f0d",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "90a4838b",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "1ed5fb4e",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "WE DELIVER TO",
+                        "header_size": "div",
+                        "title_color": "#C0271A",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 11,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.4,
+                          "sizes": []
+                        },
+                        "typography_letter_spacing": {
+                          "unit": "px",
+                          "size": 2.5,
+                          "sizes": []
+                        },
+                        "typography_text_transform": "uppercase",
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "10",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "ffb2439f",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "Our delivery cities",
+                        "header_size": "h2",
+                        "title_color": "#1C1C1C",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Playfair Display",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 42,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.15,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "14",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "84c3fc5d",
+                      "elType": "widget",
+                      "settings": {
+                        "editor": "<p>Premium meat delivered the same day or next day across South India's major cities.</p>",
+                        "text_color": "#6B6B6B",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 15,
+                          "sizes": []
+                        },
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.7,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "30",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "text-editor"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "7911fc49",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "7b69211a",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 33,
+                    "_inline_size": 33
+                  },
+                  "elements": [
+                    {
+                      "id": "ac23570a",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;overflow:hidden;text-align:center;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://placehold.co/400x160/1C1C1C/C0271A?text=Chennai\" alt=\"Chennai\" style=\"width:100%;height:160px;object-fit:cover;display:block;\"><div style=\"padding:20px;\"><div style=\"font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1C1C1C;margin-bottom:5px;\">Chennai</div><div style=\"font-size:12px;color:#C0271A;font-weight:600;\">Same-day delivery available</div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "3ec1695b",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 33,
+                    "_inline_size": 33
+                  },
+                  "elements": [
+                    {
+                      "id": "423288b9",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;overflow:hidden;text-align:center;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://placehold.co/400x160/1C1C1C/C0271A?text=Coimbatore\" alt=\"Coimbatore\" style=\"width:100%;height:160px;object-fit:cover;display:block;\"><div style=\"padding:20px;\"><div style=\"font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1C1C1C;margin-bottom:5px;\">Coimbatore</div><div style=\"font-size:12px;color:#C0271A;font-weight:600;\">Head office &amp; processing unit</div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "3a300bdf",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 33,
+                    "_inline_size": 33
+                  },
+                  "elements": [
+                    {
+                      "id": "bd6bb67e",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;overflow:hidden;text-align:center;font-family:Inter,sans-serif;height:100%;\"><img src=\"https://placehold.co/400x160/1C1C1C/C0271A?text=Kochi\" alt=\"Kochi\" style=\"width:100%;height:160px;object-fit:cover;display:block;\"><div style=\"padding:20px;\"><div style=\"font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#1C1C1C;margin-bottom:5px;\">Kochi</div><div style=\"font-size:12px;color:#C0271A;font-weight:600;\">Kerala distribution hub</div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "b93179a4",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#FFFFFF",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "48",
+          "bottom": "80",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "d604292f",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "161aedf1",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "9fbaa730",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "13abb719",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "CUSTOMER REVIEWS",
+                        "header_size": "div",
+                        "title_color": "#C0271A",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 11,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.4,
+                          "sizes": []
+                        },
+                        "typography_letter_spacing": {
+                          "unit": "px",
+                          "size": 2.5,
+                          "sizes": []
+                        },
+                        "typography_text_transform": "uppercase",
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "10",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "e6b3b4cd",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "What our customers say",
+                        "header_size": "h2",
+                        "title_color": "#1C1C1C",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Playfair Display",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 42,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.15,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "30",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "e8e5df32",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "1d72ac04",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 33,
+                    "_inline_size": 33
+                  },
+                  "elements": [
+                    {
+                      "id": "0ea41318",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px;height:100%;font-family:Inter,sans-serif;\"><div style=\"color:#E8A020;font-size:15px;margin-bottom:12px;letter-spacing:2px;\">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style=\"font-size:14px;color:#1C1C1C;line-height:1.7;margin:0 0 18px;font-style:italic;\">\"The chicken lollipops came perfectly packed and tasted amazing. Couldn't tell the difference from fresh &mdash; that's how good the cold chain is.\"</p><div style=\"display:flex;align-items:center;gap:10px;\"><div style=\"width:38px;height:38px;border-radius:50%;background:#F5E8E6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#C0271A;\">AR</div><div><div style=\"font-size:13px;font-weight:600;color:#1C1C1C;\">Arjun Rajan</div><div style=\"font-size:12px;color:#6B6B6B;\">Chennai</div></div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "43f1e390",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 33,
+                    "_inline_size": 33
+                  },
+                  "elements": [
+                    {
+                      "id": "7dc0c045",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px;height:100%;font-family:Inter,sans-serif;\"><div style=\"color:#E8A020;font-size:15px;margin-bottom:12px;letter-spacing:2px;\">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style=\"font-size:14px;color:#1C1C1C;line-height:1.7;margin:0 0 18px;font-style:italic;\">\"We've been ordering from Meridien for our restaurant. Quality is consistent, prices are fair, and delivery is always on time. Highly recommend!\"</p><div style=\"display:flex;align-items:center;gap:10px;\"><div style=\"width:38px;height:38px;border-radius:50%;background:#F5E8E6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#C0271A;\">PK</div><div><div style=\"font-size:13px;font-weight:600;color:#1C1C1C;\">Priya Krishnan</div><div style=\"font-size:12px;color:#6B6B6B;\">Coimbatore</div></div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "5939759e",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 33,
+                    "_inline_size": 33
+                  },
+                  "elements": [
+                    {
+                      "id": "96064c97",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"background:#fff;border:1px solid #E8DDD6;border-radius:12px;padding:24px;height:100%;font-family:Inter,sans-serif;\"><div style=\"color:#E8A020;font-size:15px;margin-bottom:12px;letter-spacing:2px;\">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style=\"font-size:14px;color:#1C1C1C;line-height:1.7;margin:0 0 18px;font-style:italic;\">\"The Sheekh Kababs were a hit at our party. Fresh, well-seasoned, and vacuum sealed &mdash; arrived in perfect condition to Kochi.\"</p><div style=\"display:flex;align-items:center;gap:10px;\"><div style=\"width:38px;height:38px;border-radius:50%;background:#F5E8E6;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#C0271A;\">SM</div><div><div style=\"font-size:13px;font-weight:600;color:#1C1C1C;\">Sameer Mohammed</div><div style=\"font-size:12px;color:#6B6B6B;\">Kochi</div></div></div></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "4f9fb538",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#C0271A",
+        "padding": {
+          "unit": "px",
+          "top": "70",
+          "right": "48",
+          "bottom": "70",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "b207c729",
+          "elType": "column",
+          "settings": {
+            "_column_size": 60,
+            "_inline_size": 60
+          },
+          "elements": [
+            {
+              "id": "24e2d461",
+              "elType": "widget",
+              "settings": {
+                "title": "Ready to order?",
+                "header_size": "h2",
+                "title_color": "#FFFFFF",
+                "typography_typography": "custom",
+                "typography_font_family": "Playfair Display",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 36,
+                  "sizes": []
+                },
+                "typography_font_weight": "700",
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.15,
+                  "sizes": []
+                },
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "10",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "widgetType": "heading"
+            },
+            {
+              "id": "7fa35248",
+              "elType": "widget",
+              "settings": {
+                "editor": "<p>Shop online or WhatsApp us &mdash; we'll handle the rest.</p>",
+                "text_color": "rgba(255,255,255,0.85)",
+                "typography_typography": "custom",
+                "typography_font_family": "Inter",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 15,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.6,
+                  "sizes": []
+                }
+              },
+              "elements": [],
+              "widgetType": "text-editor"
+            }
+          ],
+          "isInner": false
+        },
+        {
+          "id": "71e566a4",
+          "elType": "column",
+          "settings": {
+            "_column_size": 40,
+            "_inline_size": 40,
+            "content_position": "center"
+          },
+          "elements": [
+            {
+              "id": "db4ec2e2",
+              "elType": "section",
+              "settings": {
+                "gap": "narrow",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "0277865d",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "680cec9c",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "Shop Online",
+                        "link": {
+                          "url": "#",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "#FFFFFF",
+                        "button_text_color": "#C0271A",
+                        "hover_color": "#C0271A",
+                        "button_background_hover_color": "#f1f1f1",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "3565109f",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "_inline_size": 50
+                  },
+                  "elements": [
+                    {
+                      "id": "9dc66af8",
+                      "elType": "widget",
+                      "settings": {
+                        "text": "WhatsApp Order",
+                        "link": {
+                          "url": "https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20order%20from%20Meridien%20Foods",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "background_color": "#25D366",
+                        "button_text_color": "#FFFFFF",
+                        "hover_color": "#FFFFFF",
+                        "button_background_hover_color": "#1da851",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "6",
+                          "right": "6",
+                          "bottom": "6",
+                          "left": "6",
+                          "isLinked": false
+                        },
+                        "text_padding": {
+                          "unit": "px",
+                          "top": "13",
+                          "right": "30",
+                          "bottom": "13",
+                          "left": "30",
+                          "isLinked": false
+                        },
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 14,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "600"
+                      },
+                      "elements": [],
+                      "widgetType": "button"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "98ba857e",
+      "elType": "section",
+      "settings": {
+        "gap": "default",
+        "background_background": "classic",
+        "background_color": "#111111",
+        "padding": {
+          "unit": "px",
+          "top": "60",
+          "right": "48",
+          "bottom": "40",
+          "left": "48",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "26bd8744",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "_inline_size": 100
+          },
+          "elements": [
+            {
+              "id": "bcfedba9",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full"
+              },
+              "elements": [
+                {
+                  "id": "0862c734",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 40,
+                    "_inline_size": 40
+                  },
+                  "elements": [
+                    {
+                      "id": "7adbf7c2",
+                      "elType": "widget",
+                      "settings": {
+                        "title": "Meridien Foods",
+                        "header_size": "div",
+                        "title_color": "#FFFFFF",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Playfair Display",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 24,
+                          "sizes": []
+                        },
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.2,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "12",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "heading"
+                    },
+                    {
+                      "id": "10293ec7",
+                      "elType": "widget",
+                      "settings": {
+                        "editor": "<p>Premium processed meats delivered fresh across South India. FSSAI certified, halal assured, cold chain maintained from our facility to your door since 2014.</p>",
+                        "text_color": "rgba(255,255,255,0.6)",
+                        "typography_typography": "custom",
+                        "typography_font_family": "Inter",
+                        "typography_font_size": {
+                          "unit": "px",
+                          "size": 13,
+                          "sizes": []
+                        },
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.75,
+                          "sizes": []
+                        },
+                        "_margin": {
+                          "unit": "px",
+                          "top": "0",
+                          "right": "0",
+                          "bottom": "20",
+                          "left": "0",
+                          "isLinked": false
+                        }
+                      },
+                      "elements": [],
+                      "widgetType": "text-editor"
+                    },
+                    {
+                      "id": "d0d13152",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"font-family:Inter,sans-serif;\"><a href=\"tel:+918714136486\" style=\"color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;display:block;margin-bottom:6px;\">&#128222; +91 87141 36486</a><a href=\"mailto:info@meridienfoods.com\" style=\"color:rgba(255,255,255,0.7);text-decoration:none;font-size:13px;display:block;\">&#9993; info@meridienfoods.com</a></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "e92f42c0",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 20,
+                    "_inline_size": 20
+                  },
+                  "elements": [
+                    {
+                      "id": "065726b0",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"font-family:Inter,sans-serif;\"><div style=\"font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:18px;\">Categories</div><ul style=\"list-style:none;padding:0;margin:0;\"><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Chicken</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Mutton</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Seafood</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Buffalo</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Quails &amp; Turkey</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Duck &amp; Rabbit</a></li></ul></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "1d784119",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 20,
+                    "_inline_size": 20
+                  },
+                  "elements": [
+                    {
+                      "id": "5f9176d4",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"font-family:Inter,sans-serif;\"><div style=\"font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:18px;\">Company</div><ul style=\"list-style:none;padding:0;margin:0;\"><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">About Us</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">FAQs</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Contact</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Privacy Policy</a></li><li style=\"margin-bottom:10px;\"><a href=\"#\" style=\"color:rgba(255,255,255,0.6);text-decoration:none;font-size:13px;\">Refund Policy</a></li></ul></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                },
+                {
+                  "id": "ba0581ad",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 20,
+                    "_inline_size": 20
+                  },
+                  "elements": [
+                    {
+                      "id": "15d4b6f4",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"font-family:Inter,sans-serif;\"><div style=\"font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:18px;\">Our offices</div><p style=\"font-size:12px;line-height:1.8;margin:0 0 14px;color:rgba(255,255,255,0.6);\">13/2, Ramalakshmanan Nager,<br>Anna Nager, Peelamedu,<br><strong style=\"color:rgba(255,255,255,0.8)\">Coimbatore</strong> &ndash; 641004</p><p style=\"font-size:12px;line-height:1.8;margin:0;color:rgba(255,255,255,0.6);\">Bluemoon Silver, Jawahar Nagar,<br>Kadavanthara, Ernakulam,<br><strong style=\"color:rgba(255,255,255,0.8)\">Kochi</strong> &ndash; 682020</p></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "6f46abe2",
+              "elType": "section",
+              "settings": {
+                "gap": "default",
+                "content_width": "full",
+                "_margin": {
+                  "unit": "px",
+                  "top": "30",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [
+                {
+                  "id": "6d60a996",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 100,
+                    "_inline_size": 100
+                  },
+                  "elements": [
+                    {
+                      "id": "f72c5721",
+                      "elType": "widget",
+                      "settings": {
+                        "html": "<div style=\"border-top:1px solid rgba(255,255,255,0.08);padding-top:20px;display:flex;align-items:center;justify-content:space-between;font-size:12px;gap:16px;flex-wrap:wrap;font-family:Inter,sans-serif;color:rgba(255,255,255,0.5);\"><span>&copy; 2026 Meridien Foods. All rights reserved.</span><span style=\"color:rgba(255,255,255,0.35);\">Developed by <a href=\"https://www.incomeinn.in\" target=\"_blank\" rel=\"noopener\" style=\"color:rgba(255,255,255,0.45);\">Income Inn Technologies</a></span></div>"
+                      },
+                      "elements": [],
+                      "widgetType": "html"
+                    }
+                  ],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": {
+    "template": "elementor_canvas"
+  }
+}
