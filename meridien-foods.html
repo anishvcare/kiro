@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== SEO Meta ===== -->
+  <title>Meridien Foods | Premium Fresh Frozen Meat &amp; Seafood Delivery</title>
+  <meta name="description" content="Order premium frozen chicken, mutton, fish & seafood, pork, duck, turkey and more from Meridien Foods. Farm-fresh, hygienically packed, delivered to Chennai, Coimbatore & Kochi." />
+  <meta name="keywords" content="frozen meat, seafood delivery, chicken, mutton, fish, prawns, bacon, sausages, Meridien Foods, Coimbatore, Chennai, Kochi" />
+  <meta name="author" content="Meridien Foods" />
+  <meta name="theme-color" content="#b5121b" />
+  <link rel="canonical" href="https://meridienfoods.com/" />
+
+  <!-- ===== Open Graph / Social ===== -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Meridien Foods | Premium Fresh Frozen Meat & Seafood" />
+  <meta property="og:description" content="Farm-fresh, hygienically packed meat & seafood delivered to your doorstep across Chennai, Coimbatore & Kochi." />
+  <meta property="og:locale" content="en_IN" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- ===== Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+
+  <!-- ===== Structured Data (SEO) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "GroceryStore",
+    "name": "Meridien Foods",
+    "image": "https://meridienfoods.com/assets/images/logo/logo2.png",
+    "description": "Premium fresh frozen meat & seafood delivery.",
+    "telephone": "+91-84338-08191",
+    "priceRange": "₹₹",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "13/2, Near National Model School, Ramalakshmanan Nagar, Anna Nagar, Peelamedu",
+      "addressLocality": "Coimbatore",
+      "addressRegion": "Tamil Nadu",
+      "postalCode": "641004",
+      "addressCountry": "IN"
+    },
+    "areaServed": ["Chennai", "Coimbatore", "Kochi"]
+  }
+  </script>
+
+  <!-- =====================================================================
+       STYLES (mobile-first)
+  ===================================================================== -->
+  <style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --red: #b5121b;
+    --red-600: #d11f29;
+    --red-700: #8e0d14;
+    --amber: #f4a259;
+    --amber-600: #ef8b2c;
+    --ink: #1d1410;
+    --muted: #6b6058;
+    --line: #ece4dd;
+    --cream: #fff8f3;
+    --paper: #ffffff;
+    --green: #2f9e44;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow-sm: 0 4px 14px rgba(50, 20, 10, .07);
+    --shadow-md: 0 14px 38px rgba(120, 30, 15, .14);
+    --maxw: 1180px;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  /* ---------- Reset ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: "Lato", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: "Poppins", sans-serif; line-height: 1.15; font-weight: 700; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: 0; background: none; }
+
+  .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 18px; }
+  .accent { color: var(--red); }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-family: "Poppins", sans-serif; font-weight: 600; font-size: .95rem;
+    padding: .85rem 1.5rem; border-radius: 999px;
+    transition: transform .25s var(--ease), box-shadow .25s var(--ease), background .25s;
+    will-change: transform;
+  }
+  .btn:active { transform: scale(.96); }
+  .btn--primary { background: var(--red); color: #fff; box-shadow: 0 10px 24px rgba(181, 18, 27, .35); }
+  .btn--primary:hover { background: var(--red-600); transform: translateY(-3px); box-shadow: 0 16px 30px rgba(181, 18, 27, .42); }
+  .btn--ghost { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn--ghost:hover { border-color: var(--red); color: var(--red); transform: translateY(-3px); }
+  .btn--light { background: #fff; color: var(--red); box-shadow: var(--shadow-md); }
+  .btn--light:hover { transform: translateY(-3px) scale(1.02); }
+  .i-arrow { width: 16px; height: 16px; display: inline-block; }
+  .i-arrow::after { content: "→"; }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    * { animation: none !important; }
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    padding: 54px 0 60px;
+    background: radial-gradient(120% 120% at 80% -10%, #fff 0%, var(--cream) 55%);
+    overflow: hidden;
+  }
+  .hero__bg { position: absolute; inset: 0; z-index: 0; }
+  .blob { position: absolute; border-radius: 50%; filter: blur(40px); opacity: .5; animation: float 9s ease-in-out infinite; }
+  .blob--1 { width: 320px; height: 320px; background: #ffd3a6; top: -80px; right: -60px; }
+  .blob--2 { width: 260px; height: 260px; background: #ffc2bd; bottom: -70px; left: -50px; animation-delay: -3s; }
+  @keyframes float { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-26px) } }
+
+  .hero__inner { position: relative; z-index: 1; display: grid; gap: 38px; }
+  .badge-pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: #fff; border: 1px solid var(--line); color: var(--red);
+    font-size: .78rem; font-weight: 700; letter-spacing: .02em;
+    padding: .45rem .9rem; border-radius: 999px; box-shadow: var(--shadow-sm);
+  }
+  .badge-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(47,158,68,.5) } 70% { box-shadow: 0 0 0 8px rgba(47,158,68,0) } 100% { box-shadow: 0 0 0 0 rgba(47,158,68,0) } }
+
+  .hero__title { font-size: clamp(2.1rem, 8vw, 3.4rem); margin: 1rem 0 .8rem; font-weight: 800; }
+  .hero__sub { color: var(--muted); font-size: 1.05rem; max-width: 40ch; }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.6rem 0; }
+
+  .hero__trust { list-style: none; padding: 0; display: flex; gap: 1.6rem; flex-wrap: wrap; }
+  .hero__trust li { display: flex; flex-direction: column; }
+  .hero__trust strong { font-family: "Poppins"; font-size: 1.35rem; color: var(--red); }
+  .hero__trust span { font-size: .82rem; color: var(--muted); }
+
+  .hero__media { position: relative; min-height: 320px; }
+  .hero__card { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); background: #fff; }
+  .hero__card img { width: 100%; height: 100%; object-fit: cover; }
+  .hero__card--main { aspect-ratio: 4/3; }
+  .hero__card--main img { height: 100%; }
+  .hero__tag {
+    position: absolute; top: 12px; left: 12px; background: var(--red); color: #fff;
+    font-size: .72rem; font-weight: 700; padding: .35rem .7rem; border-radius: 999px;
+  }
+  .hero__card--float {
+    position: absolute; width: 140px; aspect-ratio: 1; border: 4px solid #fff;
+    animation: floatY 5s ease-in-out infinite;
+  }
+  .hero__card--float img { height: 100%; }
+  .hero__card--a { right: -8px; top: -22px; animation-delay: -1s; }
+  .hero__card--b { left: -8px; bottom: -22px; }
+  .hero__price {
+    position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,.55);
+    color: #fff; font-size: .75rem; font-weight: 600; padding: .25rem; text-align: center;
+  }
+  @keyframes floatY { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-14px) } }
+
+  /* ===== FEATURES ===== */
+  .features { margin-top: -10px; padding: 22px 0; }
+  .features__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .feature {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px; box-shadow: var(--shadow-sm); transition: transform .3s var(--ease), box-shadow .3s;
+  }
+  .feature:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+  .feature__ic { font-size: 1.7rem; display: block; margin-bottom: .4rem; }
+  .feature h3 { font-size: 1rem; }
+  .feature p { font-size: .85rem; color: var(--muted); margin-top: .2rem; }
+
+  /* ===== SECTIONS ===== */
+  .section { padding: 56px 0; }
+  .section--alt { background: linear-gradient(180deg, #fff 0%, var(--cream) 100%); }
+  .section__head { text-align: center; max-width: 620px; margin: 0 auto 34px; }
+  .eyebrow {
+    font-family: "Poppins"; font-size: .75rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--amber-600);
+  }
+  .section__head h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); margin: .4rem 0; }
+  .section__head p { color: var(--muted); }
+
+  /* ---------- Categories ---------- */
+  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .cat-card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 8px; text-align: center; display: flex; flex-direction: column;
+    align-items: center; gap: .5rem; transition: transform .28s var(--ease), box-shadow .28s, border-color .28s;
+  }
+  .cat-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--amber); }
+  .cat-card__ic {
+    font-size: 1.9rem; width: 58px; height: 58px; display: grid; place-items: center;
+    background: var(--cream); border-radius: 50%; transition: transform .28s var(--ease);
+  }
+  .cat-card:hover .cat-card__ic { transform: scale(1.12) rotate(-6deg); }
+  .cat-card__name { font-family: "Poppins"; font-weight: 600; font-size: .85rem; }
+
+  /* ---------- Woo toolbar ---------- */
+  .woo-toolbar {
+    display: flex; flex-direction: column; gap: 14px; margin-bottom: 22px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--line);
+  }
+  .woo-count { color: var(--muted); font-size: .9rem; }
+  .woo-toolbar__right { display: flex; flex-direction: column; gap: 12px; }
+  .woo-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-family: "Poppins"; font-size: .8rem; font-weight: 600; color: var(--muted);
+    background: #fff; border: 1.5px solid var(--line); padding: .4rem .9rem; border-radius: 999px;
+    transition: all .2s;
+  }
+  .chip:hover { border-color: var(--amber); color: var(--ink); }
+  .chip.is-active { background: var(--red); border-color: var(--red); color: #fff; }
+  .woo-sort { display: inline-flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--muted); }
+  .woo-sort select {
+    font-family: "Poppins"; font-size: .85rem; font-weight: 600; color: var(--ink);
+    padding: .5rem .8rem; border: 1.5px solid var(--line); border-radius: 10px; background: #fff;
+  }
+
+  /* ---------- Product grid (Woo style) ---------- */
+  .products { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card {
+    background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; display: flex; flex-direction: column;
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+  .card__media { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--cream); }
+  .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s var(--ease); }
+  .card:hover .card__media img { transform: scale(1.08); }
+  .card__badge {
+    position: absolute; top: 10px; left: 10px; z-index: 2; color: #fff;
+    font-family: "Poppins"; font-size: .68rem; font-weight: 700; letter-spacing: .03em;
+    padding: .3rem .6rem; border-radius: 999px;
+  }
+  .card__badge.is-sale { background: var(--red); }
+  .card__badge.is-best { background: var(--amber-600); }
+  .card__badge.is-new { background: var(--green); }
+  .card__quick {
+    position: absolute; right: 10px; bottom: 10px; z-index: 2;
+    width: 38px; height: 38px; border-radius: 50%; background: #fff; color: var(--red);
+    font-size: 1.3rem; line-height: 1; box-shadow: var(--shadow-sm);
+    transform: translateY(8px); opacity: 0; transition: all .3s var(--ease);
+  }
+  .card:hover .card__quick { transform: translateY(0); opacity: 1; }
+  .card__quick:hover { background: var(--red); color: #fff; }
+  .card__body { padding: 14px; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
+  .card__cat { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: var(--amber-600); font-weight: 700; }
+  .card__title { font-size: 1rem; font-weight: 600; }
+  .card__rating { font-size: .8rem; color: var(--muted); display: flex; align-items: center; gap: .35rem; }
+  .stars { color: #f5a623; letter-spacing: 1px; }
+  .card__price { display: flex; align-items: baseline; gap: .45rem; margin-top: auto; padding-top: .3rem; }
+  .card__price .now { font-family: "Poppins"; font-weight: 700; font-size: 1.15rem; color: var(--red); }
+  .card__price .was { font-size: .85rem; color: var(--muted); text-decoration: line-through; }
+  .card__price .unit { font-size: .72rem; color: var(--muted); }
+  .btn--cart {
+    margin-top: .6rem; width: 100%; justify-content: center; background: var(--ink); color: #fff;
+    padding: .7rem; font-size: .85rem; border-radius: 10px;
+  }
+  .btn--cart:hover { background: var(--red); transform: translateY(-2px); }
+
+  /* ---------- Skeleton loading ---------- */
+  .card--skeleton { pointer-events: none; }
+  .sk { background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%); background-size: 400% 100%; animation: shimmer 1.4s infinite; border-radius: 8px; }
+  .sk--img { aspect-ratio: 1; border-radius: 0; }
+  .sk--line { height: 12px; margin: 10px 14px; }
+  .sk--line.short { width: 50%; }
+  .sk--btn { height: 34px; margin: 12px 14px; border-radius: 10px; }
+  @keyframes shimmer { 0% { background-position: 100% 0 } 100% { background-position: -100% 0 } }
+
+  /* ---------- Brands ---------- */
+  .brand-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .brand-strip__item {
+    font-family: "Poppins"; font-weight: 700; color: var(--muted); font-size: .95rem;
+    background: #fff; border: 1px solid var(--line); border-radius: 999px;
+    padding: .7rem 1.4rem; transition: all .25s var(--ease);
+  }
+  .brand-strip__item:hover { color: var(--red); border-color: var(--amber); transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+
+  /* ---------- CTA banner ---------- */
+  .cta-banner { padding: 10px 0 60px; }
+  .cta-banner__inner {
+    background: linear-gradient(120deg, var(--red) 0%, var(--red-700) 100%);
+    color: #fff; border-radius: 24px; padding: 34px 26px; text-align: center;
+    display: flex; flex-direction: column; gap: 18px; align-items: center;
+    box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+  }
+  .cta-banner__inner::after {
+    content: "🍗"; position: absolute; font-size: 9rem; right: -10px; top: -20px; opacity: .12;
+  }
+  .cta-banner h2 { font-size: 1.7rem; }
+  .cta-banner p { opacity: .92; }
+
+  /* ---------- Floating cart ---------- */
+  .cart-fab {
+    position: fixed; right: 18px; bottom: 18px; z-index: 50;
+    width: 58px; height: 58px; border-radius: 50%; background: var(--red); color: #fff;
+    font-size: 1.4rem; box-shadow: var(--shadow-md); display: grid; place-items: center;
+  }
+  .cart-fab.pop { animation: pop .4s var(--ease); }
+  @keyframes pop { 0% { transform: scale(1) } 40% { transform: scale(1.22) } 100% { transform: scale(1) } }
+  .cart-fab__count {
+    position: absolute; top: -4px; right: -4px; background: var(--amber-600); color: #fff;
+    font-size: .72rem; font-weight: 700; min-width: 22px; height: 22px; border-radius: 999px;
+    display: grid; place-items: center; padding: 0 5px; border: 2px solid #fff;
+  }
+
+  /* ---------- Toast ---------- */
+  .toast {
+    position: fixed; left: 50%; bottom: 88px; transform: translate(-50%, 20px);
+    background: var(--ink); color: #fff; padding: .7rem 1.2rem; border-radius: 999px;
+    font-size: .88rem; font-weight: 600; box-shadow: var(--shadow-md); z-index: 60;
+    opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s var(--ease);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ===== RESPONSIVE (mobile-first → up) ===== */
+  @media (min-width: 620px) {
+    .products { grid-template-columns: repeat(3, 1fr); }
+    .cat-grid { grid-template-columns: repeat(4, 1fr); }
+    .features__grid { grid-template-columns: repeat(4, 1fr); }
+    .woo-toolbar { flex-direction: row; align-items: center; justify-content: space-between; }
+    .woo-toolbar__right { flex-direction: row; align-items: center; }
+    .cta-banner__inner { flex-direction: row; justify-content: space-between; text-align: left; padding: 40px 44px; }
+  }
+  @media (min-width: 900px) {
+    .hero { padding: 80px 0 90px; }
+    .hero__inner { grid-template-columns: 1.05fr 1fr; align-items: center; }
+    .hero__media { min-height: 420px; }
+    .hero__card--float { width: 180px; }
+    .products { grid-template-columns: repeat(4, 1fr); }
+    .cat-grid { grid-template-columns: repeat(9, 1fr); }
+  }
+  </style>
+</head>
+
+<body>
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero" id="top">
+    <div class="hero__bg" aria-hidden="true">
+      <span class="blob blob--1"></span>
+      <span class="blob blob--2"></span>
+    </div>
+
+    <div class="container hero__inner">
+      <div class="hero__content reveal">
+        <span class="badge-pill">
+          <span class="dot"></span> Fresh • Hygienic • Delivered Daily
+        </span>
+        <h1 class="hero__title">
+          Premium <span class="accent">Meat &amp; Seafood</span><br />
+          delivered to your kitchen
+        </h1>
+        <p class="hero__sub">
+          Farm-fresh chicken, mutton, fish, prawns &amp; gourmet cuts —
+          hygienically processed, flash-frozen and delivered across
+          <strong>Chennai, Coimbatore &amp; Kochi</strong>.
+        </p>
+        <div class="hero__cta">
+          <a href="#shop" class="btn btn--primary">Shop Now <i class="i-arrow"></i></a>
+          <a href="#categories" class="btn btn--ghost">Browse Categories</a>
+        </div>
+
+        <ul class="hero__trust">
+          <li><strong>100%</strong><span>Fresh Cuts</span></li>
+          <li><strong>9+</strong><span>Categories</span></li>
+          <li><strong>Same-day</strong><span>Delivery</span></li>
+        </ul>
+      </div>
+
+      <div class="hero__media reveal" data-delay="150">
+        <div class="hero__card hero__card--main">
+          <img data-src="https://meridienfoods.com/assets/images/chicken-legs.jpg"
+               alt="Fresh chicken cuts" class="lazy" />
+          <span class="hero__tag">Best Seller</span>
+        </div>
+        <div class="hero__card hero__card--float hero__card--a">
+          <img data-src="https://meridienfoods.com/assets/images/calories.jpg"
+               alt="Fresh prawns" class="lazy" />
+          <span class="hero__price">Prawns</span>
+        </div>
+        <div class="hero__card hero__card--float hero__card--b">
+          <img data-src="https://meridienfoods.com/assets/images/fresh-mackerel-steak.jpg"
+               alt="Fish steak" class="lazy" />
+          <span class="hero__price">Fish Steak</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FEATURE STRIP
+  ============================================================ -->
+  <section class="features">
+    <div class="container features__grid">
+      <article class="feature reveal">
+        <span class="feature__ic">🚚</span>
+        <h3>Same-Day Delivery</h3><p>Order before noon, get it fresh by evening.</p>
+      </article>
+      <article class="feature reveal" data-delay="80">
+        <span class="feature__ic">❄️</span>
+        <h3>Flash Frozen</h3><p>Locked-in freshness at -18°C cold chain.</p>
+      </article>
+      <article class="feature reveal" data-delay="160">
+        <span class="feature__ic">🧼</span>
+        <h3>Hygienic Cuts</h3><p>Cleaned, trimmed &amp; vacuum packed.</p>
+      </article>
+      <article class="feature reveal" data-delay="240">
+        <span class="feature__ic">⭐</span>
+        <h3>Top Brands</h3><p>Tasty Nibbles &amp; premium tinned products.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CATEGORIES
+  ============================================================ -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Shop by category</span>
+        <h2>Pick your <span class="accent">protein</span></h2>
+        <p>From everyday chicken to gourmet quail — we have it all, fresh.</p>
+      </div>
+      <div class="cat-grid" id="catGrid"><!-- JS injects category cards --></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SHOP  (WooCommerce-style product listing)
+  ============================================================ -->
+  <section class="section section--alt" id="shop">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Our products</span>
+        <h2>The <span class="accent">Shop</span></h2>
+        <p>Live product listing — styled like a WooCommerce shop page.</p>
+      </div>
+
+      <!-- Woo-style toolbar -->
+      <div class="woo-toolbar reveal">
+        <p class="woo-count" id="wooCount">Loading products…</p>
+        <div class="woo-toolbar__right">
+          <div class="woo-filters" id="wooFilters"><!-- filter chips --></div>
+          <label class="woo-sort">
+            <span>Sort</span>
+            <select id="wooSort" aria-label="Sort products">
+              <option value="popularity">Popularity</option>
+              <option value="price-asc">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <!-- Product grid -->
+      <div class="products" id="productGrid" aria-live="polite"><!-- JS renders products --></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BRANDS
+  ============================================================ -->
+  <section class="section" id="brands">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Trusted by</span>
+        <h2>Top <span class="accent">Brands</span></h2>
+      </div>
+      <div class="brand-strip reveal" id="brandStrip"><!-- JS injects brand logos --></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA BANNER
+  ============================================================ -->
+  <section class="cta-banner">
+    <div class="container cta-banner__inner reveal">
+      <div>
+        <h2>Hungry for freshness?</h2>
+        <p>Get premium cuts delivered today. Call us or order online.</p>
+      </div>
+      <a href="tel:+918433808191" class="btn btn--light">📞 +91 84338 08191</a>
+    </div>
+  </section>
+
+  <!-- Floating cart -->
+  <button class="cart-fab" id="cartFab" aria-label="View cart">
+    🛒 <span class="cart-fab__count" id="cartCount">0</span>
+  </button>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- =====================================================================
+       SCRIPTS
+  ===================================================================== -->
+  <script>
+  /* =====================================================================
+     Meridien Foods — Product data layer
+     ---------------------------------------------------------------------
+     The product grid is rendered from a "fetch" so it behaves exactly
+     like a WooCommerce shop page. In production, point WOO_ENDPOINT at the
+     WooCommerce Store/REST API and the same render code will work:
+
+       GET /wp-json/wc/store/v1/products
+       GET /wp-json/wc/v3/products?consumer_key=...&consumer_secret=...
+
+     fetchProducts() tries the live endpoint first, then gracefully falls
+     back to the bundled sample catalogue below so the page always renders.
+     ===================================================================== */
+
+  const WOO_ENDPOINT = ""; // e.g. "https://meridienfoods.com/wp-json/wc/store/v1/products"
+
+  /* Base image folder on the live Meridien Foods site (used as primary src,
+     with a generated placeholder fallback if an image is missing). */
+  const IMG = "https://meridienfoods.com/assets/images/";
+
+  /* Category master list (mirrors the live site menu) */
+  const CATEGORIES = [
+    { slug: "chicken",  name: "Chicken",        icon: "🍗" },
+    { slug: "seafood",  name: "Fish & Seafood", icon: "🐟" },
+    { slug: "mutton",   name: "Mutton",         icon: "🥩" },
+    { slug: "buffalo",  name: "Buffalo",        icon: "🐃" },
+    { slug: "pork",     name: "Pork",           icon: "🥓" },
+    { slug: "duck",     name: "Duck",           icon: "🦆" },
+    { slug: "quail",    name: "Quail",          icon: "🐦" },
+    { slug: "rabbit",   name: "Rabbit",         icon: "🐇" },
+    { slug: "turkey",   name: "Turkey",         icon: "🦃" }
+  ];
+
+  const BRANDS = ["Tasty Nibbles", "Meridien Select", "Ocean Catch", "Farm Fresh", "Prime Cuts"];
+
+  /* Sample catalogue — shaped like WooCommerce Store API objects
+     ({ id, name, prices, categories, images, ... }) so swapping in the
+     real endpoint needs zero render changes. */
+  const SAMPLE_PRODUCTS = [
+    { id: 1,  name: "Smoked Bacon",          category: "pork",    price: 320, regular: 380, rating: 4.8, sold: 420, image: IMG + "bacon_1.png",              tag: "Best Seller" },
+    { id: 2,  name: "Chicken Burger Patty",  category: "chicken", price: 240, regular: 240, rating: 4.6, sold: 510, image: IMG + "burger_patty.png",         tag: "" },
+    { id: 3,  name: "Chicken Legs",          category: "chicken", price: 180, regular: 220, rating: 4.7, sold: 980, image: IMG + "chicken-legs.jpg",         tag: "Best Seller" },
+    { id: 4,  name: "Fresh Mackerel Steak",  category: "seafood", price: 260, regular: 260, rating: 4.5, sold: 300, image: IMG + "fresh-mackerel-steak.jpg", tag: "" },
+    { id: 5,  name: "Chicken Sausages",      category: "chicken", price: 210, regular: 250, rating: 4.6, sold: 640, image: IMG + "Sausages.png",             tag: "Sale" },
+    { id: 6,  name: "Pepperoni",             category: "pork",    price: 350, regular: 350, rating: 4.9, sold: 270, image: IMG + "Pepperoni.png",            tag: "" },
+    { id: 7,  name: "Tiger Prawns",          category: "seafood", price: 480, regular: 560, rating: 4.8, sold: 410, image: IMG + "calories.jpg",             tag: "Sale" },
+    { id: 8,  name: "Mutton Curry Cut",      category: "mutton",  price: 720, regular: 720, rating: 4.7, sold: 360, image: "",                               tag: "" },
+    { id: 9,  name: "Boneless Chicken Breast", category: "chicken", price: 290, regular: 320, rating: 4.6, sold: 870, image: "",                            tag: "" },
+    { id: 10, name: "Buffalo Boneless",      category: "buffalo", price: 410, regular: 410, rating: 4.4, sold: 190, image: "",                               tag: "" },
+    { id: 11, name: "Whole Duck",            category: "duck",    price: 540, regular: 600, rating: 4.5, sold: 120, image: "",                               tag: "Sale" },
+    { id: 12, name: "Quail (Pack of 4)",     category: "quail",   price: 380, regular: 380, rating: 4.6, sold: 95,  image: "",                               tag: "New" },
+    { id: 13, name: "Rabbit Whole",          category: "rabbit",  price: 620, regular: 620, rating: 4.3, sold: 60,  image: "",                               tag: "" },
+    { id: 14, name: "Turkey Breast",         category: "turkey",  price: 690, regular: 760, rating: 4.7, sold: 150, image: "",                               tag: "Sale" },
+    { id: 15, name: "Pomfret Whole",         category: "seafood", price: 520, regular: 520, rating: 4.6, sold: 240, image: "",                               tag: "" },
+    { id: 16, name: "Mutton Boneless",       category: "mutton",  price: 880, regular: 950, rating: 4.8, sold: 320, image: "",                               tag: "Best Seller" }
+  ];
+
+  /* Normalises a WooCommerce Store API product into our card shape. */
+  function normaliseWoo(p) {
+    const price = Number(p.prices?.sale_price || p.prices?.price || 0) / 100;
+    const regular = Number(p.prices?.regular_price || p.prices?.price || 0) / 100;
+    return {
+      id: p.id,
+      name: p.name,
+      category: (p.categories?.[0]?.slug) || "other",
+      price: price || regular,
+      regular: regular || price,
+      rating: Number(p.average_rating) || 4.5,
+      sold: p.total_sales || 0,
+      image: p.images?.[0]?.src || "",
+      tag: p.on_sale ? "Sale" : ""
+    };
+  }
+
+  /* Returns a Promise of products — live first, sample fallback. */
+  async function fetchProducts() {
+    if (WOO_ENDPOINT) {
+      try {
+        const res = await fetch(WOO_ENDPOINT, { headers: { Accept: "application/json" } });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length) return data.map(normaliseWoo);
+        }
+      } catch (err) {
+        console.warn("Woo fetch failed, using sample catalogue:", err);
+      }
+    }
+    // Simulate async fetch latency for a smooth skeleton-loading experience
+    return new Promise((resolve) => setTimeout(() => resolve(SAMPLE_PRODUCTS), 450));
+  }
+  </script>
+
+  <script>
+  /* =====================================================================
+     Meridien Foods — UI logic
+     Rendering, scroll animations, lazy images, placeholders, cart.
+     ===================================================================== */
+  (function () {
+    "use strict";
+
+    const INR = (n) => "₹" + Number(n).toLocaleString("en-IN");
+    const $  = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+    /* ---------- SVG placeholder generator ---------- */
+    function placeholder(label) {
+      const txt = (label || "Meridien Foods").slice(0, 22);
+      const svg = `
+        <svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>
+          <defs>
+            <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+              <stop offset='0' stop-color='#ffe2e0'/>
+              <stop offset='1' stop-color='#ffd0a8'/>
+            </linearGradient>
+          </defs>
+          <rect width='400' height='300' fill='url(#g)'/>
+          <text x='50%' y='44%' font-size='54' text-anchor='middle' dominant-baseline='middle'>🍖</text>
+          <text x='50%' y='68%' font-family='Poppins,Arial' font-size='20' font-weight='600'
+                fill='#b5121b' text-anchor='middle'>${txt}</text>
+        </svg>`;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg.trim());
+    }
+
+    function imgWithFallback(src, label) {
+      const ph = placeholder(label);
+      if (!src) return ph;
+      return src;
+    }
+
+    /* ---------- Scroll reveal animations ---------- */
+    function initReveal() {
+      const els = $$(".reveal");
+      if (!("IntersectionObserver" in window)) {
+        els.forEach((e) => e.classList.add("in"));
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const delay = el.dataset.delay || 0;
+            setTimeout(() => el.classList.add("in"), delay);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach((e) => io.observe(e));
+    }
+
+    /* ---------- Lazy load images (hero etc.) ---------- */
+    function initLazy(scope = document) {
+      $$("img.lazy", scope).forEach((img) => {
+        const src = img.dataset.src;
+        img.src = imgWithFallback(src, img.alt);
+        img.addEventListener("error", function handle() {
+          img.removeEventListener("error", handle);
+          img.src = placeholder(img.alt);
+        });
+        img.classList.remove("lazy");
+      });
+    }
+
+    /* ---------- Categories ---------- */
+    function renderCategories() {
+      const grid = $("#catGrid");
+      grid.innerHTML = CATEGORIES.map((c, i) => `
+        <button class="cat-card reveal" data-delay="${i * 50}" data-cat="${c.slug}">
+          <span class="cat-card__ic">${c.icon}</span>
+          <span class="cat-card__name">${c.name}</span>
+        </button>`).join("");
+
+      $$(".cat-card", grid).forEach((b) =>
+        b.addEventListener("click", () => {
+          setFilter(b.dataset.cat);
+          document.getElementById("shop").scrollIntoView({ behavior: "smooth" });
+        })
+      );
+    }
+
+    /* ---------- Brands ---------- */
+    function renderBrands() {
+      const strip = $("#brandStrip");
+      strip.innerHTML = BRANDS.map((b) =>
+        `<div class="brand-strip__item">${b}</div>`).join("");
+    }
+
+    /* ---------- WooCommerce-style product listing ---------- */
+    let ALL = [];
+    let activeFilter = "all";
+    let activeSort = "popularity";
+
+    const stars = (r) => {
+      const full = Math.round(r);
+      return "★★★★★".slice(0, full) + "☆☆☆☆☆".slice(0, 5 - full);
+    };
+
+    function productCard(p) {
+      const onSale = p.price < p.regular;
+      const tag = p.tag || (onSale ? "Sale" : "");
+      const tagClass = tag === "Best Seller" ? "is-best" : tag === "New" ? "is-new" : "is-sale";
+      return `
+        <article class="card reveal" data-cat="${p.category}">
+          <div class="card__media">
+            ${tag ? `<span class="card__badge ${tagClass}">${tag}</span>` : ""}
+            <img src="${imgWithFallback(p.image, p.name)}" alt="${p.name}" loading="lazy"
+                 onerror="this.onerror=null;this.src='${placeholder(p.name)}'" />
+            <button class="card__quick" data-id="${p.id}" aria-label="Quick add">＋</button>
+          </div>
+          <div class="card__body">
+            <span class="card__cat">${(CATEGORIES.find(c => c.slug === p.category) || {}).name || p.category}</span>
+            <h3 class="card__title">${p.name}</h3>
+            <div class="card__rating"><span class="stars">${stars(p.rating)}</span><em>(${p.rating})</em></div>
+            <div class="card__price">
+              <span class="now">${INR(p.price)}</span>
+              ${onSale ? `<span class="was">${INR(p.regular)}</span>` : ""}
+              <span class="unit">/ kg</span>
+            </div>
+            <button class="btn btn--cart" data-id="${p.id}">Add to cart</button>
+          </div>
+        </article>`;
+    }
+
+    function skeletons(n = 8) {
+      return Array.from({ length: n }).map(() =>
+        `<div class="card card--skeleton"><div class="sk sk--img"></div>
+          <div class="card__body"><div class="sk sk--line"></div>
+          <div class="sk sk--line short"></div><div class="sk sk--btn"></div></div></div>`).join("");
+    }
+
+    function applySort(list) {
+      const arr = [...list];
+      switch (activeSort) {
+        case "price-asc":  arr.sort((a, b) => a.price - b.price); break;
+        case "price-desc": arr.sort((a, b) => b.price - a.price); break;
+        case "name":       arr.sort((a, b) => a.name.localeCompare(b.name)); break;
+        default:           arr.sort((a, b) => b.sold - a.sold);
+      }
+      return arr;
+    }
+
+    function renderProducts() {
+      const grid = $("#productGrid");
+      let list = activeFilter === "all" ? ALL : ALL.filter((p) => p.category === activeFilter);
+      list = applySort(list);
+
+      $("#wooCount").textContent =
+        `Showing ${list.length} of ${ALL.length} ${ALL.length === 1 ? "product" : "products"}`;
+
+      grid.innerHTML = list.map(productCard).join("");
+      initReveal();
+      bindCardButtons(grid);
+    }
+
+    function renderFilters() {
+      const wrap = $("#wooFilters");
+      const cats = ["all", ...new Set(ALL.map((p) => p.category))];
+      wrap.innerHTML = cats.map((c) => {
+        const label = c === "all" ? "All" : (CATEGORIES.find(x => x.slug === c) || {}).name || c;
+        return `<button class="chip ${c === activeFilter ? "is-active" : ""}" data-cat="${c}">${label}</button>`;
+      }).join("");
+      $$(".chip", wrap).forEach((b) =>
+        b.addEventListener("click", () => setFilter(b.dataset.cat)));
+    }
+
+    function setFilter(cat) {
+      activeFilter = cat;
+      renderFilters();
+      renderProducts();
+    }
+
+    /* ---------- Cart ---------- */
+    let cart = 0;
+    function addToCart(id) {
+      const p = ALL.find((x) => x.id === Number(id));
+      cart += 1;
+      $("#cartCount").textContent = cart;
+      const fab = $("#cartFab");
+      fab.classList.remove("pop"); void fab.offsetWidth; fab.classList.add("pop");
+      showToast(`Added “${p ? p.name : "item"}” to cart`);
+    }
+
+    function bindCardButtons(scope) {
+      $$(".btn--cart, .card__quick", scope).forEach((b) =>
+        b.addEventListener("click", () => addToCart(b.dataset.id)));
+    }
+
+    /* ---------- Toast ---------- */
+    let toastTimer;
+    function showToast(msg) {
+      const t = $("#toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+    }
+
+    /* ---------- Init ---------- */
+    async function init() {
+      initReveal();
+      initLazy();
+      renderCategories();
+      renderBrands();
+      initReveal();
+
+      const grid = $("#productGrid");
+      grid.innerHTML = skeletons();
+
+      ALL = await fetchProducts();
+      renderFilters();
+      renderProducts();
+
+      $("#wooSort").addEventListener("change", (e) => {
+        activeSort = e.target.value;
+        renderProducts();
+      });
+
+      $("#cartFab").addEventListener("click", () =>
+        showToast(cart ? `${cart} item(s) in your cart` : "Your cart is empty"));
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  })();
+  </script>
+</body>
+</html>
