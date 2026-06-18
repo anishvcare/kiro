@@ -11,7 +11,7 @@
 <meta name="keywords" content="meat delivery Chennai, fresh chicken Coimbatore, mutton supplier Kochi, halal meat South India, bulk meat supplier, ready to cook chicken, cold cuts, Meridien Foods">
 <meta name="author" content="Meridien Foods">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#E0A500">
+<meta name="theme-color" content="#F5B800">
 <link rel="canonical" href="https://site.meridienfoods.com/">
 
 <!-- ============ SEO: OPEN GRAPH ============ -->
@@ -94,11 +94,11 @@
    ================================================================ */
 
 :root {
-  /* --- Logo-derived brand colors (gold/amber crown) --- */
-  --mf-gold:     #E0A500;   /* primary brand gold (from logo spikes) */
-  --mf-gold-dk:  #B27F00;   /* darker gold for hover/active */
-  --mf-gold-lt:  #FBF1D2;   /* soft gold tint background */
-  --mf-amber:    #F5B800;   /* bright amber highlight */
+  /* --- Logo-derived brand colors (bright yellow/gold crown) --- */
+  --mf-gold:     #F5B800;   /* primary brand yellow-gold (from logo spikes) */
+  --mf-amber:    #FFC61A;   /* bright amber/yellow highlight */
+  --mf-gold-dk:  #B27F00;   /* darker gold for text on light backgrounds */
+  --mf-gold-lt:  #FFF3CC;   /* soft yellow tint background */
 
   /* --- Supporting neutrals --- */
   --mf-charcoal: #1C1C1C;
@@ -136,6 +136,7 @@
   padding: 0 16px;
   height: 60px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  border-top: 3px solid var(--mf-gold);
 }
 .mf-nav-logo { display: flex; align-items: center; gap: 8px; }
 .mf-nav-logo img { height: 36px; width: auto; object-fit: contain; }
@@ -143,7 +144,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 19px;
   font-weight: 700;
-  color: var(--mf-white);
+  color: var(--mf-amber);
   letter-spacing: 0.5px;
 }
 .mf-nav-links {
@@ -336,6 +337,20 @@
   line-height: 1.2;
   margin-bottom: 12px;
 }
+/* Brand-yellow accent bar under all major headings */
+.mf-section-title::after,
+.mf-why-title::after,
+.mf-b2b-title::after,
+.mf-cta-title::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 4px;
+  background: var(--mf-gold);
+  border-radius: 2px;
+  margin-top: 14px;
+}
+.mf-cta-title::after { background: var(--mf-charcoal); }
 .mf-section-sub {
   font-size: 15px;
   color: var(--mf-gray);
@@ -625,7 +640,7 @@
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 14px;
-  padding: 26px 22px;
+  padding: 0;
   text-decoration: none;
   display: block;
   transition: background 0.2s, border-color 0.2s, transform 0.2s;
@@ -641,6 +656,7 @@
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
+  z-index: 2;
 }
 .mf-b2b-card:hover {
   background: rgba(224,165,0,0.1);
@@ -648,19 +664,27 @@
   transform: translateY(-4px);
 }
 .mf-b2b-card:hover::before { transform: scaleX(1); }
-.mf-b2b-icon-wrap {
-  width: 54px;
-  height: 54px;
-  border-radius: 12px;
-  background: rgba(224,165,0,0.16);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 26px;
-  margin-bottom: 16px;
-  transition: background 0.2s;
+.mf-b2b-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #232323;
 }
-.mf-b2b-card:hover .mf-b2b-icon-wrap { background: rgba(224,165,0,0.32); }
+.mf-b2b-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.mf-b2b-card:hover .mf-b2b-img-wrap img { transform: scale(1.06); }
+.mf-b2b-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(28,28,28,0) 45%, rgba(28,28,28,0.85) 100%);
+}
+.mf-b2b-body { padding: 22px; }
 .mf-b2b-card-title {
   font-size: 18px;
   font-weight: 700;
@@ -1046,7 +1070,7 @@
     <!-- IMAGE PLACEHOLDER: Hero background 1600x900px (a wide, dark, appetising
          shot of premium raw/grilled meat works best). Replace src below. -->
     <img class="mf-hero-bg"
-         src="https://placehold.co/1600x900/1C1C1C/E0A500?text=Hero+Image+1600x900"
+         src="https://placehold.co/1600x900/1C1C1C/F5B800?text=Hero+Image+1600x900"
          alt="Premium quality fresh meat products by Meridien Foods"
          width="1600" height="900" fetchpriority="high">
     <div class="mf-hero-overlay"></div>
@@ -1098,56 +1122,56 @@
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/chicken.png"
                alt="Chicken products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Chicken'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Chicken'">
           <div class="mf-cat-name">Chicken</div>
           <div class="mf-cat-count">20+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Mutton.png"
                alt="Mutton products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Mutton'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Mutton'">
           <div class="mf-cat-name">Mutton</div>
           <div class="mf-cat-count">12+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/seafood.png"
                alt="Seafood products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Seafood'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Seafood'">
           <div class="mf-cat-name">Seafood</div>
           <div class="mf-cat-count">15+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Buffalo.png"
                alt="Buffalo meat products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Buffalo'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Buffalo'">
           <div class="mf-cat-name">Buffalo</div>
           <div class="mf-cat-count">8+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Rabbit.png"
                alt="Rabbit meat products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Rabbit'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Rabbit'">
           <div class="mf-cat-name">Rabbit</div>
           <div class="mf-cat-count">4+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Quails.png"
                alt="Quail products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Quails'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Quails'">
           <div class="mf-cat-name">Quails</div>
           <div class="mf-cat-count">5+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Turkey.png"
                alt="Turkey products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Turkey'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Turkey'">
           <div class="mf-cat-name">Turkey</div>
           <div class="mf-cat-count">6+ products</div>
         </a>
         <a href="#" class="mf-cat-card">
           <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Ducky.png"
                alt="Duck products" width="72" height="72" loading="lazy"
-               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Duck'">
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/F5B800?text=Duck'">
           <div class="mf-cat-name">Duck</div>
           <div class="mf-cat-count">5+ products</div>
         </a>
@@ -1168,13 +1192,15 @@
           <button class="mf-prod-tab" data-tab="cold">Cold Cuts</button>
         </div>
       </div>
+      <!-- IMAGE PLACEHOLDER: each product image is square — supply transparent
+           PNGs at 300x300px (rendered at ~110-130px). Fallbacks below are 110x110. -->
       <div class="mf-prod-grid" id="mf-prod-grid">
         <article class="mf-prod-card">
           <div class="mf-prod-img-wrap">
             <span class="mf-prod-badge">Bestseller</span>
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_66-e1781523582323.png"
                  alt="Chicken Lollipops 500g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Lollipops'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Lollipops'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Chicken Lollipops</h3>
@@ -1189,7 +1215,7 @@
           <div class="mf-prod-img-wrap">
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_56-e1781523846334.png"
                  alt="Sheekh Kabab 400g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Sheekh+Kabab'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Sheekh+Kabab'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Sheekh Kabab</h3>
@@ -1205,7 +1231,7 @@
             <span class="mf-prod-badge">Popular</span>
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_52-e1781523945909.png"
                  alt="Chicken Nuggets 300g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Nuggets'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Nuggets'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Chicken Nuggets</h3>
@@ -1220,7 +1246,7 @@
           <div class="mf-prod-img-wrap">
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_57-e1781523822331.png"
                  alt="Chicken Tandoori Tikka 500g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Tikka'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Tikka'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Chicken Tandoori Tikka</h3>
@@ -1235,7 +1261,7 @@
           <div class="mf-prod-img-wrap">
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_44-e1781524197774.png"
                  alt="Cheese and Pepper Sausages 250g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Sausages'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Sausages'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Cheese &amp; Pepper Sausages</h3>
@@ -1250,7 +1276,7 @@
           <div class="mf-prod-img-wrap">
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_55-e1781523875578.png"
                  alt="Chicken Cutlets 400g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Cutlets'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Cutlets'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Chicken Cutlets</h3>
@@ -1266,7 +1292,7 @@
             <span class="mf-prod-badge">New</span>
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_49-e1781524067827.png"
                  alt="Chicken Mortadella 200g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Mortadella'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Mortadella'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Chicken Mortadella</h3>
@@ -1281,7 +1307,7 @@
           <div class="mf-prod-img-wrap">
             <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_42-e1781524255344.png"
                  alt="Chicken Premium Sausages 300g" width="110" height="110" loading="lazy"
-                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Sausages'">
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/F5B800?text=Sausages'">
           </div>
           <div class="mf-prod-info">
             <h3 class="mf-prod-name">Chicken Premium Sausages</h3>
@@ -1335,7 +1361,7 @@
       </div>
       <div class="mf-why-image">
         <!-- IMAGE PLACEHOLDER: Processing facility / hygiene photo 600x480px -->
-        <img src="https://placehold.co/600x480/2A2A2A/E0A500?text=Processing+Photo+600x480"
+        <img src="https://placehold.co/600x480/2A2A2A/F5B800?text=Processing+Photo+600x480"
              alt="Meridien Foods FSSAI-certified meat processing facility" width="600" height="480" loading="lazy">
         <div class="mf-why-image-badge">&#127981; Coimbatore &amp; Kochi Units</div>
       </div>
@@ -1361,43 +1387,67 @@
 
       <div class="mf-b2b-grid">
         <div class="mf-b2b-card">
-          <div class="mf-b2b-icon-wrap">&#127976;</div>
-          <h3 class="mf-b2b-card-title">Hotels</h3>
-          <p class="mf-b2b-card-desc">Premium cuts for banquets, buffets, and &agrave; la carte menus. Consistent quality across every batch &mdash; your kitchen never compromises.</p>
-          <div class="mf-b2b-tags">
-            <span class="mf-b2b-tag">Bulk packs</span>
-            <span class="mf-b2b-tag">Weekly supply</span>
-            <span class="mf-b2b-tag">Custom cuts</span>
+          <!-- IMAGE PLACEHOLDER: Hotel kitchen / banquet plating photo 400x180px -->
+          <div class="mf-b2b-img-wrap">
+            <img src="https://placehold.co/400x180/232323/F5B800?text=Hotels+400x180"
+                 alt="Premium meat supply for hotels" width="400" height="180" loading="lazy">
+          </div>
+          <div class="mf-b2b-body">
+            <h3 class="mf-b2b-card-title">Hotels</h3>
+            <p class="mf-b2b-card-desc">Premium cuts for banquets, buffets, and &agrave; la carte menus. Consistent quality across every batch &mdash; your kitchen never compromises.</p>
+            <div class="mf-b2b-tags">
+              <span class="mf-b2b-tag">Bulk packs</span>
+              <span class="mf-b2b-tag">Weekly supply</span>
+              <span class="mf-b2b-tag">Custom cuts</span>
+            </div>
           </div>
         </div>
         <div class="mf-b2b-card">
-          <div class="mf-b2b-icon-wrap">&#127869;</div>
-          <h3 class="mf-b2b-card-title">Restaurants</h3>
-          <p class="mf-b2b-card-desc">From QSRs and cloud kitchens to fine dining &mdash; ready-to-cook portions, marinated items, and cold cuts that cut your prep time.</p>
-          <div class="mf-b2b-tags">
-            <span class="mf-b2b-tag">Ready to cook</span>
-            <span class="mf-b2b-tag">Consistent sizing</span>
-            <span class="mf-b2b-tag">Daily delivery</span>
+          <!-- IMAGE PLACEHOLDER: Restaurant / cloud kitchen photo 400x180px -->
+          <div class="mf-b2b-img-wrap">
+            <img src="https://placehold.co/400x180/232323/F5B800?text=Restaurants+400x180"
+                 alt="Ready-to-cook meat supply for restaurants" width="400" height="180" loading="lazy">
+          </div>
+          <div class="mf-b2b-body">
+            <h3 class="mf-b2b-card-title">Restaurants</h3>
+            <p class="mf-b2b-card-desc">From QSRs and cloud kitchens to fine dining &mdash; ready-to-cook portions, marinated items, and cold cuts that cut your prep time.</p>
+            <div class="mf-b2b-tags">
+              <span class="mf-b2b-tag">Ready to cook</span>
+              <span class="mf-b2b-tag">Consistent sizing</span>
+              <span class="mf-b2b-tag">Daily delivery</span>
+            </div>
           </div>
         </div>
         <div class="mf-b2b-card">
-          <div class="mf-b2b-icon-wrap">&#127881;</div>
-          <h3 class="mf-b2b-card-title">Caterers</h3>
-          <p class="mf-b2b-card-desc">Handle large events without the sourcing stress. We supply bulk quantities on schedule &mdash; weddings, corporate events, and festivals alike.</p>
-          <div class="mf-b2b-tags">
-            <span class="mf-b2b-tag">Event volumes</span>
-            <span class="mf-b2b-tag">Pre-order facility</span>
-            <span class="mf-b2b-tag">Halal cert</span>
+          <!-- IMAGE PLACEHOLDER: Catering / large event buffet photo 400x180px -->
+          <div class="mf-b2b-img-wrap">
+            <img src="https://placehold.co/400x180/232323/F5B800?text=Caterers+400x180"
+                 alt="Bulk meat supply for caterers and events" width="400" height="180" loading="lazy">
+          </div>
+          <div class="mf-b2b-body">
+            <h3 class="mf-b2b-card-title">Caterers</h3>
+            <p class="mf-b2b-card-desc">Handle large events without the sourcing stress. We supply bulk quantities on schedule &mdash; weddings, corporate events, and festivals alike.</p>
+            <div class="mf-b2b-tags">
+              <span class="mf-b2b-tag">Event volumes</span>
+              <span class="mf-b2b-tag">Pre-order facility</span>
+              <span class="mf-b2b-tag">Halal cert</span>
+            </div>
           </div>
         </div>
         <div class="mf-b2b-card">
-          <div class="mf-b2b-icon-wrap">&#127978;</div>
-          <h3 class="mf-b2b-card-title">Retail Stores</h3>
-          <p class="mf-b2b-card-desc">Shelf-ready, vacuum-sealed cold cuts and processed meats under your brand or ours. Supermarkets, meat shops, and grocery chains welcome.</p>
-          <div class="mf-b2b-tags">
-            <span class="mf-b2b-tag">Private label</span>
-            <span class="mf-b2b-tag">Shelf-ready packs</span>
-            <span class="mf-b2b-tag">FSSAI labeled</span>
+          <!-- IMAGE PLACEHOLDER: Supermarket / retail meat shelf photo 400x180px -->
+          <div class="mf-b2b-img-wrap">
+            <img src="https://placehold.co/400x180/232323/F5B800?text=Retail+400x180"
+                 alt="Shelf-ready packaged meat for retail stores" width="400" height="180" loading="lazy">
+          </div>
+          <div class="mf-b2b-body">
+            <h3 class="mf-b2b-card-title">Retail Stores</h3>
+            <p class="mf-b2b-card-desc">Shelf-ready, vacuum-sealed cold cuts and processed meats under your brand or ours. Supermarkets, meat shops, and grocery chains welcome.</p>
+            <div class="mf-b2b-tags">
+              <span class="mf-b2b-tag">Private label</span>
+              <span class="mf-b2b-tag">Shelf-ready packs</span>
+              <span class="mf-b2b-tag">FSSAI labeled</span>
+            </div>
           </div>
         </div>
       </div>
@@ -1436,7 +1486,7 @@
       <div class="mf-cities-grid">
         <div class="mf-city-card">
           <!-- IMAGE PLACEHOLDER: Chennai city/landmark 400x160px -->
-          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/E0A500?text=Chennai+400x160"
+          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/F5B800?text=Chennai+400x160"
                alt="Meridien Foods delivery in Chennai" width="400" height="160" loading="lazy">
           <div class="mf-city-info">
             <h3 class="mf-city-name">Chennai</h3>
@@ -1445,7 +1495,7 @@
         </div>
         <div class="mf-city-card">
           <!-- IMAGE PLACEHOLDER: Coimbatore city/landmark 400x160px -->
-          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/E0A500?text=Coimbatore+400x160"
+          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/F5B800?text=Coimbatore+400x160"
                alt="Meridien Foods head office and processing unit in Coimbatore" width="400" height="160" loading="lazy">
           <div class="mf-city-info">
             <h3 class="mf-city-name">Coimbatore</h3>
@@ -1454,7 +1504,7 @@
         </div>
         <div class="mf-city-card">
           <!-- IMAGE PLACEHOLDER: Kochi city/landmark 400x160px -->
-          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/E0A500?text=Kochi+400x160"
+          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/F5B800?text=Kochi+400x160"
                alt="Meridien Foods Kerala distribution hub in Kochi" width="400" height="160" loading="lazy">
           <div class="mf-city-info">
             <h3 class="mf-city-name">Kochi</h3>
