@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Meridien Foods</title>
+<meta name="description" content="Meridien Foods supplies premium fresh-frozen food products across South India. Sourcing, hygienic processing and cold-chain delivery that preserve freshness and quality.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#f6c026;          /* amber/gold accent (matches Meridien brand) */
+  --brand-deep:#d99e0b;
+  --bg:#0b0b0b;
+  --surface:#151515;
+  --surface-2:#1d1d1d;
+  --line:#2a2a2a;
+  --text:#ffffff;
+  --muted:#cfcfcf;
+
+  /* Fluid type — deliberately LARGE on mobile, scales up on desktop */
+  --fs-eyebrow: clamp(14px, 3.6vw, 16px);
+  --fs-h1:      clamp(44px, 13vw, 84px);
+  --fs-h2:      clamp(34px, 9vw, 56px);
+  --fs-h3:      clamp(22px, 5.4vw, 28px);
+  --fs-body:    clamp(18px, 4.6vw, 20px);
+  --fs-stat:    clamp(40px, 12vw, 54px);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  overflow-x:hidden;
+  font-size:var(--fs-body);
+}
+img{max-width:100%;display:block;}
+a{color:inherit;}
+
+.container{width:90%;max-width:1200px;margin-inline:auto;}
+
+h1,h2,h3{font-family:'Cormorant Garamond',serif;line-height:1.08;font-weight:700;}
+
+.eyebrow{
+  display:inline-block;
+  color:var(--brand);
+  font-family:'DM Sans',sans-serif;
+  font-weight:700;
+  font-size:var(--fs-eyebrow);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5em;
+  margin-top:34px;
+  background:var(--brand);
+  color:#000;
+  padding:18px 34px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:clamp(17px,4.4vw,18px);
+  border-radius:10px;
+  min-height:56px;            /* large, tap-friendly */
+  transition:transform .2s ease, background .2s ease;
+}
+.btn:hover{background:var(--brand-deep);transform:translateY(-2px);}
+.btn.ghost{background:transparent;color:var(--brand);border:2px solid var(--brand);}
+.btn.ghost:hover{background:var(--brand);color:#000;}
+
+/* ---------- Header ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(11,11,11,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 0;
+}
+.nav .logo img{height:46px;width:auto;}
+.nav-links{display:none;gap:30px;list-style:none;font-weight:500;}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:16px;letter-spacing:.02em;}
+.nav-links a:hover{color:var(--brand);}
+.nav .cta{display:none;}
+
+/* ---------- Hero ---------- */
+.hero{
+  background:linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,.82)),
+    url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?q=80&w=1600');
+  background-size:cover;background-position:center;
+  min-height:88vh;display:flex;align-items:center;
+}
+.hero-content{max-width:760px;padding:90px 0;}
+.hero h1{
+  font-size:var(--fs-h1);
+  margin:18px 0 22px;
+  letter-spacing:-.01em;
+}
+.hero h1 .accent{color:var(--brand);}
+.hero p{color:var(--muted);max-width:560px;}
+
+/* ---------- Section shell ---------- */
+section{padding:clamp(64px,14vw,110px) 0;}
+.section-head{max-width:820px;margin-bottom:clamp(40px,9vw,62px);}
+.section-head.center{margin-inline:auto;text-align:center;}
+.section-head h2{font-size:var(--fs-h2);color:#fff;margin:12px 0 18px;}
+.section-head h2 .accent{color:var(--brand);}
+.section-head p{color:var(--muted);}
+
+/* ---------- About ---------- */
+.about-grid{display:grid;grid-template-columns:1fr;gap:clamp(34px,8vw,60px);align-items:center;}
+.about-grid img{width:100%;border-radius:18px;}
+.about-text p + p{margin-top:18px;}
+.about-text p{color:var(--muted);}
+
+.stats{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:18px;margin-top:38px;
+}
+.stat{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:24px 16px;text-align:center;
+}
+.stat h3{font-size:var(--fs-stat);color:var(--brand);line-height:1;}
+.stat span{display:block;margin-top:8px;color:var(--muted);font-size:16px;font-weight:500;}
+
+/* ---------- Values ---------- */
+.values{background:#080808;}
+.value-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+.value-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:4px solid var(--brand);
+  border-radius:16px;
+  padding:28px 26px;
+}
+.value-card h3{font-size:var(--fs-h3);color:var(--brand);margin-bottom:8px;}
+.value-card p{color:var(--muted);font-size:clamp(17px,4.4vw,18px);}
+
+/* ---------- Process ---------- */
+.process{background:var(--bg);}
+.process-img{width:100%;border-radius:18px;margin-bottom:clamp(34px,8vw,52px);background:#fff;padding:18px;}
+.process-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+.process-item{
+  display:flex;gap:20px;align-items:flex-start;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;padding:24px;
+}
+.process-no{
+  flex:0 0 auto;
+  width:60px;height:60px;border-radius:50%;
+  background:var(--brand);color:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:22px;
+}
+.process-item h3{font-size:var(--fs-h3);color:#fff;margin-bottom:4px;}
+.process-item p{color:var(--muted);font-size:clamp(17px,4.4vw,18px);}
+
+/* ---------- Contact / CTA ---------- */
+.contact{background:#080808;}
+.contact-grid{display:grid;grid-template-columns:1fr;gap:clamp(34px,8vw,56px);align-items:center;}
+.contact h2{font-size:var(--fs-h2);color:#fff;}
+.contact h2 .accent{color:var(--brand);}
+.contact .lead{color:var(--muted);margin-top:16px;}
+.contact-box{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-top:4px solid var(--brand);
+  border-radius:18px;padding:32px 28px;
+}
+.contact-box h3{font-size:var(--fs-h3);color:var(--brand);margin-bottom:16px;}
+.contact-box address{font-style:normal;color:var(--muted);line-height:1.8;}
+.contact-box .row{margin-top:18px;}
+.contact-box .row strong{color:#fff;}
+.contact-box a{color:var(--brand);text-decoration:none;font-weight:600;}
+
+/* ---------- Footer ---------- */
+footer{background:#000;border-top:1px solid var(--line);padding:48px 0 34px;}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:34px;}
+.foot-grid h4{color:var(--brand);font-family:'DM Sans',sans-serif;font-size:15px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;}
+.foot-grid p,.foot-grid li{color:var(--muted);font-size:17px;line-height:1.9;}
+.foot-grid ul{list-style:none;}
+.foot-grid a{text-decoration:none;color:var(--muted);}
+.foot-grid a:hover{color:var(--brand);}
+.copyright{
+  border-top:1px solid var(--line);
+  margin-top:40px;padding-top:24px;
+  text-align:center;color:#888;font-size:15px;
+}
+
+/* ---------- Tablet ---------- */
+@media(min-width:700px){
+  .stats{grid-template-columns:repeat(4,1fr);}
+  .value-grid{grid-template-columns:repeat(2,1fr);}
+  .process-grid{grid-template-columns:repeat(2,1fr);}
+  .foot-grid{grid-template-columns:2fr 1fr 1fr;}
+}
+
+/* ---------- Desktop ---------- */
+@media(min-width:980px){
+  .nav-links{display:flex;}
+  .nav .cta{display:inline-flex;margin-top:0;padding:12px 24px;min-height:auto;}
+  .about-grid{grid-template-columns:1.05fr 1fr;}
+  .about-grid.reverse img{order:2;}
+  .value-grid{grid-template-columns:repeat(3,1fr);}
+  .contact-grid{grid-template-columns:1fr 1fr;}
+  .foot-grid{grid-template-columns:2fr 1fr 1fr 1.4fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="container nav">
+    <a href="https://meridienfoods.com/index.php" class="logo">
+      <img src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/cropped-logo2.png" alt="Meridien Foods">
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="https://meridienfoods.com/index.php">Home</a></li>
+        <li><a href="https://meridienfoods.com/index.php/shop">Our Products</a></li>
+        <li><a href="https://site.meridienfoods.com/option1/about-us/">About Us</a></li>
+        <li><a href="https://meridienfoods.com/index.php/shop">Shop</a></li>
+        <li><a href="https://meridienfoods.com/index.php/contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="https://meridienfoods.com/index.php/shop" class="btn cta">Shop Now</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Who We Are</span>
+      <h1>Fresh. Frozen.<br><span class="accent">Uncompromised.</span></h1>
+      <p>Meridien Foods supplies premium frozen food products across South India. From sourcing and hygienic processing to cold-chain delivery, every step preserves freshness and quality.</p>
+      <a href="https://meridienfoods.com/index.php/shop" class="btn">Explore Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">About Meridien Foods</span>
+      <h2>Premium Frozen Food <span class="accent">Specialists</span></h2>
+      <p>Quality should never be compromised. We source premium products and deliver them through a temperature-controlled supply chain &mdash; so taste, freshness and safety are preserved from origin to your plate.</p>
+    </div>
+
+    <div class="about-grid">
+      <img src="https://images.unsplash.com/photo-1576866209830-589e1bfbaa4d?q=80&w=1200" alt="Premium frozen food products from Meridien Foods">
+      <div class="about-text">
+        <p>We have dedicated ourselves to providing an extensive and excellent range of products at very competitive prices, without the need to compromise on taste or quality. Our frozen range includes chicken, seafood, mutton, buffalo, duck, quail, rabbit and specialty frozen products.</p>
+        <p>Every item is carefully handled to ensure freshness, taste and safety before reaching customers. Our reluctance to compromise on quality has kept happy customers returning week in, week out.</p>
+
+        <div class="stats">
+          <div class="stat"><h3>10+</h3><span>Categories</span></div>
+          <div class="stat"><h3>3</h3><span>Major Cities</span></div>
+          <div class="stat"><h3>100%</h3><span>Quality Checked</span></div>
+          <div class="stat"><h3>24/7</h3><span>Support</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="values">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Our Commitment</span>
+      <h2>Why Customers Choose <span class="accent">Meridien Foods</span></h2>
+    </div>
+
+    <div class="value-grid">
+      <div class="value-card"><h3>Uncompromising Hygiene</h3><p>Processed under stringent food safety standards.</p></div>
+      <div class="value-card"><h3>Premium Quality</h3><p>Only carefully selected products pass our checks.</p></div>
+      <div class="value-card"><h3>Reliable Cold Chain</h3><p>Temperature-controlled storage and transportation.</p></div>
+      <div class="value-card"><h3>Trusted Sourcing</h3><p>Direct sourcing from approved vendors.</p></div>
+      <div class="value-card"><h3>Wide Product Range</h3><p>A complete frozen food portfolio.</p></div>
+      <div class="value-card"><h3>Competitive Pricing</h3><p>Premium products at fair prices.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="process">
+  <div class="container">
+    <div class="section-head center">
+      <span class="eyebrow">Our Process</span>
+      <h2>From Source to <span class="accent">Customer</span></h2>
+      <p>Every product follows a carefully managed cold-chain journey.</p>
+    </div>
+
+    <img class="process-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_172.png" alt="Meridien Foods cold-chain process flow">
+
+    <div class="process-grid">
+      <div class="process-item"><div class="process-no">01</div><div><h3>Direct Sourcing</h3><p>Products sourced directly from origin.</p></div></div>
+      <div class="process-item"><div class="process-no">02</div><div><h3>Production Unit</h3><p>Strict hygiene and food safety processing.</p></div></div>
+      <div class="process-item"><div class="process-no">03</div><div><h3>Cold Storage</h3><p>Stored in temperature-controlled facilities.</p></div></div>
+      <div class="process-item"><div class="process-no">04</div><div><h3>Retail &amp; Distribution</h3><p>Supplied to retail outlets and distributors.</p></div></div>
+      <div class="process-item"><div class="process-no">05</div><div><h3>Customer Delivery</h3><p>Maintained between -10&deg;C and -18&deg;C.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact / CTA -->
+<section class="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <h2>Ready to <span class="accent">Order?</span></h2>
+        <p class="lead">Browse our complete range of premium frozen food products or contact our team directly.</p>
+        <a href="https://meridienfoods.com/index.php/shop" class="btn">Shop Now</a>
+      </div>
+
+      <div class="contact-box">
+        <h3>Head Office</h3>
+        <address>
+          13/2, Near National Modal School<br>
+          Ramalakshmanan Nagar, Anna Nagar<br>
+          Peelamedu, Coimbatore &ndash; 641004<br>
+          Tamil Nadu, India
+        </address>
+        <p class="row"><strong>Phone:</strong> <a href="tel:+918438308191">+91 84383 08191</a></p>
+        <p class="row"><strong>Email:</strong> <a href="mailto:sales@meridienfoods.com">sales@meridienfoods.com</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <h4>Contact</h4>
+        <p>
+          13/2, Near National Modal School,<br>
+          Ramalakshmanan Nagar, Anna Nagar,<br>
+          Peelamedu, Coimbatore &ndash; 641004,<br>
+          Tamil Nadu, India
+        </p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="https://meridienfoods.com/index.php">Home</a></li>
+          <li><a href="https://site.meridienfoods.com/option1/about-us/">About</a></li>
+          <li><a href="https://meridienfoods.com/index.php/shop">Our Products</a></li>
+          <li><a href="https://meridienfoods.com/index.php/shop">Shop</a></li>
+          <li><a href="https://meridienfoods.com/index.php/contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>We Deliver</h4>
+        <ul>
+          <li>Chennai</li>
+          <li>Coimbatore</li>
+          <li>Kochi</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get In Touch</h4>
+        <p>Sales: <a href="tel:+918438308191">+91 84383 08191</a></p>
+        <p>Email: <a href="mailto:sales@meridienfoods.com">sales@meridienfoods.com</a></p>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2026 Meridien Foods. Freshness Frozen, Quality Preserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
