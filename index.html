@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- ============ SEO: PRIMARY META ============ -->
+<title>Meridien Foods | Premium Fresh Meat Delivered in Chennai, Coimbatore & Kochi</title>
+<meta name="description" content="Meridien Foods supplies premium, FSSAI-certified, halal-assured processed meats to hotels, restaurants, caterers & retail across South India. Cold-chain delivery in Chennai, Coimbatore & Kochi.">
+<meta name="keywords" content="meat delivery Chennai, fresh chicken Coimbatore, mutton supplier Kochi, halal meat South India, bulk meat supplier, ready to cook chicken, cold cuts, Meridien Foods">
+<meta name="author" content="Meridien Foods">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#E0A500">
+<link rel="canonical" href="https://site.meridienfoods.com/">
+
+<!-- ============ SEO: OPEN GRAPH ============ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Meridien Foods">
+<meta property="og:title" content="Premium Fresh Meat Delivered to Your Door | Meridien Foods">
+<meta property="og:description" content="FSSAI-certified, halal-assured premium meats with cold-chain delivery across Chennai, Coimbatore & Kochi. Trusted by hotels, restaurants & caterers since 2014.">
+<meta property="og:url" content="https://site.meridienfoods.com/">
+<meta property="og:locale" content="en_IN">
+<meta property="og:image" content="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/cropped-logo2.png">
+<meta property="og:image:alt" content="Meridien Foods logo">
+
+<!-- ============ SEO: TWITTER CARD ============ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Premium Fresh Meat Delivered | Meridien Foods">
+<meta name="twitter:description" content="FSSAI-certified, halal-assured premium meats with cold-chain delivery across South India.">
+<meta name="twitter:image" content="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/cropped-logo2.png">
+
+<!-- ============ FONTS ============ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- ============ SEO: STRUCTURED DATA (JSON-LD) ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://site.meridienfoods.com/#business",
+  "name": "Meridien Foods",
+  "description": "Premium FSSAI-certified, halal-assured processed meats delivered via cold chain across South India since 2014.",
+  "url": "https://site.meridienfoods.com/",
+  "logo": "https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/cropped-logo2.png",
+  "image": "https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/cropped-logo2.png",
+  "telephone": "+91-87141-36486",
+  "email": "info@meridienfoods.com",
+  "priceRange": "$$",
+  "foundingDate": "2014",
+  "areaServed": ["Chennai", "Coimbatore", "Kochi"],
+  "address": [
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "13/2, Ramalakshmanan Nagar, Anna Nagar, Peelamedu",
+      "addressLocality": "Coimbatore",
+      "postalCode": "641004",
+      "addressRegion": "Tamil Nadu",
+      "addressCountry": "IN"
+    },
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "Bluemoon Silver, Jawahar Nagar, Kadavanthara, Ernakulam",
+      "addressLocality": "Kochi",
+      "postalCode": "682020",
+      "addressRegion": "Kerala",
+      "addressCountry": "IN"
+    }
+  ],
+  "sameAs": []
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Meridien Foods",
+  "url": "https://site.meridienfoods.com/",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://site.meridienfoods.com/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<style>
+/* ================================================================
+   MERIDIEN FOODS — MOBILE-FIRST HOMEPAGE
+   Brand palette extracted from logo: GOLD/AMBER + CHARCOAL
+   Approach: base styles target mobile; min-width queries scale up.
+   ================================================================ */
+
+:root {
+  /* --- Logo-derived brand colors (gold/amber crown) --- */
+  --mf-gold:     #E0A500;   /* primary brand gold (from logo spikes) */
+  --mf-gold-dk:  #B27F00;   /* darker gold for hover/active */
+  --mf-gold-lt:  #FBF1D2;   /* soft gold tint background */
+  --mf-amber:    #F5B800;   /* bright amber highlight */
+
+  /* --- Supporting neutrals --- */
+  --mf-charcoal: #1C1C1C;
+  --mf-cream:    #FBF7F2;
+  --mf-gray:     #5C5C5C;   /* darkened for better mobile contrast */
+  --mf-border:   #EAE1D4;
+  --mf-white:    #FFFFFF;
+
+  /* --- Fluid type scale (legible on small screens first) --- */
+  --fs-base: 16px;          /* never below 16px on body for readability */
+}
+
+.mf-home * { box-sizing: border-box; margin: 0; padding: 0; }
+
+.mf-home {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--mf-charcoal);
+  background: var(--mf-white);
+  font-size: var(--fs-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.mf-home img { max-width: 100%; }
+
+/* ── HEADER / NAV (mobile base) ───────────────────────── */
+.mf-nav {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: var(--mf-charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 60px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+.mf-nav-logo { display: flex; align-items: center; gap: 8px; }
+.mf-nav-logo img { height: 36px; width: auto; object-fit: contain; }
+.mf-nav-logo span {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--mf-white);
+  letter-spacing: 0.5px;
+}
+.mf-nav-links {
+  display: none;              /* hidden on mobile, shown >=900px */
+  list-style: none;
+  gap: 28px;
+}
+.mf-nav-links li a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: color 0.2s;
+}
+.mf-nav-links li a:hover { color: var(--mf-amber); }
+.mf-nav-right { display: flex; align-items: center; gap: 12px; }
+.mf-nav-phone { display: none; }    /* shown >=900px */
+.mf-nav-cta {
+  background: var(--mf-gold);
+  color: var(--mf-charcoal);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 9px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.mf-nav-cta:hover { background: var(--mf-amber); }
+
+/* ── HERO (mobile base) ───────────────────────────────── */
+.mf-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--mf-charcoal);
+  min-height: 460px;
+}
+.mf-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+.mf-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(28,28,28,0.96) 40%, rgba(224,165,0,0.28) 100%);
+}
+.mf-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 16px;
+  width: 100%;
+}
+.mf-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--mf-amber);
+  margin-bottom: 16px;
+}
+.mf-hero-tag::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: var(--mf-amber);
+  display: inline-block;
+}
+.mf-hero-h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 9vw, 68px);   /* readable minimum on phones */
+  font-weight: 900;
+  color: var(--mf-white);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  max-width: 600px;
+}
+.mf-hero-h1 em { color: var(--mf-amber); font-style: normal; }
+.mf-hero-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.82);   /* lifted for mobile contrast */
+  line-height: 1.7;
+  max-width: 480px;
+  margin-bottom: 28px;
+}
+.mf-hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.mf-btn-primary {
+  background: var(--mf-gold);
+  color: var(--mf-charcoal);
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  flex: 1 1 auto;
+  text-align: center;
+}
+.mf-btn-primary:hover { background: var(--mf-amber); transform: translateY(-1px); }
+.mf-btn-outline {
+  background: transparent;
+  color: var(--mf-white);
+  padding: 14px 28px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1.5px solid rgba(255,255,255,0.45);
+  transition: border-color 0.2s, color 0.2s;
+  flex: 1 1 auto;
+  text-align: center;
+}
+.mf-btn-outline:hover { border-color: var(--mf-amber); color: var(--mf-amber); }
+.mf-hero-badges {
+  display: flex;
+  gap: 18px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+.mf-hero-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.78);
+  font-size: 13px;
+  font-weight: 500;
+}
+.mf-hero-badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(224,165,0,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+/* ── DELIVERY STRIP ───────────────────────────────────── */
+.mf-delivery-strip {
+  background: var(--mf-gold);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 28px;
+  flex-wrap: wrap;
+}
+.mf-delivery-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--mf-charcoal);
+  font-size: 13px;
+  font-weight: 600;
+}
+.mf-delivery-sep { display: none; }
+
+/* ── SECTION COMMON (mobile base) ─────────────────────── */
+.mf-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 16px;
+}
+.mf-section-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mf-gold-dk);
+  margin-bottom: 8px;
+  display: block;
+}
+.mf-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 6vw, 42px);
+  font-weight: 700;
+  color: var(--mf-charcoal);
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.mf-section-sub {
+  font-size: 15px;
+  color: var(--mf-gray);
+  line-height: 1.7;
+  max-width: 520px;
+}
+
+/* ── CATEGORIES (mobile base = 2 cols) ────────────────── */
+.mf-cats-wrap { background: var(--mf-cream); }
+.mf-cats-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.mf-cats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 28px;
+}
+.mf-cat-card {
+  background: var(--mf-white);
+  border: 1px solid var(--mf-border);
+  border-radius: 12px;
+  padding: 20px 12px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--mf-charcoal);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  display: block;
+}
+.mf-cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(224,165,0,0.18);
+  border-color: var(--mf-gold);
+}
+.mf-cat-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  margin: 0 auto 12px;
+  display: block;
+  transition: transform 0.2s;
+}
+.mf-cat-card:hover .mf-cat-img { transform: scale(1.08); }
+.mf-cat-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--mf-charcoal);
+  margin-bottom: 3px;
+}
+.mf-cat-count { font-size: 12.5px; color: var(--mf-gray); }
+
+/* ── FEATURED PRODUCTS (mobile base = 2 cols) ─────────── */
+.mf-prod-header { margin-bottom: 28px; }
+.mf-prod-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--mf-cream);
+  padding: 4px;
+  border-radius: 8px;
+  margin-top: 18px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.mf-prod-tab {
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: var(--mf-gray);
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+  white-space: nowrap;
+}
+.mf-prod-tab.active {
+  background: var(--mf-gold);
+  color: var(--mf-charcoal);
+  font-weight: 700;
+}
+.mf-prod-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.mf-prod-card {
+  background: var(--mf-white);
+  border: 1px solid var(--mf-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.mf-prod-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+}
+.mf-prod-img-wrap {
+  background: var(--mf-cream);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  position: relative;
+}
+.mf-prod-img { width: 110px; height: 110px; object-fit: contain; }
+.mf-prod-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--mf-gold);
+  color: var(--mf-charcoal);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.mf-prod-info { padding: 14px; border-top: 1px solid var(--mf-border); }
+.mf-prod-name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--mf-charcoal);
+  margin-bottom: 5px;
+  line-height: 1.35;
+}
+.mf-prod-weight { font-size: 12.5px; color: var(--mf-gray); margin-bottom: 12px; }
+.mf-prod-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.mf-prod-price { font-size: 16px; font-weight: 700; color: var(--mf-gold-dk); }
+.mf-prod-cta {
+  background: var(--mf-charcoal);
+  color: var(--mf-white);
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.mf-prod-cta:hover { background: var(--mf-gold-dk); }
+.mf-view-all-wrap { text-align: center; margin-top: 32px; }
+.mf-btn-gold-outline {
+  display: inline-block;
+  padding: 13px 32px;
+  border: 1.5px solid var(--mf-gold);
+  color: var(--mf-gold-dk);
+  border-radius: 6px;
+  font-size: 14.5px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.mf-btn-gold-outline:hover { background: var(--mf-gold); color: var(--mf-charcoal); }
+
+/* ── WHY MERIDIEN (mobile base = stacked) ─────────────── */
+.mf-why-wrap { background: var(--mf-charcoal); }
+.mf-why-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+  align-items: center;
+}
+.mf-why-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mf-amber);
+  margin-bottom: 12px;
+  display: block;
+}
+.mf-why-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 6vw, 40px);
+  font-weight: 700;
+  color: var(--mf-white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.mf-why-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.75;
+  margin-bottom: 28px;
+}
+.mf-why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.mf-why-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 18px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.mf-why-card:hover {
+  background: rgba(224,165,0,0.12);
+  border-color: rgba(224,165,0,0.45);
+}
+.mf-why-icon { font-size: 26px; margin-bottom: 10px; display: block; }
+.mf-why-card-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--mf-white);
+  margin-bottom: 5px;
+}
+.mf-why-card-desc {
+  font-size: 13px;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.6;
+}
+.mf-why-image {
+  border-radius: 16px;
+  overflow: hidden;
+  height: 280px;
+  position: relative;
+  order: -1;          /* image first on mobile */
+}
+.mf-why-image img { width: 100%; height: 100%; object-fit: cover; }
+.mf-why-image-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: var(--mf-gold);
+  color: var(--mf-charcoal);
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ── B2B CUSTOMERS (mobile base) ──────────────────────── */
+.mf-b2b-wrap { background: var(--mf-charcoal); border-top: 1px solid rgba(255,255,255,0.07); }
+.mf-b2b-inner { max-width: 1200px; margin: 0 auto; padding: 56px 16px; }
+.mf-b2b-top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+.mf-b2b-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--mf-amber);
+  margin-bottom: 10px;
+  display: block;
+}
+.mf-b2b-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(26px, 6vw, 40px);
+  font-weight: 700;
+  color: var(--mf-white);
+  line-height: 1.2;
+}
+.mf-b2b-subtitle {
+  font-size: 15px;
+  color: rgba(255,255,255,0.68);
+  margin-top: 10px;
+  max-width: 440px;
+  line-height: 1.65;
+}
+.mf-b2b-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.mf-b2b-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 26px 22px;
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.mf-b2b-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--mf-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.mf-b2b-card:hover {
+  background: rgba(224,165,0,0.1);
+  border-color: rgba(224,165,0,0.4);
+  transform: translateY(-4px);
+}
+.mf-b2b-card:hover::before { transform: scaleX(1); }
+.mf-b2b-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background: rgba(224,165,0,0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 16px;
+  transition: background 0.2s;
+}
+.mf-b2b-card:hover .mf-b2b-icon-wrap { background: rgba(224,165,0,0.32); }
+.mf-b2b-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--mf-white);
+  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+}
+.mf-b2b-card-desc {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.mf-b2b-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.mf-b2b-tag {
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.mf-b2b-stat-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 32px;
+}
+.mf-b2b-stat { background: #232323; padding: 24px; text-align: center; }
+.mf-b2b-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--mf-amber);
+  margin-bottom: 4px;
+}
+.mf-b2b-stat-label { font-size: 13.5px; color: rgba(255,255,255,0.62); }
+.mf-b2b-cta {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.mf-btn-gold-solid {
+  background: var(--mf-gold);
+  color: var(--mf-charcoal);
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: inline-block;
+  text-align: center;
+}
+.mf-btn-gold-solid:hover { background: var(--mf-amber); }
+.mf-btn-ghost-white {
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 14px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+  text-align: center;
+}
+.mf-btn-ghost-white:hover { border-color: var(--mf-amber); color: var(--mf-amber); }
+
+/* ── DELIVERY CITIES (mobile base = 1 col) ────────────── */
+.mf-cities-wrap { background: var(--mf-cream); }
+.mf-cities-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+.mf-city-card {
+  background: var(--mf-white);
+  border: 1px solid var(--mf-border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+}
+.mf-city-img { width: 100%; height: 160px; object-fit: cover; }
+.mf-city-info { padding: 18px; }
+.mf-city-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--mf-charcoal);
+  margin-bottom: 4px;
+}
+.mf-city-tag { font-size: 12.5px; color: var(--mf-gold-dk); font-weight: 600; }
+
+/* ── TESTIMONIALS (mobile base = 1 col) ───────────────── */
+.mf-test-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 28px;
+}
+.mf-test-card {
+  background: var(--mf-white);
+  border: 1px solid var(--mf-border);
+  border-radius: 12px;
+  padding: 22px;
+}
+.mf-test-stars { color: var(--mf-gold); font-size: 16px; margin-bottom: 12px; letter-spacing: 2px; }
+.mf-test-quote {
+  font-size: 14.5px;
+  color: var(--mf-charcoal);
+  line-height: 1.7;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+.mf-test-author { display: flex; align-items: center; gap: 10px; }
+.mf-test-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--mf-gold-lt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mf-gold-dk);
+  flex-shrink: 0;
+}
+.mf-test-name { font-size: 13.5px; font-weight: 600; color: var(--mf-charcoal); }
+.mf-test-city { font-size: 12.5px; color: var(--mf-gray); }
+
+/* ── CTA BANNER (mobile base) ─────────────────────────── */
+.mf-cta-banner { background: var(--mf-gold); position: relative; overflow: hidden; }
+.mf-cta-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+.mf-cta-banner::before {
+  content: '';
+  position: absolute;
+  right: -80px; top: -80px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+}
+.mf-cta-banner::after {
+  content: '';
+  position: absolute;
+  left: -40px; bottom: -60px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.06);
+}
+.mf-cta-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 6vw, 36px);
+  font-weight: 700;
+  color: var(--mf-charcoal);
+  margin-bottom: 8px;
+}
+.mf-cta-sub { font-size: 15px; color: rgba(28,28,28,0.78); font-weight: 500; }
+.mf-cta-btns { display: flex; gap: 12px; flex-wrap: wrap; width: 100%; }
+.mf-btn-white {
+  background: var(--mf-charcoal);
+  color: var(--mf-white);
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+  flex: 1 1 auto;
+  text-align: center;
+}
+.mf-btn-white:hover { opacity: 0.9; }
+.mf-btn-wa {
+  background: #25D366;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  padding: 14px 26px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  white-space: nowrap;
+  flex: 1 1 auto;
+}
+.mf-btn-wa:hover { opacity: 0.92; }
+
+/* ── FOOTER (mobile base = 1 col) ─────────────────────── */
+.mf-footer { background: #111; color: rgba(255,255,255,0.66); }
+.mf-footer-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 44px 16px 32px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+.mf-footer-brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--mf-amber);
+  margin-bottom: 12px;
+}
+.mf-footer-desc { font-size: 13.5px; line-height: 1.75; margin-bottom: 18px; }
+.mf-footer-contact a {
+  color: rgba(255,255,255,0.78);
+  text-decoration: none;
+  font-size: 13.5px;
+  display: block;
+  margin-bottom: 6px;
+  transition: color 0.15s;
+}
+.mf-footer-contact a:hover { color: var(--mf-amber); }
+.mf-footer-col-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+.mf-footer-links { list-style: none; }
+.mf-footer-links li { margin-bottom: 10px; }
+.mf-footer-links li a {
+  color: rgba(255,255,255,0.68);
+  text-decoration: none;
+  font-size: 13.5px;
+  transition: color 0.15s;
+}
+.mf-footer-links li a:hover { color: var(--mf-amber); }
+.mf-footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  gap: 10px;
+  text-align: center;
+}
+.mf-footer-bottom a { color: rgba(255,255,255,0.55); text-decoration: none; }
+.mf-footer-bottom a:hover { color: var(--mf-amber); }
+.mf-dev-credit { color: rgba(255,255,255,0.4); font-size: 12.5px; }
+.mf-dev-credit a { color: rgba(255,255,255,0.5); }
+
+/* ================================================================
+   BREAKPOINT: >=600px  (large phones / small tablets)
+   ================================================================ */
+@media (min-width: 600px) {
+  .mf-cats-grid { grid-template-columns: repeat(3, 1fr); }
+  .mf-prod-grid { grid-template-columns: repeat(2, 1fr); }
+  .mf-b2b-grid { grid-template-columns: repeat(2, 1fr); }
+  .mf-b2b-stat-row { grid-template-columns: repeat(3, 1fr); }
+  .mf-cities-grid { grid-template-columns: repeat(3, 1fr); }
+  .mf-test-grid { grid-template-columns: repeat(3, 1fr); }
+  .mf-cta-inner { flex-direction: row; align-items: center; justify-content: space-between; }
+  .mf-cta-btns { width: auto; }
+  .mf-btn-primary, .mf-btn-outline { flex: 0 0 auto; }
+  .mf-b2b-cta { flex-direction: row; align-items: center; }
+  .mf-btn-gold-solid, .mf-btn-ghost-white { flex: 0 0 auto; }
+  .mf-delivery-sep { display: inline; color: rgba(28,28,28,0.3); }
+  .mf-footer-bottom { flex-direction: row; text-align: left; }
+}
+
+/* ================================================================
+   BREAKPOINT: >=900px  (tablets / small laptops)
+   ================================================================ */
+@media (min-width: 900px) {
+  .mf-nav { padding: 0 32px; height: 64px; }
+  .mf-nav-links { display: flex; }
+  .mf-nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.78);
+    font-size: 13.5px;
+    text-decoration: none;
+  }
+  .mf-nav-phone:hover { color: var(--mf-amber); }
+  .mf-hero { min-height: 560px; }
+  .mf-hero-content { padding: 80px 32px; }
+  .mf-section { padding: 72px 32px; }
+  .mf-cats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .mf-prod-grid { grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .mf-why-inner { grid-template-columns: 1fr 1fr; gap: 48px; padding: 72px 32px; }
+  .mf-why-image { height: 420px; order: 0; }
+  .mf-b2b-inner { padding: 72px 32px; }
+  .mf-b2b-top { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+  .mf-b2b-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .mf-footer-main { grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; padding: 60px 32px 40px; }
+}
+
+/* ================================================================
+   BREAKPOINT: >=1200px  (desktop)
+   ================================================================ */
+@media (min-width: 1200px) {
+  .mf-nav { padding: 0 48px; }
+  .mf-hero-content { padding: 90px 48px; }
+  .mf-section { padding: 80px 48px; }
+  .mf-prod-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .mf-why-inner { gap: 64px; padding: 80px 48px; }
+  .mf-why-image { height: 480px; }
+  .mf-b2b-inner { padding: 80px 48px; }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mf-home *, .mf-home *::before, .mf-home *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     MERIDIEN FOODS HOMEPAGE
+     NOTE FOR ELEMENTOR: To use inside an Elementor HTML widget, copy
+     everything inside <div class="mf-home"> ... </div> plus the <style>
+     and <script> blocks. The SEO <meta>/JSON-LD belongs in the page
+     <head> (use an SEO plugin like Yoast/RankMath or a Custom Code area).
+     ================================================================ -->
+<div class="mf-home">
+
+  <!-- NAV -->
+  <header>
+    <nav class="mf-nav" aria-label="Primary navigation">
+      <div class="mf-nav-logo">
+        <img src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/cropped-logo2.png"
+             alt="Meridien Foods logo" width="140" height="36"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span style="display:none">Meridien Foods</span>
+      </div>
+      <ul class="mf-nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#products">Shop</a></li>
+        <li><a href="#why">About Us</a></li>
+        <li><a href="#cities">Delivery</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="mf-nav-right">
+        <a href="tel:+918714136486" class="mf-nav-phone" aria-label="Call Meridien Foods">
+          &#128222; +91 87141 36486
+        </a>
+        <a href="https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20order%20from%20Meridien%20Foods" class="mf-nav-cta">Order Now</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+  <!-- HERO -->
+  <section class="mf-hero" aria-label="Introduction">
+    <!-- IMAGE PLACEHOLDER: Hero background 1600x900px (a wide, dark, appetising
+         shot of premium raw/grilled meat works best). Replace src below. -->
+    <img class="mf-hero-bg"
+         src="https://placehold.co/1600x900/1C1C1C/E0A500?text=Hero+Image+1600x900"
+         alt="Premium quality fresh meat products by Meridien Foods"
+         width="1600" height="900" fetchpriority="high">
+    <div class="mf-hero-overlay"></div>
+    <div class="mf-hero-content">
+      <span class="mf-hero-tag">Fresh &middot; Hygienic &middot; Premium</span>
+      <h1 class="mf-hero-h1">
+        Premium Meat,<br>
+        Delivered <em>Fresh</em><br>
+        to Your Door
+      </h1>
+      <p class="mf-hero-sub">
+        Trusted by hotels, restaurants, caterers &amp; retail stores across South India.
+        Premium processed meats &mdash; FSSAI certified, halal assured, cold-chain delivered to your door.
+      </p>
+      <div class="mf-hero-btns">
+        <a href="#products" class="mf-btn-primary">Shop Now</a>
+        <a href="https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20place%20an%20order" class="mf-btn-outline">WhatsApp Order</a>
+      </div>
+      <div class="mf-hero-badges">
+        <div class="mf-hero-badge"><span class="mf-hero-badge-icon">&#129482;</span> Cold Chain Delivery</div>
+        <div class="mf-hero-badge"><span class="mf-hero-badge-icon">&#9989;</span> FSSAI Certified</div>
+        <div class="mf-hero-badge"><span class="mf-hero-badge-icon">&#9889;</span> Same-Day Dispatch</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERY STRIP -->
+  <div class="mf-delivery-strip">
+    <div class="mf-delivery-item">&#128666; Free delivery above &#8377;500</div>
+    <span class="mf-delivery-sep">&middot;</span>
+    <div class="mf-delivery-item">&#128230; Vacuum-sealed packaging</div>
+    <span class="mf-delivery-sep">&middot;</span>
+    <div class="mf-delivery-item">&#129482; Cold chain maintained</div>
+    <span class="mf-delivery-sep">&middot;</span>
+    <div class="mf-delivery-item">&#9989; 100% halal certified</div>
+    <span class="mf-delivery-sep">&middot;</span>
+    <div class="mf-delivery-item">&#127961; Chennai &middot; Coimbatore &middot; Kochi</div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="mf-cats-wrap" id="categories" aria-label="Product categories">
+    <div class="mf-section">
+      <span class="mf-section-eyebrow">Shop by type</span>
+      <div class="mf-cats-head">
+        <h2 class="mf-section-title">What are you cooking today?</h2>
+        <a href="#" class="mf-btn-gold-outline">View all categories</a>
+      </div>
+      <div class="mf-cats-grid">
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/chicken.png"
+               alt="Chicken products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Chicken'">
+          <div class="mf-cat-name">Chicken</div>
+          <div class="mf-cat-count">20+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Mutton.png"
+               alt="Mutton products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Mutton'">
+          <div class="mf-cat-name">Mutton</div>
+          <div class="mf-cat-count">12+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/seafood.png"
+               alt="Seafood products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Seafood'">
+          <div class="mf-cat-name">Seafood</div>
+          <div class="mf-cat-count">15+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Buffalo.png"
+               alt="Buffalo meat products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Buffalo'">
+          <div class="mf-cat-name">Buffalo</div>
+          <div class="mf-cat-count">8+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Rabbit.png"
+               alt="Rabbit meat products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Rabbit'">
+          <div class="mf-cat-name">Rabbit</div>
+          <div class="mf-cat-count">4+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Quails.png"
+               alt="Quail products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Quails'">
+          <div class="mf-cat-name">Quails</div>
+          <div class="mf-cat-count">5+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Turkey.png"
+               alt="Turkey products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Turkey'">
+          <div class="mf-cat-name">Turkey</div>
+          <div class="mf-cat-count">6+ products</div>
+        </a>
+        <a href="#" class="mf-cat-card">
+          <img class="mf-cat-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Ducky.png"
+               alt="Duck products" width="72" height="72" loading="lazy"
+               onerror="this.src='https://placehold.co/72x72/FBF7F2/E0A500?text=Duck'">
+          <div class="mf-cat-name">Duck</div>
+          <div class="mf-cat-count">5+ products</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section style="background: var(--mf-white);" id="products" aria-label="Popular products">
+    <div class="mf-section">
+      <div class="mf-prod-header">
+        <span class="mf-section-eyebrow">Bestsellers</span>
+        <h2 class="mf-section-title">Popular Products</h2>
+        <div class="mf-prod-tabs" id="mf-tabs" role="tablist">
+          <button class="mf-prod-tab active" data-tab="all">All</button>
+          <button class="mf-prod-tab" data-tab="ready">Ready to Cook</button>
+          <button class="mf-prod-tab" data-tab="grills">Grills &amp; Kababs</button>
+          <button class="mf-prod-tab" data-tab="cold">Cold Cuts</button>
+        </div>
+      </div>
+      <div class="mf-prod-grid" id="mf-prod-grid">
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <span class="mf-prod-badge">Bestseller</span>
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_66-e1781523582323.png"
+                 alt="Chicken Lollipops 500g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Lollipops'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Chicken Lollipops</h3>
+            <div class="mf-prod-weight">500g &middot; Ready to Cook</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_56-e1781523846334.png"
+                 alt="Sheekh Kabab 400g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Sheekh+Kabab'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Sheekh Kabab</h3>
+            <div class="mf-prod-weight">400g &middot; Ready to Cook</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <span class="mf-prod-badge">Popular</span>
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_52-e1781523945909.png"
+                 alt="Chicken Nuggets 300g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Nuggets'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Chicken Nuggets</h3>
+            <div class="mf-prod-weight">300g &middot; Kids Favourite</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_57-e1781523822331.png"
+                 alt="Chicken Tandoori Tikka 500g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Tikka'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Chicken Tandoori Tikka</h3>
+            <div class="mf-prod-weight">500g &middot; Marinated</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_44-e1781524197774.png"
+                 alt="Cheese and Pepper Sausages 250g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Sausages'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Cheese &amp; Pepper Sausages</h3>
+            <div class="mf-prod-weight">250g &middot; Cold Cuts</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_55-e1781523875578.png"
+                 alt="Chicken Cutlets 400g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Cutlets'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Chicken Cutlets</h3>
+            <div class="mf-prod-weight">400g &middot; Ready to Fry</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <span class="mf-prod-badge">New</span>
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_49-e1781524067827.png"
+                 alt="Chicken Mortadella 200g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Mortadella'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Chicken Mortadella</h3>
+            <div class="mf-prod-weight">200g &middot; Cold Cuts</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+        <article class="mf-prod-card">
+          <div class="mf-prod-img-wrap">
+            <img class="mf-prod-img" src="https://site.meridienfoods.com/option1/wp-content/uploads/2026/06/Group_42-e1781524255344.png"
+                 alt="Chicken Premium Sausages 300g" width="110" height="110" loading="lazy"
+                 onerror="this.src='https://placehold.co/110x110/FBF7F2/E0A500?text=Sausages'">
+          </div>
+          <div class="mf-prod-info">
+            <h3 class="mf-prod-name">Chicken Premium Sausages</h3>
+            <div class="mf-prod-weight">300g &middot; Cold Cuts</div>
+            <div class="mf-prod-footer">
+              <span class="mf-prod-price">&#8377; &mdash;</span>
+              <a href="#" class="mf-prod-cta">View Product</a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="mf-view-all-wrap">
+        <a href="#" class="mf-btn-gold-outline">Browse All Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY MERIDIEN -->
+  <section class="mf-why-wrap" id="why" aria-label="Why choose Meridien Foods">
+    <div class="mf-why-inner">
+      <div>
+        <span class="mf-why-eyebrow">Why Meridien Foods</span>
+        <h2 class="mf-why-title">Quality you can taste, hygiene you can trust</h2>
+        <p class="mf-why-desc">
+          Since 2014, Meridien Foods has been the preferred supplier for hotels, restaurants, caterers,
+          and retail stores across South India. Every cut is processed in our FSSAI-certified facility
+          and cold-chain handled from source to your kitchen.
+        </p>
+        <div class="mf-why-grid">
+          <div class="mf-why-card">
+            <span class="mf-why-icon">&#127777;</span>
+            <h3 class="mf-why-card-title">Cold chain delivery</h3>
+            <p class="mf-why-card-desc">Maintained below 4&deg;C from our unit to your door</p>
+          </div>
+          <div class="mf-why-card">
+            <span class="mf-why-icon">&#9989;</span>
+            <h3 class="mf-why-card-title">FSSAI certified</h3>
+            <p class="mf-why-card-desc">Processed in a licensed, hygienic facility</p>
+          </div>
+          <div class="mf-why-card">
+            <span class="mf-why-icon">&#128278;</span>
+            <h3 class="mf-why-card-title">Halal assured</h3>
+            <p class="mf-why-card-desc">100% halal certified across all meat categories</p>
+          </div>
+          <div class="mf-why-card">
+            <span class="mf-why-icon">&#128230;</span>
+            <h3 class="mf-why-card-title">Vacuum sealed</h3>
+            <p class="mf-why-card-desc">Extended freshness, zero contamination packaging</p>
+          </div>
+        </div>
+      </div>
+      <div class="mf-why-image">
+        <!-- IMAGE PLACEHOLDER: Processing facility / hygiene photo 600x480px -->
+        <img src="https://placehold.co/600x480/2A2A2A/E0A500?text=Processing+Photo+600x480"
+             alt="Meridien Foods FSSAI-certified meat processing facility" width="600" height="480" loading="lazy">
+        <div class="mf-why-image-badge">&#127981; Coimbatore &amp; Kochi Units</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B2B CUSTOMERS -->
+  <section class="mf-b2b-wrap" aria-label="Businesses we supply">
+    <div class="mf-b2b-inner">
+      <div class="mf-b2b-top">
+        <div>
+          <span class="mf-b2b-eyebrow">Who we supply to</span>
+          <h2 class="mf-b2b-title">Built for businesses that demand the best</h2>
+          <p class="mf-b2b-subtitle">
+            From cloud kitchens to five-star banquet halls &mdash; Meridien Foods powers South India's
+            food businesses with consistent, bulk-ready, cold-chain delivered meat.
+          </p>
+        </div>
+        <a href="https://wa.me/918714136486?text=Hi%2C%20I%20am%20a%20business%20owner%20and%20want%20to%20discuss%20bulk%20supply%20from%20Meridien%20Foods" class="mf-btn-gold-solid">
+          Get a bulk quote
+        </a>
+      </div>
+
+      <div class="mf-b2b-grid">
+        <div class="mf-b2b-card">
+          <div class="mf-b2b-icon-wrap">&#127976;</div>
+          <h3 class="mf-b2b-card-title">Hotels</h3>
+          <p class="mf-b2b-card-desc">Premium cuts for banquets, buffets, and &agrave; la carte menus. Consistent quality across every batch &mdash; your kitchen never compromises.</p>
+          <div class="mf-b2b-tags">
+            <span class="mf-b2b-tag">Bulk packs</span>
+            <span class="mf-b2b-tag">Weekly supply</span>
+            <span class="mf-b2b-tag">Custom cuts</span>
+          </div>
+        </div>
+        <div class="mf-b2b-card">
+          <div class="mf-b2b-icon-wrap">&#127869;</div>
+          <h3 class="mf-b2b-card-title">Restaurants</h3>
+          <p class="mf-b2b-card-desc">From QSRs and cloud kitchens to fine dining &mdash; ready-to-cook portions, marinated items, and cold cuts that cut your prep time.</p>
+          <div class="mf-b2b-tags">
+            <span class="mf-b2b-tag">Ready to cook</span>
+            <span class="mf-b2b-tag">Consistent sizing</span>
+            <span class="mf-b2b-tag">Daily delivery</span>
+          </div>
+        </div>
+        <div class="mf-b2b-card">
+          <div class="mf-b2b-icon-wrap">&#127881;</div>
+          <h3 class="mf-b2b-card-title">Caterers</h3>
+          <p class="mf-b2b-card-desc">Handle large events without the sourcing stress. We supply bulk quantities on schedule &mdash; weddings, corporate events, and festivals alike.</p>
+          <div class="mf-b2b-tags">
+            <span class="mf-b2b-tag">Event volumes</span>
+            <span class="mf-b2b-tag">Pre-order facility</span>
+            <span class="mf-b2b-tag">Halal cert</span>
+          </div>
+        </div>
+        <div class="mf-b2b-card">
+          <div class="mf-b2b-icon-wrap">&#127978;</div>
+          <h3 class="mf-b2b-card-title">Retail Stores</h3>
+          <p class="mf-b2b-card-desc">Shelf-ready, vacuum-sealed cold cuts and processed meats under your brand or ours. Supermarkets, meat shops, and grocery chains welcome.</p>
+          <div class="mf-b2b-tags">
+            <span class="mf-b2b-tag">Private label</span>
+            <span class="mf-b2b-tag">Shelf-ready packs</span>
+            <span class="mf-b2b-tag">FSSAI labeled</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mf-b2b-stat-row">
+        <div class="mf-b2b-stat">
+          <div class="mf-b2b-stat-num">200+</div>
+          <div class="mf-b2b-stat-label">Business clients served</div>
+        </div>
+        <div class="mf-b2b-stat">
+          <div class="mf-b2b-stat-num">3</div>
+          <div class="mf-b2b-stat-label">Cities with active B2B delivery</div>
+        </div>
+        <div class="mf-b2b-stat">
+          <div class="mf-b2b-stat-num">10+</div>
+          <div class="mf-b2b-stat-label">Years supplying the food industry</div>
+        </div>
+      </div>
+
+      <div class="mf-b2b-cta">
+        <a href="https://wa.me/918714136486?text=Hi%2C%20I%20need%20a%20bulk%20meat%20supply%20quote%20for%20my%20business" class="mf-btn-wa">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp for bulk enquiry
+        </a>
+        <a href="tel:+918714136486" class="mf-btn-ghost-white">&#128222; Call us directly</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DELIVERY CITIES -->
+  <section class="mf-cities-wrap" id="cities" aria-label="Delivery cities">
+    <div class="mf-section">
+      <span class="mf-section-eyebrow">We deliver to</span>
+      <h2 class="mf-section-title">Our delivery cities</h2>
+      <p class="mf-section-sub">Premium meat delivered the same day or next day across South India's major cities.</p>
+      <div class="mf-cities-grid">
+        <div class="mf-city-card">
+          <!-- IMAGE PLACEHOLDER: Chennai city/landmark 400x160px -->
+          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/E0A500?text=Chennai+400x160"
+               alt="Meridien Foods delivery in Chennai" width="400" height="160" loading="lazy">
+          <div class="mf-city-info">
+            <h3 class="mf-city-name">Chennai</h3>
+            <div class="mf-city-tag">Same-day delivery available</div>
+          </div>
+        </div>
+        <div class="mf-city-card">
+          <!-- IMAGE PLACEHOLDER: Coimbatore city/landmark 400x160px -->
+          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/E0A500?text=Coimbatore+400x160"
+               alt="Meridien Foods head office and processing unit in Coimbatore" width="400" height="160" loading="lazy">
+          <div class="mf-city-info">
+            <h3 class="mf-city-name">Coimbatore</h3>
+            <div class="mf-city-tag">Head office &amp; processing unit</div>
+          </div>
+        </div>
+        <div class="mf-city-card">
+          <!-- IMAGE PLACEHOLDER: Kochi city/landmark 400x160px -->
+          <img class="mf-city-img" src="https://placehold.co/400x160/1C1C1C/E0A500?text=Kochi+400x160"
+               alt="Meridien Foods Kerala distribution hub in Kochi" width="400" height="160" loading="lazy">
+          <div class="mf-city-info">
+            <h3 class="mf-city-name">Kochi</h3>
+            <div class="mf-city-tag">Kerala distribution hub</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section style="background: var(--mf-white);" aria-label="Customer reviews">
+    <div class="mf-section">
+      <span class="mf-section-eyebrow">Customer reviews</span>
+      <h2 class="mf-section-title">What our customers say</h2>
+      <div class="mf-test-grid">
+        <figure class="mf-test-card">
+          <div class="mf-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote class="mf-test-quote">
+            "The chicken lollipops came perfectly packed and tasted amazing. Couldn't tell the difference from fresh &mdash; that's how good the cold chain is."
+          </blockquote>
+          <figcaption class="mf-test-author">
+            <div class="mf-test-avatar">AR</div>
+            <div>
+              <div class="mf-test-name">Arjun Rajan</div>
+              <div class="mf-test-city">Chennai</div>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="mf-test-card">
+          <div class="mf-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote class="mf-test-quote">
+            "We've been ordering from Meridien for our restaurant. Quality is consistent, prices are fair, and delivery is always on time. Highly recommend!"
+          </blockquote>
+          <figcaption class="mf-test-author">
+            <div class="mf-test-avatar">PK</div>
+            <div>
+              <div class="mf-test-name">Priya Krishnan</div>
+              <div class="mf-test-city">Coimbatore</div>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="mf-test-card">
+          <div class="mf-test-stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote class="mf-test-quote">
+            "The Sheekh Kababs were a hit at our party. Fresh, well-seasoned, and vacuum sealed &mdash; arrived in perfect condition to Kochi."
+          </blockquote>
+          <figcaption class="mf-test-author">
+            <div class="mf-test-avatar">SM</div>
+            <div>
+              <div class="mf-test-name">Sameer Mohammed</div>
+              <div class="mf-test-city">Kochi</div>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="mf-cta-banner" aria-label="Order call to action">
+    <div class="mf-cta-inner">
+      <div>
+        <h2 class="mf-cta-title">Ready to order?</h2>
+        <p class="mf-cta-sub">Shop online or WhatsApp us &mdash; we'll handle the rest.</p>
+      </div>
+      <div class="mf-cta-btns">
+        <a href="#products" class="mf-btn-white">Shop Online</a>
+        <a href="https://wa.me/918714136486?text=Hi%2C%20I%20want%20to%20order%20from%20Meridien%20Foods" class="mf-btn-wa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Order
+        </a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mf-footer" id="contact">
+    <div class="mf-footer-main">
+      <div>
+        <div class="mf-footer-brand-name">Meridien Foods</div>
+        <p class="mf-footer-desc">
+          Premium processed meats delivered fresh across South India. FSSAI certified, halal assured,
+          cold chain maintained from our facility to your door since 2014.
+        </p>
+        <div class="mf-footer-contact">
+          <a href="tel:+918714136486">&#128222; +91 87141 36486</a>
+          <a href="mailto:info@meridienfoods.com">&#9993; info@meridienfoods.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="mf-footer-col-title">Categories</div>
+        <ul class="mf-footer-links">
+          <li><a href="#">Chicken</a></li>
+          <li><a href="#">Mutton</a></li>
+          <li><a href="#">Seafood</a></li>
+          <li><a href="#">Buffalo</a></li>
+          <li><a href="#">Quails &amp; Turkey</a></li>
+          <li><a href="#">Duck &amp; Rabbit</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="mf-footer-col-title">Company</div>
+        <ul class="mf-footer-links">
+          <li><a href="#why">About Us</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="mf-footer-col-title">Our offices</div>
+        <address style="font-size:13px;line-height:1.8;margin-bottom:14px;font-style:normal;">
+          13/2, Ramalakshmanan Nagar,<br>
+          Anna Nagar, Peelamedu,<br>
+          <strong style="color:rgba(255,255,255,0.8)">Coimbatore</strong> &ndash; 641004
+        </address>
+        <address style="font-size:13px;line-height:1.8;font-style:normal;">
+          Bluemoon Silver, Jawahar Nagar,<br>
+          Kadavanthara, Ernakulam,<br>
+          <strong style="color:rgba(255,255,255,0.8)">Kochi</strong> &ndash; 682020
+        </address>
+      </div>
+    </div>
+    <div class="mf-footer-bottom">
+      <span>&copy; 2026 Meridien Foods. All rights reserved.</span>
+      <span class="mf-dev-credit">Developed by <a href="https://www.incomeinn.in" target="_blank" rel="noopener">Income Inn Technologies</a></span>
+    </div>
+  </footer>
+
+</div><!-- /.mf-home -->
+
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.mf-prod-tab');
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
