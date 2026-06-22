@@ -6,6 +6,7 @@ import api from '../../utils/api';
 import StoreLayout from '../../components/store/StoreLayout';
 import ProductCard from '../../components/store/ProductCard';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
+import InstallPWA from '../../components/pwa/InstallPWA';
 import { useStore } from '../../context/StoreContext';
 
 const HomePage = () => {
@@ -99,6 +100,11 @@ const HomePage = () => {
       )}
 
       <div className="page-container">
+        {/* Install App Banner */}
+        <div className="mt-4 sm:mt-6">
+          <InstallPWA variant="banner" />
+        </div>
+
         {/* Categories Grid */}
         {categories.length > 0 && (
           <section className="mt-6 sm:mt-8">

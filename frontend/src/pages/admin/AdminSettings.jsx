@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Save, Upload } from 'lucide-react';
+import { Save, Upload, Lock, Eye, EyeOff } from 'lucide-react';
 import AdminLayout from '../../components/admin/AdminLayout';
 import api from '../../utils/api';
 import LoadingSpinner from '../../components/ui/LoadingSpinner';
@@ -9,6 +9,9 @@ const AdminSettings = () => {
   const [settings, setSettings] = useState({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [passwordForm, setPasswordForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [showPasswords, setShowPasswords] = useState({ current: false, new: false, confirm: false });
 
   useEffect(() => { fetchSettings(); }, []);
 
@@ -43,11 +46,105 @@ const AdminSettings = () => {
     } catch { toast.error('Upload failed'); }
   };
 
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    
+    if (passwordForm.newPassword.length < 6) {
+      toast.error('New password must be at least 6 characters');
+      return;
+    }
+    
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      toast.error('New passwords do not match');
+      return;
+    }
+
+    setChangingPassword(true);
+    try {
+      await api.put('/auth/change-password', {
+        currentPassword: passwordForm.currentPassword,
+        newPassword: passwordForm.newPassword
+      });
+      toast.success('Password changed successfully!');
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    } catch (error) {
+      toast.error(error.response?.data?.error || 'Failed to change password');
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
   if (loading) return <AdminLayout title="Settings"><LoadingSpinner /></AdminLayout>;
 
   return (
     <AdminLayout title="Store Settings">
       <div className="max-w-3xl space-y-6">
+
+        {/* Change Password */}
+        <div className="card p-5 space-y-4 border-l-4 border-l-accent">
+          <div className="flex items-center gap-2">
+            <Lock size={20} className="text-accent-600" />
+            <h3 className="font-semibold dark:text-white text-lg">Change Password</h3>
+          </div>
+          <form onSubmit={handleChangePassword} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium mb-1.5 dark:text-gray-300">Current Password</label>
+              <div className="relative">
+                <input
+                  type={showPasswords.current ? 'text' : 'password'}
+                  value={passwordForm.currentPassword}
+                  onChange={e => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
+                  className="input-field pr-10"
+                  placeholder="Enter current password"
+                  required
+                />
+                <button type="button" onClick={() => setShowPasswords({ ...showPasswords, current: !showPasswords.current })} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                  {showPasswords.current ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1.5 dark:text-gray-300">New Password</label>
+                <div className="relative">
+                  <input
+                    type={showPasswords.new ? 'text' : 'password'}
+                    value={passwordForm.newPassword}
+                    onChange={e => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
+                    className="input-field pr-10"
+                    placeholder="At least 6 characters"
+                    required
+                    minLength={6}
+                  />
+                  <button type="button" onClick={() => setShowPasswords({ ...showPasswords, new: !showPasswords.new })} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    {showPasswords.new ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5 dark:text-gray-300">Confirm New Password</label>
+                <div className="relative">
+                  <input
+                    type={showPasswords.confirm ? 'text' : 'password'}
+                    value={passwordForm.confirmPassword}
+                    onChange={e => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
+                    className="input-field pr-10"
+                    placeholder="Re-enter new password"
+                    required
+                    minLength={6}
+                  />
+                  <button type="button" onClick={() => setShowPasswords({ ...showPasswords, confirm: !showPasswords.confirm })} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    {showPasswords.confirm ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button type="submit" disabled={changingPassword} className="btn-secondary flex items-center gap-2 disabled:opacity-50">
+              <Lock size={16} /> {changingPassword ? 'Changing...' : 'Change Password'}
+            </button>
+          </form>
+        </div>
+
         {/* General */}
         <div className="card p-5 space-y-4">
           <h3 className="font-semibold dark:text-white text-lg">General</h3>

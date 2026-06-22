@@ -1,6 +1,0 @@
-import{j as e}from"./index-tuFH_E8u.js";import{c as a}from"./createLucideIcon-CkBswoQp.js";/**
- * @license lucide-react v0.294.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */const t=a("WifiOff",[["line",{x1:"2",x2:"22",y1:"2",y2:"22",key:"a6p6uj"}],["path",{d:"M8.5 16.5a5 5 0 0 1 7 0",key:"sej527"}],["path",{d:"M2 8.82a15 15 0 0 1 4.17-2.65",key:"11utq1"}],["path",{d:"M10.66 5c4.01-.36 8.14.9 11.34 3.76",key:"hxefdu"}],["path",{d:"M16.85 11.25a10 10 0 0 1 2.22 1.68",key:"q734kn"}],["path",{d:"M5 13a10 10 0 0 1 5.24-2.76",key:"piq4yl"}],["line",{x1:"12",x2:"12.01",y1:"20",y2:"20",key:"of4bc4"}]]),n=()=>e.jsx("div",{className:"min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4",children:e.jsxs("div",{className:"text-center",children:[e.jsx(t,{size:64,className:"mx-auto text-gray-400 dark:text-gray-500 mb-6"}),e.jsx("h1",{className:"text-2xl font-bold dark:text-white mb-2",children:"You're Offline"}),e.jsx("p",{className:"text-gray-500 dark:text-gray-400 mb-6 max-w-sm",children:"Please check your internet connection and try again. Some features may be unavailable while offline."}),e.jsx("button",{onClick:()=>window.location.reload(),className:"btn-primary",children:"Try Again"})]})});export{n as default};

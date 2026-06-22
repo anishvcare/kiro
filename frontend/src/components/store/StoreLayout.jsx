@@ -124,6 +124,9 @@ const StoreLayout = ({ children, title, showBack = false }) => {
         </div>
       )}
 
+      {/* Floating Install App Button */}
+      <InstallPWA variant="floating" />
+
       {/* Content */}
       <main className="pb-20">
         {children}
