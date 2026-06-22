@@ -3,8 +3,8 @@ node_modules/
 .pnp
 .pnp.js
 
-# Production builds
-frontend/dist/
+# Production builds (uncommenting for deploy branch)
+# frontend/dist/
 backend/dist/
 
 # Environment files
