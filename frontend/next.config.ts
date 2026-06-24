@@ -2,15 +2,12 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: "export",
   images: {
-    domains: ["localhost", "api.fmgetrainer.com", "storage.fmgetrainer.com"],
-    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
   },
-  output: "standalone",
   turbopack: {},
-  experimental: {
-    optimizeCss: true,
-  },
+  trailingSlash: true,
 };
 
 export default nextConfig;
