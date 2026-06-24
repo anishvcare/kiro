@@ -1,0 +1,33 @@
+# Dependencies
+frontend/node_modules/
+backend/vendor/
+
+# Build outputs
+frontend/.next/
+frontend/out/
+
+# Environment
+frontend/.env.local
+frontend/.env.production
+backend/.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+frontend/npm-debug.log*
+backend/storage/logs/
+
+# Docker
+postgres_data/
+redis_data/
+
+# Generated
+frontend/public/sw.js
+frontend/public/workbox-*
