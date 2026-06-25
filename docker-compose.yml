@@ -1,0 +1,145 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: leadflow_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: leadflow_crm
+      MYSQL_USER: leadflow
+      MYSQL_PASSWORD: leadflow_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - leadflow
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: leadflow_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - leadflow
+
+  # Laravel Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: leadflow_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: leadflow_crm
+      DB_USERNAME: leadflow
+      DB_PASSWORD: leadflow_password
+      REDIS_HOST: redis
+      EVOLUTION_API_URL: http://evolution:8080
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./backend:/var/www/html
+      - ./backend/storage:/var/www/html/storage
+    networks:
+      - leadflow
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: leadflow_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - leadflow
+
+  # Evolution API (WhatsApp)
+  evolution:
+    image: atendai/evolution-api:latest
+    container_name: leadflow_evolution
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      AUTHENTICATION_API_KEY: your-evolution-api-key
+      DATABASE_ENABLED: "true"
+      DATABASE_CONNECTION_URI: mysql://leadflow:leadflow_password@mysql:3306/leadflow_crm
+    volumes:
+      - evolution_data:/evolution/instances
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - leadflow
+
+  # Queue Worker
+  queue:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: leadflow_queue
+    restart: unless-stopped
+    command: php artisan queue:work redis --sleep=3 --tries=3 --max-time=3600
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: leadflow_crm
+      DB_USERNAME: leadflow
+      DB_PASSWORD: leadflow_password
+      REDIS_HOST: redis
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - leadflow
+
+  # Scheduler
+  scheduler:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: leadflow_scheduler
+    restart: unless-stopped
+    command: >
+      sh -c "while true; do php artisan schedule:run --verbose --no-interaction; sleep 60; done"
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: leadflow_crm
+      DB_USERNAME: leadflow
+      DB_PASSWORD: leadflow_password
+      REDIS_HOST: redis
+    depends_on:
+      - mysql
+      - redis
+    volumes:
+      - ./backend:/var/www/html
+    networks:
+      - leadflow
+
+volumes:
+  mysql_data:
+  redis_data:
+  evolution_data:
+
+networks:
+  leadflow:
+    driver: bridge

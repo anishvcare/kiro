@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <h1 class="auth-title">&#128172; WA CRM</h1>
+      <p class="auth-subtitle">Create your account</p>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <form id="registerForm">
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" id="name" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone</label>
+          <input type="tel" class="form-input" id="phone" placeholder="+1234567890">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Team / Business Name</label>
+          <input type="text" class="form-input" id="team_name" required placeholder="My Business">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="password" required placeholder="Min 8 characters" minlength="8">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-input" id="password_confirmation" required placeholder="Repeat password">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn" style="width:100%; justify-content:center; margin-top:8px;">Create Account</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="/auth/login/">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = '/api';
+
+    if (localStorage.getItem('token')) {
+      window.location.href = '/inbox/';
+    }
+
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const errorEl = document.getElementById('errorMsg');
+      errorEl.style.display = 'none';
+
+      const password = document.getElementById('password').value;
+      const passwordConfirm = document.getElementById('password_confirmation').value;
+
+      if (password !== passwordConfirm) {
+        errorEl.textContent = 'Passwords do not match.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            team_name: document.getElementById('team_name').value,
+            password: password,
+            password_confirmation: passwordConfirm
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          const msg = data.message || (data.errors ? Object.values(data.errors).flat().join(', ') : 'Registration failed');
+          throw new Error(msg);
+        }
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        window.location.href = '/inbox/';
+      } catch (err) {
+        errorEl.textContent = err.message || 'Registration failed. Please try again.';
+        errorEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Accounts - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">WhatsApp Accounts</h1>
+          <p class="page-subtitle">Manage your connected WhatsApp numbers</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('connectModal')">+ Connect Number</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="grid-3" id="accountsGrid">
+        <div class="empty-state">Loading accounts...</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Connect Number Modal -->
+  <div class="modal" id="connectModal">
+    <div class="modal-backdrop" onclick="closeModal('connectModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Connect WhatsApp Number</h3>
+        <button class="modal-close" onclick="closeModal('connectModal')">&times;</button>
+      </div>
+      <form id="connectForm">
+        <div class="form-group">
+          <label class="form-label">Display Name *</label>
+          <input type="text" class="form-input" id="displayName" required placeholder="Business Name">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" class="form-input" id="phoneNumber" required placeholder="+1234567890">
+        </div>
+        <button type="submit" class="btn btn-primary" id="connectBtn">Connect</button>
+      </form>
+      <div id="qrSection" style="display:none;margin-top:20px;text-align:center;">
+        <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:12px;">Scan this QR code with WhatsApp</p>
+        <div class="qr-area" id="qrArea">QR Code will appear here</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('whatsapp-accounts');
+
+    async function loadAccounts() {
+      try {
+        const data = await api('/whatsapp/accounts');
+        const accounts = data.data || data || [];
+        const grid = document.getElementById('accountsGrid');
+
+        if (accounts.length === 0) {
+          grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No WhatsApp accounts connected</div>';
+          return;
+        }
+
+        grid.innerHTML = accounts.map(a => {
+          const statusClass = a.status === 'connected' ? 'badge-success' : a.status === 'disconnected' ? 'badge-danger' : 'badge-warning';
+          return `
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;">
+                <h4 style="font-size:1rem;">${a.display_name || a.name || 'Account'}</h4>
+                <span class="badge ${statusClass}">${a.status || 'unknown'}</span>
+              </div>
+              <div style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:8px;">
+                <div style="margin-bottom:4px;">&#128222; ${a.phone_number || a.phone || '—'}</div>
+                <div>Connected: ${formatDate(a.connected_at || a.created_at)}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load accounts');
+      }
+    }
+
+    // Connect account
+    document.getElementById('connectForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('connectBtn');
+      setLoading(btn, true);
+      try {
+        const data = await api('/whatsapp/accounts', {
+          method: 'POST',
+          body: JSON.stringify({
+            display_name: document.getElementById('displayName').value,
+            phone_number: document.getElementById('phoneNumber').value
+          })
+        });
+        // Show QR code if provided
+        if (data.qr_code || data.qr) {
+          document.getElementById('qrSection').style.display = 'block';
+          document.getElementById('qrArea').innerHTML = `<img src="${data.qr_code || data.qr}" alt="QR Code" style="width:180px;height:180px;">`;
+        } else {
+          closeModal('connectModal');
+          showSuccess('Account connected successfully');
+          loadAccounts();
+        }
+      } catch (err) {
+        showError(err.data?.message || 'Failed to connect account');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    loadAccounts();
+  </script>
+</body>
+</html>

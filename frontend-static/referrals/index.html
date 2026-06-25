@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referrals - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Referrals</h1>
+          <p class="page-subtitle">Earn by referring new users</p>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <!-- Referral Code -->
+      <div class="card" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:12px;">Your Referral Code</h3>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--bg-primary);padding:14px 18px;border-radius:var(--radius);border:1px solid var(--border);">
+          <code style="font-size:1.1rem;font-weight:700;flex:1;" id="referralCode">—</code>
+          <button class="copy-btn" onclick="copyReferralCode()">Copy</button>
+        </div>
+        <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:8px;">Share this code with others to earn commissions</p>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotalReferrals">0</div>
+          <div class="stat-label">Total Referrals</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statConverted">0</div>
+          <div class="stat-label">Converted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statEarned">$0</div>
+          <div class="stat-label">Total Earned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statPending">$0</div>
+          <div class="stat-label">Pending Payout</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('referrals');
+
+    async function loadReferrals() {
+      try {
+        const data = await api('/referrals/dashboard');
+        document.getElementById('referralCode').textContent = data.referral_code || data.code || '—';
+        document.getElementById('statTotalReferrals').textContent = data.total_referrals ?? 0;
+        document.getElementById('statConverted').textContent = data.converted ?? 0;
+        document.getElementById('statEarned').textContent = '$' + (data.total_earned ?? data.earned ?? 0);
+        document.getElementById('statPending').textContent = '$' + (data.pending_payout ?? data.pending ?? 0);
+      } catch (err) {
+        showError('Failed to load referral data');
+      }
+    }
+
+    function copyReferralCode() {
+      const code = document.getElementById('referralCode').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        showSuccess('Referral code copied!');
+      }).catch(() => {
+        // Fallback
+        const input = document.createElement('input');
+        input.value = code;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showSuccess('Referral code copied!');
+      });
+    }
+
+    loadReferrals();
+  </script>
+</body>
+</html>

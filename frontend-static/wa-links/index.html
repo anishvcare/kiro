@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WA Links - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">WA Links</h1>
+          <p class="page-subtitle">Create short WhatsApp links with pre-filled messages</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('createLinkModal')">+ Create Link</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="grid-3" id="linksGrid">
+        <div class="empty-state">Loading links...</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Create Link Modal -->
+  <div class="modal" id="createLinkModal">
+    <div class="modal-backdrop" onclick="closeModal('createLinkModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Create WA Link</h3>
+        <button class="modal-close" onclick="closeModal('createLinkModal')">&times;</button>
+      </div>
+      <form id="createLinkForm">
+        <div class="form-group">
+          <label class="form-label">Link Name *</label>
+          <input type="text" class="form-input" id="linkName" required placeholder="e.g. Support Link">
+        </div>
+        <div class="form-group">
+          <label class="form-label">WhatsApp Number *</label>
+          <input type="tel" class="form-input" id="linkNumber" required placeholder="+1234567890">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pre-filled Message</label>
+          <textarea class="form-textarea" id="linkMessage" placeholder="Hi! I'd like to know more about..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="createLinkBtn">Create Link</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('wa-links');
+
+    async function loadLinks() {
+      try {
+        const data = await api('/wa-links');
+        const links = data.data || data || [];
+        const grid = document.getElementById('linksGrid');
+
+        if (links.length === 0) {
+          grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No WA links created yet</div>';
+          return;
+        }
+
+        grid.innerHTML = links.map(l => {
+          const linkUrl = l.url || l.short_url || `https://wa.me/${(l.number || '').replace(/\+/g, '')}?text=${encodeURIComponent(l.message || '')}`;
+          return `
+            <div class="card">
+              <h4 style="margin-bottom:8px;">${l.name || 'Untitled Link'}</h4>
+              <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:8px;">
+                <div>&#128222; ${l.number || l.phone || '—'}</div>
+                <div style="margin-top:4px;">&#128172; ${(l.message || l.prefilled_message || 'No message').substring(0, 60)}</div>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+                <span style="font-size:0.8rem;color:var(--text-secondary);">Clicks: <strong style="color:var(--text-primary);">${l.clicks ?? l.click_count ?? 0}</strong></span>
+                <button class="copy-btn" onclick="copyLink('${linkUrl}')">Copy Link</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load WA links');
+      }
+    }
+
+    function copyLink(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        showSuccess('Link copied!');
+      }).catch(() => {
+        const input = document.createElement('input');
+        input.value = url;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showSuccess('Link copied!');
+      });
+    }
+
+    // Create link
+    document.getElementById('createLinkForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('createLinkBtn');
+      setLoading(btn, true);
+      try {
+        await api('/wa-links', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: document.getElementById('linkName').value,
+            number: document.getElementById('linkNumber').value,
+            message: document.getElementById('linkMessage').value
+          })
+        });
+        closeModal('createLinkModal');
+        document.getElementById('createLinkForm').reset();
+        showSuccess('Link created');
+        loadLinks();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to create link');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    loadLinks();
+  </script>
+</body>
+</html>

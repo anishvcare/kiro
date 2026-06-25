@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Reports</h1>
+          <p class="page-subtitle">Analytics and performance metrics</p>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <!-- Date Range Picker -->
+      <div class="card" style="margin-bottom:24px;">
+        <div style="display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">From</label>
+            <input type="date" class="form-input" id="dateFrom" style="width:180px;">
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">To</label>
+            <input type="date" class="form-input" id="dateTo" style="width:180px;">
+          </div>
+          <button class="btn btn-primary" onclick="loadReports()">Apply</button>
+        </div>
+      </div>
+
+      <!-- Funnel -->
+      <div class="card" style="margin-bottom:24px;">
+        <h3 style="margin-bottom:16px;">Lead Funnel</h3>
+        <div class="funnel" id="funnel">
+          <div class="funnel-step">
+            <div class="funnel-value" id="funnelTotal">0</div>
+            <div class="funnel-label">Total Leads</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-value" id="funnelOpen">0</div>
+            <div class="funnel-label">Open</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-value" id="funnelWon">0</div>
+            <div class="funnel-label">Won</div>
+          </div>
+          <div class="funnel-step">
+            <div class="funnel-value" id="funnelLost">0</div>
+            <div class="funnel-label">Lost</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bar Chart -->
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Leads Over Time</h3>
+        <div class="bar-chart" id="barChart">
+          <div class="empty-state" style="width:100%;">Loading chart...</div>
+        </div>
+        <div style="height:30px;"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('reports');
+
+    // Set default date range (last 30 days)
+    const today = new Date();
+    const thirtyDaysAgo = new Date(today);
+    thirtyDaysAgo.setDate(today.getDate() - 30);
+    document.getElementById('dateTo').value = today.toISOString().split('T')[0];
+    document.getElementById('dateFrom').value = thirtyDaysAgo.toISOString().split('T')[0];
+
+    async function loadReports() {
+      const from = document.getElementById('dateFrom').value;
+      const to = document.getElementById('dateTo').value;
+
+      try {
+        const data = await api(`/reports?from=${from}&to=${to}`);
+
+        // Funnel
+        document.getElementById('funnelTotal').textContent = data.total_leads ?? 0;
+        document.getElementById('funnelOpen').textContent = data.open_leads ?? 0;
+        document.getElementById('funnelWon').textContent = data.won_leads ?? 0;
+        document.getElementById('funnelLost').textContent = data.lost_leads ?? 0;
+
+        // Bar chart
+        const chartData = data.leads_over_time || data.chart || [];
+        const barChart = document.getElementById('barChart');
+
+        if (chartData.length === 0) {
+          barChart.innerHTML = '<div class="empty-state" style="width:100%;">No data for this period</div>';
+          return;
+        }
+
+        const maxVal = Math.max(...chartData.map(d => d.count || d.value || 0), 1);
+        barChart.innerHTML = chartData.map(d => {
+          const val = d.count || d.value || 0;
+          const height = Math.max((val / maxVal) * 100, 2);
+          const label = d.date || d.label || '';
+          const shortLabel = label.length > 5 ? label.substring(5) : label;
+          return `
+            <div class="bar" style="height:${height}%;" title="${label}: ${val}">
+              <span class="bar-value">${val}</span>
+              <span class="bar-label">${shortLabel}</span>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load reports');
+      }
+    }
+
+    loadReports();
+  </script>
+</body>
+</html>

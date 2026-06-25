@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacts - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Contacts</h1>
+          <p class="page-subtitle">Manage your contacts</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('addContactModal')">+ Add Contact</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="search-bar">
+        <input type="text" class="form-input" id="searchInput" placeholder="Search contacts by name, phone, or email...">
+      </div>
+
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Location</th>
+                <th>Tags</th>
+                <th>Source</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="contactsTable">
+              <tr><td colspan="8" class="empty-state">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Contact Modal -->
+  <div class="modal" id="addContactModal">
+    <div class="modal-backdrop" onclick="closeModal('addContactModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Contact</h3>
+        <button class="modal-close" onclick="closeModal('addContactModal')">&times;</button>
+      </div>
+      <form id="addContactForm">
+        <div class="form-group">
+          <label class="form-label">Name *</label>
+          <input type="text" class="form-input" id="contactName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone *</label>
+          <input type="tel" class="form-input" id="contactPhone" required placeholder="+1234567890">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="contactEmail">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Location</label>
+          <input type="text" class="form-input" id="contactLocation">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tags (comma separated)</label>
+          <input type="text" class="form-input" id="contactTags" placeholder="vip, customer">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Source</label>
+          <input type="text" class="form-input" id="contactSource" placeholder="e.g. website, referral">
+        </div>
+        <button type="submit" class="btn btn-primary" id="addContactBtn">Add Contact</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('contacts');
+
+    let allContacts = [];
+
+    async function loadContacts() {
+      try {
+        const data = await api('/contacts');
+        allContacts = data.data || data || [];
+        renderContacts(allContacts);
+      } catch (err) {
+        showError('Failed to load contacts');
+      }
+    }
+
+    function renderContacts(contacts) {
+      const tbody = document.getElementById('contactsTable');
+      if (contacts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No contacts found</td></tr>';
+        return;
+      }
+      tbody.innerHTML = contacts.map(c => `
+        <tr>
+          <td>${c.name || '—'}</td>
+          <td>${c.phone || '—'}</td>
+          <td>${c.email || '—'}</td>
+          <td>${c.location || c.city || '—'}</td>
+          <td>${c.tags ? (Array.isArray(c.tags) ? c.tags.map(t => `<span class="badge badge-neutral">${t}</span>`).join(' ') : `<span class="badge badge-neutral">${c.tags}</span>`) : '—'}</td>
+          <td>${c.source || '—'}</td>
+          <td>${formatDate(c.created_at)}</td>
+          <td><button class="btn btn-danger btn-sm" onclick="deleteContact(${c.id})">Delete</button></td>
+        </tr>
+      `).join('');
+    }
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      const filtered = allContacts.filter(c =>
+        (c.name || '').toLowerCase().includes(q) ||
+        (c.phone || '').toLowerCase().includes(q) ||
+        (c.email || '').toLowerCase().includes(q)
+      );
+      renderContacts(filtered);
+    });
+
+    // Add contact
+    document.getElementById('addContactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('addContactBtn');
+      setLoading(btn, true);
+      try {
+        const tags = document.getElementById('contactTags').value;
+        await api('/contacts', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: document.getElementById('contactName').value,
+            phone: document.getElementById('contactPhone').value,
+            email: document.getElementById('contactEmail').value,
+            location: document.getElementById('contactLocation').value,
+            tags: tags ? tags.split(',').map(t => t.trim()) : [],
+            source: document.getElementById('contactSource').value
+          })
+        });
+        closeModal('addContactModal');
+        document.getElementById('addContactForm').reset();
+        showSuccess('Contact added successfully');
+        loadContacts();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to add contact');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    // Delete contact
+    async function deleteContact(id) {
+      if (!confirm('Are you sure you want to delete this contact?')) return;
+      try {
+        await api(`/contacts/${id}`, { method: 'DELETE' });
+        showSuccess('Contact deleted');
+        loadContacts();
+      } catch (err) {
+        showError('Failed to delete contact');
+      }
+    }
+
+    loadContacts();
+  </script>
+</body>
+</html>

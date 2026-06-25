@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automations - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Automations</h1>
+          <p class="page-subtitle">Flows and keyword automations</p>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('flows')">Flows</button>
+        <button class="tab-btn" onclick="switchTab('keywords')">Keywords</button>
+      </div>
+
+      <!-- Flows Tab -->
+      <div class="tab-panel active" id="tab-flows">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+          <button class="btn btn-primary" onclick="openModal('createFlowModal')">+ Create Flow</button>
+        </div>
+        <div class="grid-3" id="flowsGrid">
+          <div class="empty-state">Loading flows...</div>
+        </div>
+      </div>
+
+      <!-- Keywords Tab -->
+      <div class="tab-panel" id="tab-keywords">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:16px;">
+          <button class="btn btn-primary" onclick="openModal('createKeywordModal')">+ Create Keyword</button>
+        </div>
+        <div class="card">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Keyword</th>
+                  <th>Match Type</th>
+                  <th>Response</th>
+                  <th>Triggered</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="keywordsTable">
+                <tr><td colspan="5" class="empty-state">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Create Flow Modal -->
+  <div class="modal" id="createFlowModal">
+    <div class="modal-backdrop" onclick="closeModal('createFlowModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Flow</h3>
+        <button class="modal-close" onclick="closeModal('createFlowModal')">&times;</button>
+      </div>
+      <form id="createFlowForm">
+        <div class="form-group">
+          <label class="form-label">Flow Name *</label>
+          <input type="text" class="form-input" id="flowName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Trigger Type</label>
+          <select class="form-select" id="flowTrigger">
+            <option value="keyword">Keyword</option>
+            <option value="webhook">Webhook</option>
+            <option value="manual">Manual</option>
+            <option value="new_contact">New Contact</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" id="flowDescription" placeholder="Describe this flow..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="createFlowBtn">Create Flow</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Create Keyword Modal -->
+  <div class="modal" id="createKeywordModal">
+    <div class="modal-backdrop" onclick="closeModal('createKeywordModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Keyword Automation</h3>
+        <button class="modal-close" onclick="closeModal('createKeywordModal')">&times;</button>
+      </div>
+      <form id="createKeywordForm">
+        <div class="form-group">
+          <label class="form-label">Keyword *</label>
+          <input type="text" class="form-input" id="keywordText" required placeholder="e.g. hello, pricing">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Match Type</label>
+          <select class="form-select" id="keywordMatch">
+            <option value="exact">Exact Match</option>
+            <option value="contains">Contains</option>
+            <option value="starts_with">Starts With</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Response Message *</label>
+          <textarea class="form-textarea" id="keywordResponse" required placeholder="Auto-reply message..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="createKeywordBtn">Create Keyword</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('flows');
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`tab-${tab}`).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Load flows
+    async function loadFlows() {
+      try {
+        const data = await api('/flows');
+        const flows = data.data || data || [];
+        const grid = document.getElementById('flowsGrid');
+        if (flows.length === 0) {
+          grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No flows created yet</div>';
+          return;
+        }
+        grid.innerHTML = flows.map(f => `
+          <div class="card">
+            <h4 style="margin-bottom:8px;">${f.name}</h4>
+            <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:12px;">${f.description || 'No description'}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span class="badge badge-info">${f.trigger_type || 'manual'}</span>
+              <span class="badge ${f.is_active || f.status === 'active' ? 'badge-success' : 'badge-neutral'}">${f.is_active || f.status === 'active' ? 'Active' : 'Inactive'}</span>
+            </div>
+            <div style="margin-top:10px;font-size:0.8rem;color:var(--text-secondary);">
+              Executed: ${f.execution_count ?? 0} times
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        showError('Failed to load flows');
+      }
+    }
+
+    // Load keywords
+    async function loadKeywords() {
+      try {
+        const data = await api('/keywords');
+        const keywords = data.data || data || [];
+        const tbody = document.getElementById('keywordsTable');
+        if (keywords.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No keywords configured</td></tr>';
+          return;
+        }
+        tbody.innerHTML = keywords.map(k => `
+          <tr>
+            <td><strong>${k.keyword}</strong></td>
+            <td><span class="badge badge-neutral">${k.match_type || 'exact'}</span></td>
+            <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${k.response || '—'}</td>
+            <td>${k.triggered_count ?? 0}</td>
+            <td><span class="badge ${k.is_active ? 'badge-success' : 'badge-neutral'}">${k.is_active ? 'Active' : 'Inactive'}</span></td>
+          </tr>
+        `).join('');
+      } catch (err) {
+        showError('Failed to load keywords');
+      }
+    }
+
+    // Create flow
+    document.getElementById('createFlowForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('createFlowBtn');
+      setLoading(btn, true);
+      try {
+        await api('/flows', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: document.getElementById('flowName').value,
+            trigger_type: document.getElementById('flowTrigger').value,
+            description: document.getElementById('flowDescription').value
+          })
+        });
+        closeModal('createFlowModal');
+        document.getElementById('createFlowForm').reset();
+        showSuccess('Flow created');
+        loadFlows();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to create flow');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    // Create keyword
+    document.getElementById('createKeywordForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('createKeywordBtn');
+      setLoading(btn, true);
+      try {
+        await api('/keywords', {
+          method: 'POST',
+          body: JSON.stringify({
+            keyword: document.getElementById('keywordText').value,
+            match_type: document.getElementById('keywordMatch').value,
+            response: document.getElementById('keywordResponse').value
+          })
+        });
+        closeModal('createKeywordModal');
+        document.getElementById('createKeywordForm').reset();
+        showSuccess('Keyword created');
+        loadKeywords();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to create keyword');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    loadFlows();
+    loadKeywords();
+  </script>
+</body>
+</html>
