@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campaigns - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Campaigns</h1>
+          <p class="page-subtitle">Create and manage bulk messaging campaigns</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('newCampaignModal')">+ New Campaign</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="grid-3" id="campaignsGrid">
+        <div class="empty-state">Loading campaigns...</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Campaign Modal -->
+  <div class="modal" id="newCampaignModal">
+    <div class="modal-backdrop" onclick="closeModal('newCampaignModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">New Campaign</h3>
+        <button class="modal-close" onclick="closeModal('newCampaignModal')">&times;</button>
+      </div>
+      <form id="newCampaignForm">
+        <div class="form-group">
+          <label class="form-label">Campaign Name *</label>
+          <input type="text" class="form-input" id="campaignName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message *</label>
+          <textarea class="form-textarea" id="campaignMessage" required placeholder="Type your message here..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Type</label>
+          <select class="form-select" id="campaignType">
+            <option value="text">Text</option>
+            <option value="image">Image</option>
+            <option value="document">Document</option>
+            <option value="template">Template</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" id="createCampaignBtn">Create Campaign</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('campaigns');
+
+    async function loadCampaigns() {
+      try {
+        const data = await api('/campaigns');
+        const campaigns = data.data || data || [];
+        const grid = document.getElementById('campaignsGrid');
+
+        if (campaigns.length === 0) {
+          grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No campaigns yet. Create your first campaign!</div>';
+          return;
+        }
+
+        grid.innerHTML = campaigns.map(c => {
+          const statusClass = c.status === 'sent' ? 'badge-success' : c.status === 'draft' ? 'badge-neutral' : c.status === 'sending' ? 'badge-warning' : 'badge-info';
+          return `
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;">
+                <h4 style="font-size:1rem;">${c.name}</h4>
+                <span class="badge ${statusClass}">${c.status || 'draft'}</span>
+              </div>
+              <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:12px;">${(c.message || '').substring(0, 80)}${(c.message || '').length > 80 ? '...' : ''}</p>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;">
+                <div style="text-align:center;">
+                  <div style="font-weight:700;font-size:1rem;">${c.recipients_count ?? c.recipients ?? 0}</div>
+                  <div style="font-size:0.7rem;color:var(--text-secondary);">Recipients</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-weight:700;font-size:1rem;color:#34d399;">${c.sent_count ?? c.sent ?? 0}</div>
+                  <div style="font-size:0.7rem;color:var(--text-secondary);">Sent</div>
+                </div>
+                <div style="text-align:center;">
+                  <div style="font-weight:700;font-size:1rem;color:#f87171;">${c.failed_count ?? c.failed ?? 0}</div>
+                  <div style="font-size:0.7rem;color:var(--text-secondary);">Failed</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                ${c.status === 'draft' ? `<button class="btn btn-primary btn-sm" onclick="sendCampaign(${c.id})">Send</button>` : ''}
+                <button class="btn btn-danger btn-sm" onclick="deleteCampaign(${c.id})">Delete</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load campaigns');
+      }
+    }
+
+    // Create campaign
+    document.getElementById('newCampaignForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('createCampaignBtn');
+      setLoading(btn, true);
+      try {
+        await api('/campaigns', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: document.getElementById('campaignName').value,
+            message: document.getElementById('campaignMessage').value,
+            type: document.getElementById('campaignType').value
+          })
+        });
+        closeModal('newCampaignModal');
+        document.getElementById('newCampaignForm').reset();
+        showSuccess('Campaign created');
+        loadCampaigns();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to create campaign');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    // Send campaign
+    async function sendCampaign(id) {
+      if (!confirm('Send this campaign to all recipients?')) return;
+      try {
+        await api(`/campaigns/${id}/send`, { method: 'POST' });
+        showSuccess('Campaign is being sent');
+        loadCampaigns();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to send campaign');
+      }
+    }
+
+    // Delete campaign
+    async function deleteCampaign(id) {
+      if (!confirm('Delete this campaign?')) return;
+      try {
+        await api(`/campaigns/${id}`, { method: 'DELETE' });
+        showSuccess('Campaign deleted');
+        loadCampaigns();
+      } catch (err) {
+        showError('Failed to delete campaign');
+      }
+    }
+
+    loadCampaigns();
+  </script>
+</body>
+</html>

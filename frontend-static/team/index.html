@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Team Management</h1>
+          <p class="page-subtitle">Manage your team members and roles</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('addMemberModal')">+ Add Member</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="card">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Phone</th>
+                <th>Joined</th>
+              </tr>
+            </thead>
+            <tbody id="membersTable">
+              <tr><td colspan="6" class="empty-state">Loading...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:24px;">
+        <h3 style="margin-bottom:12px;">Role Hierarchy</h3>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="padding:12px 16px;background:var(--bg-primary);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="font-weight:600;color:#f87171;">Owner</div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);">Full access to all features</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-primary);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="font-weight:600;color:#fbbf24;">Admin</div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);">Manage team &amp; settings</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-primary);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="font-weight:600;color:#60a5fa;">Agent</div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);">Handle conversations &amp; leads</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--bg-primary);border-radius:var(--radius);border:1px solid var(--border);">
+            <div style="font-weight:600;color:#94a3b8;">Viewer</div>
+            <div style="font-size:0.75rem;color:var(--text-secondary);">Read-only access</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add Member Modal -->
+  <div class="modal" id="addMemberModal">
+    <div class="modal-backdrop" onclick="closeModal('addMemberModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Team Member</h3>
+        <button class="modal-close" onclick="closeModal('addMemberModal')">&times;</button>
+      </div>
+      <form id="addMemberForm">
+        <div class="form-group">
+          <label class="form-label">Name *</label>
+          <input type="text" class="form-input" id="memberName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input type="email" class="form-input" id="memberEmail" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Role *</label>
+          <select class="form-select" id="memberRole" required>
+            <option value="agent">Agent</option>
+            <option value="admin">Admin</option>
+            <option value="viewer">Viewer</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password *</label>
+          <input type="password" class="form-input" id="memberPassword" required minlength="8">
+        </div>
+        <button type="submit" class="btn btn-primary" id="addMemberBtn">Add Member</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('team');
+
+    async function loadMembers() {
+      try {
+        const data = await api('/team/members');
+        const members = data.data || data || [];
+        const tbody = document.getElementById('membersTable');
+        if (members.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No team members</td></tr>';
+          return;
+        }
+        tbody.innerHTML = members.map(m => {
+          const roleClass = m.role === 'owner' ? 'badge-danger' : m.role === 'admin' ? 'badge-warning' : m.role === 'agent' ? 'badge-info' : 'badge-neutral';
+          return `
+            <tr>
+              <td>${m.name || '—'}</td>
+              <td>${m.email || '—'}</td>
+              <td><span class="badge ${roleClass}">${m.role || 'agent'}</span></td>
+              <td><span class="badge ${m.status === 'active' || m.is_active ? 'badge-success' : 'badge-neutral'}">${m.status || (m.is_active ? 'Active' : 'Inactive')}</span></td>
+              <td>${m.phone || '—'}</td>
+              <td>${formatDate(m.created_at)}</td>
+            </tr>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load team members');
+      }
+    }
+
+    // Add member
+    document.getElementById('addMemberForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('addMemberBtn');
+      setLoading(btn, true);
+      try {
+        await api('/team/members', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: document.getElementById('memberName').value,
+            email: document.getElementById('memberEmail').value,
+            role: document.getElementById('memberRole').value,
+            password: document.getElementById('memberPassword').value
+          })
+        });
+        closeModal('addMemberModal');
+        document.getElementById('addMemberForm').reset();
+        showSuccess('Member added successfully');
+        loadMembers();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to add member');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    loadMembers();
+  </script>
+</body>
+</html>

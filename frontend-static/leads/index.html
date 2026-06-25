@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leads Pipeline - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Leads Pipeline</h1>
+          <p class="page-subtitle">Track and manage your leads</p>
+        </div>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="kanban-board" id="kanbanBoard">
+        <div class="empty-state" style="width:100%; padding:60px;">Loading pipeline...</div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('leads');
+
+    const stageColors = ['#059669', '#2563eb', '#d97706', '#7c3aed', '#dc2626', '#0891b2'];
+
+    async function loadPipeline() {
+      try {
+        const data = await api('/leads/pipeline');
+        const stages = data.stages || data || [];
+        const board = document.getElementById('kanbanBoard');
+
+        if (stages.length === 0) {
+          board.innerHTML = '<div class="empty-state" style="width:100%;padding:60px;">No pipeline stages configured</div>';
+          return;
+        }
+
+        board.innerHTML = stages.map((stage, idx) => {
+          const leads = stage.leads || [];
+          const color = stageColors[idx % stageColors.length];
+          return `
+            <div class="kanban-column">
+              <div class="kanban-header" style="border-top: 3px solid ${color};">
+                <span>${stage.name}</span>
+                <span class="count">${leads.length}</span>
+              </div>
+              <div class="kanban-body">
+                ${leads.length === 0 ? '<div class="empty-state" style="padding:20px;font-size:0.8rem;">No leads</div>' : leads.map(lead => `
+                  <div class="kanban-card">
+                    <div class="card-name">${lead.contact?.name || lead.name || 'Unknown'}</div>
+                    <div class="card-phone">${lead.contact?.phone || lead.phone || ''}</div>
+                    <div class="card-meta">
+                      <span class="badge ${lead.priority === 'high' ? 'badge-danger' : lead.priority === 'medium' ? 'badge-warning' : 'badge-neutral'}">${lead.priority || 'normal'}</span>
+                      <span style="font-size:0.7rem;color:var(--text-secondary)">${lead.assigned_user?.name || lead.assigned_to || ''}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load pipeline data');
+      }
+    }
+
+    loadPipeline();
+  </script>
+</body>
+</html>

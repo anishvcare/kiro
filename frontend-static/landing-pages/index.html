@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Pages - WA CRM</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="sidebarContainer"></div>
+    <main class="main-content">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Landing Pages</h1>
+          <p class="page-subtitle">Create and manage landing pages</p>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('newPageModal')">+ New Page</button>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <div class="grid-3" id="pagesGrid">
+        <div class="empty-state">Loading pages...</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Page Modal -->
+  <div class="modal" id="newPageModal">
+    <div class="modal-backdrop" onclick="closeModal('newPageModal')"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">New Landing Page</h3>
+        <button class="modal-close" onclick="closeModal('newPageModal')">&times;</button>
+      </div>
+      <form id="newPageForm">
+        <div class="form-group">
+          <label class="form-label">Page Title *</label>
+          <input type="text" class="form-input" id="pageTitle" required placeholder="My Landing Page">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Slug</label>
+          <input type="text" class="form-input" id="pageSlug" placeholder="my-landing-page">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Template</label>
+          <select class="form-select" id="pageTemplate">
+            <option value="blank">Blank</option>
+            <option value="lead-capture">Lead Capture</option>
+            <option value="product">Product</option>
+            <option value="contact">Contact</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-textarea" id="pageDescription" placeholder="Page description..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="createPageBtn">Create Page</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/shared.js"></script>
+  <script>
+    checkAuth();
+    document.getElementById('sidebarContainer').innerHTML = renderSidebar('landing-pages');
+
+    async function loadPages() {
+      try {
+        const data = await api('/landing-pages');
+        const pages = data.data || data || [];
+        const grid = document.getElementById('pagesGrid');
+
+        if (pages.length === 0) {
+          grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;">No landing pages yet</div>';
+          return;
+        }
+
+        grid.innerHTML = pages.map(p => {
+          const published = p.is_published || p.status === 'published';
+          return `
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;">
+                <h4 style="font-size:1rem;">${p.title || 'Untitled'}</h4>
+                <span class="badge ${published ? 'badge-success' : 'badge-neutral'}">${published ? 'Published' : 'Draft'}</span>
+              </div>
+              <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:12px;">
+                ${p.template ? `<span class="badge badge-info" style="margin-right:8px;">${p.template}</span>` : ''}
+                <span>Views: ${p.views ?? 0}</span> &middot; <span>Clicks: ${p.clicks ?? 0}</span>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <button class="btn btn-sm ${published ? 'btn-secondary' : 'btn-primary'}" onclick="togglePublish(${p.id}, ${published})">
+                  ${published ? 'Unpublish' : 'Publish'}
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showError('Failed to load landing pages');
+      }
+    }
+
+    // Toggle publish
+    async function togglePublish(id, currentState) {
+      try {
+        await api(`/landing-pages/${id}`, {
+          method: 'PUT',
+          body: JSON.stringify({ is_published: !currentState })
+        });
+        showSuccess(currentState ? 'Page unpublished' : 'Page published');
+        loadPages();
+      } catch (err) {
+        showError('Failed to update page');
+      }
+    }
+
+    // Create page
+    document.getElementById('newPageForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('createPageBtn');
+      setLoading(btn, true);
+      try {
+        await api('/landing-pages', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: document.getElementById('pageTitle').value,
+            slug: document.getElementById('pageSlug').value,
+            template: document.getElementById('pageTemplate').value,
+            description: document.getElementById('pageDescription').value
+          })
+        });
+        closeModal('newPageModal');
+        document.getElementById('newPageForm').reset();
+        showSuccess('Page created');
+        loadPages();
+      } catch (err) {
+        showError(err.data?.message || 'Failed to create page');
+      } finally {
+        setLoading(btn, false);
+      }
+    });
+
+    loadPages();
+  </script>
+</body>
+</html>
