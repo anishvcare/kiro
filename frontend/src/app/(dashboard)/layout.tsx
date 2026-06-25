@@ -15,7 +15,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!token) {
-      router.push("/auth/login");
+      window.location.href = "/auth/login";
       return;
     }
     loadUser();

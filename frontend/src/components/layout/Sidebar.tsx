@@ -22,19 +22,18 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/(dashboard)", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/(dashboard)/inbox", label: "Inbox", icon: MessageSquare },
-  { href: "/(dashboard)/contacts", label: "Contacts", icon: Users },
-  { href: "/(dashboard)/leads", label: "Leads", icon: Target },
-  { href: "/(dashboard)/flows", label: "Flow Builder", icon: GitBranch },
-  { href: "/(dashboard)/campaigns", label: "Campaigns", icon: Send },
-  { href: "/(dashboard)/whatsapp-accounts", label: "WhatsApp", icon: Smartphone },
-  { href: "/(dashboard)/landing-pages", label: "Landing Pages", icon: FileText },
-  { href: "/(dashboard)/wa-links", label: "WA Links", icon: Link2 },
-  { href: "/(dashboard)/referrals", label: "Referrals", icon: UserPlus },
-  { href: "/(dashboard)/reports", label: "Reports", icon: BarChart3 },
-  { href: "/(dashboard)/team", label: "Team", icon: Users },
-  { href: "/(dashboard)/settings", label: "Settings", icon: Settings },
+  { href: "/inbox", label: "Inbox", icon: MessageSquare },
+  { href: "/contacts", label: "Contacts", icon: Users },
+  { href: "/leads", label: "Leads", icon: Target },
+  { href: "/flows", label: "Flow Builder", icon: GitBranch },
+  { href: "/campaigns", label: "Campaigns", icon: Send },
+  { href: "/whatsapp-accounts", label: "WhatsApp", icon: Smartphone },
+  { href: "/landing-pages", label: "Landing Pages", icon: FileText },
+  { href: "/wa-links", label: "WA Links", icon: Link2 },
+  { href: "/referrals", label: "Referrals", icon: UserPlus },
+  { href: "/reports", label: "Reports", icon: BarChart3 },
+  { href: "/team", label: "Team", icon: Users },
+  { href: "/settings", label: "Settings", icon: Settings },
 ];
 
 export default function Sidebar() {
