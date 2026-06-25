@@ -1,0 +1,16 @@
+# cPanel Shared Hosting - Apache Config
+# Place this in your subdomain's document root
+
+RewriteEngine On
+RewriteBase /
+
+# Proxy API requests to Node.js backend
+RewriteRule ^api/(.*)$ http://127.0.0.1:3001/api/$1 [P,L]
+
+# Proxy Socket.io to Node.js backend
+RewriteRule ^socket.io/(.*)$ http://127.0.0.1:3001/socket.io/$1 [P,L]
+
+# SPA fallback - for React Router
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
