@@ -1,0 +1,22 @@
+# Dependencies
+vendor/
+node_modules/
+
+# Build output
+dist/
+
+# Environment files
+.env
+
+# Laravel storage logs
+storage/logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
