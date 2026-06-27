@@ -19,7 +19,7 @@ export function AuthLayout() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4">
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-primary-600">FinanceManager</h1>
+        <h1 className="text-3xl font-bold text-primary-600">PF</h1>
         <p className="mt-2 text-gray-500">Manage your finances with ease</p>
       </div>
       <div className="w-full max-w-md">

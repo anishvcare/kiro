@@ -4,6 +4,7 @@ import { dashboardService } from '../services/dashboard.service'
 import { StatCard } from '../components/StatCard'
 import { BillCard } from '../components/BillCard'
 import { TransactionItem } from '../components/TransactionItem'
+import { PWAInstallButton } from '../components/PWAInstallButton'
 
 export function Dashboard() {
   const { data, isLoading } = useQuery({
@@ -26,25 +27,28 @@ export function Dashboard() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <PWAInstallButton />
+      </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         <StatCard
           title="Income"
-          value={`$${Number(summary?.income || 0).toFixed(2)}`}
+          value={`₹${Number(summary?.income || 0).toFixed(2)}`}
           icon={<HiOutlineTrendingUp className="h-6 w-6" />}
           color="green"
         />
         <StatCard
           title="Expenses"
-          value={`$${Number(summary?.expense || 0).toFixed(2)}`}
+          value={`₹${Number(summary?.expense || 0).toFixed(2)}`}
           icon={<HiOutlineTrendingDown className="h-6 w-6" />}
           color="red"
         />
         <StatCard
           title="Balance"
-          value={`$${Number(summary?.balance || 0).toFixed(2)}`}
+          value={`₹${Number(summary?.balance || 0).toFixed(2)}`}
           icon={<HiOutlineCash className="h-6 w-6" />}
           color="blue"
         />

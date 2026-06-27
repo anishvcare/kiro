@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/*.png'],
       manifest: {
-        name: 'FinanceManager',
-        short_name: 'FinanceManager',
+        name: 'PF',
+        short_name: 'PF',
         description: 'Personal Finance Management Application',
         theme_color: '#16a34a',
         background_color: '#ffffff',

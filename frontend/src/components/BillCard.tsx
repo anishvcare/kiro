@@ -26,7 +26,7 @@ export function BillCard({ bill }: BillCardProps) {
         </div>
         <div className="text-right">
           <p className="text-lg font-bold text-bill-red">
-            ${Number(bill.amount).toFixed(2)}
+            ₹{Number(bill.amount).toFixed(2)}
           </p>
           {dueDate && (
             <p className="mt-1 text-xs text-gray-500">

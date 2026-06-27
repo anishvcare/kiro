@@ -34,7 +34,7 @@ export function AppLayout() {
       {/* Desktop Sidebar */}
       <aside className="hidden w-64 border-r border-gray-200 bg-white p-4 md:block">
         <div className="mb-8">
-          <h1 className="text-xl font-bold text-primary-600">FinanceManager</h1>
+          <h1 className="text-xl font-bold text-primary-600">PF</h1>
         </div>
         <nav className="space-y-1">
           {navItems.map((item) => (
@@ -71,7 +71,7 @@ export function AppLayout() {
         {/* Top Header */}
         <header className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3">
           <h2 className="text-lg font-semibold text-gray-900 md:hidden">
-            FinanceManager
+            PF
           </h2>
           <div className="hidden md:block">
             <span className="text-sm text-gray-500">

@@ -43,7 +43,7 @@ export function TransactionItem({ transaction, onClick }: TransactionItemProps) 
           isIncome ? 'text-income' : 'text-expense'
         }`}
       >
-        {isIncome ? '+' : '-'}${Number(transaction.amount).toFixed(2)}
+        {isIncome ? '+' : '-'}₹{Number(transaction.amount).toFixed(2)}
       </p>
     </div>
   )
