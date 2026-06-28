@@ -3,7 +3,7 @@
  * Handles live GPS location tracking for delivery boys
  */
 
-const { LiveLocation, DeliveryAssignment } = require('../models');
+const { LiveLocation, DeliveryAssignment, DeliveryBoy } = require('../models');
 
 /**
  * Register location socket event handlers
@@ -21,24 +21,12 @@ const locationSocket = (io, socket) => {
     try {
       const { assignmentId, latitude, longitude, accuracy, speed, heading } = data;
 
-      if (!assignmentId || !latitude || !longitude) {
+      if (!assignmentId || latitude == null || longitude == null) {
         socket.emit('location:error', { message: 'Assignment ID and coordinates are required' });
         return;
       }
 
-      // Store location in database
-      await LiveLocation.create({
-        delivery_assignment_id: assignmentId,
-        delivery_boy_id: userId,
-        latitude,
-        longitude,
-        accuracy: accuracy || null,
-        speed: speed || null,
-        heading: heading || null,
-        recorded_at: new Date(),
-      });
-
-      // Broadcast to all subscribers of this delivery
+      // Broadcast to all subscribers FIRST so live tracking is never blocked by DB issues.
       io.to(`delivery:${assignmentId}`).emit('location:updated', {
         assignmentId,
         deliveryBoyId: userId,
@@ -49,6 +37,23 @@ const locationSocket = (io, socket) => {
         heading,
         timestamp: new Date().toISOString(),
       });
+
+      // Best-effort persistence (resolve the real delivery_boys id for the FK).
+      try {
+        const boy = await DeliveryBoy.findOne({ where: { user_id: userId } });
+        await LiveLocation.create({
+          delivery_assignment_id: assignmentId,
+          delivery_boy_id: boy ? boy.id : userId,
+          latitude,
+          longitude,
+          accuracy: accuracy || null,
+          speed: speed || null,
+          heading: heading || null,
+          recorded_at: new Date(),
+        });
+      } catch (persistErr) {
+        console.warn('LiveLocation persist skipped:', persistErr.message);
+      }
     } catch (error) {
       console.error('Error updating location:', error.message);
       socket.emit('location:error', { message: 'Failed to update location' });
