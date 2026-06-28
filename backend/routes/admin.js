@@ -73,6 +73,7 @@ router.get('/reports/upi-payments', reportsController.getUpiPayments);
 router.get('/reports/shop-settlements', reportsController.getShopSettlements);
 router.get('/reports/delivery-performance', reportsController.getDeliveryPerformance);
 router.get('/reports/summary', reportsController.getSummaryReport);
+router.get('/reports/user-statistics', reportsController.getUserStatistics);
 router.get('/reports/export/excel', exportValidation, reportsController.exportToExcel);
 router.get('/reports/export/pdf', exportValidation, reportsController.exportToPdf);
 

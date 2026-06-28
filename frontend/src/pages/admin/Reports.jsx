@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReportData } from '../../store/slices/adminSlice';
 
+const fmtCurrency = (v) =>
+  new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(Number(v) || 0);
+
+
 const reportTypes = [
   { key: 'revenue', label: 'Revenue' },
   { key: 'daily-requests', label: 'Daily Requests' },
@@ -11,6 +15,7 @@ const reportTypes = [
   { key: 'shop-settlements', label: 'Shop Settlements' },
   { key: 'delivery-performance', label: 'Delivery Performance' },
   { key: 'summary', label: 'Summary' },
+  { key: 'user-statistics', label: 'User Statistics' },
 ];
 
 const Reports = () => {
@@ -94,7 +99,7 @@ const Reports = () => {
             <p className="mt-2">Select a report type and date range, then click Generate Report</p>
           </div>
         ) : activeReport === 'summary' && currentReport.summary ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-blue-50 rounded-lg">
               <p className="text-2xl font-bold text-blue-700">{currentReport.summary.totalRequests}</p>
               <p className="text-sm text-blue-600">Total Requests</p>
@@ -105,9 +110,19 @@ const Reports = () => {
             </div>
             <div className="text-center p-4 bg-yellow-50 rounded-lg">
               <p className="text-2xl font-bold text-yellow-700">
-                {new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(currentReport.summary.totalRevenue)}
+                {fmtCurrency(currentReport.summary.totalIncome ?? currentReport.summary.totalRevenue)}
               </p>
-              <p className="text-sm text-yellow-600">Revenue</p>
+              <p className="text-sm text-yellow-600">Income</p>
+            </div>
+            <div className="text-center p-4 bg-red-50 rounded-lg">
+              <p className="text-2xl font-bold text-red-700">
+                {fmtCurrency(currentReport.summary.pendingAmount)}
+              </p>
+              <p className="text-sm text-red-600">Pending Amount</p>
+            </div>
+            <div className="text-center p-4 bg-indigo-50 rounded-lg">
+              <p className="text-2xl font-bold text-indigo-700">{currentReport.summary.totalUsers ?? '-'}</p>
+              <p className="text-sm text-indigo-600">Total Users</p>
             </div>
             <div className="text-center p-4 bg-purple-50 rounded-lg">
               <p className="text-2xl font-bold text-purple-700">{currentReport.summary.newShops}</p>

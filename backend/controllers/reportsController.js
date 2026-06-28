@@ -206,7 +206,7 @@ const getSummaryReport = asyncHandler(async (req, res) => {
   const startDate = start_date ? new Date(start_date) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
   const endDate = end_date ? new Date(end_date) : new Date();
 
-  const [totalRequests, totalDeliveries, revenueResult, totalShops] = await Promise.all([
+  const [totalRequests, totalDeliveries, revenueResult, totalShops, pendingPayResult, unsettledCashResult, totalUsers] = await Promise.all([
     CustomerRequest.count({
       where: { created_at: { [Op.between]: [startDate, endDate] } },
     }),
@@ -221,18 +221,54 @@ const getSummaryReport = asyncHandler(async (req, res) => {
     Shop.count({
       where: { created_at: { [Op.between]: [startDate, endDate] } },
     }),
+    PaymentTransaction.findOne({
+      attributes: [[sequelize.fn('COALESCE', sequelize.fn('SUM', sequelize.col('amount')), 0), 'total']],
+      where: { status: { [Op.in]: ['initiated', 'pending'] } },
+      raw: true,
+    }),
+    CashCollection.findOne({
+      attributes: [[sequelize.fn('COALESCE', sequelize.fn('SUM', sequelize.col('amount')), 0), 'total']],
+      where: { settled: false },
+      raw: true,
+    }),
+    User.count(),
   ]);
+
+  const totalIncome = parseFloat(revenueResult?.total || 0);
+  const pendingAmount = parseFloat(pendingPayResult?.total || 0) + parseFloat(unsettledCashResult?.total || 0);
 
   return apiResponse(res, 200, 'Summary report', {
     summary: {
       totalRequests,
       totalDeliveries,
-      totalRevenue: parseFloat(revenueResult?.total || 0),
+      totalRevenue: totalIncome,
+      totalIncome,
+      pendingAmount,
+      totalUsers,
       newShops: totalShops,
       startDate,
       endDate,
     },
   });
+});
+
+/**
+ * Per-user statistics across the whole platform (income, spend, requests).
+ * GET /api/admin/reports/user-statistics
+ */
+const getUserStatistics = asyncHandler(async (req, res) => {
+  const [rows] = await sequelize.query(`
+    SELECT
+      CONCAT(u.first_name, ' ', COALESCE(u.last_name, '')) AS name,
+      u.email,
+      (SELECT GROUP_CONCAT(r.name) FROM user_roles ur JOIN roles r ON r.id = ur.role_id WHERE ur.user_id = u.id) AS role,
+      COALESCE((SELECT COUNT(*) FROM customers c JOIN customer_requests cr ON cr.customer_id = c.id WHERE c.user_id = u.id), 0) AS requests,
+      ROUND(COALESCE((SELECT SUM(pt.amount) FROM customers c JOIN payment_transactions pt ON pt.customer_id = c.id WHERE c.user_id = u.id AND pt.status = 'success'), 0), 2) AS total_spent,
+      ROUND(COALESCE((SELECT SUM(pt.amount) FROM shops s JOIN payment_transactions pt ON pt.shop_id = s.id WHERE s.owner_id = u.id AND pt.status = 'success'), 0), 2) AS total_sales
+    FROM users u
+    ORDER BY total_sales DESC, total_spent DESC
+  `);
+  return apiResponse(res, 200, 'User statistics', { data: rows });
 });
 
 /**
@@ -525,6 +561,7 @@ module.exports = {
   getShopSettlements,
   getDeliveryPerformance,
   getSummaryReport,
+  getUserStatistics,
   exportToExcel,
   exportToPdf,
 };
