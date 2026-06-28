@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { getRoleHome } from './utils/roleRedirect';
 import socketService from './services/socketService';
 import InstallPWAButton from './components/InstallPWAButton';
+import Profile from './pages/Profile';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -128,6 +129,7 @@ function App() {
         <Route path="request/:id" element={<RequestDetail />} />
         <Route path="chat" element={<CustomerChat />} />
         <Route path="track/:assignmentId" element={<TrackDelivery />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
 
       {/* Shop Owner routes */}
@@ -180,6 +182,7 @@ function App() {
         <Route path="proof" element={<DeliveryProof />} />
         <Route path="history" element={<DeliveryHistory />} />
         <Route path="earnings" element={<DeliveryHistory />} />
+        <Route path="profile" element={<Profile />} />
       </Route>
 
       {/* Role-based home redirect */}
