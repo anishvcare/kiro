@@ -1,11 +1,13 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const bcrypt = require('bcryptjs');
+const { v4: uuidv4 } = require('uuid');
 const { Server } = require('socket.io');
 require('dotenv').config();
 
 const app = require('./app');
-const { sequelize } = require('./models');
+const { sequelize, User, Role, UserRole } = require('./models');
 const initializeSockets = require('./sockets');
 
 const PORT = process.env.PORT || 8080;
@@ -68,6 +70,43 @@ const reconcileSchema = async () => {
   }
 };
 
+// Create a super_admin account from env vars on first run (secure: no hardcoded password).
+const seedAdminUser = async () => {
+  const email = process.env.ADMIN_EMAIL;
+  const password = process.env.ADMIN_PASSWORD;
+  if (!email || !password) {
+    console.log('ADMIN_EMAIL/ADMIN_PASSWORD not set. Skipping admin seed.');
+    return;
+  }
+  try {
+    const existing = await User.findOne({ where: { email } });
+    if (existing) {
+      console.log('Admin user already exists. Skipping admin seed.');
+      return;
+    }
+    const role = await Role.findOne({ where: { name: 'super_admin' } });
+    if (!role) {
+      console.warn('super_admin role not found. Skipping admin seed.');
+      return;
+    }
+    const salt = await bcrypt.genSalt(12);
+    const password_hash = await bcrypt.hash(password, salt);
+    const user = await User.create({
+      id: uuidv4(),
+      email,
+      password_hash,
+      first_name: 'Super',
+      last_name: 'Admin',
+      is_active: true,
+      is_verified: true,
+    });
+    await UserRole.create({ user_id: user.id, role_id: role.id });
+    console.log(`Admin user created: ${email}`);
+  } catch (error) {
+    console.error('Admin seed failed:', error.message);
+  }
+};
+
 // Start server
 const startServer = async () => {
   try {
@@ -78,6 +117,8 @@ const startServer = async () => {
     await bootstrapDatabase();
     // Align existing tables with current models (adds any missing columns).
     await reconcileSchema();
+    // Create the super_admin account if ADMIN_EMAIL/ADMIN_PASSWORD are configured.
+    await seedAdminUser();
   } catch (error) {
     console.warn('Database connection failed:', error.message);
     console.warn('Server will start without database connectivity.');
