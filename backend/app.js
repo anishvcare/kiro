@@ -122,13 +122,17 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, _next) => {
   console.error('Unhandled error:', err.message);
+  console.error(err.stack);
 
   const statusCode = err.statusCode || 500;
-  const message = process.env.NODE_ENV === 'production'
-    ? 'Internal server error'
-    : err.message;
+  // TEMP DEBUG: expose error detail to diagnose production 500s. Revert after debugging.
+  const message = err.message || 'Internal server error';
 
-  return apiResponse(res, statusCode, message);
+  return apiResponse(res, statusCode, message, {
+    name: err.name,
+    code: err.original ? err.original.code : (err.parent ? err.parent.code : undefined),
+    sql: err.original ? err.original.sqlMessage : undefined,
+  });
 });
 
 module.exports = app;
