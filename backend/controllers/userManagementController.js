@@ -117,6 +117,29 @@ const updateUserStatus = asyncHandler(async (req, res) => {
 });
 
 /**
+ * Update user profile (name)
+ * PATCH /api/admin/users/:id/profile
+ */
+const updateUserProfile = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { first_name, last_name } = req.body;
+
+  const user = await User.findByPk(id);
+  if (!user) {
+    return apiResponse(res, 404, 'User not found');
+  }
+
+  const updates = {};
+  if (first_name !== undefined) updates.first_name = first_name;
+  if (last_name !== undefined) updates.last_name = last_name;
+  await user.update(updates);
+
+  return apiResponse(res, 200, 'User profile updated', {
+    user: { id, first_name: user.first_name, last_name: user.last_name },
+  });
+});
+
+/**
  * Update user role
  * PATCH /api/admin/users/:id/role
  */
@@ -197,6 +220,7 @@ module.exports = {
   listUsers,
   getUserDetails,
   updateUserStatus,
+  updateUserProfile,
   updateUserRole,
   deleteUser,
 };

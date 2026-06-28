@@ -36,6 +36,7 @@ router.post('/notifications', adminController.sendNotification);
 router.get('/users', userManagementController.listUsers);
 router.get('/users/:id', userManagementController.getUserDetails);
 router.patch('/users/:id/status', userManagementController.updateUserStatus);
+router.patch('/users/:id/profile', userManagementController.updateUserProfile);
 router.patch('/users/:id/role', userManagementController.updateUserRole);
 router.delete('/users/:id', userManagementController.deleteUser);
 
