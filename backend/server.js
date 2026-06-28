@@ -107,54 +107,74 @@ const seedAdminUser = async () => {
   }
 };
 
-// Seed demo data (shops, customers, requests, etc.) when SEED_DEMO_DATA=true and DB has no shops.
+// Seed demo data (shops, customers, requests, orders, etc.) when SEED_DEMO_DATA=true.
+// Runs statement-by-statement with INSERT IGNORE + relaxed sql_mode/FK so it is idempotent
+// and resilient to the timestamp-default drift caused by sequelize.sync({alter}).
 const seedDemoData = async () => {
   if (process.env.SEED_DEMO_DATA !== 'true') {
     app.set('demoSeedStatus', { skipped: 'SEED_DEMO_DATA not true' });
     return;
   }
   try {
-    const [rows] = await sequelize.query('SELECT COUNT(*) AS cnt FROM shops');
-    if (Number(rows[0].cnt) > 0) {
-      console.log('Demo data already present (shops exist). Skipping demo seed.');
-      app.set('demoSeedStatus', { skipped: 'shops already exist' });
-      return;
-    }
     const seedPath = path.join(__dirname, 'database', 'seed.sql');
     if (!fs.existsSync(seedPath)) {
-      console.warn('seed.sql not found. Skipping demo seed.');
       app.set('demoSeedStatus', { error: 'seed.sql not found' });
       return;
     }
-    console.log('Seeding demo data...');
-    let seedSql = fs.readFileSync(seedPath, 'utf8');
-    // The seed file ships with a placeholder hash; swap in a valid bcrypt hash for "password123".
+    console.log('Seeding demo data (resilient mode)...');
+    let raw = fs.readFileSync(seedPath, 'utf8');
     const validHash = bcrypt.hashSync('password123', 10);
-    seedSql = seedSql.split('$2a$10$xVqYLGwYZ0GHX5PmGJdqY.EtGKb5VZwPvFKjp8VGKfJ8OxB3dC6Oe').join(validHash);
-    // sequelize.sync({alter}) strips DEFAULT CURRENT_TIMESTAMP from timestamp columns, so raw
-    // INSERTs that omit created_at would fail under strict mode. Relax mode + backfill timestamps.
-    seedSql = "SET SESSION sql_mode = '';\n" + seedSql;
-    await sequelize.query(seedSql);
-    // Backfill any zero/empty timestamps produced while strict mode was off.
-    for (const t of ['users', 'shops', 'customers', 'delivery_agents', 'delivery_boys']) {
+    raw = raw.split('$2a$10$xVqYLGwYZ0GHX5PmGJdqY.EtGKb5VZwPvFKjp8VGKfJ8OxB3dC6Oe').join(validHash);
+
+    // Strip comment lines, then split into individual statements.
+    const statements = raw
+      .split('\n')
+      .filter((line) => !line.trim().startsWith('--'))
+      .join('\n')
+      .split(/;\s*\n/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0 && !/^SET\s/i.test(s));
+
+    // Reset rating/review demo tables (no natural unique key) so re-runs stay clean.
+    try { await sequelize.query("SET SESSION FOREIGN_KEY_CHECKS=0; DELETE FROM reviews; DELETE FROM ratings;"); } catch (e) { /* ignore */ }
+
+    let ok = 0;
+    const failed = [];
+    for (let stmt of statements) {
+      stmt = stmt.replace(/^INSERT\s+INTO/i, 'INSERT IGNORE INTO');
       try {
-        await sequelize.query(
-          `UPDATE ${t} SET created_at = NOW() WHERE created_at IS NULL OR created_at < '1971-01-01 00:00:00'`
-        );
-        await sequelize.query(
-          `UPDATE ${t} SET updated_at = NOW() WHERE updated_at IS NULL OR updated_at < '1971-01-01 00:00:00'`
-        );
-      } catch (e) { /* ignore per-table backfill issues */ }
+        await sequelize.query(`SET SESSION sql_mode=''; SET SESSION FOREIGN_KEY_CHECKS=0; ${stmt};`);
+        ok += 1;
+      } catch (e) {
+        failed.push({ stmt: stmt.slice(0, 50), error: e.message });
+      }
     }
-    console.log('Demo data seeded successfully. Demo accounts use password: password123');
-    app.set('demoSeedStatus', { success: true });
+
+    // Backfill any zero/empty timestamps produced while strict mode was off.
+    const tables = ['users', 'customers', 'shops', 'shop_keywords', 'delivery_agents',
+      'delivery_boys', 'service_areas', 'customer_requests', 'quotations', 'quotation_items',
+      'payment_transactions', 'delivery_assignments', 'cash_collections', 'notifications'];
+    for (const t of tables) {
+      for (const col of ['created_at', 'updated_at']) {
+        try {
+          await sequelize.query(`UPDATE ${t} SET ${col}=NOW() WHERE ${col} IS NULL OR ${col} < '1971-01-01 00:00:00'`);
+        } catch (e) { /* column may not exist; ignore */ }
+      }
+    }
+
+    const [s] = await sequelize.query('SELECT COUNT(*) AS cnt FROM shops');
+    const [rq] = await sequelize.query('SELECT COUNT(*) AS cnt FROM customer_requests');
+    console.log(`Demo seed done. ok=${ok} failed=${failed.length} shops=${s[0].cnt} requests=${rq[0].cnt}`);
+    app.set('demoSeedStatus', {
+      ok,
+      failedCount: failed.length,
+      failed: failed.slice(0, 6),
+      shops: Number(s[0].cnt),
+      requests: Number(rq[0].cnt),
+    });
   } catch (error) {
     console.error('Demo data seed failed:', error.message);
-    app.set('demoSeedStatus', {
-      error: error.message,
-      code: error.original ? error.original.code : (error.parent ? error.parent.code : undefined),
-      sql: error.original ? error.original.sqlMessage : undefined,
-    });
+    app.set('demoSeedStatus', { error: error.message });
   }
 };
 
