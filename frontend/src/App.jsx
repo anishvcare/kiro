@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getRoleHome } from './utils/roleRedirect';
 import socketService from './services/socketService';
+import InstallPWAButton from './components/InstallPWAButton';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -79,7 +80,9 @@ function App() {
   }, [isAuthenticated, tokens]);
 
   return (
-    <Routes>
+    <>
+      <InstallPWAButton />
+      <Routes>
       {/* Public routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
@@ -186,6 +189,7 @@ function App() {
       <Route path="/" element={<RoleHome />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
+    </>
   );
 }
 
