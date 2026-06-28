@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getRoleHome } from './utils/roleRedirect';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ProtectedRoute from './components/ProtectedRoute';
-import DashboardLayout from './layouts/DashboardLayout';
 import AdminLayout from './layouts/AdminLayout';
 import CustomerLayout from './layouts/CustomerLayout';
 import ShopLayout from './layouts/ShopLayout';
@@ -47,12 +48,11 @@ import CustomerChat from './pages/customer/Chat';
 import ShopChat from './pages/shop/Chat';
 import TrackDelivery from './pages/customer/TrackDelivery';
 
-const Dashboard = () => (
-  <div className="bg-white rounded-lg shadow p-6">
-    <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-    <p className="mt-2 text-gray-600">Welcome to the Local Shopping Platform</p>
-  </div>
-);
+const RoleHome = () => {
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  return <Navigate to={getRoleHome(user)} replace />;
+};
 
 const Unauthorized = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -165,20 +165,11 @@ function App() {
         <Route path="earnings" element={<DeliveryHistory />} />
       </Route>
 
-      {/* Protected routes */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route index element={<Dashboard />} />
-      </Route>
+      {/* Role-based home redirect */}
+      <Route path="/dashboard" element={<RoleHome />} />
 
       {/* Default redirect */}
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      <Route path="/" element={<RoleHome />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

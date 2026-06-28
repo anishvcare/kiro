@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { login, clearError } from '../../store/slices/authSlice';
+import { getRoleHome } from '../../utils/roleRedirect';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -12,15 +13,14 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { isAuthenticated, isLoading, error } = useSelector((state) => state.auth);
-
-  const from = location.state?.from?.pathname || '/dashboard';
+  const { user, isAuthenticated, isLoading, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(from, { replace: true });
+      const target = location.state?.from?.pathname || getRoleHome(user);
+      navigate(target, { replace: true });
     }
-  }, [isAuthenticated, navigate, from]);
+  }, [isAuthenticated, user, navigate, location.state]);
 
   useEffect(() => {
     dispatch(clearError());

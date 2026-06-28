@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { register, clearError } from '../../store/slices/authSlice';
+import { getRoleHome } from '../../utils/roleRedirect';
 
 const ROLES = [
   { value: 'customer', label: 'Customer' },
@@ -24,13 +25,13 @@ const Register = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated, isLoading, error } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, isLoading, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/dashboard', { replace: true });
+      navigate(getRoleHome(user), { replace: true });
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   useEffect(() => {
     dispatch(clearError());
