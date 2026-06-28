@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchDashboardStats, fetchDashboardData } from '../../store/slices/adminSlice';
 
-const StatCard = ({ title, value, icon, color }) => (
-  <div className="bg-white rounded-lg shadow p-6">
+const StatCard = ({ title, value, icon, color, onClick }) => (
+  <div
+    onClick={onClick}
+    className={`bg-white rounded-lg shadow p-6 ${onClick ? 'cursor-pointer hover:shadow-md hover:ring-2 hover:ring-indigo-400 transition' : ''}`}
+  >
     <div className="flex items-center">
       <div className={`p-3 rounded-full ${color} bg-opacity-10`}>
         <svg className={`h-8 w-8 ${color.replace('bg-', 'text-')}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -20,6 +24,7 @@ const StatCard = ({ title, value, icon, color }) => (
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { stats, dashboard, isLoading } = useSelector((state) => state.admin);
 
   useEffect(() => {
@@ -47,24 +52,28 @@ const AdminDashboard = () => {
           value={stats?.totalUsers || 0}
           icon="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197"
           color="bg-blue-500"
+          onClick={() => navigate('/admin/users')}
         />
         <StatCard
           title="Total Shops"
           value={stats?.totalShops || 0}
           icon="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"
           color="bg-green-500"
+          onClick={() => navigate('/admin/shops')}
         />
         <StatCard
           title="Deliveries Completed"
           value={stats?.totalDeliveries || 0}
           icon="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
           color="bg-purple-500"
+          onClick={() => navigate('/admin/reports')}
         />
         <StatCard
           title="Total Revenue"
           value={formatCurrency(stats?.totalRevenue)}
           icon="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           color="bg-yellow-500"
+          onClick={() => navigate('/admin/reports')}
         />
       </div>
 

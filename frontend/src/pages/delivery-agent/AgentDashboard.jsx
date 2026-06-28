@@ -37,22 +37,22 @@ const AgentDashboard = () => {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg shadow-sm border p-4">
+        <Link to="/delivery-agent/assign" className="bg-white rounded-lg shadow-sm border p-4 cursor-pointer hover:shadow-md hover:border-orange-300 transition">
           <p className="text-sm text-gray-500">Pending Requests</p>
           <p className="text-2xl font-bold text-orange-600">{confirmedRequests?.length || 0}</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border p-4">
+        </Link>
+        <Link to="/delivery-agent/performance" className="bg-white rounded-lg shadow-sm border p-4 cursor-pointer hover:shadow-md hover:border-blue-300 transition">
           <p className="text-sm text-gray-500">Active Deliveries</p>
           <p className="text-2xl font-bold text-blue-600">{activeDeliveries?.length || 0}</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border p-4">
+        </Link>
+        <Link to="/delivery-agent/delivery-boys" className="bg-white rounded-lg shadow-sm border p-4 cursor-pointer hover:shadow-md hover:border-green-300 transition">
           <p className="text-sm text-gray-500">Available Boys</p>
           <p className="text-2xl font-bold text-green-600">{availableBoys.length}</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border p-4">
+        </Link>
+        <Link to="/delivery-agent/delivery-boys" className="bg-white rounded-lg shadow-sm border p-4 cursor-pointer hover:shadow-md hover:border-gray-300 transition">
           <p className="text-sm text-gray-500">Busy Boys</p>
           <p className="text-2xl font-bold text-gray-600">{busyBoys.length}</p>
-        </div>
+        </Link>
       </div>
 
       {/* Confirmed Requests */}

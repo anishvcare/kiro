@@ -51,16 +51,16 @@ const BoyDashboard = () => {
 
       {/* Daily Stats */}
       <div className="grid grid-cols-2 gap-3">
-        <div className="bg-white rounded-lg shadow-sm border p-4 text-center">
+        <Link to="/delivery-boy/history" className="bg-white rounded-lg shadow-sm border p-4 text-center cursor-pointer hover:shadow-md hover:border-blue-300 transition">
           <p className="text-2xl font-bold text-blue-600">{dailyStats?.stats?.count || 0}</p>
           <p className="text-xs text-gray-500">Today&apos;s Deliveries</p>
-        </div>
-        <div className="bg-white rounded-lg shadow-sm border p-4 text-center">
+        </Link>
+        <Link to="/delivery-boy/cash-collection" className="bg-white rounded-lg shadow-sm border p-4 text-center cursor-pointer hover:shadow-md hover:border-green-300 transition">
           <p className="text-2xl font-bold text-green-600">
             Rs. {dailyStats?.stats?.cash_collected || 0}
           </p>
           <p className="text-xs text-gray-500">Cash Collected</p>
-        </div>
+        </Link>
       </div>
 
       {/* Active Delivery */}
