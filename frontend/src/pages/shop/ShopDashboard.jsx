@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchMyShops, fetchShopDashboard } from '../../store/slices/shopSlice';
 
-const StatCard = ({ title, value, icon, color }) => (
-  <div className="bg-white rounded-lg shadow p-5">
+const StatCard = ({ title, value, icon, color, onClick }) => (
+  <div
+    onClick={onClick}
+    className={`bg-white rounded-lg shadow p-5 ${onClick ? 'cursor-pointer hover:shadow-md hover:ring-2 hover:ring-green-400 transition' : ''}`}
+  >
     <div className="flex items-center">
       <div className={`p-3 rounded-full ${color} bg-opacity-10`}>
         <svg className={`h-6 w-6 ${color.replace('bg-', 'text-')}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -20,6 +24,7 @@ const StatCard = ({ title, value, icon, color }) => (
 
 const ShopDashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { myShops, dashboard, isLoading } = useSelector((state) => state.shop);
 
   useEffect(() => {
@@ -84,18 +89,21 @@ const ShopDashboard = () => {
           value={stats?.totalRequests || 0}
           icon="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
           color="bg-blue-500"
+          onClick={() => navigate('/shop/requests')}
         />
         <StatCard
           title="Active Requests"
           value={stats?.activeRequests || 0}
           icon="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
           color="bg-green-500"
+          onClick={() => navigate('/shop/requests')}
         />
         <StatCard
           title="Total Quotations"
           value={stats?.totalQuotations || 0}
           icon="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
           color="bg-purple-500"
+          onClick={() => navigate('/shop/quotation-history')}
         />
         <StatCard
           title="Rating"
