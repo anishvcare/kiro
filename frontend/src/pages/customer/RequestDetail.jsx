@@ -88,6 +88,22 @@ const RequestDetail = () => {
         </div>
       </div>
 
+      {currentRequest.deliveryAssignment &&
+        !['delivered', 'failed', 'returned'].includes(currentRequest.deliveryAssignment.status) && (
+        <div className="bg-indigo-600 text-white rounded-lg p-4 mb-4 flex items-center justify-between">
+          <div>
+            <p className="font-semibold">Your order is on the way! 🛵</p>
+            <p className="text-sm text-indigo-100">Track your delivery partner live on the map.</p>
+          </div>
+          <button
+            onClick={() => navigate(`/customer/track/${currentRequest.deliveryAssignment.id}`)}
+            className="bg-white text-indigo-700 font-medium px-4 py-2 rounded-md hover:bg-indigo-50 whitespace-nowrap"
+          >
+            Track Delivery
+          </button>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {/* Left column - Request Info */}
         <div className="lg:col-span-2 space-y-4">

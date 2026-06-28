@@ -7,6 +7,8 @@ const {
   Shop,
   User,
   Customer,
+  PaymentTransaction,
+  DeliveryAssignment,
   sequelize,
 } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
@@ -225,8 +227,38 @@ const getRequestDetails = asyncHandler(async (req, res) => {
   // Get status timeline
   const timeline = getStatusTimeline(request.status);
 
+  // Find the live delivery assignment (accepted quotation -> payment -> assignment) so the
+  // customer can track their delivery boy on the map.
+  let deliveryAssignment = null;
+  try {
+    const acceptedQuotation = (request.quotations || []).find((q) => q.status === 'accepted');
+    if (acceptedQuotation) {
+      const payment = await PaymentTransaction.findOne({ where: { quotation_id: acceptedQuotation.id } });
+      if (payment) {
+        const assignment = await DeliveryAssignment.findOne({ where: { transaction_id: payment.id } });
+        if (assignment) {
+          deliveryAssignment = {
+            id: assignment.id,
+            status: assignment.status,
+            pickup_address: assignment.pickup_address,
+            pickup_latitude: assignment.pickup_latitude,
+            pickup_longitude: assignment.pickup_longitude,
+            delivery_address: assignment.delivery_address,
+            delivery_latitude: assignment.delivery_latitude,
+            delivery_longitude: assignment.delivery_longitude,
+          };
+        }
+      }
+    }
+  } catch (e) {
+    deliveryAssignment = null;
+  }
+
+  const requestJson = request.toJSON();
+  requestJson.deliveryAssignment = deliveryAssignment;
+
   return apiResponse(res, 200, 'Request details retrieved', {
-    request,
+    request: requestJson,
     timeline,
     statuses: REQUEST_STATUSES,
   });
