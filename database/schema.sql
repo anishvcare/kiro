@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS users (
   refresh_token TEXT,
   reset_password_token VARCHAR(255),
   reset_password_expires TIMESTAMP NULL,
+  fcm_token TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   INDEX idx_users_email (email),

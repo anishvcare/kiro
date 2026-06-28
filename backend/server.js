@@ -56,6 +56,18 @@ const bootstrapDatabase = async () => {
   }
 };
 
+// Reconcile any column drift between the Sequelize models and the live DB
+// (e.g. adds columns that exist in models but are missing in schema.sql).
+const reconcileSchema = async () => {
+  try {
+    console.log('Reconciling database schema with models...');
+    await sequelize.sync({ alter: true });
+    console.log('Schema reconciliation complete.');
+  } catch (error) {
+    console.error('Schema reconciliation failed:', error.message);
+  }
+};
+
 // Start server
 const startServer = async () => {
   try {
@@ -64,6 +76,8 @@ const startServer = async () => {
     console.log('Database connection established successfully.');
     // Create tables on first run if they do not exist yet.
     await bootstrapDatabase();
+    // Align existing tables with current models (adds any missing columns).
+    await reconcileSchema();
   } catch (error) {
     console.warn('Database connection failed:', error.message);
     console.warn('Server will start without database connectivity.');
