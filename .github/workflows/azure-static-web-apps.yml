@@ -1,0 +1,46 @@
+name: Deploy Frontend to Azure Static Web Apps
+
+on:
+  push:
+    branches:
+      - universal-delivery-platform
+  workflow_dispatch:
+
+# Public backend endpoints injected at build time (not secrets).
+env:
+  VITE_API_URL: https://localshop-api-apfydbbyape7bzfr.southindia-01.azurewebsites.net/api
+  VITE_SOCKET_URL: https://localshop-api-apfydbbyape7bzfr.southindia-01.azurewebsites.net
+
+jobs:
+  build_and_deploy:
+    name: Build and Deploy Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Deploy to Azure Static Web Apps
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "frontend"
+          output_location: "dist"
+          skip_app_build: true
+          skip_api_build: true
