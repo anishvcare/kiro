@@ -53,10 +53,27 @@ export const disconnect = () => {
 };
 
 /**
+ * Ensure a socket connection exists; auto-connect using the stored token if needed.
+ */
+const ensureSocket = () => {
+  if (socket) return socket;
+  try {
+    const tokensStr = localStorage.getItem('tokens');
+    if (tokensStr) {
+      const { accessToken } = JSON.parse(tokensStr);
+      if (accessToken) return connect(accessToken);
+    }
+  } catch (e) {
+    /* ignore */
+  }
+  return socket;
+};
+
+/**
  * Get the current socket instance
  * @returns {import('socket.io-client').Socket|null}
  */
-export const getSocket = () => socket;
+export const getSocket = () => ensureSocket();
 
 /**
  * Join a chat room
@@ -125,8 +142,9 @@ export const getChatHistory = (chatId, page = 1) => {
  * @param {string} assignmentId
  */
 export const subscribeToDelivery = (assignmentId) => {
-  if (socket) {
-    socket.emit('location:subscribe', { assignmentId });
+  const s = ensureSocket();
+  if (s) {
+    s.emit('location:subscribe', { assignmentId });
   }
 };
 
@@ -145,8 +163,9 @@ export const unsubscribeFromDelivery = (assignmentId) => {
  * @param {object} data - { assignmentId, latitude, longitude, accuracy, speed, heading }
  */
 export const updateLocation = (data) => {
-  if (socket) {
-    socket.emit('location:update', data);
+  const s = ensureSocket();
+  if (s) {
+    s.emit('location:update', data);
   }
 };
 
