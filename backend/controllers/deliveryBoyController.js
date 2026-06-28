@@ -445,6 +445,37 @@ const getDeliveryHistory = asyncHandler(async (req, res) => {
   });
 });
 
+/**
+ * Get tracking info (OTP + pickup/dropoff coords) for a delivery assignment.
+ * Accessible by customer (to view OTP & destination) as well as agent/boy.
+ * GET /api/delivery/track-info/:assignmentId
+ */
+const getTrackInfo = asyncHandler(async (req, res) => {
+  const { assignmentId } = req.params;
+  const assignment = await DeliveryAssignment.findByPk(assignmentId);
+  if (!assignment) {
+    return apiResponse(res, 404, 'Delivery assignment not found');
+  }
+
+  // Provide the OTP so the customer can read it out to the delivery boy.
+  const otp = otpService.getActiveOTP(assignmentId);
+
+  return apiResponse(res, 200, 'Track info retrieved', {
+    status: assignment.status,
+    otp,
+    pickup: {
+      address: assignment.pickup_address,
+      latitude: assignment.pickup_latitude,
+      longitude: assignment.pickup_longitude,
+    },
+    dropoff: {
+      address: assignment.delivery_address,
+      latitude: assignment.delivery_latitude,
+      longitude: assignment.delivery_longitude,
+    },
+  });
+});
+
 module.exports = {
   setOnlineStatus,
   getAssignedDeliveries,
@@ -458,6 +489,7 @@ module.exports = {
   submitCashCollection,
   uploadDeliveryProof,
   verifyOTP,
+  getTrackInfo,
   getDailyDeliveries,
   getEarnings,
   getDeliveryHistory,

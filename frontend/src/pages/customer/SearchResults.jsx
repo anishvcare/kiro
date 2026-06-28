@@ -41,11 +41,13 @@ const SearchResults = () => {
     const params = { q: query };
 
     if (categoryId) params.categoryId = categoryId;
-    if (userLocation) {
+    // Only restrict by distance when the user explicitly applies a "near me" radius filter,
+    // otherwise show all matching shops regardless of distance.
+    if (appliedFilters.distance && userLocation) {
       params.latitude = userLocation.latitude;
       params.longitude = userLocation.longitude;
+      params.radius = appliedFilters.distance;
     }
-    if (appliedFilters.distance) params.radius = appliedFilters.distance;
     if (appliedFilters.rating) params.rating = appliedFilters.rating;
     if (appliedFilters.openNow) params.openNow = 'true';
     if (appliedFilters.verified) params.verified = 'true';
@@ -65,9 +67,10 @@ const SearchResults = () => {
   const handlePageChange = (page) => {
     const params = { q: query, page };
     if (categoryId) params.categoryId = categoryId;
-    if (userLocation) {
+    if (filters.distance && userLocation) {
       params.latitude = userLocation.latitude;
       params.longitude = userLocation.longitude;
+      params.radius = filters.distance;
     }
     dispatch(fetchSearchResults(params));
   };

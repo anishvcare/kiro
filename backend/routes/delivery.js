@@ -9,6 +9,9 @@ const deliveryBoyController = require('../controllers/deliveryBoyController');
 // All routes require authentication
 router.use(authenticate);
 
+// Shared tracking info (OTP + pickup/dropoff) - any authenticated role (customer/agent/boy)
+router.get('/track-info/:assignmentId', deliveryBoyController.getTrackInfo);
+
 // ===== DELIVERY AGENT ROUTES =====
 router.get('/agent/confirmed-requests', requireRole('delivery_agent'), deliveryAgentController.getConfirmedRequests);
 router.post('/agent/assign', requireRole('delivery_agent'), assignDeliveryValidation, deliveryAgentController.assignDeliveryBoy);

@@ -73,6 +73,19 @@ const validateDeliveryOTP = (assignmentId, otp) => {
 };
 
 /**
+ * Get the active OTP for an assignment, creating one if none exists yet.
+ * Returns the actual OTP so the customer can show it to the delivery boy.
+ */
+const getActiveOTP = (assignmentId, customerId = 'customer') => {
+  const key = `delivery_${assignmentId}`;
+  const stored = otpStore.get(key);
+  if (!stored || stored.verified || Date.now() > stored.expiresAt) {
+    return createDeliveryOTP(assignmentId, customerId);
+  }
+  return stored.otp;
+};
+
+/**
  * Get OTP details for an assignment (without revealing the actual OTP)
  * @param {string} assignmentId - The delivery assignment ID
  * @returns {object|null} OTP metadata
@@ -121,6 +134,7 @@ setInterval(cleanupExpiredOTPs, 5 * 60 * 1000);
 module.exports = {
   generateOTP,
   createDeliveryOTP,
+  getActiveOTP,
   validateDeliveryOTP,
   getOTPStatus,
   invalidateOTP,

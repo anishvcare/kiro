@@ -3,22 +3,34 @@
  * Customer view for live delivery tracking with map
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import LiveTrackingMap from '../../components/map/LiveTrackingMap';
 import { setActiveAssignment, setPickupDropoff } from '../../store/slices/locationSlice';
+import api from '../../services/api';
 
 const TrackDelivery = () => {
   const { assignmentId } = useParams();
   const dispatch = useDispatch();
-  const { isTracking, currentPosition, eta, distance } = useSelector((state) => state.location);
+  const { isTracking, currentPosition, eta, distance, pickup, dropoff } = useSelector((state) => state.location);
+  const [otp, setOtp] = useState(null);
 
   useEffect(() => {
-    if (assignmentId) {
-      dispatch(setActiveAssignment(assignmentId));
-    }
+    if (!assignmentId) return;
+    dispatch(setActiveAssignment(assignmentId));
+    // Fetch tracking info: OTP (to show the delivery boy) + pickup/dropoff coords (for distance)
+    api
+      .get(`/delivery/track-info/${assignmentId}`)
+      .then((res) => {
+        const d = res.data.data;
+        setOtp(d.otp);
+        dispatch(setPickupDropoff({ pickup: d.pickup, dropoff: d.dropoff }));
+      })
+      .catch(() => {});
   }, [assignmentId, dispatch]);
+
+  const toLatLng = (p) => (p && p.latitude != null ? { lat: Number(p.latitude), lng: Number(p.longitude) } : null);
 
   return (
     <div className="space-y-4">
@@ -31,9 +43,18 @@ const TrackDelivery = () => {
         </p>
       </div>
 
+      {/* Delivery OTP - customer shares this with the delivery boy */}
+      {otp && (
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-center">
+          <p className="text-xs text-amber-700 font-medium uppercase tracking-wide">Delivery OTP</p>
+          <p className="text-3xl font-bold tracking-[0.3em] text-amber-900 mt-1">{otp}</p>
+          <p className="text-xs text-amber-600 mt-1">Share this code with the delivery boy to confirm delivery</p>
+        </div>
+      )}
+
       {/* Map */}
       <div className="bg-white rounded-lg shadow overflow-hidden" style={{ height: '400px' }}>
-        <LiveTrackingMap assignmentId={assignmentId} />
+        <LiveTrackingMap assignmentId={assignmentId} pickup={toLatLng(pickup)} dropoff={toLatLng(dropoff)} />
       </div>
 
       {/* Delivery info */}

@@ -5,6 +5,35 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 
+// Haversine distance in km between two lat/lng points
+const haversineKm = (lat1, lon1, lat2, lon2) => {
+  const toRad = (d) => (d * Math.PI) / 180;
+  const R = 6371;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+};
+
+const computeEtaDistance = (state) => {
+  const pos = state.currentPosition;
+  const drop = state.dropoff;
+  if (!pos || !drop || drop.latitude == null || drop.longitude == null) return;
+  const km = haversineKm(
+    Number(pos.latitude),
+    Number(pos.longitude),
+    Number(drop.latitude),
+    Number(drop.longitude)
+  );
+  if (Number.isNaN(km)) return;
+  state.distance = km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+  const speedKmh = pos.speed && pos.speed > 1 ? pos.speed : 20; // assume 20 km/h if unknown
+  const mins = Math.max(1, Math.round((km / speedKmh) * 60));
+  state.eta = `${mins} min`;
+};
+
 const locationSlice = createSlice({
   name: 'location',
   initialState: {
@@ -39,6 +68,8 @@ const locationSlice = createSlice({
         if (state.positionHistory.length > 100) {
           state.positionHistory = state.positionHistory.slice(-100);
         }
+        // Recompute distance + ETA to dropoff as the boy moves
+        computeEtaDistance(state);
       }
     },
     setActiveAssignment: (state, action) => {
@@ -56,6 +87,7 @@ const locationSlice = createSlice({
       const { pickup, dropoff } = action.payload;
       state.pickup = pickup;
       state.dropoff = dropoff;
+      computeEtaDistance(state);
     },
     setEtaDistance: (state, action) => {
       const { eta, distance } = action.payload;
