@@ -1,6 +1,15 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
+const sslConfig = process.env.DB_SSL === 'true' ? {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: true,
+    },
+  },
+} : {};
+
 const config = {
   development: {
     username: process.env.DB_USER || 'root',
@@ -16,6 +25,7 @@ const config = {
       acquire: 30000,
       idle: 10000,
     },
+    ...sslConfig,
   },
   test: {
     username: process.env.DB_USER || 'root',
@@ -40,6 +50,7 @@ const config = {
       acquire: 30000,
       idle: 10000,
     },
+    ...sslConfig,
   },
 };
 
@@ -58,6 +69,7 @@ try {
       dialect: dbConfig.dialect,
       logging: dbConfig.logging,
       pool: dbConfig.pool,
+      ...(dbConfig.dialectOptions ? { dialectOptions: dbConfig.dialectOptions } : {}),
     }
   );
 } catch (error) {
