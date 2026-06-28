@@ -131,7 +131,21 @@ const seedDemoData = async () => {
     // The seed file ships with a placeholder hash; swap in a valid bcrypt hash for "password123".
     const validHash = bcrypt.hashSync('password123', 10);
     seedSql = seedSql.split('$2a$10$xVqYLGwYZ0GHX5PmGJdqY.EtGKb5VZwPvFKjp8VGKfJ8OxB3dC6Oe').join(validHash);
+    // sequelize.sync({alter}) strips DEFAULT CURRENT_TIMESTAMP from timestamp columns, so raw
+    // INSERTs that omit created_at would fail under strict mode. Relax mode + backfill timestamps.
+    seedSql = "SET SESSION sql_mode = '';\n" + seedSql;
     await sequelize.query(seedSql);
+    // Backfill any zero/empty timestamps produced while strict mode was off.
+    for (const t of ['users', 'shops', 'customers', 'delivery_agents', 'delivery_boys']) {
+      try {
+        await sequelize.query(
+          `UPDATE ${t} SET created_at = NOW() WHERE created_at IS NULL OR created_at < '1971-01-01 00:00:00'`
+        );
+        await sequelize.query(
+          `UPDATE ${t} SET updated_at = NOW() WHERE updated_at IS NULL OR updated_at < '1971-01-01 00:00:00'`
+        );
+      } catch (e) { /* ignore per-table backfill issues */ }
+    }
     console.log('Demo data seeded successfully. Demo accounts use password: password123');
     app.set('demoSeedStatus', { success: true });
   } catch (error) {
