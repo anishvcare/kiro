@@ -107,6 +107,34 @@ const seedAdminUser = async () => {
   }
 };
 
+// Seed demo data (shops, customers, requests, etc.) when SEED_DEMO_DATA=true and DB has no shops.
+const seedDemoData = async () => {
+  if (process.env.SEED_DEMO_DATA !== 'true') {
+    return;
+  }
+  try {
+    const [rows] = await sequelize.query('SELECT COUNT(*) AS cnt FROM shops');
+    if (Number(rows[0].cnt) > 0) {
+      console.log('Demo data already present (shops exist). Skipping demo seed.');
+      return;
+    }
+    const seedPath = path.join(__dirname, 'database', 'seed.sql');
+    if (!fs.existsSync(seedPath)) {
+      console.warn('seed.sql not found. Skipping demo seed.');
+      return;
+    }
+    console.log('Seeding demo data...');
+    let seedSql = fs.readFileSync(seedPath, 'utf8');
+    // The seed file ships with a placeholder hash; swap in a valid bcrypt hash for "password123".
+    const validHash = bcrypt.hashSync('password123', 10);
+    seedSql = seedSql.split('$2a$10$xVqYLGwYZ0GHX5PmGJdqY.EtGKb5VZwPvFKjp8VGKfJ8OxB3dC6Oe').join(validHash);
+    await sequelize.query(seedSql);
+    console.log('Demo data seeded successfully. Demo accounts use password: password123');
+  } catch (error) {
+    console.error('Demo data seed failed:', error.message);
+  }
+};
+
 // Start server
 const startServer = async () => {
   try {
@@ -119,6 +147,8 @@ const startServer = async () => {
     await reconcileSchema();
     // Create the super_admin account if ADMIN_EMAIL/ADMIN_PASSWORD are configured.
     await seedAdminUser();
+    // Seed demo data if SEED_DEMO_DATA=true.
+    await seedDemoData();
   } catch (error) {
     console.warn('Database connection failed:', error.message);
     console.warn('Server will start without database connectivity.');
