@@ -1,0 +1,33 @@
+# Apache Reverse Proxy Configuration for Node.js Backend
+# Place this file in the API subdomain document root
+
+RewriteEngine On
+
+# Proxy all requests to Node.js application
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Forward API requests to the Node.js backend
+RewriteRule ^(.*)$ http://127.0.0.1:5000/$1 [P,L]
+
+# Enable WebSocket proxying for Socket.IO
+RewriteCond %{HTTP:Upgrade} websocket [NC]
+RewriteCond %{HTTP:Connection} upgrade [NC]
+RewriteRule ^(.*)$ ws://127.0.0.1:5000/$1 [P,L]
+
+# Set headers
+Header set X-Powered-By "LocalShop Platform"
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set X-XSS-Protection "1; mode=block"
+
+# Enable CORS for preflight
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# Handle preflight OPTIONS requests
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^(.*)$ $1 [R=200,L]
