@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 
 // Ensure upload directories exist
-const uploadDirs = ['uploads/requests', 'uploads/payments', 'uploads/temp'];
+const uploadDirs = ['uploads/requests', 'uploads/payments', 'uploads/temp', 'uploads/proofs'];
 uploadDirs.forEach((dir) => {
   const fullPath = path.join(__dirname, '..', dir);
   if (!fs.existsSync(fullPath)) {
@@ -30,6 +30,17 @@ const paymentScreenshotStorage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
+    cb(null, `${uuidv4()}${ext}`);
+  },
+});
+
+// Storage configuration for delivery proof photos
+const deliveryProofStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '..', 'uploads/proofs'));
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname) || '.jpg';
     cb(null, `${uuidv4()}${ext}`);
   },
 });
@@ -72,8 +83,18 @@ const uploadPaymentScreenshot = multer({
   },
 }).single('screenshot');
 
+// Upload middleware for delivery proof photo
+const uploadDeliveryProofImage = multer({
+  storage: deliveryProofStorage,
+  fileFilter: imageFileFilter,
+  limits: {
+    fileSize: 8 * 1024 * 1024, // 8MB
+  },
+}).single('proof');
+
 module.exports = {
   uploadRequestImages,
   uploadSingleRequestImage,
   uploadPaymentScreenshot,
+  uploadDeliveryProofImage,
 };

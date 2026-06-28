@@ -3,6 +3,7 @@ const router = express.Router();
 const { authenticate } = require('../middleware/auth');
 const { requireRole } = require('../middleware/rbac');
 const { assignDeliveryValidation } = require('../middleware/validators');
+const { uploadDeliveryProofImage } = require('../middleware/upload');
 const deliveryAgentController = require('../controllers/deliveryAgentController');
 const deliveryBoyController = require('../controllers/deliveryBoyController');
 
@@ -34,7 +35,7 @@ router.put('/boy/out-for-delivery/:assignmentId', requireRole('delivery_boy'), d
 router.put('/boy/reached-customer/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markReachedCustomer);
 router.put('/boy/delivered/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markDelivered);
 router.post('/boy/cash-collection', requireRole('delivery_boy'), deliveryBoyController.submitCashCollection);
-router.post('/boy/proof/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.uploadDeliveryProof);
+router.post('/boy/proof/:assignmentId', requireRole('delivery_boy'), uploadDeliveryProofImage, deliveryBoyController.uploadDeliveryProof);
 router.post('/boy/verify-otp/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.verifyOTP);
 router.get('/boy/daily-deliveries', requireRole('delivery_boy'), deliveryBoyController.getDailyDeliveries);
 router.get('/boy/earnings', requireRole('delivery_boy'), deliveryBoyController.getEarnings);

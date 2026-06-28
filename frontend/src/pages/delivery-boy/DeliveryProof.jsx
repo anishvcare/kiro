@@ -49,12 +49,10 @@ const DeliveryProof = () => {
 
   const handleUploadProof = (e) => {
     e.preventDefault();
-    const url = proofUrl || (proofFile ? URL.createObjectURL(proofFile) : '');
-    if (!url) return;
-    dispatch(uploadDeliveryProofThunk({
-      assignmentId,
-      data: { proof_url: proofUrl || `/uploads/proofs/proof_${assignmentId}.jpg` },
-    }));
+    if (!proofFile) return;
+    const formData = new FormData();
+    formData.append('proof', proofFile);
+    dispatch(uploadDeliveryProofThunk({ assignmentId, data: formData }));
   };
 
   const handleFileChange = (e) => {

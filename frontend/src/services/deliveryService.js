@@ -100,7 +100,12 @@ export const submitCashCollection = async (data) => {
 };
 
 export const uploadDeliveryProof = async (assignmentId, data) => {
-  const response = await api.post(`/delivery/boy/proof/${assignmentId}`, data);
+  const isForm = typeof FormData !== 'undefined' && data instanceof FormData;
+  const response = await api.post(
+    `/delivery/boy/proof/${assignmentId}`,
+    data,
+    isForm ? { headers: { 'Content-Type': 'multipart/form-data' } } : undefined
+  );
   return response.data.data;
 };
 
