@@ -21,9 +21,11 @@ export const connect = (token) => {
 
   socket = io(SOCKET_URL, {
     auth: { token },
-    transports: ['websocket', 'polling'],
+    // Polling first so it works on Azure App Service even when WebSockets are disabled,
+    // then upgrades to websocket if available.
+    transports: ['polling', 'websocket'],
     reconnection: true,
-    reconnectionAttempts: 5,
+    reconnectionAttempts: 10,
     reconnectionDelay: 1000,
   });
 

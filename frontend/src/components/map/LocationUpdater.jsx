@@ -10,8 +10,19 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
   const [isActive, setIsActive] = useState(false);
   const [lastPosition, setLastPosition] = useState(null);
   const [error, setError] = useState(null);
+  const [sentCount, setSentCount] = useState(0);
+  const [connected, setConnected] = useState(false);
   const watchIdRef = useRef(null);
   const intervalRef = useRef(null);
+
+  // Track socket connection status for visibility
+  useEffect(() => {
+    const t = setInterval(() => {
+      const s = socketService.getSocket();
+      setConnected(Boolean(s && s.connected));
+    }, 1000);
+    return () => clearInterval(t);
+  }, []);
 
   const startTracking = useCallback(() => {
     if (!navigator.geolocation) {
@@ -41,6 +52,7 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
 
         setLastPosition(locationData);
         socketService.updateLocation(locationData);
+        setSentCount((c) => c + 1);
 
         if (onLocationUpdate) {
           onLocationUpdate(locationData);
@@ -89,6 +101,10 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-semibold text-gray-900">Location Sharing</h3>
         <div className="flex items-center gap-2">
+          <span className={`flex items-center gap-1 text-xs ${connected ? 'text-green-600' : 'text-gray-400'}`}>
+            <span className={`w-2 h-2 rounded-full ${connected ? 'bg-green-500' : 'bg-gray-400'}`}></span>
+            {connected ? 'Connected' : 'Connecting...'}
+          </span>
           {isActive && (
             <span className="flex items-center gap-1 text-xs text-green-600">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -108,6 +124,7 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
         <div className="mb-3 text-xs text-gray-500">
           <p>Lat: {lastPosition.latitude.toFixed(6)}, Lng: {lastPosition.longitude.toFixed(6)}</p>
           {lastPosition.speed && <p>Speed: {Math.round(lastPosition.speed)} km/h</p>}
+          <p className="text-green-600">Location updates sent: {sentCount}</p>
         </div>
       )}
 
