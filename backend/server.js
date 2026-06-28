@@ -1,4 +1,6 @@
 const http = require('http');
+const fs = require('fs');
+const path = require('path');
 const { Server } = require('socket.io');
 require('dotenv').config();
 
@@ -26,12 +28,42 @@ initializeSockets(io);
 // Make io accessible to routes
 app.set('io', io);
 
+// Run the SQL schema once if the database has no tables yet.
+const bootstrapDatabase = async () => {
+  try {
+    const [rows] = await sequelize.query(
+      "SELECT COUNT(*) AS cnt FROM information_schema.tables WHERE table_schema = :db AND table_name = 'users'",
+      { replacements: { db: process.env.DB_NAME } }
+    );
+    const usersTableExists = Number(rows[0].cnt) > 0;
+    if (usersTableExists) {
+      console.log('Database schema already present. Skipping bootstrap.');
+      return;
+    }
+
+    const schemaPath = path.join(__dirname, 'database', 'schema.sql');
+    if (!fs.existsSync(schemaPath)) {
+      console.warn('schema.sql not found at', schemaPath, '- skipping bootstrap.');
+      return;
+    }
+
+    console.log('No tables found. Bootstrapping database from schema.sql...');
+    const schemaSql = fs.readFileSync(schemaPath, 'utf8');
+    await sequelize.query(schemaSql);
+    console.log('Database schema created successfully.');
+  } catch (error) {
+    console.error('Database bootstrap failed:', error.message);
+  }
+};
+
 // Start server
 const startServer = async () => {
   try {
     // Test database connection
     await sequelize.authenticate();
     console.log('Database connection established successfully.');
+    // Create tables on first run if they do not exist yet.
+    await bootstrapDatabase();
   } catch (error) {
     console.warn('Database connection failed:', error.message);
     console.warn('Server will start without database connectivity.');

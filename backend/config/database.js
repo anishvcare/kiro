@@ -1,14 +1,20 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-const sslConfig = process.env.DB_SSL === 'true' ? {
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: true,
-    },
-  },
-} : {};
+const dialectOptions = {
+  // Allows running the multi-statement schema.sql during first-run bootstrap.
+  multipleStatements: true,
+  ...(process.env.DB_SSL === 'true'
+    ? {
+      ssl: {
+        require: true,
+        rejectUnauthorized: true,
+      },
+    }
+    : {}),
+};
+
+const sslConfig = { dialectOptions };
 
 const config = {
   development: {

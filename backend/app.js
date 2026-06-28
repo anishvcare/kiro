@@ -85,6 +85,35 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Database diagnostic check (temporary; helps verify DB connectivity & schema)
+app.get('/api/health/db', async (req, res) => {
+  const { sequelize } = require('./models');
+  try {
+    await sequelize.authenticate();
+    const [rows] = await sequelize.query(
+      "SELECT COUNT(*) AS cnt FROM information_schema.tables WHERE table_schema = :db AND table_name = 'users'",
+      { replacements: { db: process.env.DB_NAME } }
+    );
+    const usersTableExists = Number(rows[0].cnt) > 0;
+    let roleCount = null;
+    if (usersTableExists) {
+      const [r] = await sequelize.query('SELECT COUNT(*) AS cnt FROM roles');
+      roleCount = Number(r[0].cnt);
+    }
+    return apiResponse(res, 200, 'Database reachable', {
+      connected: true,
+      usersTableExists,
+      roleCount,
+    });
+  } catch (error) {
+    return apiResponse(res, 500, 'Database check failed', {
+      connected: false,
+      error: error.message,
+      code: error.original ? error.original.code : undefined,
+    });
+  }
+});
+
 // 404 handler
 app.use((req, res) => {
   return apiResponse(res, 404, `Route ${req.method} ${req.path} not found`);
