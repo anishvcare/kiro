@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { getRoleHome } from './utils/roleRedirect';
+import socketService from './services/socketService';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -64,6 +66,18 @@ const Unauthorized = () => (
 );
 
 function App() {
+  const { isAuthenticated, tokens } = useSelector((state) => state.auth);
+
+  // Establish the Socket.IO connection once the user is authenticated so that
+  // live tracking, chat and notifications work in real time.
+  useEffect(() => {
+    if (isAuthenticated && tokens?.accessToken) {
+      socketService.connect(tokens.accessToken);
+    } else {
+      socketService.disconnect();
+    }
+  }, [isAuthenticated, tokens]);
+
   return (
     <Routes>
       {/* Public routes */}

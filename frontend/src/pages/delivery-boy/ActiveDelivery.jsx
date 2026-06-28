@@ -14,6 +14,8 @@ import {
   clearError,
   clearSuccess,
 } from '../../store/slices/deliverySlice';
+import LocationUpdater from '../../components/map/LocationUpdater';
+import LiveTrackingMap from '../../components/map/LiveTrackingMap';
 
 const DELIVERY_STEPS = [
   { key: 'assigned', label: 'Accepted', action: null },
@@ -158,6 +160,18 @@ const ActiveDelivery = () => {
               )}
             </div>
           </div>
+
+          {/* Live location sharing + map (while actively delivering) */}
+          {delivery.status !== 'pending' && delivery.status !== 'delivered' && (
+            <>
+              <LocationUpdater assignmentId={delivery.id} />
+              <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                <div className="h-72 w-full">
+                  <LiveTrackingMap assignmentId={delivery.id} />
+                </div>
+              </div>
+            </>
+          )}
 
           {/* Step Progress */}
           <div className="bg-white rounded-lg shadow-sm border p-4">
