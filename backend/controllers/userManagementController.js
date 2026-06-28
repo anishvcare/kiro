@@ -122,7 +122,7 @@ const updateUserStatus = asyncHandler(async (req, res) => {
  */
 const updateUserProfile = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { first_name, last_name } = req.body;
+  const { first_name, last_name, email } = req.body;
 
   const user = await User.findByPk(id);
   if (!user) {
@@ -132,10 +132,17 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   const updates = {};
   if (first_name !== undefined) updates.first_name = first_name;
   if (last_name !== undefined) updates.last_name = last_name;
+  if (email !== undefined && email !== user.email) {
+    const existing = await User.findOne({ where: { email } });
+    if (existing) {
+      return apiResponse(res, 409, 'Email already in use');
+    }
+    updates.email = email;
+  }
   await user.update(updates);
 
   return apiResponse(res, 200, 'User profile updated', {
-    user: { id, first_name: user.first_name, last_name: user.last_name },
+    user: { id, first_name: user.first_name, last_name: user.last_name, email: user.email },
   });
 });
 
