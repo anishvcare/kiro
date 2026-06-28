@@ -96,14 +96,20 @@ app.get('/api/health/db', async (req, res) => {
     );
     const usersTableExists = Number(rows[0].cnt) > 0;
     let roleCount = null;
+    let shopsCount = null;
     if (usersTableExists) {
       const [r] = await sequelize.query('SELECT COUNT(*) AS cnt FROM roles');
       roleCount = Number(r[0].cnt);
+      const [s] = await sequelize.query('SELECT COUNT(*) AS cnt FROM shops');
+      shopsCount = Number(s[0].cnt);
     }
     return apiResponse(res, 200, 'Database reachable', {
       connected: true,
       usersTableExists,
       roleCount,
+      shopsCount,
+      seedDemoEnv: process.env.SEED_DEMO_DATA || null,
+      demoSeed: req.app.get('demoSeedStatus') || null,
     });
   } catch (error) {
     return apiResponse(res, 500, 'Database check failed', {

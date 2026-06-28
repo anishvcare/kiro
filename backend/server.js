@@ -110,17 +110,20 @@ const seedAdminUser = async () => {
 // Seed demo data (shops, customers, requests, etc.) when SEED_DEMO_DATA=true and DB has no shops.
 const seedDemoData = async () => {
   if (process.env.SEED_DEMO_DATA !== 'true') {
+    app.set('demoSeedStatus', { skipped: 'SEED_DEMO_DATA not true' });
     return;
   }
   try {
     const [rows] = await sequelize.query('SELECT COUNT(*) AS cnt FROM shops');
     if (Number(rows[0].cnt) > 0) {
       console.log('Demo data already present (shops exist). Skipping demo seed.');
+      app.set('demoSeedStatus', { skipped: 'shops already exist' });
       return;
     }
     const seedPath = path.join(__dirname, 'database', 'seed.sql');
     if (!fs.existsSync(seedPath)) {
       console.warn('seed.sql not found. Skipping demo seed.');
+      app.set('demoSeedStatus', { error: 'seed.sql not found' });
       return;
     }
     console.log('Seeding demo data...');
@@ -130,8 +133,14 @@ const seedDemoData = async () => {
     seedSql = seedSql.split('$2a$10$xVqYLGwYZ0GHX5PmGJdqY.EtGKb5VZwPvFKjp8VGKfJ8OxB3dC6Oe').join(validHash);
     await sequelize.query(seedSql);
     console.log('Demo data seeded successfully. Demo accounts use password: password123');
+    app.set('demoSeedStatus', { success: true });
   } catch (error) {
     console.error('Demo data seed failed:', error.message);
+    app.set('demoSeedStatus', {
+      error: error.message,
+      code: error.original ? error.original.code : (error.parent ? error.parent.code : undefined),
+      sql: error.original ? error.original.sqlMessage : undefined,
+    });
   }
 };
 
