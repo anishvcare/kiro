@@ -6,8 +6,10 @@ import { AppLayout } from './layouts/AppLayout'
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
 import { Dashboard } from './pages/Dashboard'
-import { Transactions } from './pages/Transactions'
-import { Categories } from './pages/Categories'
+import { Browse } from './pages/Browse'
+import { ProfileDetail } from './pages/ProfileDetail'
+import { MyProfile } from './pages/MyProfile'
+import { Interests } from './pages/Interests'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,8 +35,10 @@ function App() {
             {/* Protected App Routes */}
             <Route element={<AppLayout />}>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/categories" element={<Categories />} />
+              <Route path="/browse" element={<Browse />} />
+              <Route path="/profile/:id" element={<ProfileDetail />} />
+              <Route path="/my-profile" element={<MyProfile />} />
+              <Route path="/interests" element={<Interests />} />
             </Route>
           </Routes>
         </BrowserRouter>

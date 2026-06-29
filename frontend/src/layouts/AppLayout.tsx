@@ -3,16 +3,31 @@ import { useAuth } from '../context/AuthContext'
 import { PWAInstallButton } from '../components/PWAInstallButton'
 import {
   HiOutlineHome,
-  HiOutlineCash,
-  HiOutlineTag,
+  HiOutlineSearch,
+  HiOutlineHeart,
+  HiOutlineUser,
   HiOutlineLogout,
 } from 'react-icons/hi'
 
 const navItems = [
-  { to: '/', icon: HiOutlineHome, label: 'Dashboard' },
-  { to: '/transactions', icon: HiOutlineCash, label: 'Transactions' },
-  { to: '/categories', icon: HiOutlineTag, label: 'Categories' },
+  { to: '/', icon: HiOutlineHome, label: 'Home' },
+  { to: '/browse', icon: HiOutlineSearch, label: 'Browse' },
+  { to: '/interests', icon: HiOutlineHeart, label: 'Interests' },
+  { to: '/my-profile', icon: HiOutlineUser, label: 'My Profile' },
 ]
+
+function Brand() {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="grid h-8 w-8 place-items-center rounded-full bg-primary-600 text-white">
+        <HiOutlineHeart className="h-5 w-5" />
+      </span>
+      <span className="text-lg font-bold text-gray-900">
+        Nokkoo <span className="text-primary-600">Matri</span>
+      </span>
+    </div>
+  )
+}
 
 export function AppLayout() {
   const { token, user, logout, isLoading } = useAuth()
@@ -32,9 +47,9 @@ export function AppLayout() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Desktop Sidebar */}
-      <aside className="hidden w-64 border-r border-gray-200 bg-white p-4 md:block">
+      <aside className="hidden w-64 flex-col border-r border-gray-200 bg-white p-4 md:flex">
         <div className="mb-8">
-          <h1 className="text-xl font-bold text-primary-600">PF</h1>
+          <Brand />
         </div>
         <nav className="space-y-1">
           {navItems.map((item) => (
@@ -44,9 +59,7 @@ export function AppLayout() {
               end={item.to === '/'}
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-primary-50 text-primary-700'
-                    : 'text-gray-600 hover:bg-gray-100'
+                  isActive ? 'bg-primary-50 text-primary-700' : 'text-gray-600 hover:bg-gray-100'
                 }`
               }
             >
@@ -68,15 +81,12 @@ export function AppLayout() {
 
       {/* Main Content */}
       <div className="flex flex-1 flex-col">
-        {/* Top Header */}
         <header className="sticky top-0 z-10 flex items-center justify-between border-b border-gray-200 bg-white px-4 py-3">
-          <h2 className="text-lg font-semibold text-gray-900 md:hidden">
-            PF
-          </h2>
+          <div className="md:hidden">
+            <Brand />
+          </div>
           <div className="hidden md:block">
-            <span className="text-sm text-gray-500">
-              Welcome, {user?.name}
-            </span>
+            <span className="text-sm text-gray-500">Welcome, {user?.name}</span>
           </div>
           <div className="flex items-center gap-3">
             <PWAInstallButton />
@@ -90,7 +100,6 @@ export function AppLayout() {
           </div>
         </header>
 
-        {/* Page Content */}
         <main className="flex-1 overflow-y-auto p-4 pb-20 md:p-6 md:pb-6">
           <Outlet />
         </main>

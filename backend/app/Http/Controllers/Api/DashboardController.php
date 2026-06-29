@@ -3,79 +3,53 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\TransactionResource;
-use App\Models\Transaction;
-use Carbon\Carbon;
+use App\Http\Resources\ProfileResource;
+use App\Http\Resources\ProfileSummaryResource;
+use App\Models\Interest;
+use App\Models\Profile;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     /**
-     * Get dashboard summary data.
+     * Matrimony dashboard summary for the authenticated user.
      */
     public function index(Request $request): JsonResponse
     {
-        $now = Carbon::now();
-        $startOfMonth = $now->copy()->startOfMonth();
-        $endOfMonth = $now->copy()->endOfMonth();
+        $user = $request->user();
+        $profile = $user->profile()->with('photos')->first();
 
-        // Monthly totals
-        $monthlyIncome = Transaction::where('type', 'income')
-            ->whereBetween('date', [$startOfMonth, $endOfMonth])
-            ->sum('amount');
+        $pendingReceived = Interest::where('receiver_id', $user->id)
+            ->where('status', 'pending')->count();
 
-        $monthlyExpense = Transaction::where('type', 'expense')
-            ->whereBetween('date', [$startOfMonth, $endOfMonth])
-            ->sum('amount');
+        $sentCount = Interest::where('sender_id', $user->id)->count();
 
-        // Upcoming bills (pending/overdue)
-        $upcomingBills = Transaction::with('category')
-            ->where('is_bill', true)
-            ->whereIn('status', ['pending', 'overdue'])
-            ->orderBy('bill_due_date', 'asc')
-            ->limit(10)
-            ->get();
+        // Mutual matches: interests accepted in either direction.
+        $matches = Interest::where('status', 'accepted')
+            ->where(function ($q) use ($user) {
+                $q->where('sender_id', $user->id)->orWhere('receiver_id', $user->id);
+            })->count();
 
-        // Overdue bills
-        $overdueBills = Transaction::with('category')
-            ->where('is_bill', true)
-            ->where('status', 'overdue')
-            ->orderBy('bill_due_date', 'asc')
-            ->get();
-
-        // Recent transactions
-        $recentTransactions = Transaction::with('category')
-            ->orderBy('date', 'desc')
-            ->limit(10)
-            ->get();
-
-        // Category-wise expense breakdown for current month
-        $categoryBreakdown = Transaction::where('type', 'expense')
-            ->whereBetween('date', [$startOfMonth, $endOfMonth])
-            ->selectRaw('category_id, SUM(amount) as total')
-            ->groupBy('category_id')
-            ->with('category')
-            ->get()
-            ->map(function ($item) {
-                return [
-                    'category_id' => $item->category_id,
-                    'category_name' => $item->category?->name,
-                    'category_color' => $item->category?->color,
-                    'total' => $item->total,
-                ];
-            });
+        // Recommended profiles: opposite of what the member is looking for, else any.
+        $recommendQuery = Profile::query()->where('user_id', '!=', $user->id);
+        if ($profile && $profile->looking_for) {
+            $recommendQuery->where('gender', $profile->looking_for);
+        } elseif ($profile && $profile->gender) {
+            $recommendQuery->where('gender', $profile->gender === 'male' ? 'female' : 'male');
+        }
+        $recommended = $recommendQuery->latest()->limit(6)->get();
 
         return response()->json([
-            'monthly_summary' => [
-                'income' => $monthlyIncome,
-                'expense' => $monthlyExpense,
-                'balance' => $monthlyIncome - $monthlyExpense,
+            'profile' => $profile ? new ProfileResource($profile) : null,
+            'has_profile' => (bool) $profile,
+            'stats' => [
+                'completeness' => $profile?->completeness ?? 0,
+                'interests_received' => $pendingReceived,
+                'interests_sent' => $sentCount,
+                'matches' => $matches,
             ],
-            'upcoming_bills' => TransactionResource::collection($upcomingBills),
-            'overdue_bills' => TransactionResource::collection($overdueBills),
-            'recent_transactions' => TransactionResource::collection($recentTransactions),
-            'category_breakdown' => $categoryBreakdown,
+            'recommended' => ProfileSummaryResource::collection($recommended),
         ]);
     }
 }
