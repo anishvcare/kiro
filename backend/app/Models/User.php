@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,18 +53,26 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the categories for the user's tenant.
+     * The user's matrimony profile.
      */
-    public function categories(): HasMany
+    public function profile(): HasOne
     {
-        return $this->hasMany(Category::class, 'tenant_id', 'tenant_id');
+        return $this->hasOne(Profile::class);
     }
 
     /**
-     * Get the transactions for the user.
+     * Interests this user has sent.
      */
-    public function transactions(): HasMany
+    public function sentInterests(): HasMany
     {
-        return $this->hasMany(Transaction::class);
+        return $this->hasMany(Interest::class, 'sender_id');
+    }
+
+    /**
+     * Interests this user has received.
+     */
+    public function receivedInterests(): HasMany
+    {
+        return $this->hasMany(Interest::class, 'receiver_id');
     }
 }

@@ -14,7 +14,9 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'avatar' => $this->avatar,
-            'tenant_id' => $this->tenant_id,
+            'has_profile' => $this->relationLoaded('profile')
+                ? (bool) $this->profile
+                : $this->profile()->exists(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
