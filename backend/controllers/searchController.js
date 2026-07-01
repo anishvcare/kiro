@@ -40,9 +40,38 @@ const searchShops = asyncHandler(async (req, res) => {
 
   const offset = (parseInt(page) - 1) * parseInt(limit);
 
-  // Build base search conditions
+  // Build base search conditions (matches shop name / description / address / city)
   const searchConditions = buildSearchConditions(q);
   const filterConditions = buildFilterConditions({ rating, verified, categoryId });
+
+  // Extend text search to also match shops by their registered keywords
+  // (product keywords) and by their category name. This is essential because
+  // shops do not upload product catalogues - they rely on keywords to be found.
+  if (q && q.trim() !== '' && searchConditions[Op.or]) {
+    const searchTerm = `%${q.trim()}%`;
+
+    // Shops that have a matching product keyword
+    const keywordMatches = await ShopKeyword.findAll({
+      where: { keyword: { [Op.like]: searchTerm } },
+      attributes: ['shop_id'],
+      raw: true,
+    });
+    const keywordShopIds = [...new Set(keywordMatches.map((k) => k.shop_id))];
+    if (keywordShopIds.length > 0) {
+      searchConditions[Op.or].push({ id: { [Op.in]: keywordShopIds } });
+    }
+
+    // Shops whose category name matches the query
+    const categoryMatches = await ShopCategory.findAll({
+      where: { name: { [Op.like]: searchTerm } },
+      attributes: ['id'],
+      raw: true,
+    });
+    const categoryIds = categoryMatches.map((c) => c.id);
+    if (categoryIds.length > 0) {
+      searchConditions[Op.or].push({ category_id: { [Op.in]: categoryIds } });
+    }
+  }
 
   // Merge conditions
   const whereClause = { ...searchConditions, ...filterConditions };

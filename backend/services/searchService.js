@@ -132,6 +132,27 @@ const rankResults = (shops, query) => {
         score += 50;
       }
 
+      // Category name match
+      if (shop.category && shop.category.name &&
+          shop.category.name.toLowerCase().includes(queryLower)) {
+        score += 30;
+      }
+
+      // Keyword (product) match - important since shops are found via keywords
+      if (Array.isArray(shop.keywords)) {
+        const hasKeywordMatch = shop.keywords.some(
+          (k) => k.keyword && k.keyword.toLowerCase().includes(queryLower)
+        );
+        if (hasKeywordMatch) {
+          score += 40;
+        }
+      }
+
+      // Description match
+      if (shop.description && shop.description.toLowerCase().includes(queryLower)) {
+        score += 15;
+      }
+
       // Rating bonus
       score += (parseFloat(shop.rating) || 0) * 5;
 
