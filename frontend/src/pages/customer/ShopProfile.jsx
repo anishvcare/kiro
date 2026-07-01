@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getShopPublicProfile } from '../../services/shopService';
 
 const ShopProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [shop, setShop] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -152,10 +153,16 @@ const ShopProfile = () => {
 
       {/* Action Buttons */}
       <div className="flex gap-3 px-4">
-        <button className="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
+        <button
+          onClick={() => navigate(`/customer/create-request/${id}`)}
+          className="flex-1 bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+        >
           Send Request
         </button>
-        <button className="flex-1 bg-white text-indigo-600 border border-indigo-600 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors">
+        <button
+          onClick={() => navigate(`/customer/chat?shopId=${id}`)}
+          className="flex-1 bg-white text-indigo-600 border border-indigo-600 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
+        >
           Chat
         </button>
       </div>

@@ -68,12 +68,18 @@ const ShopCard = ({ shop }) => {
         <div className="flex flex-col gap-2">
           <button
             onClick={handleViewProfile}
+            className="px-3 py-1.5 text-xs font-medium text-white bg-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            View Shop
+          </button>
+          <button
+            onClick={() => navigate(`/customer/create-request/${shop.id}`)}
             className="px-3 py-1.5 text-xs font-medium text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors"
           >
             Send Request
           </button>
           <button
-            onClick={handleViewProfile}
+            onClick={() => navigate(`/customer/chat?shopId=${shop.id}`)}
             className="px-3 py-1.5 text-xs font-medium text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
           >
             Chat

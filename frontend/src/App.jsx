@@ -51,6 +51,9 @@ import DeliveryHistory from './pages/delivery-boy/DeliveryHistory';
 import CustomerChat from './pages/customer/Chat';
 import ShopChat from './pages/shop/Chat';
 import TrackDelivery from './pages/customer/TrackDelivery';
+import HomePage from './pages/HomePage';
+import PublicSearchResults from './pages/explore/SearchResults';
+import PublicShopProfile from './pages/explore/ShopProfile';
 
 const RoleHome = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -85,9 +88,14 @@ function App() {
       <InstallPWAButton />
       <Routes>
       {/* Public routes */}
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/unauthorized" element={<Unauthorized />} />
+
+      {/* Public explore routes (no auth required) */}
+      <Route path="/explore/search" element={<PublicSearchResults />} />
+      <Route path="/explore/shop/:id" element={<PublicShopProfile />} />
 
       {/* Admin routes - Super Admin only */}
       <Route
@@ -188,9 +196,8 @@ function App() {
       {/* Role-based home redirect */}
       <Route path="/dashboard" element={<RoleHome />} />
 
-      {/* Default redirect */}
-      <Route path="/" element={<RoleHome />} />
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      {/* Catch-all redirect to home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
     </>
   );
