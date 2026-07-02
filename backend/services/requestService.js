@@ -27,7 +27,7 @@ const REQUEST_STATUSES = [
 
 // Valid status transitions map
 const VALID_TRANSITIONS = {
-  'Customer Request Sent': ['Shop Received Request', 'Cancelled'],
+  'Customer Request Sent': ['Shop Received Request', 'Shop Quotation Sent', 'Cancelled'],
   'Shop Received Request': ['Shop Quotation Sent', 'Cancelled'],
   'Shop Quotation Sent': ['Customer Accepted Quote', 'Customer Rejected Quote', 'Cancelled'],
   'Customer Accepted Quote': ['Delivery Agent Notified', 'Cancelled'],
