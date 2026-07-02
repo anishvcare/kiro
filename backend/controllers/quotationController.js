@@ -4,11 +4,25 @@ const {
   QuotationItem,
   Shop,
   User,
+  Customer,
   sequelize,
 } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const { validateStatusTransition } = require('../services/requestService');
 const { notifyNewQuotation, notifyStatusChange } = require('../services/notificationService');
+
+/**
+ * Resolve the customers.id for the authenticated user.
+ * customer_requests.customer_id is a foreign key to customers.id (NOT users.id),
+ * so ownership checks must compare against the resolved customer profile ID.
+ */
+const resolveCustomerId = async (userId) => {
+  const [customer] = await Customer.findOrCreate({
+    where: { user_id: userId },
+    defaults: { id: generateId(), user_id: userId },
+  });
+  return customer.id;
+};
 
 /**
  * Create a quotation for a request
@@ -106,8 +120,11 @@ const createQuotation = asyncHandler(async (req, res) => {
 
     await transaction.commit();
 
-    // Notify customer
-    await notifyNewQuotation(request.customer_id, quotation);
+    // Notify customer (resolve customers.id -> users.id for the notification target)
+    const customerProfile = await Customer.findByPk(request.customer_id);
+    if (customerProfile) {
+      await notifyNewQuotation(customerProfile.user_id, quotation);
+    }
     await notifyStatusChange(request, 'Shop Quotation Sent');
 
     // Fetch full quotation with items
@@ -238,7 +255,7 @@ const getQuotation = asyncHandler(async (req, res) => {
 
   // Verify access
   const isShopOwner = quotation.shop.owner_id === req.user.id;
-  const isCustomer = quotation.request.customer_id === req.user.id;
+  const isCustomer = quotation.request.customer_id === (await resolveCustomerId(req.user.id));
 
   if (!isShopOwner && !isCustomer) {
     return apiResponse(res, 403, 'Access denied');
@@ -265,7 +282,7 @@ const acceptQuotation = asyncHandler(async (req, res) => {
   }
 
   // Verify customer owns the request
-  if (quotation.request.customer_id !== req.user.id) {
+  if (quotation.request.customer_id !== (await resolveCustomerId(req.user.id))) {
     return apiResponse(res, 403, 'Access denied');
   }
 
@@ -318,7 +335,7 @@ const rejectQuotation = asyncHandler(async (req, res) => {
   }
 
   // Verify customer owns the request
-  if (quotation.request.customer_id !== req.user.id) {
+  if (quotation.request.customer_id !== (await resolveCustomerId(req.user.id))) {
     return apiResponse(res, 403, 'Access denied');
   }
 
@@ -371,7 +388,7 @@ const getQuotationsByRequest = asyncHandler(async (req, res) => {
   }
 
   // Verify access
-  const isCustomer = request.customer_id === req.user.id;
+  const isCustomer = request.customer_id === (await resolveCustomerId(req.user.id));
   const isShopOwner = request.shop && request.shop.owner_id === req.user.id;
 
   if (!isCustomer && !isShopOwner) {

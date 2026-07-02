@@ -6,12 +6,27 @@ const {
   ShopPaymentAccount,
   Quotation,
   CustomerRequest,
+  Customer,
   Shop,
   sequelize,
 } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const PaymentProviderFactory = require('../services/payment/PaymentProviderFactory');
 const { generateUPIQRCode } = require('../services/qrCodeService');
+
+/**
+ * Resolve the customers.id for the authenticated user.
+ * payment_transactions.customer_id and customer_requests.customer_id are foreign
+ * keys to customers.id (NOT users.id), so we must look up (or lazily create) the
+ * customer profile for the logged-in user.
+ */
+const resolveCustomerId = async (userId) => {
+  const [customer] = await Customer.findOrCreate({
+    where: { user_id: userId },
+    defaults: { id: generateId(), user_id: userId },
+  });
+  return customer.id;
+};
 
 /**
  * Initiate a payment for a quotation
@@ -37,7 +52,8 @@ const initiatePayment = asyncHandler(async (req, res) => {
   }
 
   // Verify the customer owns this request
-  if (quotation.request.customer_id !== req.user.id) {
+  const customerId = await resolveCustomerId(req.user.id);
+  if (quotation.request.customer_id !== customerId) {
     return apiResponse(res, 403, 'Access denied');
   }
 
@@ -67,7 +83,7 @@ const initiatePayment = asyncHandler(async (req, res) => {
   const transaction = await PaymentTransaction.create({
     id: generateId(),
     quotation_id: quotation.id,
-    customer_id: req.user.id,
+    customer_id: customerId,
     shop_id: quotation.shop_id,
     amount: quotation.final_amount,
     payment_method: method,
@@ -270,7 +286,8 @@ const uploadPaymentScreenshot = asyncHandler(async (req, res) => {
   }
 
   // Verify the customer owns this transaction
-  if (transaction.customer_id !== req.user.id) {
+  const customerId = await resolveCustomerId(req.user.id);
+  if (transaction.customer_id !== customerId) {
     return apiResponse(res, 403, 'Access denied');
   }
 
@@ -319,7 +336,8 @@ const getPaymentStatus = asyncHandler(async (req, res) => {
   }
 
   // Verify access
-  const isCustomer = transaction.customer_id === req.user.id;
+  const customerId = await resolveCustomerId(req.user.id);
+  const isCustomer = transaction.customer_id === customerId;
   const isShopOwner = transaction.shop && transaction.shop.owner_id === req.user.id;
   const isAdmin = req.user.roles && (req.user.roles.includes('admin') || req.user.roles.includes('super_admin'));
 
@@ -423,7 +441,7 @@ const getTransactionHistory = asyncHandler(async (req, res) => {
 
   if (!isAdmin) {
     // Regular users see only their transactions
-    where.customer_id = req.user.id;
+    where.customer_id = await resolveCustomerId(req.user.id);
   }
 
   if (status) {
