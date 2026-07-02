@@ -16,6 +16,20 @@ const { validateStatusTransition, getStatusTimeline, REQUEST_STATUSES } = requir
 const { notifyStatusChange, notifyNewRequest } = require('../services/notificationService');
 
 /**
+ * Resolve the customers.id for the authenticated user.
+ * customer_requests.customer_id is a foreign key to customers.id (NOT users.id),
+ * so we must look up the customer profile for the logged-in user. The profile is
+ * created at registration, but we lazily create it here to be robust.
+ */
+const resolveCustomerId = async (userId) => {
+  const [customer] = await Customer.findOrCreate({
+    where: { user_id: userId },
+    defaults: { id: generateId(), user_id: userId },
+  });
+  return customer.id;
+};
+
+/**
  * Create a new customer request
  * POST /api/requests
  */
@@ -45,10 +59,12 @@ const createRequest = asyncHandler(async (req, res) => {
     return apiResponse(res, 404, 'Shop not found or is inactive');
   }
 
-  // Use the user ID directly as customer_id (matching how associations work in the system)
+  // Resolve the customer profile ID (customer_requests.customer_id -> customers.id)
+  const customerId = await resolveCustomerId(req.user.id);
+
   const request = await CustomerRequest.create({
     id: generateId(),
-    customer_id: req.user.id,
+    customer_id: customerId,
     shop_id,
     request_text,
     status: 'Customer Request Sent',
@@ -75,8 +91,9 @@ const createRequest = asyncHandler(async (req, res) => {
 const uploadRequestImage = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
+  const customerId = await resolveCustomerId(req.user.id);
   const request = await CustomerRequest.findOne({
-    where: { id, customer_id: req.user.id },
+    where: { id, customer_id: customerId },
   });
 
   if (!request) {
@@ -108,7 +125,8 @@ const getCustomerRequests = asyncHandler(async (req, res) => {
   const { status, page = 1, limit = 20 } = req.query;
   const offset = (page - 1) * limit;
 
-  const where = { customer_id: req.user.id };
+  const customerId = await resolveCustomerId(req.user.id);
+  const where = { customer_id: customerId };
   if (status) {
     where.status = status;
   }
@@ -217,7 +235,7 @@ const getRequestDetails = asyncHandler(async (req, res) => {
   }
 
   // Verify access (customer who created it or shop owner)
-  const isCustomer = request.customer_id === req.user.id;
+  const isCustomer = request.customer && request.customer.user_id === req.user.id;
   const isShopOwner = request.shop && request.shop.owner_id === req.user.id;
 
   if (!isCustomer && !isShopOwner) {
@@ -313,8 +331,9 @@ const updateRequestStatus = asyncHandler(async (req, res) => {
 const cancelRequest = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
+  const customerId = await resolveCustomerId(req.user.id);
   const request = await CustomerRequest.findOne({
-    where: { id, customer_id: req.user.id },
+    where: { id, customer_id: customerId },
   });
 
   if (!request) {

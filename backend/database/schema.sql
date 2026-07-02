@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS customer_requests (
   customer_id CHAR(36) NOT NULL,
   shop_id CHAR(36) NOT NULL,
   request_text TEXT NOT NULL,
-  status ENUM('pending', 'viewed', 'quoted', 'accepted', 'rejected', 'cancelled', 'completed') DEFAULT 'pending',
+  status VARCHAR(50) NOT NULL DEFAULT 'Customer Request Sent',
   delivery_address TEXT,
   delivery_latitude DECIMAL(10, 8),
   delivery_longitude DECIMAL(11, 8),

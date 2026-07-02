@@ -68,6 +68,20 @@ const reconcileSchema = async () => {
   } catch (error) {
     console.error('Schema reconciliation failed:', error.message);
   }
+
+  // Targeted column migrations for existing databases that were bootstrapped
+  // from an older schema. These are idempotent and safe to run on every boot.
+  try {
+    // customer_requests.status was originally a restrictive ENUM that did not
+    // include the platform's 18-step status vocabulary (e.g. 'Customer Request
+    // Sent'). Widen it to VARCHAR(50) so request creation and status updates work.
+    await sequelize.query(
+      "ALTER TABLE customer_requests MODIFY COLUMN status VARCHAR(50) NOT NULL DEFAULT 'Customer Request Sent'"
+    );
+    console.log('Column migration: customer_requests.status is VARCHAR(50).');
+  } catch (error) {
+    console.error('Column migration (customer_requests.status) failed:', error.message);
+  }
 };
 
 // Create a super_admin account from env vars on first run (secure: no hardcoded password).
