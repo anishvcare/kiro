@@ -65,8 +65,14 @@ const isShopOpen = (shop) => {
     return true; // If no hours set, assume always open
   }
 
+  // Evaluate the shop's hours in its local timezone (India Standard Time by
+  // default). The server may run in UTC (e.g. Azure), so using the raw server
+  // clock would incorrectly mark shops closed. SHOP_TIMEZONE can override this.
+  const timeZone = process.env.SHOP_TIMEZONE || 'Asia/Kolkata';
   const now = new Date();
-  const currentDay = now.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+  const currentDay = now
+    .toLocaleDateString('en-US', { weekday: 'long', timeZone })
+    .toLowerCase();
 
   // Check working days
   if (shop.working_days && Array.isArray(shop.working_days)) {
@@ -75,10 +81,20 @@ const isShopOpen = (shop) => {
     }
   }
 
-  // Check time
-  const currentTime = now.toTimeString().slice(0, 5); // HH:MM format
+  // Check time (HH:MM in the shop's timezone)
+  const currentTime = now.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone,
+  });
   const openTime = shop.opening_time.slice(0, 5);
   const closeTime = shop.closing_time.slice(0, 5);
+
+  // Handle overnight hours (e.g. 18:00 -> 02:00)
+  if (closeTime < openTime) {
+    return currentTime >= openTime || currentTime <= closeTime;
+  }
 
   return currentTime >= openTime && currentTime <= closeTime;
 };

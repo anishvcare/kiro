@@ -20,7 +20,7 @@ const DeliveryAgentLayout = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    navigate('/');
   };
 
   const isActive = (href) => {
