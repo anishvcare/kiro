@@ -21,6 +21,8 @@ const PaymentPage = () => {
 
   const [paymentMethod, setPaymentMethod] = useState('upi');
   const [paymentStarted, setPaymentStarted] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [addressError, setAddressError] = useState('');
 
   useEffect(() => {
     if (quotationId) {
@@ -33,12 +35,23 @@ const PaymentPage = () => {
     if (currentQuotation?.payment_method) {
       setPaymentMethod(currentQuotation.payment_method);
     }
+    // Prefill the delivery address from the original request, if present.
+    const existingAddress = currentQuotation?.request?.delivery_address;
+    if (existingAddress) {
+      setDeliveryAddress((prev) => prev || existingAddress);
+    }
   }, [currentQuotation]);
 
   const handleInitiatePayment = () => {
+    if (!deliveryAddress.trim()) {
+      setAddressError('Please enter your delivery address before payment.');
+      return;
+    }
+    setAddressError('');
     dispatch(initiatePayment({
       quotation_id: quotationId,
       payment_method: paymentMethod,
+      delivery_address: deliveryAddress.trim(),
     })).then((result) => {
       if (!result.error) {
         setPaymentStarted(true);
@@ -151,6 +164,26 @@ const PaymentPage = () => {
                 </p>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Delivery Address (captured before choosing a payment method) */}
+        {!currentPayment && !paymentStarted && (
+          <div className="bg-white rounded-lg shadow-sm p-4">
+            <h2 className="font-semibold text-gray-800 mb-3">Delivery Address</h2>
+            <textarea
+              value={deliveryAddress}
+              onChange={(e) => { setDeliveryAddress(e.target.value); setAddressError(''); }}
+              rows={3}
+              placeholder="House / flat no, street, area, city, pincode, landmark..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {addressError && (
+              <p className="mt-1 text-xs text-red-600">{addressError}</p>
+            )}
+            <p className="mt-1 text-xs text-gray-400">
+              Your order will be delivered to this address.
+            </p>
           </div>
         )}
 

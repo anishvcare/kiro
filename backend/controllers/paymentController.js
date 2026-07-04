@@ -33,7 +33,7 @@ const resolveCustomerId = async (userId) => {
  * POST /api/payments/initiate
  */
 const initiatePayment = asyncHandler(async (req, res) => {
-  const { quotation_id, payment_method } = req.body;
+  const { quotation_id, payment_method, delivery_address } = req.body;
 
   if (!quotation_id) {
     return apiResponse(res, 400, 'Quotation ID is required');
@@ -60,6 +60,17 @@ const initiatePayment = asyncHandler(async (req, res) => {
   // Check quotation status is accepted
   if (quotation.status !== 'accepted') {
     return apiResponse(res, 400, 'Quotation must be accepted before payment');
+  }
+
+  // Capture / update the delivery address for this order before payment.
+  const finalDeliveryAddress = (delivery_address && delivery_address.trim())
+    || quotation.request.delivery_address;
+  if (!finalDeliveryAddress || !finalDeliveryAddress.trim()) {
+    return apiResponse(res, 400, 'A delivery address is required before payment');
+  }
+  if (delivery_address && delivery_address.trim() &&
+      delivery_address.trim() !== quotation.request.delivery_address) {
+    await quotation.request.update({ delivery_address: delivery_address.trim() });
   }
 
   const method = payment_method || quotation.payment_method || 'upi';
@@ -91,6 +102,7 @@ const initiatePayment = asyncHandler(async (req, res) => {
     metadata: {
       shop_name: quotation.shop.name,
       request_id: quotation.request_id,
+      delivery_address: finalDeliveryAddress,
     },
   });
 

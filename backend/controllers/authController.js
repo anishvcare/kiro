@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 const { User, Role, UserRole, Customer, sequelize } = require('../models');
 const { generateTokenPair, verifyRefreshToken } = require('../services/tokenService');
 const { sendPasswordResetEmail } = require('../services/emailService');
+const { verifyIdToken } = require('../services/firebaseService');
 const { generateId, formatValidationErrors, apiResponse, asyncHandler } = require('../utils/helpers');
 
 /**
@@ -144,6 +145,109 @@ const login = asyncHandler(async (req, res) => {
     user: {
       id: user.id,
       email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      avatar_url: user.avatar_url,
+      roles: roleNames,
+    },
+    tokens,
+  });
+});
+
+/**
+ * Phone OTP login / onboarding (Firebase Phone Authentication)
+ * The client performs the SMS OTP flow with Firebase and sends the resulting
+ * Firebase ID token here. We verify it, then find-or-create a customer account
+ * for that phone number and issue our own JWT tokens.
+ * POST /api/auth/phone-login
+ */
+const phoneLogin = asyncHandler(async (req, res) => {
+  const { id_token, first_name, last_name } = req.body;
+
+  if (!id_token) {
+    return apiResponse(res, 400, 'Firebase ID token is required');
+  }
+
+  // Verify the Firebase ID token
+  let decoded;
+  try {
+    decoded = await verifyIdToken(id_token);
+  } catch (error) {
+    if (error.code === 'firebase/not-configured') {
+      return apiResponse(res, 503, 'Phone login is not configured on the server');
+    }
+    return apiResponse(res, 401, 'Invalid or expired verification token');
+  }
+
+  const phone = decoded.phone_number;
+  if (!phone) {
+    return apiResponse(res, 400, 'The verification token does not contain a phone number');
+  }
+
+  // Find an existing user by phone (include roles for the response)
+  let user = await User.findOne({
+    where: { phone },
+    include: [{ model: Role, as: 'roles', through: { attributes: [] } }],
+  });
+
+  let roleNames;
+
+  if (user) {
+    if (!user.is_active) {
+      return apiResponse(res, 403, 'Account has been deactivated');
+    }
+    roleNames = user.roles.map((r) => r.name);
+    await user.update({ phone_verified_at: new Date(), last_login_at: new Date() });
+  } else {
+    // Onboard a new customer using only their verified phone number.
+    const transaction = await sequelize.transaction();
+    try {
+      const userId = generateId();
+      // email & password_hash are required columns; generate safe placeholders
+      // since phone-auth users do not use email/password to sign in.
+      const placeholderEmail = `${phone.replace(/[^0-9]/g, '')}@phone.local`;
+      const randomSecret = crypto.randomBytes(32).toString('hex');
+      const salt = await bcrypt.genSalt(12);
+      const password_hash = await bcrypt.hash(randomSecret, salt);
+
+      user = await User.create({
+        id: userId,
+        email: placeholderEmail,
+        phone,
+        password_hash,
+        first_name: first_name || 'Customer',
+        last_name: last_name || null,
+        phone_verified_at: new Date(),
+        last_login_at: new Date(),
+        is_verified: true,
+      }, { transaction });
+
+      const roleRecord = await Role.findOne({ where: { name: 'customer' } });
+      if (!roleRecord) {
+        await transaction.rollback();
+        return apiResponse(res, 500, 'Customer role is not configured');
+      }
+
+      await UserRole.create({ user_id: userId, role_id: roleRecord.id }, { transaction });
+      await Customer.create({ id: generateId(), user_id: userId }, { transaction });
+
+      await transaction.commit();
+      roleNames = ['customer'];
+    } catch (error) {
+      await transaction.rollback();
+      throw error;
+    }
+  }
+
+  // Issue our JWT tokens
+  const tokens = generateTokenPair({ id: user.id, email: user.email, roles: roleNames });
+  await user.update({ refresh_token: tokens.refreshToken });
+
+  return apiResponse(res, 200, 'Phone login successful', {
+    user: {
+      id: user.id,
+      email: user.email,
+      phone: user.phone,
       first_name: user.first_name,
       last_name: user.last_name,
       avatar_url: user.avatar_url,
@@ -300,6 +404,7 @@ const getMe = asyncHandler(async (req, res) => {
 module.exports = {
   register,
   login,
+  phoneLogin,
   refreshToken,
   logout,
   forgotPassword,

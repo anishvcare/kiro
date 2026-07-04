@@ -11,6 +11,16 @@ const authService = {
     return response.data;
   },
 
+  // Exchange a verified Firebase phone ID token for our app session.
+  phoneLogin: async ({ idToken, first_name, last_name }) => {
+    const response = await api.post('/auth/phone-login', {
+      id_token: idToken,
+      first_name,
+      last_name,
+    });
+    return response.data;
+  },
+
   logout: async () => {
     const response = await api.post('/auth/logout');
     localStorage.removeItem('user');

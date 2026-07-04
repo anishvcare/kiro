@@ -14,6 +14,8 @@ const PaymentSection = ({ quotation }) => {
   const { currentPayment, isLoading, screenshotUploaded } = useSelector((state) => state.payment);
   const [paymentMethod, setPaymentMethod] = useState(quotation?.payment_method || 'upi');
   const [paymentInitiated, setPaymentInitiated] = useState(false);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [addressError, setAddressError] = useState('');
 
   useEffect(() => {
     if (quotation?.id) {
@@ -21,10 +23,21 @@ const PaymentSection = ({ quotation }) => {
     }
   }, [dispatch, quotation?.id]);
 
+  useEffect(() => {
+    const existing = quotation?.request?.delivery_address;
+    if (existing) setDeliveryAddress((prev) => prev || existing);
+  }, [quotation]);
+
   const handleInitiatePayment = () => {
+    if (!deliveryAddress.trim()) {
+      setAddressError('Please enter your delivery address before payment.');
+      return;
+    }
+    setAddressError('');
     dispatch(initiatePayment({
       quotation_id: quotation.id,
       payment_method: paymentMethod,
+      delivery_address: deliveryAddress.trim(),
     })).then((result) => {
       if (!result.error) {
         setPaymentInitiated(true);
@@ -101,6 +114,21 @@ const PaymentSection = ({ quotation }) => {
       {/* Payment initiation (if no payment exists yet) */}
       {!currentPayment && !paymentInitiated && (
         <div className="space-y-3">
+          {/* Delivery Address (captured before choosing a payment method) */}
+          <div>
+            <label className="text-sm font-medium text-gray-700 mb-2 block">
+              Delivery Address
+            </label>
+            <textarea
+              value={deliveryAddress}
+              onChange={(e) => { setDeliveryAddress(e.target.value); setAddressError(''); }}
+              rows={2}
+              placeholder="House / flat no, street, area, city, pincode, landmark..."
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            />
+            {addressError && <p className="mt-1 text-xs text-red-600">{addressError}</p>}
+          </div>
+
           {/* Payment Method Selection */}
           <div>
             <label className="text-sm font-medium text-gray-700 mb-2 block">

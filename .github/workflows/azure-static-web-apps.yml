@@ -10,6 +10,15 @@ on:
 env:
   VITE_API_URL: https://localshop-api-apfydbbyape7bzfr.southindia-01.azurewebsites.net/api
   VITE_SOCKET_URL: https://localshop-api-apfydbbyape7bzfr.southindia-01.azurewebsites.net
+  # Firebase web config for customer phone-OTP login. Set these as GitHub
+  # repository secrets. If unset, phone login is gracefully hidden and users
+  # fall back to business/staff email login.
+  VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+  VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+  VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+  VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+  VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+  VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
 
 jobs:
   build_and_deploy:
@@ -28,7 +37,9 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend
-        run: npm ci
+        # Use npm install (not npm ci) so newly-added deps like `firebase`
+        # resolve even before package-lock.json is regenerated locally.
+        run: npm install
 
       - name: Build
         working-directory: ./frontend

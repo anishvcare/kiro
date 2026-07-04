@@ -8,6 +8,7 @@ const { User } = require('../models');
 // Firebase Admin SDK initialization
 let admin = null;
 let messaging = null;
+let auth = null;
 
 try {
   admin = require('firebase-admin');
@@ -23,16 +24,39 @@ try {
         credential: admin.credential.cert(serviceAccount),
       });
       messaging = admin.messaging();
+      auth = admin.auth();
       console.log('Firebase Admin SDK initialized successfully');
     } else {
-      console.warn('Firebase service account not configured. Push notifications disabled.');
+      console.warn('Firebase service account not configured. Push notifications & phone auth disabled.');
     }
   } else if (admin && admin.apps && admin.apps.length) {
     messaging = admin.messaging();
+    auth = admin.auth();
   }
 } catch (error) {
   console.warn('Firebase Admin SDK not available:', error.message);
 }
+
+/**
+ * Verify a Firebase ID token (from client-side phone OTP sign-in) and return
+ * the decoded token (contains uid and phone_number). Throws if invalid or if
+ * Firebase Admin is not configured.
+ * @param {string} idToken - Firebase ID token from the client
+ * @returns {Promise<object>} decoded token
+ */
+const verifyIdToken = async (idToken) => {
+  if (!auth) {
+    const err = new Error('Firebase authentication is not configured on the server');
+    err.code = 'firebase/not-configured';
+    throw err;
+  }
+  return auth.verifyIdToken(idToken);
+};
+
+/**
+ * Whether Firebase phone auth is available (service account configured).
+ */
+const isFirebaseAuthEnabled = () => !!auth;
 
 /**
  * Send push notification to a specific user
@@ -137,4 +161,6 @@ module.exports = {
   sendToUser,
   sendToMultipleUsers,
   sendToTopic,
+  verifyIdToken,
+  isFirebaseAuthEnabled,
 };

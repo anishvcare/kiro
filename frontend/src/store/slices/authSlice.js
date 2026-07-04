@@ -34,6 +34,17 @@ export const register = createAsyncThunk('auth/register', async (userData, thunk
   }
 });
 
+// Phone OTP login: exchange the verified Firebase ID token for an app session.
+export const phoneLogin = createAsyncThunk('auth/phoneLogin', async (payload, thunkAPI) => {
+  try {
+    const response = await authService.phoneLogin(payload);
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.message || 'Phone login failed';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await authService.logout();
@@ -79,6 +90,23 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
         state.user = null;
         state.tokens = null;
+      })
+      // Phone OTP login
+      .addCase(phoneLogin.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(phoneLogin.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.user;
+        state.tokens = action.payload.tokens;
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        localStorage.setItem('tokens', JSON.stringify(action.payload.tokens));
+      })
+      .addCase(phoneLogin.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       })
       // Register
       .addCase(register.pending, (state) => {
