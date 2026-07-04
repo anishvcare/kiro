@@ -98,6 +98,27 @@ const Login = () => {
     resetRecaptcha();
   };
 
+  // Best-effort automatic SMS OTP detection on supported browsers (Android Chrome).
+  // Uses the Web OTP API; falls back silently where unsupported (e.g. iOS, where
+  // the keyboard's one-tap suggestion via autocomplete="one-time-code" is used).
+  useEffect(() => {
+    if (!otpSent) return undefined;
+    if (typeof window === 'undefined' || !('OTPCredential' in window)) return undefined;
+
+    const ac = new AbortController();
+    navigator.credentials
+      .get({ otp: { transport: ['sms'] }, signal: ac.signal })
+      .then((cred) => {
+        const code = cred && cred.code ? cred.code.replace(/[^0-9]/g, '').slice(0, 6) : '';
+        if (code) setOtp(code);
+      })
+      .catch(() => {
+        /* user cancelled, timed out, or unsupported SMS format - ignore */
+      });
+
+    return () => ac.abort();
+  }, [otpSent]);
+
   // ----- Email login handlers -----
   const handleEmailChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -182,6 +203,7 @@ const Login = () => {
                     id="otp"
                     type="text"
                     inputMode="numeric"
+                    autoComplete="one-time-code"
                     maxLength={6}
                     required
                     className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md tracking-widest text-center text-lg focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
