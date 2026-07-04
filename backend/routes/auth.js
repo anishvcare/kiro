@@ -26,6 +26,9 @@ const resetPasswordValidation = [
 router.post('/register', registerValidation, authController.register);
 router.post('/login', loginValidation, authController.login);
 router.post('/phone-login', body('id_token').notEmpty().withMessage('Firebase ID token is required'), authController.phoneLogin);
+// WhatsApp OTP login
+router.post('/otp/send', body('phone').notEmpty().withMessage('Phone number is required'), authController.requestPhoneOtp);
+router.post('/otp/verify', [body('phone').notEmpty().withMessage('Phone number is required'), body('otp').notEmpty().withMessage('Code is required')], authController.verifyPhoneOtp);
 router.post('/refresh-token', authController.refreshToken);
 router.post('/logout', authenticate, authController.logout);
 router.post('/forgot-password', body('email').isEmail(), authController.forgotPassword);

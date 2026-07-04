@@ -11,7 +11,19 @@ const authService = {
     return response.data;
   },
 
-  // Exchange a verified Firebase phone ID token for our app session.
+  // Request a WhatsApp OTP for the given phone number.
+  requestOtp: async ({ phone }) => {
+    const response = await api.post('/auth/otp/send', { phone });
+    return response.data;
+  },
+
+  // Verify the WhatsApp OTP and receive an app session (creates account if new).
+  verifyOtp: async ({ phone, otp, first_name, last_name }) => {
+    const response = await api.post('/auth/otp/verify', { phone, otp, first_name, last_name });
+    return response.data;
+  },
+
+  // Exchange a verified Firebase phone ID token for our app session (optional).
   phoneLogin: async ({ idToken, first_name, last_name }) => {
     const response = await api.post('/auth/phone-login', {
       id_token: idToken,

@@ -5,6 +5,8 @@ const { User, Role, UserRole, Customer, sequelize } = require('../models');
 const { generateTokenPair, verifyRefreshToken } = require('../services/tokenService');
 const { sendPasswordResetEmail } = require('../services/emailService');
 const { verifyIdToken } = require('../services/firebaseService');
+const { createOtp, verifyOtp: verifyPhoneOtpCode } = require('../services/phoneOtpService');
+const { sendOtp: sendWhatsAppOtp, isWhatsAppConfigured } = require('../services/whatsappService');
 const { generateId, formatValidationErrors, apiResponse, asyncHandler } = require('../utils/helpers');
 
 /**
@@ -155,36 +157,22 @@ const login = asyncHandler(async (req, res) => {
 });
 
 /**
- * Phone OTP login / onboarding (Firebase Phone Authentication)
- * The client performs the SMS OTP flow with Firebase and sends the resulting
- * Firebase ID token here. We verify it, then find-or-create a customer account
- * for that phone number and issue our own JWT tokens.
- * POST /api/auth/phone-login
+ * Normalize a raw phone number to E.164. Defaults to India (+91) when no
+ * country code is provided (e.g. "9876543210" -> "+919876543210").
  */
-const phoneLogin = asyncHandler(async (req, res) => {
-  const { id_token, first_name, last_name } = req.body;
+const normalizePhone = (raw) => {
+  const trimmed = String(raw || '').trim().replace(/[\s-]/g, '');
+  if (trimmed.startsWith('+')) return `+${trimmed.slice(1).replace(/[^0-9]/g, '')}`;
+  const digits = trimmed.replace(/[^0-9]/g, '');
+  if (digits.length === 10) return `+91${digits}`;
+  return `+${digits}`;
+};
 
-  if (!id_token) {
-    return apiResponse(res, 400, 'Firebase ID token is required');
-  }
-
-  // Verify the Firebase ID token
-  let decoded;
-  try {
-    decoded = await verifyIdToken(id_token);
-  } catch (error) {
-    if (error.code === 'firebase/not-configured') {
-      return apiResponse(res, 503, 'Phone login is not configured on the server');
-    }
-    return apiResponse(res, 401, 'Invalid or expired verification token');
-  }
-
-  const phone = decoded.phone_number;
-  if (!phone) {
-    return apiResponse(res, 400, 'The verification token does not contain a phone number');
-  }
-
-  // Find an existing user by phone (include roles for the response)
+/**
+ * Find an existing user by phone or onboard a new customer, then issue JWT
+ * tokens and send the standard auth response. Shared by all phone-based logins.
+ */
+const buildPhoneSession = async (res, phone, first_name, last_name) => {
   let user = await User.findOne({
     where: { phone },
     include: [{ model: Role, as: 'roles', through: { attributes: [] } }],
@@ -239,7 +227,6 @@ const phoneLogin = asyncHandler(async (req, res) => {
     }
   }
 
-  // Issue our JWT tokens
   const tokens = generateTokenPair({ id: user.id, email: user.email, roles: roleNames });
   await user.update({ refresh_token: tokens.refreshToken });
 
@@ -255,6 +242,102 @@ const phoneLogin = asyncHandler(async (req, res) => {
     },
     tokens,
   });
+};
+
+/**
+ * Request a WhatsApp OTP for a phone number.
+ * POST /api/auth/otp/send
+ */
+const requestPhoneOtp = asyncHandler(async (req, res) => {
+  const { phone } = req.body;
+  if (!phone) {
+    return apiResponse(res, 400, 'Phone number is required');
+  }
+
+  const normalized = normalizePhone(phone);
+  if (normalized.replace(/[^0-9]/g, '').length < 10) {
+    return apiResponse(res, 400, 'A valid phone number is required');
+  }
+
+  let code;
+  try {
+    code = createOtp(normalized);
+  } catch (error) {
+    if (error.code === 'otp/cooldown') {
+      return apiResponse(res, 429, error.message);
+    }
+    throw error;
+  }
+
+  if (isWhatsAppConfigured()) {
+    try {
+      await sendWhatsAppOtp(normalized, code);
+    } catch (error) {
+      console.error('WhatsApp OTP send failed:', error.message);
+      return apiResponse(res, 502, 'Failed to send the WhatsApp code. Please try again.');
+    }
+  } else if (process.env.NODE_ENV === 'production') {
+    return apiResponse(res, 503, 'WhatsApp OTP is not configured on the server');
+  } else {
+    // Development convenience when no WhatsApp provider is configured.
+    console.warn(`[DEV] WhatsApp not configured. OTP for ${normalized} is ${code}`);
+  }
+
+  const data = { sent: true };
+  // Only expose the code when explicitly enabled for local testing.
+  if (process.env.OTP_DEBUG === 'true') {
+    data.debug_otp = code;
+  }
+  return apiResponse(res, 200, 'Verification code sent', data);
+});
+
+/**
+ * Verify a WhatsApp OTP and log the customer in (creating the account if new).
+ * POST /api/auth/otp/verify
+ */
+const verifyPhoneOtp = asyncHandler(async (req, res) => {
+  const { phone, otp, first_name, last_name } = req.body;
+  if (!phone || !otp) {
+    return apiResponse(res, 400, 'Phone number and code are required');
+  }
+
+  const normalized = normalizePhone(phone);
+  const result = verifyPhoneOtpCode(normalized, String(otp).trim());
+  if (!result.valid) {
+    return apiResponse(res, 400, result.message);
+  }
+
+  return buildPhoneSession(res, normalized, first_name, last_name);
+});
+
+/**
+ * Phone OTP login / onboarding (Firebase Phone Authentication) - kept as an
+ * optional alternative to the WhatsApp OTP flow above.
+ * POST /api/auth/phone-login
+ */
+const phoneLogin = asyncHandler(async (req, res) => {
+  const { id_token, first_name, last_name } = req.body;
+
+  if (!id_token) {
+    return apiResponse(res, 400, 'Firebase ID token is required');
+  }
+
+  let decoded;
+  try {
+    decoded = await verifyIdToken(id_token);
+  } catch (error) {
+    if (error.code === 'firebase/not-configured') {
+      return apiResponse(res, 503, 'Phone login is not configured on the server');
+    }
+    return apiResponse(res, 401, 'Invalid or expired verification token');
+  }
+
+  const phone = decoded.phone_number;
+  if (!phone) {
+    return apiResponse(res, 400, 'The verification token does not contain a phone number');
+  }
+
+  return buildPhoneSession(res, phone, first_name, last_name);
 });
 
 /**
@@ -404,6 +487,8 @@ const getMe = asyncHandler(async (req, res) => {
 module.exports = {
   register,
   login,
+  requestPhoneOtp,
+  verifyPhoneOtp,
   phoneLogin,
   refreshToken,
   logout,

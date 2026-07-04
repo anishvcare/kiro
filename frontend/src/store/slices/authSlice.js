@@ -34,7 +34,18 @@ export const register = createAsyncThunk('auth/register', async (userData, thunk
   }
 });
 
-// Phone OTP login: exchange the verified Firebase ID token for an app session.
+// Verify the WhatsApp OTP and establish an app session.
+export const verifyOtp = createAsyncThunk('auth/verifyOtp', async (payload, thunkAPI) => {
+  try {
+    const response = await authService.verifyOtp(payload);
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.message || 'Verification failed';
+    return thunkAPI.rejectWithValue(message);
+  }
+});
+
+// Phone OTP login: exchange the verified Firebase ID token for an app session (optional).
 export const phoneLogin = createAsyncThunk('auth/phoneLogin', async (payload, thunkAPI) => {
   try {
     const response = await authService.phoneLogin(payload);
@@ -91,7 +102,24 @@ const authSlice = createSlice({
         state.user = null;
         state.tokens = null;
       })
-      // Phone OTP login
+      // WhatsApp OTP verify
+      .addCase(verifyOtp.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(verifyOtp.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.user;
+        state.tokens = action.payload.tokens;
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        localStorage.setItem('tokens', JSON.stringify(action.payload.tokens));
+      })
+      .addCase(verifyOtp.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      // Phone OTP login (Firebase - optional)
       .addCase(phoneLogin.pending, (state) => {
         state.isLoading = true;
         state.error = null;

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { login, phoneLogin, clearError } from '../../store/slices/authSlice';
+import { login, verifyOtp, clearError } from '../../store/slices/authSlice';
+import authService from '../../services/authService';
 import { getRoleHome } from '../../utils/roleRedirect';
-import { isFirebaseConfigured, sendPhoneOtp, resetRecaptcha } from '../../services/firebase';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -19,8 +19,8 @@ const Login = () => {
   const [firstName, setFirstName] = useState('');
   const [otp, setOtp] = useState('');
   const [otpSent, setOtpSent] = useState(false);
-  const [confirmation, setConfirmation] = useState(null);
   const [localError, setLocalError] = useState('');
+  const [info, setInfo] = useState('');
   const [sending, setSending] = useState(false);
 
   // Email login state
@@ -37,87 +37,64 @@ const Login = () => {
     dispatch(clearError());
   }, [dispatch]);
 
-  // ----- Phone OTP handlers -----
-  const normalizePhone = (raw) => {
-    const trimmed = raw.trim().replace(/\s|-/g, '');
-    if (trimmed.startsWith('+')) return trimmed;
-    // Default to India (+91) when no country code is provided
-    const digits = trimmed.replace(/[^0-9]/g, '');
-    return `+91${digits}`;
+  const displayPhone = (raw) => {
+    const t = raw.trim().replace(/[\s-]/g, '');
+    if (t.startsWith('+')) return t;
+    const digits = t.replace(/[^0-9]/g, '');
+    return digits.length === 10 ? `+91${digits}` : `+${digits}`;
   };
 
+  // ----- Phone OTP handlers -----
   const handleSendOtp = async (e) => {
     e.preventDefault();
     setLocalError('');
-    if (!isFirebaseConfigured) {
-      setLocalError('Phone login is not configured. Please use business login below.');
-      return;
-    }
-    const e164 = normalizePhone(phone);
-    if (e164.replace(/[^0-9]/g, '').length < 10) {
+    setInfo('');
+    const digits = phone.replace(/[^0-9]/g, '');
+    if (digits.length < 10) {
       setLocalError('Please enter a valid phone number.');
       return;
     }
     setSending(true);
     try {
-      const result = await sendPhoneOtp(e164, 'recaptcha-container');
-      setConfirmation(result);
+      const res = await authService.requestOtp({ phone });
       setOtpSent(true);
+      setInfo(`We sent a code on WhatsApp to ${displayPhone(phone)}.`);
+      // If the server is in debug mode it returns the code to ease testing.
+      if (res?.data?.debug_otp) setOtp(res.data.debug_otp);
     } catch (err) {
-      resetRecaptcha();
-      setLocalError(err.message || 'Failed to send OTP. Please try again.');
+      setLocalError(err.response?.data?.message || 'Failed to send the code. Please try again.');
     } finally {
       setSending(false);
     }
   };
 
-  const handleVerifyOtp = async (e) => {
+  const handleVerifyOtp = (e) => {
     e.preventDefault();
     setLocalError('');
-    if (!confirmation) return;
     if (!otp || otp.length < 6) {
-      setLocalError('Enter the 6-digit code sent to your phone.');
+      setLocalError('Enter the 6-digit code sent to your WhatsApp.');
       return;
     }
-    setSending(true);
+    dispatch(verifyOtp({ phone, otp, first_name: firstName || undefined }));
+  };
+
+  const handleResend = async () => {
+    setLocalError('');
+    setInfo('');
     try {
-      const credential = await confirmation.confirm(otp);
-      const idToken = await credential.user.getIdToken();
-      dispatch(phoneLogin({ idToken, first_name: firstName || undefined }));
+      await authService.requestOtp({ phone });
+      setInfo('A new code has been sent on WhatsApp.');
     } catch (err) {
-      setLocalError('Invalid or expired code. Please try again.');
-    } finally {
-      setSending(false);
+      setLocalError(err.response?.data?.message || 'Could not resend the code yet.');
     }
   };
 
   const handleChangePhone = () => {
     setOtpSent(false);
-    setConfirmation(null);
     setOtp('');
-    resetRecaptcha();
+    setInfo('');
+    setLocalError('');
   };
-
-  // Best-effort automatic SMS OTP detection on supported browsers (Android Chrome).
-  // Uses the Web OTP API; falls back silently where unsupported (e.g. iOS, where
-  // the keyboard's one-tap suggestion via autocomplete="one-time-code" is used).
-  useEffect(() => {
-    if (!otpSent) return undefined;
-    if (typeof window === 'undefined' || !('OTPCredential' in window)) return undefined;
-
-    const ac = new AbortController();
-    navigator.credentials
-      .get({ otp: { transport: ['sms'] }, signal: ac.signal })
-      .then((cred) => {
-        const code = cred && cred.code ? cred.code.replace(/[^0-9]/g, '').slice(0, 6) : '';
-        if (code) setOtp(code);
-      })
-      .catch(() => {
-        /* user cancelled, timed out, or unsupported SMS format - ignore */
-      });
-
-    return () => ac.abort();
-  }, [otpSent]);
 
   // ----- Email login handlers -----
   const handleEmailChange = (e) => {
@@ -136,11 +113,11 @@ const Login = () => {
         <div>
           <Link to="/" className="block text-center text-2xl font-bold text-indigo-600">LocalShop</Link>
           <h2 className="mt-4 text-center text-2xl font-extrabold text-gray-900">
-            {mode === 'phone' ? 'Continue with your phone number' : 'Business / Staff login'}
+            {mode === 'phone' ? 'Continue with WhatsApp' : 'Business / Staff login'}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             {mode === 'phone'
-              ? 'We will send a one-time code to verify your number.'
+              ? 'We will send a one-time code to your WhatsApp number.'
               : 'Shop owners, delivery agents and admins sign in here.'}
           </p>
         </div>
@@ -150,15 +127,20 @@ const Login = () => {
             <span className="block sm:inline">{shownError}</span>
           </div>
         )}
+        {info && !shownError && (
+          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded text-sm">
+            {info}
+          </div>
+        )}
 
-        {/* PHONE OTP MODE */}
+        {/* PHONE / WHATSAPP OTP MODE */}
         {mode === 'phone' && (
           <div className="mt-6 space-y-6">
             {!otpSent ? (
               <form className="space-y-4" onSubmit={handleSendOtp}>
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                    Phone number
+                    WhatsApp number
                   </label>
                   <input
                     id="phone"
@@ -190,7 +172,7 @@ const Login = () => {
                   disabled={sending}
                   className="w-full flex justify-center py-2.5 px-4 rounded-md text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-sm font-medium"
                 >
-                  {sending ? 'Sending code...' : 'Send OTP'}
+                  {sending ? 'Sending code...' : 'Send code on WhatsApp'}
                 </button>
               </form>
             ) : (
@@ -212,7 +194,7 @@ const Login = () => {
                     onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
                   />
                   <p className="mt-1 text-xs text-gray-500">
-                    Sent to {normalizePhone(phone)}.{' '}
+                    Sent to {displayPhone(phone)}.{' '}
                     <button type="button" onClick={handleChangePhone} className="text-indigo-600 font-medium">
                       Change number
                     </button>
@@ -220,17 +202,24 @@ const Login = () => {
                 </div>
                 <button
                   type="submit"
-                  disabled={sending || isLoading}
+                  disabled={isLoading}
                   className="w-full flex justify-center py-2.5 px-4 rounded-md text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-sm font-medium"
                 >
-                  {sending || isLoading ? 'Verifying...' : 'Verify & Continue'}
+                  {isLoading ? 'Verifying...' : 'Verify & Continue'}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleResend}
+                  className="w-full text-center text-sm text-indigo-600 hover:text-indigo-700"
+                >
+                  Resend code
                 </button>
               </form>
             )}
 
             <button
               type="button"
-              onClick={() => { setMode('email'); setLocalError(''); dispatch(clearError()); }}
+              onClick={() => { setMode('email'); setLocalError(''); setInfo(''); dispatch(clearError()); }}
               className="w-full text-center text-sm text-gray-500 hover:text-gray-700"
             >
               Business / Staff login &rarr;
@@ -288,16 +277,13 @@ const Login = () => {
 
             <button
               type="button"
-              onClick={() => { setMode('phone'); setLocalError(''); dispatch(clearError()); }}
+              onClick={() => { setMode('phone'); setLocalError(''); setInfo(''); dispatch(clearError()); }}
               className="w-full text-center text-sm text-gray-500 hover:text-gray-700"
             >
-              &larr; Continue with phone number instead
+              &larr; Continue with WhatsApp instead
             </button>
           </form>
         )}
-
-        {/* Invisible reCAPTCHA container required by Firebase phone auth */}
-        <div id="recaptcha-container" />
       </div>
     </div>
   );
