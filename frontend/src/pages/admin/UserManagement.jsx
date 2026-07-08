@@ -28,6 +28,21 @@ const UserManagement = () => {
     }
   };
 
+  const handleResetPassword = async (userId, email) => {
+    const pwd = window.prompt(`Enter a new password for ${email}:`, 'password123');
+    if (pwd === null) return; // cancelled
+    if (!pwd || pwd.length < 6) {
+      alert('Password must be at least 6 characters.');
+      return;
+    }
+    try {
+      await api.patch(`/admin/users/${userId}/password`, { password: pwd });
+      alert(`Password updated for ${email}.`);
+    } catch (error) {
+      alert(error.response?.data?.message || 'Failed to reset password.');
+    }
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     setPage(1);
@@ -130,14 +145,22 @@ const UserManagement = () => {
                       {new Date(user.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <button
-                        onClick={() => handleStatusToggle(user.id, user.is_active)}
-                        className={`text-sm font-medium ${
-                          user.is_active ? 'text-red-600 hover:text-red-800' : 'text-green-600 hover:text-green-800'
-                        }`}
-                      >
-                        {user.is_active ? 'Deactivate' : 'Activate'}
-                      </button>
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => handleStatusToggle(user.id, user.is_active)}
+                          className={`text-sm font-medium ${
+                            user.is_active ? 'text-red-600 hover:text-red-800' : 'text-green-600 hover:text-green-800'
+                          }`}
+                        >
+                          {user.is_active ? 'Deactivate' : 'Activate'}
+                        </button>
+                        <button
+                          onClick={() => handleResetPassword(user.id, user.email)}
+                          className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+                        >
+                          Reset Password
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))

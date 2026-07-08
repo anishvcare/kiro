@@ -38,6 +38,7 @@ router.get('/users/:id', userManagementController.getUserDetails);
 router.patch('/users/:id/status', userManagementController.updateUserStatus);
 router.patch('/users/:id/profile', userManagementController.updateUserProfile);
 router.patch('/users/:id/role', userManagementController.updateUserRole);
+router.patch('/users/:id/password', userManagementController.resetUserPassword);
 router.delete('/users/:id', userManagementController.deleteUser);
 
 // Shop Management

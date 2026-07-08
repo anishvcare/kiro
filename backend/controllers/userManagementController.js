@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 const {
   User,
@@ -196,6 +197,40 @@ const updateUserRole = asyncHandler(async (req, res) => {
 });
 
 /**
+ * Reset a user's password (admin action).
+ * PATCH /api/admin/users/:id/password  { password }
+ */
+const resetUserPassword = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  if (!password || String(password).length < 6) {
+    return apiResponse(res, 400, 'Password must be at least 6 characters');
+  }
+
+  const user = await User.findByPk(id);
+  if (!user) {
+    return apiResponse(res, 404, 'User not found');
+  }
+
+  const salt = await bcrypt.genSalt(12);
+  const password_hash = await bcrypt.hash(String(password), salt);
+  // Also clear any stored refresh token so old sessions can't linger.
+  await user.update({ password_hash, refresh_token: null });
+
+  await AuditLog.create({
+    user_id: req.user.id,
+    action: 'reset_user_password',
+    entity_type: 'user',
+    entity_id: id,
+    ip_address: req.ip,
+    user_agent: req.get('User-Agent'),
+  });
+
+  return apiResponse(res, 200, 'Password reset successfully', { user: { id, email: user.email } });
+});
+
+/**
  * Delete user
  * DELETE /api/admin/users/:id
  */
@@ -229,5 +264,6 @@ module.exports = {
   updateUserStatus,
   updateUserProfile,
   updateUserRole,
+  resetUserPassword,
   deleteUser,
 };
