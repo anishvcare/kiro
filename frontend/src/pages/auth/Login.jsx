@@ -58,9 +58,13 @@ const Login = () => {
     try {
       const res = await authService.requestOtp({ phone });
       setOtpSent(true);
-      setInfo(`We sent a code on WhatsApp to ${displayPhone(phone)}.`);
-      // If the server is in debug mode it returns the code to ease testing.
-      if (res?.data?.debug_otp) setOtp(res.data.debug_otp);
+      // If the server is in debug/test mode it returns the code to ease testing.
+      if (res?.data?.debug_otp) {
+        setOtp(res.data.debug_otp);
+        setInfo('Test mode: the code has been auto-filled below. Tap Verify to continue.');
+      } else {
+        setInfo(`We sent a code on WhatsApp to ${displayPhone(phone)}.`);
+      }
     } catch (err) {
       setLocalError(err.response?.data?.message || 'Failed to send the code. Please try again.');
     } finally {

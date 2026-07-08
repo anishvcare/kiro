@@ -276,6 +276,10 @@ const requestPhoneOtp = asyncHandler(async (req, res) => {
       console.error('WhatsApp OTP send failed:', error.message);
       return apiResponse(res, 502, 'Failed to send the WhatsApp code. Please try again.');
     }
+  } else if (process.env.OTP_DEBUG === 'true') {
+    // Debug/testing mode: skip sending, the code is returned in the response
+    // below so the login flow can be tested without a WhatsApp provider.
+    console.warn(`[OTP_DEBUG] Verification code for ${normalized} is ${code}`);
   } else if (process.env.NODE_ENV === 'production') {
     return apiResponse(res, 503, 'WhatsApp OTP is not configured on the server');
   } else {
