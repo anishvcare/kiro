@@ -33,12 +33,10 @@ const createRequestValidation = [
 const createQuotationValidation = [
   body('request_id').isUUID().withMessage('Valid request ID is required'),
   body('total_amount').isFloat({ min: 0 }).withMessage('Total amount must be a positive number'),
-  body('delivery_charge').optional().isFloat({ min: 0 }).withMessage('Delivery charge must be non-negative'),
-  body('final_amount').isFloat({ min: 0 }).withMessage('Final amount must be a positive number'),
-  body('items').isArray({ min: 1 }).withMessage('At least one item is required'),
-  body('items.*.item_name').trim().notEmpty().withMessage('Item name is required'),
-  body('items.*.quantity').isInt({ min: 1 }).withMessage('Quantity must be at least 1'),
-  body('items.*.unit_price').isFloat({ min: 0 }).withMessage('Unit price must be non-negative'),
+  body('approx_weight').optional({ nullable: true }).isFloat({ min: 0 }).withMessage('Weight must be non-negative'),
+  body('delivery_charge').optional({ nullable: true }).isFloat({ min: 0 }).withMessage('Delivery charge must be non-negative'),
+  body('bill_image_url').optional({ nullable: true }).isString(),
+  body('items').optional({ nullable: true }).isArray(),
   validate,
 ];
 

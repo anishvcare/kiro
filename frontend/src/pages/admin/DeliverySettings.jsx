@@ -45,6 +45,7 @@ const DeliverySettings = () => {
   const settingFields = [
     { key: 'delivery_base_charge', label: 'Base Delivery Charge', type: 'number', suffix: 'INR' },
     { key: 'delivery_per_km_charge', label: 'Per KM Charge', type: 'number', suffix: 'INR' },
+    { key: 'delivery_per_kg_charge', label: 'Per KG Charge (weight)', type: 'number', suffix: 'INR' },
     { key: 'delivery_free_threshold', label: 'Free Delivery Threshold', type: 'number', suffix: 'INR' },
     { key: 'delivery_max_radius_km', label: 'Maximum Delivery Radius', type: 'number', suffix: 'km' },
     { key: 'platform_commission_percent', label: 'Platform Commission', type: 'number', suffix: '%' },
@@ -68,6 +69,19 @@ const DeliverySettings = () => {
           {message}
         </div>
       )}
+
+      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800">
+        <p className="font-medium">How the delivery charge is calculated</p>
+        <p className="mt-1">
+          <code className="bg-white px-1.5 py-0.5 rounded border border-blue-200">
+            Delivery Charge = Base Charge + (Per&nbsp;KM&nbsp;Charge × distance&nbsp;km) + (Per&nbsp;KG&nbsp;Charge × weight&nbsp;kg)
+          </code>
+        </p>
+        <p className="mt-1 text-blue-700">
+          Distance is measured between the shop and the customer&apos;s delivery location; weight is the
+          approximate weight the shop enters on the quotation. Adjust the three rates below to control it.
+        </p>
+      </div>
 
       <form onSubmit={handleSave} className="bg-white shadow rounded-lg p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

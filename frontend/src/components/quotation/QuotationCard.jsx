@@ -1,4 +1,5 @@
 import React from 'react';
+import { mediaUrl } from '../../utils/media';
 
 const QuotationCard = ({ quotation, request, onAccept, onReject, onChat, isCustomer = true }) => {
   const {
@@ -15,6 +16,8 @@ const QuotationCard = ({ quotation, request, onAccept, onReject, onChat, isCusto
     estimated_prep_time,
     created_at,
     shop,
+    bill_image_url,
+    approx_weight,
   } = quotation;
 
   const getStatusBadge = () => {
@@ -51,12 +54,13 @@ const QuotationCard = ({ quotation, request, onAccept, onReject, onChat, isCusto
           {request.images && request.images.length > 0 && (
             <div className="flex gap-1 mt-2">
               {request.images.map((img) => (
-                <img
-                  key={img.id}
-                  src={img.image_url}
-                  alt="Request"
-                  className="w-10 h-10 object-cover rounded"
-                />
+                <a key={img.id} href={mediaUrl(img.image_url)} target="_blank" rel="noopener noreferrer">
+                  <img
+                    src={mediaUrl(img.image_url)}
+                    alt="Request"
+                    className="w-10 h-10 object-cover rounded"
+                  />
+                </a>
               ))}
             </div>
           )}
@@ -82,13 +86,33 @@ const QuotationCard = ({ quotation, request, onAccept, onReject, onChat, isCusto
         </div>
       )}
 
+      {/* Bill photo (uploaded by the shop) - visible to customer, admin & delivery */}
+      {bill_image_url && (
+        <div className="px-4 py-3 border-b border-gray-100">
+          <p className="text-xs font-medium text-gray-500 uppercase mb-2">Bill</p>
+          <a href={mediaUrl(bill_image_url)} target="_blank" rel="noopener noreferrer">
+            <img
+              src={mediaUrl(bill_image_url)}
+              alt="Bill"
+              className="w-28 h-28 object-cover rounded-lg border hover:opacity-90"
+            />
+          </a>
+        </div>
+      )}
+
       {/* Pricing */}
       <div className="px-4 py-3 border-b border-gray-100">
         <div className="space-y-1">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-600">Subtotal</span>
+            <span className="text-gray-600">Bill Amount</span>
             <span>{parseFloat(total_amount).toFixed(2)}</span>
           </div>
+          {approx_weight != null && parseFloat(approx_weight) > 0 && (
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-600">Approx. Weight</span>
+              <span>{parseFloat(approx_weight).toFixed(2)} kg</span>
+            </div>
+          )}
           {parseFloat(delivery_charge) > 0 && (
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Delivery Charge</span>

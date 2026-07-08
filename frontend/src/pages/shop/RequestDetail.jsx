@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchRequestDetails, updateRequestStatus } from '../../store/slices/requestSlice';
 import StatusTimeline from '../../components/request/StatusTimeline';
 import QuotationCard from '../../components/quotation/QuotationCard';
+import { mediaUrl } from '../../utils/media';
 
 const ShopRequestDetail = () => {
   const dispatch = useDispatch();
@@ -130,14 +131,20 @@ const ShopRequestDetail = () => {
             {currentRequest.images && currentRequest.images.length > 0 && (
               <div className="mt-4 pt-4 border-t border-gray-100">
                 <span className="text-sm text-gray-500">Customer Uploaded Images</span>
-                <div className="flex gap-2 mt-2">
+                <div className="flex flex-wrap gap-2 mt-2">
                   {currentRequest.images.map((img) => (
-                    <img
+                    <a
                       key={img.id}
-                      src={img.image_url}
-                      alt={img.caption || 'Request image'}
-                      className="w-24 h-24 object-cover rounded-lg border"
-                    />
+                      href={mediaUrl(img.image_url)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={mediaUrl(img.image_url)}
+                        alt={img.caption || 'Request image'}
+                        className="w-24 h-24 object-cover rounded-lg border hover:opacity-90"
+                      />
+                    </a>
                   ))}
                 </div>
               </div>

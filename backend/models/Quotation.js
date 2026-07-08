@@ -49,6 +49,14 @@ module.exports = (sequelize, DataTypes) => {
     estimated_prep_time: {
       type: DataTypes.STRING(50),
     },
+    // URL of the bill photo uploaded by the shop owner (camera/file)
+    bill_image_url: {
+      type: DataTypes.STRING(500),
+    },
+    // Approximate order weight in kilograms (used for delivery charge calc)
+    approx_weight: {
+      type: DataTypes.DECIMAL(10, 2),
+    },
   }, {
     tableName: 'quotations',
     timestamps: true,

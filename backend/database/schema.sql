@@ -229,6 +229,8 @@ CREATE TABLE IF NOT EXISTS quotations (
   final_amount DECIMAL(10, 2) NOT NULL,
   notes TEXT,
   valid_until TIMESTAMP,
+  bill_image_url VARCHAR(500),
+  approx_weight DECIMAL(10, 2),
   status ENUM('sent', 'viewed', 'accepted', 'rejected', 'expired') DEFAULT 'sent',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

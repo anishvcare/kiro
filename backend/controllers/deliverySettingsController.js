@@ -5,6 +5,7 @@ const { apiResponse, asyncHandler } = require('../utils/helpers');
 const DELIVERY_SETTING_KEYS = [
   'delivery_base_charge',
   'delivery_per_km_charge',
+  'delivery_per_kg_charge',
   'delivery_free_threshold',
   'delivery_max_radius_km',
   'platform_commission_percent',
@@ -29,7 +30,8 @@ const getDeliverySettings = asyncHandler(async (req, res) => {
   const settingsMap = {};
   const defaults = {
     delivery_base_charge: '30',
-    delivery_per_km_charge: '10',
+    delivery_per_km_charge: '8',
+    delivery_per_kg_charge: '5',
     delivery_free_threshold: '500',
     delivery_max_radius_km: '15',
     platform_commission_percent: '10',

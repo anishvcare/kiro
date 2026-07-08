@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const fs = require('fs');
 
 // Ensure upload directories exist
-const uploadDirs = ['uploads/requests', 'uploads/payments', 'uploads/temp', 'uploads/proofs'];
+const uploadDirs = ['uploads/requests', 'uploads/payments', 'uploads/temp', 'uploads/proofs', 'uploads/bills'];
 uploadDirs.forEach((dir) => {
   const fullPath = path.join(__dirname, '..', dir);
   if (!fs.existsSync(fullPath)) {
@@ -38,6 +38,17 @@ const paymentScreenshotStorage = multer.diskStorage({
 const deliveryProofStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, path.join(__dirname, '..', 'uploads/proofs'));
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname) || '.jpg';
+    cb(null, `${uuidv4()}${ext}`);
+  },
+});
+
+// Storage configuration for quotation bill photos
+const billImageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, '..', 'uploads/bills'));
   },
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname) || '.jpg';
@@ -92,9 +103,19 @@ const uploadDeliveryProofImage = multer({
   },
 }).single('proof');
 
+// Upload middleware for a quotation bill photo (camera or file, 8MB)
+const uploadBillImage = multer({
+  storage: billImageStorage,
+  fileFilter: imageFileFilter,
+  limits: {
+    fileSize: 8 * 1024 * 1024, // 8MB
+  },
+}).single('bill');
+
 module.exports = {
   uploadRequestImages,
   uploadSingleRequestImage,
   uploadPaymentScreenshot,
   uploadDeliveryProofImage,
+  uploadBillImage,
 };

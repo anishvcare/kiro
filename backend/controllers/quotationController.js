@@ -10,6 +10,7 @@ const {
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const { validateStatusTransition } = require('../services/requestService');
 const { notifyNewQuotation, notifyStatusChange } = require('../services/notificationService');
+const deliveryPricing = require('../services/deliveryPricingService');
 
 /**
  * Resolve the customers.id for the authenticated user.
@@ -33,7 +34,9 @@ const createQuotation = asyncHandler(async (req, res) => {
     request_id,
     shop_id,
     items,
-    delivery_charge,
+    total_amount,
+    approx_weight,
+    bill_image_url,
     discount,
     tax_amount,
     notes,
@@ -46,7 +49,7 @@ const createQuotation = asyncHandler(async (req, res) => {
     return apiResponse(res, 400, 'Request ID and Shop ID are required');
   }
 
-  // Verify shop ownership
+  // Verify shop ownership (shop row carries the pickup coordinates)
   const shop = await Shop.findOne({
     where: { id: shop_id, owner_id: req.user.id },
   });
@@ -55,7 +58,7 @@ const createQuotation = asyncHandler(async (req, res) => {
     return apiResponse(res, 404, 'Shop not found or access denied');
   }
 
-  // Verify request exists and is for this shop
+  // Verify request exists and is for this shop (carries the delivery coordinates)
   const request = await CustomerRequest.findOne({
     where: { id: request_id, shop_id },
   });
@@ -73,13 +76,21 @@ const createQuotation = asyncHandler(async (req, res) => {
   const transaction = await sequelize.transaction();
 
   try {
-    // Calculate totals
-    let totalAmount = 0;
-    if (items && Array.isArray(items)) {
-      totalAmount = items.reduce((sum, item) => sum + (parseFloat(item.unit_price) * (item.quantity || 1)), 0);
+    // Bill total: prefer the explicit total the shop enters; fall back to the
+    // sum of legacy items if provided.
+    let totalAmount = parseFloat(total_amount);
+    if (Number.isNaN(totalAmount)) {
+      totalAmount = Array.isArray(items)
+        ? items.reduce((sum, it) => sum + (parseFloat(it.unit_price) || 0) * (parseInt(it.quantity, 10) || 1), 0)
+        : 0;
     }
 
-    const deliveryChargeAmount = parseFloat(delivery_charge) || 0;
+    const weightKg = parseFloat(approx_weight) || 0;
+
+    // Auto-calculate the delivery charge from distance (shop -> customer) + weight.
+    const distanceKm = deliveryPricing.distanceForOrder(shop, request);
+    const { charge: deliveryChargeAmount } = await deliveryPricing.calculateDeliveryCharge({ distanceKm, weightKg });
+
     const discountAmount = parseFloat(discount) || 0;
     const taxAmountValue = parseFloat(tax_amount) || 0;
     const finalAmount = totalAmount + deliveryChargeAmount - discountAmount + taxAmountValue;
@@ -99,20 +110,26 @@ const createQuotation = asyncHandler(async (req, res) => {
       status: 'sent',
       payment_method: payment_method || null,
       estimated_prep_time: estimated_prep_time || null,
+      bill_image_url: bill_image_url || null,
+      approx_weight: weightKg || null,
     }, { transaction });
 
-    // Create quotation items
-    if (items && Array.isArray(items) && items.length > 0) {
-      const quotationItems = items.map((item) => ({
-        quotation_id: quotation.id,
-        item_name: item.item_name,
-        quantity: item.quantity || 1,
-        unit: item.unit || null,
-        unit_price: parseFloat(item.unit_price),
-        total_price: parseFloat(item.unit_price) * (item.quantity || 1),
-        notes: item.notes || null,
-      }));
-      await QuotationItem.bulkCreate(quotationItems, { transaction });
+    // Optional legacy itemized entries (no longer required)
+    if (Array.isArray(items) && items.length > 0) {
+      const quotationItems = items
+        .filter((it) => it.item_name && it.unit_price)
+        .map((it) => ({
+          quotation_id: quotation.id,
+          item_name: it.item_name,
+          quantity: it.quantity || 1,
+          unit: it.unit || null,
+          unit_price: parseFloat(it.unit_price),
+          total_price: parseFloat(it.unit_price) * (it.quantity || 1),
+          notes: it.notes || null,
+        }));
+      if (quotationItems.length > 0) {
+        await QuotationItem.bulkCreate(quotationItems, { transaction });
+      }
     }
 
     // Update request status
@@ -137,6 +154,52 @@ const createQuotation = asyncHandler(async (req, res) => {
     await transaction.rollback();
     throw error;
   }
+});
+
+/**
+ * Upload a bill photo for a quotation and return its URL.
+ * POST /api/quotations/upload-bill  (multipart field: 'bill')
+ */
+const uploadBill = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    return apiResponse(res, 400, 'No bill image uploaded');
+  }
+  const url = `/uploads/bills/${req.file.filename}`;
+  return apiResponse(res, 201, 'Bill uploaded successfully', { url });
+});
+
+/**
+ * Preview the auto-calculated delivery charge for a request + weight.
+ * GET /api/quotations/delivery-estimate?request_id=&shop_id=&weight=
+ */
+const getDeliveryEstimate = asyncHandler(async (req, res) => {
+  const { request_id, shop_id, weight } = req.query;
+
+  if (!request_id || !shop_id) {
+    return apiResponse(res, 400, 'request_id and shop_id are required');
+  }
+
+  const shop = await Shop.findOne({ where: { id: shop_id, owner_id: req.user.id } });
+  if (!shop) {
+    return apiResponse(res, 404, 'Shop not found or access denied');
+  }
+
+  const request = await CustomerRequest.findOne({ where: { id: request_id, shop_id } });
+  if (!request) {
+    return apiResponse(res, 404, 'Request not found for this shop');
+  }
+
+  const distanceKm = deliveryPricing.distanceForOrder(shop, request);
+  const result = await deliveryPricing.calculateDeliveryCharge({
+    distanceKm,
+    weightKg: parseFloat(weight) || 0,
+  });
+
+  return apiResponse(res, 200, 'Delivery estimate', {
+    delivery_charge: result.charge,
+    distance_km: result.distanceKm,
+    weight_kg: result.weightKg,
+  });
 });
 
 /**
@@ -414,4 +477,6 @@ module.exports = {
   acceptQuotation,
   rejectQuotation,
   getQuotationsByRequest,
+  uploadBill,
+  getDeliveryEstimate,
 };

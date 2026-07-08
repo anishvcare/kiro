@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { createQuotation, clearCreateSuccess } from '../../store/slices/quotationSlice';
 import { fetchRequestDetails } from '../../store/slices/requestSlice';
+import api from '../../services/api';
+import { mediaUrl } from '../../utils/media';
 
 const CreateQuotation = () => {
   const dispatch = useDispatch();
@@ -12,14 +14,24 @@ const CreateQuotation = () => {
   const { isLoading, error, createSuccess } = useSelector((state) => state.quotation);
   const { myShops } = useSelector((state) => state.shop);
 
-  const [items, setItems] = useState([{ item_name: '', quantity: 1, unit: '', unit_price: '' }]);
-  const [deliveryCharge, setDeliveryCharge] = useState('');
-  const [discount, setDiscount] = useState('');
-  const [taxAmount, setTaxAmount] = useState('');
+  const [billFile, setBillFile] = useState(null);
+  const [billPreview, setBillPreview] = useState('');
+  const [totalAmount, setTotalAmount] = useState('');
+  const [approxWeight, setApproxWeight] = useState('');
   const [notes, setNotes] = useState('');
   const [paymentMethod, setPaymentMethod] = useState('');
-  const [estimatedPrepTime, setEstimatedPrepTime] = useState('');
   const [validUntil, setValidUntil] = useState('');
+
+  const [estimate, setEstimate] = useState(null); // { delivery_charge, distance_km }
+  const [estimating, setEstimating] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [localError, setLocalError] = useState('');
+
+  const cameraInputRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const estimateTimer = useRef(null);
+
+  const shopId = currentRequest?.shop_id || (myShops && myShops.length > 0 ? myShops[0].id : null);
 
   useEffect(() => {
     if (requestId) {
@@ -34,272 +46,279 @@ const CreateQuotation = () => {
     }
   }, [createSuccess, dispatch, navigate, requestId]);
 
-  const addItem = () => {
-    setItems([...items, { item_name: '', quantity: 1, unit: '', unit_price: '' }]);
+  // Live delivery-charge estimate whenever the weight changes.
+  useEffect(() => {
+    if (!shopId || !requestId) return undefined;
+    if (estimateTimer.current) clearTimeout(estimateTimer.current);
+    estimateTimer.current = setTimeout(async () => {
+      try {
+        setEstimating(true);
+        const res = await api.get('/quotations/delivery-estimate', {
+          params: { request_id: requestId, shop_id: shopId, weight: parseFloat(approxWeight) || 0 },
+        });
+        setEstimate(res.data.data);
+      } catch (_e) {
+        setEstimate(null);
+      } finally {
+        setEstimating(false);
+      }
+    }, 400);
+    return () => estimateTimer.current && clearTimeout(estimateTimer.current);
+  }, [approxWeight, shopId, requestId]);
+
+  const handleBillSelect = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    setBillFile(file);
+    setBillPreview(URL.createObjectURL(file));
   };
 
-  const removeItem = (index) => {
-    if (items.length > 1) {
-      setItems(items.filter((_, i) => i !== index));
-    }
+  const removeBill = () => {
+    if (billPreview) URL.revokeObjectURL(billPreview);
+    setBillFile(null);
+    setBillPreview('');
   };
 
-  const updateItem = (index, field, value) => {
-    const newItems = [...items];
-    newItems[index] = { ...newItems[index], [field]: value };
-    setItems(newItems);
-  };
+  const deliveryCharge = estimate ? parseFloat(estimate.delivery_charge) : null;
+  const grandTotal =
+    (parseFloat(totalAmount) || 0) + (deliveryCharge != null ? deliveryCharge : 0);
 
-  const calculateTotal = () => {
-    const itemsTotal = items.reduce((sum, item) => {
-      return sum + (parseFloat(item.unit_price) || 0) * (parseInt(item.quantity) || 1);
-    }, 0);
-    const delivery = parseFloat(deliveryCharge) || 0;
-    const disc = parseFloat(discount) || 0;
-    const tax = parseFloat(taxAmount) || 0;
-    return (itemsTotal + delivery - disc + tax).toFixed(2);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLocalError('');
 
-    // Validate items
-    const validItems = items.filter((item) => item.item_name && item.unit_price);
-    if (validItems.length === 0) {
-      alert('Please add at least one item with name and price');
+    if (!totalAmount || parseFloat(totalAmount) <= 0) {
+      setLocalError('Please enter the total bill amount.');
       return;
     }
-
-    const shopId = currentRequest?.shop_id || (myShops.length > 0 ? myShops[0].id : null);
     if (!shopId) {
-      alert('Shop not found');
+      setLocalError('Shop not found.');
       return;
     }
 
-    dispatch(createQuotation({
-      request_id: requestId,
-      shop_id: shopId,
-      items: validItems,
-      delivery_charge: parseFloat(deliveryCharge) || 0,
-      discount: parseFloat(discount) || 0,
-      tax_amount: parseFloat(taxAmount) || 0,
-      notes: notes || undefined,
-      payment_method: paymentMethod || undefined,
-      estimated_prep_time: estimatedPrepTime || undefined,
-      valid_until: validUntil || undefined,
-    }));
+    try {
+      // 1) Upload the bill photo (if provided) and get its URL.
+      let billImageUrl = null;
+      if (billFile) {
+        setUploading(true);
+        const form = new FormData();
+        form.append('bill', billFile);
+        const up = await api.post('/quotations/upload-bill', form, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        billImageUrl = up.data.data.url;
+        setUploading(false);
+      }
+
+      // 2) Create the quotation (delivery charge is auto-calculated server-side).
+      dispatch(createQuotation({
+        request_id: requestId,
+        shop_id: shopId,
+        total_amount: parseFloat(totalAmount),
+        approx_weight: approxWeight ? parseFloat(approxWeight) : undefined,
+        bill_image_url: billImageUrl || undefined,
+        notes: notes || undefined,
+        payment_method: paymentMethod || undefined,
+        valid_until: validUntil || undefined,
+      }));
+    } catch (err) {
+      setUploading(false);
+      setLocalError(err.response?.data?.message || 'Failed to upload the bill. Please try again.');
+    }
   };
+
+  const shownError = localError || error;
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       <div className="bg-white rounded-lg shadow p-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Create Quotation</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Send Quotation</h1>
+        <p className="text-sm text-gray-500 mb-6">
+          Upload the bill, enter the total amount and approximate weight. The delivery
+          charge is calculated automatically from the weight and distance.
+        </p>
 
         {/* Request Preview */}
         {currentRequest && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
             <p className="text-sm font-medium text-blue-800 mb-1">For Request:</p>
-            <p className="text-sm text-blue-700 line-clamp-2">{currentRequest.request_text}</p>
-            {currentRequest.customer && (
-              <p className="text-xs text-blue-600 mt-1">Customer: {currentRequest.customer.name}</p>
+            <p className="text-sm text-blue-700 whitespace-pre-wrap">{currentRequest.request_text}</p>
+            {currentRequest.images && currentRequest.images.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {currentRequest.images.map((img) => (
+                  <a key={img.id} href={mediaUrl(img.image_url)} target="_blank" rel="noopener noreferrer">
+                    <img src={mediaUrl(img.image_url)} alt="Order" className="w-16 h-16 object-cover rounded border" />
+                  </a>
+                ))}
+              </div>
             )}
           </div>
         )}
 
-        {error && (
+        {shownError && (
           <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-lg text-sm">
-            {error}
+            {shownError}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Items */}
+          {/* Bill upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Items</label>
-            <div className="space-y-3">
-              {items.map((item, index) => (
-                <div key={index} className="flex gap-2 items-start">
-                  <div className="flex-1">
-                    <input
-                      type="text"
-                      value={item.item_name}
-                      onChange={(e) => updateItem(index, 'item_name', e.target.value)}
-                      placeholder="Item name"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="w-16">
-                    <input
-                      type="number"
-                      value={item.quantity}
-                      onChange={(e) => updateItem(index, 'quantity', e.target.value)}
-                      min="1"
-                      placeholder="Qty"
-                      className="w-full px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="w-20">
-                    <input
-                      type="text"
-                      value={item.unit}
-                      onChange={(e) => updateItem(index, 'unit', e.target.value)}
-                      placeholder="Unit"
-                      className="w-full px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <div className="w-24">
-                    <input
-                      type="number"
-                      value={item.unit_price}
-                      onChange={(e) => updateItem(index, 'unit_price', e.target.value)}
-                      step="0.01"
-                      min="0"
-                      placeholder="Price"
-                      className="w-full px-2 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => removeItem(index)}
-                    disabled={items.length === 1}
-                    className="p-2 text-red-500 hover:bg-red-50 rounded disabled:opacity-30"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              ))}
-            </div>
-            <button
-              type="button"
-              onClick={addItem}
-              className="mt-2 text-sm text-blue-600 hover:text-blue-700 font-medium"
-            >
-              + Add Item
-            </button>
-          </div>
-
-          {/* Delivery Charge */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Delivery Charge</label>
-              <input
-                type="number"
-                value={deliveryCharge}
-                onChange={(e) => setDeliveryCharge(e.target.value)}
-                step="0.01"
-                min="0"
-                placeholder="0.00"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Discount</label>
-              <input
-                type="number"
-                value={discount}
-                onChange={(e) => setDiscount(e.target.value)}
-                step="0.01"
-                min="0"
-                placeholder="0.00"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Tax</label>
-              <input
-                type="number"
-                value={taxAmount}
-                onChange={(e) => setTaxAmount(e.target.value)}
-                step="0.01"
-                min="0"
-                placeholder="0.00"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-          </div>
-
-          {/* Total */}
-          <div className="bg-gray-50 rounded-lg p-4 text-right">
-            <span className="text-lg font-semibold text-gray-800">
-              Total: <span className="text-blue-600">{calculateTotal()}</span>
-            </span>
-          </div>
-
-          {/* Payment Method */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method</label>
-            <select
-              value={paymentMethod}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select payment method</option>
-              <option value="Cash on Delivery">Cash on Delivery</option>
-              <option value="UPI">UPI</option>
-              <option value="Online Payment">Online Payment</option>
-              <option value="BharatPe">BharatPe</option>
-            </select>
-          </div>
-
-          {/* Estimated Prep Time */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Estimated Preparation Time</label>
-            <select
-              value={estimatedPrepTime}
-              onChange={(e) => setEstimatedPrepTime(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="">Select time</option>
-              <option value="15 minutes">15 minutes</option>
-              <option value="30 minutes">30 minutes</option>
-              <option value="45 minutes">45 minutes</option>
-              <option value="1 hour">1 hour</option>
-              <option value="2 hours">2 hours</option>
-              <option value="Same day">Same day</option>
-              <option value="Next day">Next day</option>
-            </select>
-          </div>
-
-          {/* Valid Until */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Valid Until (optional)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Bill Photo</label>
+            {billPreview ? (
+              <div className="relative inline-block">
+                <img src={billPreview} alt="Bill preview" className="w-40 h-40 object-cover rounded-lg border" />
+                <button
+                  type="button"
+                  onClick={removeBill}
+                  className="absolute -top-2 -right-2 bg-red-600 text-white w-6 h-6 rounded-full text-xs"
+                >
+                  ✕
+                </button>
+              </div>
+            ) : (
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => cameraInputRef.current?.click()}
+                  className="flex-1 flex flex-col items-center justify-center gap-1 border-2 border-dashed border-gray-300 rounded-lg py-4 text-gray-600 hover:border-blue-400 hover:text-blue-600"
+                >
+                  <span className="text-2xl">📷</span>
+                  <span className="text-xs font-medium">Take Photo</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="flex-1 flex flex-col items-center justify-center gap-1 border-2 border-dashed border-gray-300 rounded-lg py-4 text-gray-600 hover:border-blue-400 hover:text-blue-600"
+                >
+                  <span className="text-2xl">📁</span>
+                  <span className="text-xs font-medium">Upload File</span>
+                </button>
+              </div>
+            )}
+            {/* Camera capture (mobile) */}
             <input
-              type="datetime-local"
-              value={validUntil}
-              onChange={(e) => setValidUntil(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+              ref={cameraInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              className="hidden"
+              onChange={handleBillSelect}
+            />
+            {/* File chooser */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleBillSelect}
             />
           </div>
 
-          {/* Notes */}
+          {/* Total amount + weight */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Total Bill Amount (INR)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={totalAmount}
+                onChange={(e) => setTotalAmount(e.target.value)}
+                placeholder="0.00"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Approx. Weight (kg)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.1"
+                value={approxWeight}
+                onChange={(e) => setApproxWeight(e.target.value)}
+                placeholder="0.0"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          </div>
+
+          {/* Auto-calculated delivery charge */}
+          <div className="bg-gray-50 rounded-lg p-4 space-y-1 text-sm">
+            <div className="flex justify-between">
+              <span className="text-gray-600">Bill Amount</span>
+              <span>&#8377;{(parseFloat(totalAmount) || 0).toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-600">
+                Delivery Charge
+                {estimate && estimate.distance_km != null && (
+                  <span className="text-xs text-gray-400"> ({estimate.distance_km} km)</span>
+                )}
+              </span>
+              <span>
+                {estimating ? 'Calculating…' : deliveryCharge != null ? `\u20B9${deliveryCharge.toFixed(2)}` : '—'}
+              </span>
+            </div>
+            <div className="flex justify-between font-semibold text-base pt-2 border-t border-gray-200">
+              <span>Grand Total</span>
+              <span className="text-blue-600">&#8377;{grandTotal.toFixed(2)}</span>
+            </div>
+            <p className="text-xs text-gray-400 pt-1">
+              Delivery charge is auto-calculated from weight &amp; distance (set by admin).
+            </p>
+          </div>
+
+          {/* Optional fields */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-              placeholder="Add any notes for the customer..."
+              rows={2}
+              placeholder="Any note for the customer..."
+              className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Payment Method (optional)</label>
+              <select
+                value={paymentMethod}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">Let customer choose</option>
+                <option value="upi">UPI</option>
+                <option value="cod">Cash on Delivery</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Valid Until (optional)</label>
+              <input
+                type="date"
+                value={validUntil}
+                onChange={(e) => setValidUntil(e.target.value)}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              />
+            </div>
+          </div>
 
-          {/* Submit */}
-          <div className="flex gap-3">
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="flex-1 py-3 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
-            >
-              {isLoading ? 'Sending...' : 'Send Quotation'}
-            </button>
+          <div className="flex gap-3 pt-2">
             <button
               type="button"
-              onClick={() => navigate(-1)}
-              className="py-3 px-6 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+              onClick={() => navigate(`/shop/request/${requestId}`)}
+              className="flex-1 py-2.5 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
             >
               Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading || uploading}
+              className="flex-1 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50"
+            >
+              {uploading ? 'Uploading bill…' : isLoading ? 'Sending…' : 'Send Quotation'}
             </button>
           </div>
         </form>

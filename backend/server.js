@@ -82,6 +82,26 @@ const reconcileSchema = async () => {
   } catch (error) {
     console.error('Column migration (customer_requests.status) failed:', error.message);
   }
+
+  // Quotations now support an uploaded bill photo + approximate weight (for the
+  // bill-upload flow and weight-based delivery charge). Add the columns if the
+  // live DB predates them. Each ALTER is guarded so it is safe to re-run.
+  try {
+    await sequelize.query("ALTER TABLE quotations ADD COLUMN bill_image_url VARCHAR(500) NULL");
+    console.log('Column migration: added quotations.bill_image_url.');
+  } catch (error) {
+    if (!/duplicate column|exists/i.test(error.message)) {
+      console.error('Column migration (quotations.bill_image_url) failed:', error.message);
+    }
+  }
+  try {
+    await sequelize.query("ALTER TABLE quotations ADD COLUMN approx_weight DECIMAL(10,2) NULL");
+    console.log('Column migration: added quotations.approx_weight.');
+  } catch (error) {
+    if (!/duplicate column|exists/i.test(error.message)) {
+      console.error('Column migration (quotations.approx_weight) failed:', error.message);
+    }
+  }
 };
 
 // Create a super_admin account from env vars on first run (secure: no hardcoded password).
