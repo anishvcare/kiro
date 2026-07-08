@@ -104,6 +104,35 @@ const reconcileSchema = async () => {
   }
 };
 
+// ONE-TIME recovery: reset every super_admin's password to the public demo
+// password ("password123"). This is gated by the flag below so it can be turned
+// off after use. The password is bcrypt-hashed before storage (never stored as
+// plain text). "password123" is already the documented demo password in
+// database/seed.sql, so this exposes no real secret.
+// TODO: set RESET_SUPERADMIN_TO_DEFAULT = false once the admin can log in.
+const RESET_SUPERADMIN_TO_DEFAULT = true;
+const resetSuperAdminPassword = async () => {
+  if (!RESET_SUPERADMIN_TO_DEFAULT) return;
+  try {
+    const role = await Role.findOne({
+      where: { name: 'super_admin' },
+      include: [{ model: User, as: 'users', through: { attributes: [] } }],
+    });
+    if (!role || !role.users || role.users.length === 0) {
+      console.log('No super_admin users found to reset.');
+      return;
+    }
+    const salt = await bcrypt.genSalt(12);
+    const password_hash = await bcrypt.hash('password123', salt);
+    for (const u of role.users) {
+      await u.update({ password_hash, is_active: true, refresh_token: null });
+      console.log(`Super admin password reset to default for ${u.email}`);
+    }
+  } catch (error) {
+    console.error('Super admin password reset failed:', error.message);
+  }
+};
+
 // Create a super_admin account from env vars on first run (secure: no hardcoded password).
 const seedAdminUser = async () => {
   const email = process.env.ADMIN_EMAIL;
@@ -234,6 +263,8 @@ const startServer = async () => {
     await reconcileSchema();
     // Create the super_admin account if ADMIN_EMAIL/ADMIN_PASSWORD are configured.
     await seedAdminUser();
+    // One-time: reset super_admin password to the demo default (flag-gated).
+    await resetSuperAdminPassword();
     // Seed demo data if SEED_DEMO_DATA=true.
     await seedDemoData();
   } catch (error) {
