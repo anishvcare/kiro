@@ -115,7 +115,17 @@ const seedAdminUser = async () => {
   try {
     const existing = await User.findOne({ where: { email } });
     if (existing) {
-      console.log('Admin user already exists. Skipping admin seed.');
+      // If ADMIN_RESET_PASSWORD=true, reset the existing admin's password to
+      // ADMIN_PASSWORD (one-off recovery). Remove the flag afterwards so it does
+      // not reset on every restart.
+      if (String(process.env.ADMIN_RESET_PASSWORD).toLowerCase() === 'true') {
+        const salt = await bcrypt.genSalt(12);
+        const password_hash = await bcrypt.hash(password, salt);
+        await existing.update({ password_hash, is_active: true, refresh_token: null });
+        console.log(`Admin password reset for ${email} (ADMIN_RESET_PASSWORD=true).`);
+      } else {
+        console.log('Admin user already exists. Skipping admin seed.');
+      }
       return;
     }
     const role = await Role.findOne({ where: { name: 'super_admin' } });
