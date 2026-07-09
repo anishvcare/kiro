@@ -165,13 +165,13 @@ const getShopSettlements = asyncHandler(async (req, res) => {
   });
 
   // Return the shop as plain string fields (not a nested object) so the report
-  // table shows readable shop details instead of a raw JSON blob. The "shop"
-  // column shows the shop name.
+  // table shows readable shop details instead of a raw JSON blob. Shop ID is
+  // intentionally omitted from the report output.
   const data = settlements.map((s) => ({
-    shop_id: s.shop_id,
-    shop: s.shop?.name || '-',
+    shop_name: s.shop?.name || '-',
     city: s.shop?.city || '-',
     phone: s.shop?.phone || '-',
+    address: s.shop?.address || '-',
     total_amount: Number(s.totalAmount || 0),
     transactions: Number(s.transactionCount || 0),
   }));
