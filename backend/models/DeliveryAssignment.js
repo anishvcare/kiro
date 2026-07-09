@@ -49,6 +49,13 @@ module.exports = (sequelize, DataTypes) => {
     notes: {
       type: DataTypes.TEXT,
     },
+    // Fine-grained delivery step for the boy's 6-step progress UI. The `status`
+    // column is a coarse ENUM (assigned/picked_up/in_transit/...) that cannot
+    // represent every step (e.g. reached_shop), so we track the exact step here.
+    delivery_step: {
+      type: DataTypes.STRING(50),
+      defaultValue: 'assigned',
+    },
   }, {
     tableName: 'delivery_assignments',
     timestamps: true,

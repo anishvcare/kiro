@@ -106,6 +106,7 @@ const acceptDelivery = asyncHandler(async (req, res) => {
   }
 
   assignment.status = 'assigned'; // Keep as assigned (accepted state)
+  assignment.delivery_step = 'assigned';
   await assignment.save();
 
   return apiResponse(res, 200, 'Delivery accepted', { assignment });

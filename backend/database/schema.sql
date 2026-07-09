@@ -359,6 +359,7 @@ CREATE TABLE IF NOT EXISTS delivery_assignments (
   actual_delivery_time TIMESTAMP NULL,
   delivery_proof_url VARCHAR(500),
   notes TEXT,
+  delivery_step VARCHAR(50) DEFAULT 'assigned',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   FOREIGN KEY (transaction_id) REFERENCES payment_transactions(id) ON DELETE CASCADE,

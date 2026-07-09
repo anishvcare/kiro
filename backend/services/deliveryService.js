@@ -96,6 +96,7 @@ const assignDeliveryBoy = async (agentId, requestId, deliveryBoyId, transactionI
       delivery_boy_id: deliveryBoyId,
       agent_id: agentId,
       status: 'assigned',
+      delivery_step: 'assigned',
       pickup_address: request.delivery_address || 'Shop pickup',
       delivery_address: request.delivery_address || 'Customer address',
       notes: `Assigned for request ${requestId}`,
@@ -197,7 +198,9 @@ const updateDeliveryStatus = async (assignmentId, newStatus, deliveryBoyId) => {
     throw new Error('Not authorized to update this delivery');
   }
 
+  // Coarse ENUM status (for downstream logic) + fine-grained step (for the UI).
   assignment.status = statusMap[newStatus] || newStatus;
+  assignment.delivery_step = newStatus;
 
   if (newStatus === 'delivered') {
     assignment.actual_delivery_time = new Date();

@@ -26,11 +26,22 @@ const DELIVERY_STEPS = [
   { key: 'delivered', label: 'Delivered', action: 'markDelivered' },
 ];
 
+// Coarse ENUM status -> step index (fallback when delivery_step is absent).
 const statusToStepIndex = {
   'pending': -1,
   'assigned': 0,
   'picked_up': 2,
   'in_transit': 3,
+  'delivered': 5,
+};
+
+// Fine-grained delivery_step -> step index (primary source of truth).
+const stepToIndex = {
+  'assigned': 0,
+  'reached_shop': 1,
+  'picked_up': 2,
+  'out_for_delivery': 3,
+  'reached_customer': 4,
   'delivered': 5,
 };
 
@@ -62,7 +73,9 @@ const ActiveDelivery = () => {
   }, [deliveryId, assignedDeliveries, dispatch]);
 
   const delivery = currentDelivery || (deliveryId && assignedDeliveries?.find((d) => d.id === deliveryId));
-  const currentStepIdx = delivery ? (statusToStepIndex[delivery.status] ?? 0) : -1;
+  const currentStepIdx = delivery
+    ? (stepToIndex[delivery.delivery_step] ?? statusToStepIndex[delivery.status] ?? 0)
+    : -1;
 
   const handleAction = (step) => {
     if (!delivery) return;

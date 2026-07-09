@@ -111,6 +111,17 @@ const reconcileSchema = async () => {
   } catch (error) {
     console.error('Column migration (delivery_assignments.transaction_id) failed:', error.message);
   }
+
+  // delivery_assignments.delivery_step tracks the boy's fine-grained 6-step
+  // progress (the coarse status ENUM can't represent e.g. reached_shop).
+  try {
+    await sequelize.query("ALTER TABLE delivery_assignments ADD COLUMN delivery_step VARCHAR(50) DEFAULT 'assigned'");
+    console.log('Column migration: added delivery_assignments.delivery_step.');
+  } catch (error) {
+    if (!/duplicate column|exists/i.test(error.message)) {
+      console.error('Column migration (delivery_assignments.delivery_step) failed:', error.message);
+    }
+  }
 };
 
 // ONE-TIME recovery: reset every super_admin's password to the public demo
