@@ -3,17 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   toggleOnlineStatus,
+  fetchOnlineStatus,
   fetchAssignedDeliveries,
   fetchDailyDeliveries,
 } from '../../store/slices/deliverySlice';
 
 const BoyDashboard = () => {
   const dispatch = useDispatch();
-  const { isOnline, assignedDeliveries, dailyStats, isLoading } = useSelector(
+  const { isOnline, assignedDeliveries, dailyStats, statusLoading, hasProfile, error } = useSelector(
     (state) => state.delivery
   );
 
   useEffect(() => {
+    dispatch(fetchOnlineStatus());
     dispatch(fetchAssignedDeliveries());
     dispatch(fetchDailyDeliveries());
   }, [dispatch]);
@@ -34,9 +36,12 @@ const BoyDashboard = () => {
             </p>
           </div>
           <button
+            type="button"
+            role="switch"
+            aria-checked={isOnline}
             onClick={handleToggleStatus}
-            disabled={isLoading}
-            className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+            disabled={statusLoading}
+            className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors disabled:opacity-60 ${
               isOnline ? 'bg-green-500' : 'bg-gray-300'
             }`}
           >
@@ -47,6 +52,15 @@ const BoyDashboard = () => {
             />
           </button>
         </div>
+        {hasProfile === false && (
+          <p className="mt-2 text-xs text-amber-600">
+            No delivery-boy profile is linked to this account, so status can&apos;t be changed.
+            Ask your delivery agent/admin to add you as a delivery boy.
+          </p>
+        )}
+        {error && hasProfile !== false && (
+          <p className="mt-2 text-xs text-red-600">{error}</p>
+        )}
       </div>
 
       {/* Daily Stats */}

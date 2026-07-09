@@ -113,6 +113,18 @@ export const toggleOnlineStatus = createAsyncThunk(
   }
 );
 
+export const fetchOnlineStatus = createAsyncThunk(
+  'delivery/fetchOnlineStatus',
+  async (_, thunkAPI) => {
+    try {
+      const data = await deliveryApi.getOnlineStatus();
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to fetch status');
+    }
+  }
+);
+
 export const fetchAssignedDeliveries = createAsyncThunk(
   'delivery/fetchAssignedDeliveries',
   async (_, thunkAPI) => {
@@ -292,6 +304,8 @@ const initialState = {
 
   // Boy state
   isOnline: false,
+  statusLoading: false,
+  hasProfile: true,
   assignedDeliveries: [],
   currentDelivery: null,
   dailyStats: null,
@@ -362,10 +376,18 @@ const deliverySlice = createSlice({
       .addCase(fetchAgentSettlementReport.pending, (state) => { state.isLoading = true; })
       .addCase(fetchAgentSettlementReport.fulfilled, (state, action) => { state.isLoading = false; state.settlementReport = action.payload; })
       .addCase(fetchAgentSettlementReport.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
-      // Toggle Online
-      .addCase(toggleOnlineStatus.pending, (state) => { state.isLoading = true; })
-      .addCase(toggleOnlineStatus.fulfilled, (state, action) => { state.isLoading = false; state.isOnline = action.payload.is_available; })
-      .addCase(toggleOnlineStatus.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      // Toggle Online (uses a dedicated flag so other requests don't disable the toggle)
+      .addCase(toggleOnlineStatus.pending, (state) => { state.statusLoading = true; state.error = null; })
+      .addCase(toggleOnlineStatus.fulfilled, (state, action) => { state.statusLoading = false; state.isOnline = !!action.payload.is_available; })
+      .addCase(toggleOnlineStatus.rejected, (state, action) => { state.statusLoading = false; state.error = action.payload; })
+      // Fetch current online status (on mount)
+      .addCase(fetchOnlineStatus.pending, (state) => { state.statusLoading = true; })
+      .addCase(fetchOnlineStatus.fulfilled, (state, action) => {
+        state.statusLoading = false;
+        state.isOnline = !!action.payload.is_available;
+        if (action.payload.has_profile !== undefined) state.hasProfile = action.payload.has_profile;
+      })
+      .addCase(fetchOnlineStatus.rejected, (state, action) => { state.statusLoading = false; state.error = action.payload; })
       // Assigned Deliveries
       .addCase(fetchAssignedDeliveries.pending, (state) => { state.isLoading = true; })
       .addCase(fetchAssignedDeliveries.fulfilled, (state, action) => { state.isLoading = false; state.assignedDeliveries = action.payload; })

@@ -41,6 +41,23 @@ const setOnlineStatus = asyncHandler(async (req, res) => {
 });
 
 /**
+ * Get current online/offline status
+ * GET /api/delivery/boy/status
+ */
+const getStatus = asyncHandler(async (req, res) => {
+  const boy = await DeliveryBoy.findOne({ where: { user_id: req.user.id } });
+  if (!boy) {
+    // No delivery-boy profile yet: report offline + no profile (so the UI can
+    // show a helpful message instead of silently failing).
+    return apiResponse(res, 200, 'No delivery profile', { is_available: false, has_profile: false });
+  }
+  return apiResponse(res, 200, 'Status retrieved', {
+    is_available: !!boy.is_available,
+    has_profile: true,
+  });
+});
+
+/**
  * Get assigned deliveries for the delivery boy
  * GET /api/delivery/boy/assigned
  */
@@ -478,6 +495,7 @@ const getTrackInfo = asyncHandler(async (req, res) => {
 
 module.exports = {
   setOnlineStatus,
+  getStatus,
   getAssignedDeliveries,
   acceptDelivery,
   rejectDelivery,

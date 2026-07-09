@@ -25,6 +25,7 @@ router.get('/agent/cash-report', requireRole('delivery_agent'), deliveryAgentCon
 router.get('/agent/settlement-report', requireRole('delivery_agent'), deliveryAgentController.getSettlementReport);
 
 // ===== DELIVERY BOY ROUTES =====
+router.get('/boy/status', requireRole('delivery_boy'), deliveryBoyController.getStatus);
 router.put('/boy/status', requireRole('delivery_boy'), deliveryBoyController.setOnlineStatus);
 router.get('/boy/assigned', requireRole('delivery_boy'), deliveryBoyController.getAssignedDeliveries);
 router.put('/boy/accept/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.acceptDelivery);

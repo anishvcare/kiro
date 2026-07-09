@@ -54,6 +54,11 @@ export const setOnlineStatus = async (is_available) => {
   return response.data.data;
 };
 
+export const getOnlineStatus = async () => {
+  const response = await api.get('/delivery/boy/status');
+  return response.data.data;
+};
+
 export const getAssignedDeliveries = async () => {
   const response = await api.get('/delivery/boy/assigned');
   return response.data.data;
