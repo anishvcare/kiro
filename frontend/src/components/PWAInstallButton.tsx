@@ -3,14 +3,20 @@ import { HiOutlineDownload } from 'react-icons/hi'
 import { usePWAInstall } from '../hooks/usePWAInstall'
 
 export function PWAInstallButton() {
-  const { isInstallable, isIOS, install } = usePWAInstall()
+  const { isInstallable, isIOS, install, isStandalone } = usePWAInstall()
   const [showInstructions, setShowInstructions] = useState(false)
+
+  // Don't show button if app is already installed (running standalone)
+  if (isStandalone) return null
+
+  // Only show button if native install prompt is available OR on iOS
+  if (!isInstallable && !isIOS) return null
 
   const handleClick = async () => {
     if (isInstallable) {
       await install()
-    } else {
-      // Show instructions for iOS or any browser where prompt is not available
+    } else if (isIOS) {
+      // Show instructions only for iOS where native prompt is not available
       setShowInstructions(true)
     }
   }
@@ -34,36 +40,19 @@ export function PWAInstallButton() {
         >
           <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
             <h3 className="mb-4 text-lg font-semibold text-gray-900">
-              {isIOS ? 'Install on iOS' : 'Install App'}
+              Install on iOS
             </h3>
-            {isIOS ? (
-              <ol className="mb-4 list-decimal space-y-2 pl-4 text-sm text-gray-600">
-                <li>
-                  Tap the <strong>Share</strong> button in Safari (the square with an arrow)
-                </li>
-                <li>
-                  Scroll down and tap <strong>Add to Home Screen</strong>
-                </li>
-                <li>
-                  Tap <strong>Add</strong> in the top-right corner
-                </li>
-              </ol>
-            ) : (
-              <div className="mb-4 space-y-2 text-sm text-gray-600">
-                <p>To install this app on your device:</p>
-                <ol className="list-decimal space-y-2 pl-4">
-                  <li>
-                    Open the browser menu (three dots in the top-right corner)
-                  </li>
-                  <li>
-                    Tap <strong>Install app</strong> or <strong>Add to Home Screen</strong>
-                  </li>
-                  <li>
-                    Follow the on-screen prompts to complete installation
-                  </li>
-                </ol>
-              </div>
-            )}
+            <ol className="mb-4 list-decimal space-y-2 pl-4 text-sm text-gray-600">
+              <li>
+                Tap the <strong>Share</strong> button in Safari (the square with an arrow)
+              </li>
+              <li>
+                Scroll down and tap <strong>Add to Home Screen</strong>
+              </li>
+              <li>
+                Tap <strong>Add</strong> in the top-right corner
+              </li>
+            </ol>
             <button
               onClick={() => setShowInstructions(false)}
               className="w-full rounded-lg bg-primary-600 px-4 py-2 text-sm font-medium text-white hover:bg-primary-700"
