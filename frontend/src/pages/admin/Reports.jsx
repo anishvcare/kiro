@@ -5,6 +5,23 @@ import { fetchReportData } from '../../store/slices/adminSlice';
 const fmtCurrency = (v) =>
   new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(Number(v) || 0);
 
+// Column keys that represent money amounts (rendered as INR currency).
+const CURRENCY_KEYS = new Set(['total_amount', 'totalamount', 'amount', 'revenue', 'income', 'final_amount', 'delivery_charge']);
+
+// Render a table cell readably: currency for amount columns, readable text for
+// nested objects (e.g. a shop object) instead of raw JSON.
+const formatCell = (key, val) => {
+  if (val === null || val === undefined || val === '') return '-';
+  if (typeof val === 'object') {
+    const parts = Object.values(val).filter((v) => v !== null && v !== undefined && v !== '' && typeof v !== 'object');
+    return parts.length ? parts.join(' \u2014 ') : '-';
+  }
+  if (CURRENCY_KEYS.has(String(key).toLowerCase())) {
+    return fmtCurrency(val);
+  }
+  return String(val);
+};
+
 
 const reportTypes = [
   { key: 'revenue', label: 'Revenue' },
@@ -149,9 +166,9 @@ const Reports = () => {
                   <tbody className="divide-y divide-gray-200">
                     {currentReport.data.map((row, idx) => (
                       <tr key={idx} className="hover:bg-gray-50">
-                        {Object.values(row).map((val, i) => (
+                        {Object.entries(row).map(([key, val], i) => (
                           <td key={i} className="px-4 py-2 text-sm text-gray-700">
-                            {typeof val === 'object' ? JSON.stringify(val) : String(val ?? '-')}
+                            {formatCell(key, val)}
                           </td>
                         ))}
                       </tr>

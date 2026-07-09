@@ -157,14 +157,26 @@ const getShopSettlements = asyncHandler(async (req, res) => {
       status: 'success',
       paid_at: { [Op.between]: [startDate, endDate] },
     },
-    include: [{ model: Shop, as: 'shop', attributes: ['name', 'city'] }],
+    include: [{ model: Shop, as: 'shop', attributes: ['name', 'city', 'phone', 'address'] }],
     group: ['shop_id', 'shop.id'],
     order: [[sequelize.fn('SUM', sequelize.col('amount')), 'DESC']],
     raw: true,
     nest: true,
   });
 
-  return apiResponse(res, 200, 'Shop settlements report', { data: settlements, startDate, endDate });
+  // Flatten the nested shop object into readable, per-column fields so the
+  // report table shows proper shop details instead of a raw JSON blob.
+  const data = settlements.map((s) => ({
+    shop_name: s.shop?.name || '-',
+    city: s.shop?.city || '-',
+    phone: s.shop?.phone || '-',
+    address: s.shop?.address || '-',
+    total_amount: Number(s.totalAmount || 0),
+    transactions: Number(s.transactionCount || 0),
+    shop_id: s.shop_id,
+  }));
+
+  return apiResponse(res, 200, 'Shop settlements report', { data, startDate, endDate });
 });
 
 /**
