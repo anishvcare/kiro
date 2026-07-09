@@ -199,14 +199,36 @@ const getDeliveryPerformance = asyncHandler(async (req, res) => {
       created_at: { [Op.between]: [startDate, endDate] },
     },
     include: [
-      { model: DeliveryBoy, as: 'deliveryBoy', include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name'] }] },
+      {
+        model: DeliveryBoy,
+        as: 'deliveryBoy',
+        include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name', 'phone'] }],
+      },
     ],
     group: ['delivery_boy_id', 'deliveryBoy.id', 'deliveryBoy->user.id'],
     raw: true,
     nest: true,
   });
 
-  return apiResponse(res, 200, 'Delivery performance report', { data: performance, startDate, endDate });
+  // Flatten the nested delivery-boy object into readable columns (name, phone,
+  // vehicle) instead of dumping the whole record.
+  const data = performance.map((p) => {
+    const u = p.deliveryBoy && p.deliveryBoy.user;
+    const name = u ? `${u.first_name || ''} ${u.last_name || ''}`.trim() : '';
+    const vehicle = p.deliveryBoy
+      ? [p.deliveryBoy.vehicle_type, p.deliveryBoy.vehicle_number].filter(Boolean).join(' ')
+      : '';
+    return {
+      delivery_boy: name || '-',
+      phone: (u && u.phone) || '-',
+      vehicle: vehicle || '-',
+      total_assignments: Number(p.totalAssignments || 0),
+      completed: Number(p.completedDeliveries || 0),
+      failed: Number(p.failedDeliveries || 0),
+    };
+  });
+
+  return apiResponse(res, 200, 'Delivery performance report', { data, startDate, endDate });
 });
 
 /**
