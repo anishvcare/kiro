@@ -102,6 +102,15 @@ const reconcileSchema = async () => {
       console.error('Column migration (quotations.approx_weight) failed:', error.message);
     }
   }
+
+  // delivery_assignments.transaction_id must be nullable so a delivery can be
+  // assigned before/without an online payment (e.g. COD collected at delivery).
+  try {
+    await sequelize.query("ALTER TABLE delivery_assignments MODIFY COLUMN transaction_id CHAR(36) NULL");
+    console.log('Column migration: delivery_assignments.transaction_id is nullable.');
+  } catch (error) {
+    console.error('Column migration (delivery_assignments.transaction_id) failed:', error.message);
+  }
 };
 
 // ONE-TIME recovery: reset every super_admin's password to the public demo

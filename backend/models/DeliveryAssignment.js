@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     transaction_id: {
       type: DataTypes.UUID,
-      allowNull: false,
+      allowNull: true,
     },
     delivery_boy_id: {
       type: DataTypes.UUID,

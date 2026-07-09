@@ -71,10 +71,28 @@ const assignDeliveryBoy = async (agentId, requestId, deliveryBoyId, transactionI
       throw new Error('Delivery boy is not available');
     }
 
+    // Resolve the REAL payment transaction for this request (via its quotation).
+    // Never invent a fake id - that violates the FK to payment_transactions.
+    // If there is no payment yet (e.g. COD collected at delivery), leave it null.
+    let resolvedTransactionId = transactionId || null;
+    if (!resolvedTransactionId) {
+      const quotation = await Quotation.findOne({
+        where: { request_id: requestId },
+        order: [['created_at', 'DESC']],
+      });
+      if (quotation) {
+        const txn = await PaymentTransaction.findOne({
+          where: { quotation_id: quotation.id },
+          order: [['created_at', 'DESC']],
+        });
+        if (txn) resolvedTransactionId = txn.id;
+      }
+    }
+
     // Create delivery assignment
     const assignment = await DeliveryAssignment.create({
       id: generateId(),
-      transaction_id: transactionId || generateId(),
+      transaction_id: resolvedTransactionId,
       delivery_boy_id: deliveryBoyId,
       agent_id: agentId,
       status: 'assigned',
