@@ -60,8 +60,9 @@ const registerShopValidation = [
 
 // Delivery assignment validation rules
 const assignDeliveryValidation = [
-  body('transaction_id').isUUID().withMessage('Valid transaction ID is required'),
-  body('delivery_boy_id').isUUID().withMessage('Valid delivery boy ID is required'),
+  body('request_id').notEmpty().withMessage('Please select a request'),
+  body('delivery_boy_id').notEmpty().withMessage('Please select a delivery boy'),
+  body('transaction_id').optional({ nullable: true }),
   validate,
 ];
 

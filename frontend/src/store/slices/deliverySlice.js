@@ -15,6 +15,16 @@ export const fetchConfirmedRequests = createAsyncThunk(
   }
 );
 
+// Build a readable message from an API error, including field-level
+// validation errors when present (so users see WHAT failed).
+const errorMessage = (error, fallback) => {
+  const data = error.response?.data;
+  if (data?.errors && Array.isArray(data.errors) && data.errors.length > 0) {
+    return data.errors.map((e) => e.message || e.msg).filter(Boolean).join(', ');
+  }
+  return data?.message || fallback;
+};
+
 export const assignDeliveryBoy = createAsyncThunk(
   'delivery/assignDeliveryBoy',
   async (data, thunkAPI) => {
@@ -22,7 +32,7 @@ export const assignDeliveryBoy = createAsyncThunk(
       const result = await deliveryApi.assignDeliveryBoy(data);
       return result.assignment;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to assign delivery boy');
+      return thunkAPI.rejectWithValue(errorMessage(error, 'Failed to assign delivery boy'));
     }
   }
 );
@@ -34,7 +44,7 @@ export const reassignDeliveryBoyThunk = createAsyncThunk(
       const result = await deliveryApi.reassignDeliveryBoy(data);
       return result.assignment;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to reassign');
+      return thunkAPI.rejectWithValue(errorMessage(error, 'Failed to reassign'));
     }
   }
 );
