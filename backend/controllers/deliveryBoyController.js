@@ -9,12 +9,47 @@ const {
   DeliveryBoy,
   CustomerRequest,
   CashCollection,
+  Customer,
+  Shop,
+  Quotation,
+  QuotationItem,
+  PaymentTransaction,
   User,
   sequelize,
 } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const deliveryService = require('../services/deliveryService');
 const otpService = require('../services/otpService');
+
+// Shared include tree that pulls the full order details for a delivery boy:
+// the request, its shop (+owner phone), the customer (+user), and the
+// quotation with items + the bill photo.
+const ORDER_DETAIL_INCLUDE = [
+  {
+    model: CustomerRequest,
+    as: 'request',
+    include: [
+      {
+        model: Shop,
+        as: 'shop',
+        attributes: ['id', 'name', 'address', 'city', 'phone', 'latitude', 'longitude', 'logo_url'],
+        include: [{ model: User, as: 'owner', attributes: ['first_name', 'last_name', 'phone'] }],
+      },
+      {
+        model: Customer,
+        as: 'customer',
+        attributes: ['id', 'default_address'],
+        include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name', 'phone'] }],
+      },
+      {
+        model: Quotation,
+        as: 'quotations',
+        include: [{ model: QuotationItem, as: 'items' }],
+      },
+    ],
+  },
+  { model: PaymentTransaction, as: 'transaction', attributes: ['id', 'payment_method', 'status', 'amount'] },
+];
 
 /**
  * Set online/offline status
@@ -74,6 +109,7 @@ const getAssignedDeliveries = asyncHandler(async (req, res) => {
       delivery_boy_id: boy.id,
       status: { [Op.notIn]: ['delivered', 'failed', 'returned'] },
     },
+    include: ORDER_DETAIL_INCLUDE,
     order: [['created_at', 'DESC']],
   });
 

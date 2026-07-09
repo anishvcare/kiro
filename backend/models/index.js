@@ -136,6 +136,8 @@ DeliveryBoy.hasMany(DeliveryAssignment, { foreignKey: 'delivery_boy_id', as: 'as
 DeliveryAssignment.belongsTo(DeliveryBoy, { foreignKey: 'delivery_boy_id', as: 'deliveryBoy' });
 DeliveryAgent.hasMany(DeliveryAssignment, { foreignKey: 'agent_id', as: 'assignments' });
 DeliveryAssignment.belongsTo(DeliveryAgent, { foreignKey: 'agent_id', as: 'agent' });
+CustomerRequest.hasMany(DeliveryAssignment, { foreignKey: 'request_id', as: 'deliveryAssignments' });
+DeliveryAssignment.belongsTo(CustomerRequest, { foreignKey: 'request_id', as: 'request' });
 
 // CashCollection
 DeliveryAssignment.hasMany(CashCollection, { foreignKey: 'delivery_assignment_id', as: 'cashCollections' });

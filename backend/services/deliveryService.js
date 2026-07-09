@@ -89,16 +89,24 @@ const assignDeliveryBoy = async (agentId, requestId, deliveryBoyId, transactionI
       }
     }
 
+    // Load the shop so pickup = shop location and delivery = customer location.
+    const shop = await Shop.findByPk(request.shop_id);
+
     // Create delivery assignment
     const assignment = await DeliveryAssignment.create({
       id: generateId(),
       transaction_id: resolvedTransactionId,
+      request_id: requestId,
       delivery_boy_id: deliveryBoyId,
       agent_id: agentId,
       status: 'assigned',
       delivery_step: 'assigned',
-      pickup_address: request.delivery_address || 'Shop pickup',
+      pickup_address: (shop && shop.address) || 'Shop pickup',
+      pickup_latitude: shop ? shop.latitude : null,
+      pickup_longitude: shop ? shop.longitude : null,
       delivery_address: request.delivery_address || 'Customer address',
+      delivery_latitude: request.delivery_latitude || null,
+      delivery_longitude: request.delivery_longitude || null,
       notes: `Assigned for request ${requestId}`,
     }, { transaction: t });
 

@@ -9,6 +9,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: true,
     },
+    // Direct link to the customer request so the delivery boy can see the full
+    // order details (shop, customer, items, bill) even for COD (no transaction).
+    request_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+    },
     delivery_boy_id: {
       type: DataTypes.UUID,
     },

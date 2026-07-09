@@ -122,6 +122,17 @@ const reconcileSchema = async () => {
       console.error('Column migration (delivery_assignments.delivery_step) failed:', error.message);
     }
   }
+
+  // delivery_assignments.request_id links the assignment to the customer request
+  // so the delivery boy can view full order details.
+  try {
+    await sequelize.query("ALTER TABLE delivery_assignments ADD COLUMN request_id CHAR(36) NULL");
+    console.log('Column migration: added delivery_assignments.request_id.');
+  } catch (error) {
+    if (!/duplicate column|exists/i.test(error.message)) {
+      console.error('Column migration (delivery_assignments.request_id) failed:', error.message);
+    }
+  }
 };
 
 // ONE-TIME recovery: reset every super_admin's password to the public demo

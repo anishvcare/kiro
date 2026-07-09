@@ -404,7 +404,7 @@ const deliverySlice = createSlice({
       .addCase(fetchAssignedDeliveries.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Accept Delivery
       .addCase(acceptDeliveryThunk.pending, (state) => { state.isLoading = true; })
-      .addCase(acceptDeliveryThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = action.payload; state.successMessage = 'Delivery accepted'; })
+      .addCase(acceptDeliveryThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; state.successMessage = 'Delivery accepted'; })
       .addCase(acceptDeliveryThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Reject Delivery
       .addCase(rejectDeliveryThunk.pending, (state) => { state.isLoading = true; })
@@ -412,23 +412,23 @@ const deliverySlice = createSlice({
       .addCase(rejectDeliveryThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Mark Reached Shop
       .addCase(markReachedShopThunk.pending, (state) => { state.isLoading = true; })
-      .addCase(markReachedShopThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = action.payload; })
+      .addCase(markReachedShopThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; })
       .addCase(markReachedShopThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Mark Picked Up
       .addCase(markPickedUpThunk.pending, (state) => { state.isLoading = true; })
-      .addCase(markPickedUpThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = action.payload; })
+      .addCase(markPickedUpThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; })
       .addCase(markPickedUpThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Mark Out For Delivery
       .addCase(markOutForDeliveryThunk.pending, (state) => { state.isLoading = true; })
-      .addCase(markOutForDeliveryThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = action.payload; })
+      .addCase(markOutForDeliveryThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; })
       .addCase(markOutForDeliveryThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Mark Reached Customer
       .addCase(markReachedCustomerThunk.pending, (state) => { state.isLoading = true; })
-      .addCase(markReachedCustomerThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = action.payload.assignment; state.otpVerified = false; })
+      .addCase(markReachedCustomerThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload.assignment }; state.otpVerified = false; })
       .addCase(markReachedCustomerThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Mark Delivered
       .addCase(markDeliveredThunk.pending, (state) => { state.isLoading = true; })
-      .addCase(markDeliveredThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = action.payload; state.successMessage = 'Delivery completed!'; })
+      .addCase(markDeliveredThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; state.successMessage = 'Delivery completed!'; })
       .addCase(markDeliveredThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Cash Collection
       .addCase(submitCashCollectionThunk.pending, (state) => { state.isLoading = true; })

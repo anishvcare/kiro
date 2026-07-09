@@ -346,6 +346,7 @@ CREATE TABLE IF NOT EXISTS payment_screenshots (
 CREATE TABLE IF NOT EXISTS delivery_assignments (
   id CHAR(36) PRIMARY KEY,
   transaction_id CHAR(36),
+  request_id CHAR(36),
   delivery_boy_id CHAR(36),
   agent_id CHAR(36),
   status ENUM('pending', 'assigned', 'picked_up', 'in_transit', 'delivered', 'failed', 'returned') DEFAULT 'pending',

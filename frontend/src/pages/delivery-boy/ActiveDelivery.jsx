@@ -16,6 +16,17 @@ import {
 } from '../../store/slices/deliverySlice';
 import LocationUpdater from '../../components/map/LocationUpdater';
 import LiveTrackingMap from '../../components/map/LiveTrackingMap';
+import { mediaUrl } from '../../utils/media';
+
+// Small helper: a Call / Directions action row for a contact + location.
+const fmtName = (u) => (u ? `${u.first_name || ''} ${u.last_name || ''}`.trim() : '');
+const directionsUrl = (lat, lng, address) => {
+  if (lat != null && lng != null) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+  }
+  if (address) return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+  return null;
+};
 
 const DELIVERY_STEPS = [
   { key: 'assigned', label: 'Accepted', action: null },
@@ -135,6 +146,22 @@ const ActiveDelivery = () => {
 
   const nextStep = getNextStep();
 
+  // Derive full order details from the enriched assignment.
+  const req = delivery?.request || {};
+  const shop = req.shop || {};
+  const shopOwner = shop.owner || {};
+  const customer = req.customer || {};
+  const customerUser = customer.user || {};
+  const quotation = (req.quotations || []).find((q) => q.status === 'accepted') || (req.quotations || [])[0] || null;
+  const items = (quotation && quotation.items) || [];
+  const paymentMethod = (delivery?.transaction?.payment_method) || (quotation && quotation.payment_method) || 'upi';
+  const shopPhone = shopOwner.phone || shop.phone;
+  const customerName = fmtName(customerUser) || 'Customer';
+  const customerPhone = customerUser.phone;
+  const custDirUrl = directionsUrl(delivery?.delivery_latitude, delivery?.delivery_longitude, delivery?.delivery_address);
+  const shopDirUrl = directionsUrl(shop.latitude, shop.longitude, shop.address || delivery?.pickup_address);
+  const num = (v) => parseFloat(v || 0);
+
   return (
     <div className="space-y-4">
       <h1 className="text-xl font-bold text-gray-900">Active Delivery</h1>
@@ -182,6 +209,116 @@ const ActiveDelivery = () => {
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Order Details */}
+          <div className="bg-white rounded-lg shadow-sm border">
+            <div className="px-4 py-3 border-b flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-gray-900">Order Details</h3>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 uppercase">
+                {paymentMethod === 'cod' ? 'COD' : 'UPI'}
+              </span>
+            </div>
+
+            {/* Store details */}
+            <div className="px-4 py-3 border-b">
+              <p className="text-xs text-gray-400 uppercase mb-1">Store Details</p>
+              <div className="flex items-center gap-2">
+                {shop.logo_url ? (
+                  <img src={mediaUrl(shop.logo_url)} alt={shop.name} className="w-9 h-9 rounded-full object-cover border" />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                    {(shop.name || 'S').charAt(0)}
+                  </div>
+                )}
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-gray-900 truncate">{shop.name || 'Shop'}</p>
+                  <p className="text-xs text-gray-500 truncate">{shop.address || delivery.pickup_address}</p>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-2">
+                {shopPhone && (
+                  <a href={`tel:${shopPhone}`} className="flex-1 text-center text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md py-1.5">Call</a>
+                )}
+                {shopDirUrl && (
+                  <a href={shopDirUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md py-1.5">Directions</a>
+                )}
+              </div>
+            </div>
+
+            {/* Customer details */}
+            <div className="px-4 py-3 border-b">
+              <p className="text-xs text-gray-400 uppercase mb-1">Customer Contact Details</p>
+              <p className="text-sm font-medium text-gray-900">{customerName}</p>
+              <p className="text-xs text-gray-500">{delivery.delivery_address || customer.default_address}</p>
+              <div className="flex gap-2 mt-2">
+                {customerPhone && (
+                  <a href={`tel:${customerPhone}`} className="flex-1 text-center text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md py-1.5">Call</a>
+                )}
+                {custDirUrl && (
+                  <a href={custDirUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md py-1.5">Directions</a>
+                )}
+              </div>
+            </div>
+
+            {/* What the customer ordered */}
+            {req.request_text && (
+              <div className="px-4 py-3 border-b">
+                <p className="text-xs text-gray-400 uppercase mb-1">Order</p>
+                <p className="text-sm text-gray-700 whitespace-pre-wrap">{req.request_text}</p>
+              </div>
+            )}
+
+            {/* Itemized list (if the shop added items) */}
+            {items.length > 0 && (
+              <div className="px-4 py-3 border-b space-y-2">
+                {items.map((it) => (
+                  <div key={it.id} className="flex justify-between text-sm">
+                    <span className="text-gray-700">
+                      {it.item_name}
+                      <span className="text-gray-400"> x{it.quantity || 1}{it.unit ? ` ${it.unit}` : ''}</span>
+                    </span>
+                    <span className="text-gray-800">&#8377;{num(it.total_price || it.unit_price).toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Bill photo */}
+            {quotation && quotation.bill_image_url && (
+              <div className="px-4 py-3 border-b">
+                <p className="text-xs text-gray-400 uppercase mb-2">Bill</p>
+                <a href={mediaUrl(quotation.bill_image_url)} target="_blank" rel="noopener noreferrer">
+                  <img src={mediaUrl(quotation.bill_image_url)} alt="Bill" className="w-28 h-28 object-cover rounded-lg border" />
+                </a>
+              </div>
+            )}
+
+            {/* Bill summary */}
+            {quotation && (
+              <div className="px-4 py-3 space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Bill Amount</span>
+                  <span>&#8377;{num(quotation.total_amount).toFixed(2)}</span>
+                </div>
+                {num(quotation.delivery_charge) > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Delivery Charge</span>
+                    <span>&#8377;{num(quotation.delivery_charge).toFixed(2)}</span>
+                  </div>
+                )}
+                {num(quotation.approx_weight) > 0 && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Approx. Weight</span>
+                    <span>{num(quotation.approx_weight).toFixed(2)} kg</span>
+                  </div>
+                )}
+                <div className="flex justify-between font-semibold text-base pt-1 border-t">
+                  <span>Total {paymentMethod === 'cod' ? '(Collect)' : ''}</span>
+                  <span className="text-blue-700">&#8377;{num(quotation.final_amount).toFixed(2)}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Live location sharing + map (while actively delivering) */}
