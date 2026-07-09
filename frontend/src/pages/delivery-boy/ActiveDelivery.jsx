@@ -18,6 +18,34 @@ import LocationUpdater from '../../components/map/LocationUpdater';
 import LiveTrackingMap from '../../components/map/LiveTrackingMap';
 import { mediaUrl } from '../../utils/media';
 
+// Bill thumbnail that gracefully falls back to a "View Bill" placeholder when
+// the image can't load (e.g. the uploaded file is missing/expired on the
+// server). The placeholder is still tappable to open the bill in a new tab.
+const BillThumb = ({ url }) => {
+  const [errored, setErrored] = useState(false);
+  if (!url) return null;
+  const src = mediaUrl(url);
+  return (
+    <a href={src} target="_blank" rel="noopener noreferrer" className="inline-block">
+      {errored ? (
+        <div className="w-28 h-28 rounded-lg border border-dashed border-gray-300 bg-gray-50 flex flex-col items-center justify-center text-gray-400">
+          <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 4H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V18a2 2 0 01-2 2z" />
+          </svg>
+          <span className="text-[11px] font-medium mt-1 text-blue-600">View Bill</span>
+        </div>
+      ) : (
+        <img
+          src={src}
+          alt="Bill"
+          onError={() => setErrored(true)}
+          className="w-28 h-28 object-cover rounded-lg border"
+        />
+      )}
+    </a>
+  );
+};
+
 // Small helper: a Call / Directions action row for a contact + location.
 const fmtName = (u) => (u ? `${u.first_name || ''} ${u.last_name || ''}`.trim() : '');
 const directionsUrl = (lat, lng, address) => {
@@ -277,9 +305,8 @@ const ActiveDelivery = () => {
             {quotation && quotation.bill_image_url && (
               <div className="px-4 py-3 border-b">
                 <p className="text-xs text-gray-400 uppercase mb-2">Bill</p>
-                <a href={mediaUrl(quotation.bill_image_url)} target="_blank" rel="noopener noreferrer">
-                  <img src={mediaUrl(quotation.bill_image_url)} alt="Bill" className="w-28 h-28 object-cover rounded-lg border" />
-                </a>
+                <BillThumb url={quotation.bill_image_url} />
+                <p className="text-[11px] text-gray-400 mt-1">Tap the bill to view full size</p>
               </div>
             )}
 
