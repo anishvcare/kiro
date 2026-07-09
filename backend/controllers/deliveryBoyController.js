@@ -155,14 +155,28 @@ const getAssignedDeliveries = asyncHandler(async (req, res) => {
     return apiResponse(res, 404, 'Delivery boy profile not found');
   }
 
-  const rows = await DeliveryAssignment.findAll({
-    where: {
-      delivery_boy_id: boy.id,
-      status: { [Op.notIn]: ['delivered', 'failed', 'returned'] },
-    },
-    include: buildOrderDetailInclude(),
-    order: [['created_at', 'DESC']],
-  });
+  const baseWhere = {
+    delivery_boy_id: boy.id,
+    status: { [Op.notIn]: ['delivered', 'failed', 'returned'] },
+  };
+
+  // Try the enriched query (shop + customer + phone + bill). If the eager-load
+  // ever fails, fall back to a plain query so the delivery boy still sees their
+  // assignments (with the addresses stored on the assignment) instead of a 500.
+  let rows;
+  try {
+    rows = await DeliveryAssignment.findAll({
+      where: baseWhere,
+      include: buildOrderDetailInclude(),
+      order: [['created_at', 'DESC']],
+    });
+  } catch (err) {
+    console.error('getAssignedDeliveries: enriched query failed, using plain fallback:', err.message);
+    rows = await DeliveryAssignment.findAll({
+      where: baseWhere,
+      order: [['created_at', 'DESC']],
+    });
+  }
 
   const assignments = rows.map(normalizeOrderDetails);
 
