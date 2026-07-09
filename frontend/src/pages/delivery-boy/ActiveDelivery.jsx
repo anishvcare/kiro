@@ -56,6 +56,7 @@ const ActiveDelivery = () => {
   );
   const [rejectReason, setRejectReason] = useState('');
   const [showReject, setShowReject] = useState(false);
+  const [busy, setBusy] = useState(false); // dedicated loading for step actions
 
   useEffect(() => {
     if (!assignedDeliveries || assignedDeliveries.length === 0) {
@@ -77,8 +78,17 @@ const ActiveDelivery = () => {
     ? (stepToIndex[delivery.delivery_step] ?? statusToStepIndex[delivery.status] ?? 0)
     : -1;
 
+  const runAction = async (thunkPromise) => {
+    setBusy(true);
+    try {
+      await thunkPromise;
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const handleAction = (step) => {
-    if (!delivery) return;
+    if (!delivery || busy) return;
     const actions = {
       markReachedShop: () => dispatch(markReachedShopThunk(delivery.id)),
       markPickedUp: () => dispatch(markPickedUpThunk(delivery.id)),
@@ -87,12 +97,12 @@ const ActiveDelivery = () => {
       markDelivered: () => dispatch(markDeliveredThunk(delivery.id)),
     };
     if (actions[step.action]) {
-      actions[step.action]();
+      runAction(actions[step.action]());
     }
   };
 
   const handleAccept = () => {
-    if (delivery) dispatch(acceptDeliveryThunk(delivery.id));
+    if (delivery && !busy) runAction(dispatch(acceptDeliveryThunk(delivery.id)));
   };
 
   const handleReject = () => {
@@ -217,14 +227,14 @@ const ActiveDelivery = () => {
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={handleAccept}
-                  disabled={isLoading}
+                  disabled={busy}
                   className="px-4 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:bg-gray-300"
                 >
                   Accept
                 </button>
                 <button
                   onClick={() => setShowReject(true)}
-                  disabled={isLoading}
+                  disabled={busy}
                   className="px-4 py-3 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 disabled:bg-gray-300"
                 >
                   Reject
@@ -235,10 +245,10 @@ const ActiveDelivery = () => {
             {nextStep && delivery.status !== 'pending' && delivery.status !== 'delivered' && (
               <button
                 onClick={() => handleAction(nextStep)}
-                disabled={isLoading}
+                disabled={busy}
                 className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300"
               >
-                {isLoading ? 'Updating...' : nextStep.label}
+                {busy ? 'Updating...' : nextStep.label}
               </button>
             )}
 
