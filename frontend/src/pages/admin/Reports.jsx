@@ -13,6 +13,15 @@ const CURRENCY_KEYS = new Set(['total_amount', 'totalamount', 'amount', 'revenue
 const formatCell = (key, val) => {
   if (val === null || val === undefined || val === '') return '-';
   if (typeof val === 'object') {
+    // Prefer a human-readable name for person/shop objects.
+    if (val.user && (val.user.first_name || val.user.last_name)) {
+      return `${val.user.first_name || ''} ${val.user.last_name || ''}`.trim();
+    }
+    if (val.name) return val.name;
+    if (val.first_name || val.last_name) {
+      return `${val.first_name || ''} ${val.last_name || ''}`.trim();
+    }
+    // Fallback: readable list of scalar values (never raw JSON).
     const parts = Object.values(val).filter((v) => v !== null && v !== undefined && v !== '' && typeof v !== 'object');
     return parts.length ? parts.join(' \u2014 ') : '-';
   }
