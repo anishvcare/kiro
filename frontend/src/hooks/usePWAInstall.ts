@@ -9,11 +9,16 @@ export function usePWAInstall() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [isInstallable, setIsInstallable] = useState(false)
   const [isIOS, setIsIOS] = useState(false)
+  const [isStandalone, setIsStandalone] = useState(false)
 
   useEffect(() => {
     const ua = window.navigator.userAgent
     const isIOSDevice = /iPad|iPhone|iPod/.test(ua) && !('MSStream' in window)
-    const isInStandalone = window.matchMedia('(display-mode: standalone)').matches
+    const isInStandalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as unknown as { standalone?: boolean }).standalone === true
+
+    setIsStandalone(isInStandalone)
     setIsIOS(isIOSDevice && !isInStandalone)
 
     const handler = (e: Event) => {
@@ -24,8 +29,18 @@ export function usePWAInstall() {
 
     window.addEventListener('beforeinstallprompt', handler)
 
+    // Listen for app installed event
+    const installedHandler = () => {
+      setIsInstallable(false)
+      setDeferredPrompt(null)
+      setIsStandalone(true)
+    }
+
+    window.addEventListener('appinstalled', installedHandler)
+
     return () => {
       window.removeEventListener('beforeinstallprompt', handler)
+      window.removeEventListener('appinstalled', installedHandler)
     }
   }, [])
 
@@ -43,5 +58,5 @@ export function usePWAInstall() {
     return outcome === 'accepted'
   }
 
-  return { isInstallable, isIOS, install }
+  return { isInstallable, isIOS, isStandalone, install }
 }
