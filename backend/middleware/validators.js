@@ -21,11 +21,11 @@ const validate = (req, res, next) => {
 
 // Request validation rules
 const createRequestValidation = [
-  body('shop_id').isUUID().withMessage('Valid shop ID is required'),
+  body('shop_id').notEmpty().withMessage('Please select a shop'),
   body('request_text').trim().notEmpty().isLength({ min: 3, max: 2000 }).withMessage('Request text must be 3-2000 characters'),
-  body('delivery_address').optional().trim().isLength({ max: 500 }).withMessage('Address must not exceed 500 characters'),
-  body('urgency').optional().isIn(['normal', 'urgent', 'scheduled']).withMessage('Urgency must be normal, urgent, or scheduled'),
-  body('scheduled_date').optional().isISO8601().withMessage('Valid scheduled date required'),
+  body('delivery_address').optional({ nullable: true }).trim().isLength({ max: 500 }).withMessage('Address must not exceed 500 characters'),
+  body('urgency').optional({ nullable: true }).isIn(['normal', 'urgent', 'scheduled']).withMessage('Urgency must be normal, urgent, or scheduled'),
+  body('scheduled_date').optional({ nullable: true, checkFalsy: true }).isISO8601().withMessage('Valid scheduled date required'),
   validate,
 ];
 

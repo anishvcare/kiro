@@ -1,6 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../../services/api';
 
+// Build a readable message from an API error, including field-level validation
+// details when present, so the user sees WHAT went wrong.
+const apiErrorMessage = (error, fallback) => {
+  const data = error.response?.data;
+  if (data?.errors && Array.isArray(data.errors) && data.errors.length > 0) {
+    return data.errors.map((e) => e.message || e.msg).filter(Boolean).join(', ');
+  }
+  return data?.message || fallback;
+};
+
 export const createRequest = createAsyncThunk(
   'request/createRequest',
   async (requestData, thunkAPI) => {
@@ -8,7 +18,7 @@ export const createRequest = createAsyncThunk(
       const response = await api.post('/requests', requestData);
       return response.data.data.request;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to create request');
+      return thunkAPI.rejectWithValue(apiErrorMessage(error, 'Failed to create request'));
     }
   }
 );
