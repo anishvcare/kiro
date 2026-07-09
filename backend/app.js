@@ -22,6 +22,12 @@ const { apiResponse } = require('./utils/helpers');
 
 const app = express();
 
+// Behind Azure (and most hosts) the app sits behind a reverse proxy. Trust the
+// first proxy hop so req.ip reflects the real client IP - otherwise the rate
+// limiter counts every user under the proxy's single IP and everyone shares one
+// bucket, triggering "Too many requests" almost immediately.
+app.set('trust proxy', 1);
+
 // Security middleware
 app.use(helmet());
 
@@ -33,18 +39,25 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Rate limiting
+// Rate limiting (per client IP). A single-page app makes many calls per screen,
+// so the window allows a generous number of requests. Configurable via env.
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000', 10), // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX || '100', 10),
+  max: parseInt(process.env.RATE_LIMIT_MAX || '1000', 10),
+  standardHeaders: true,
+  legacyHeaders: false,
   message: { success: false, message: 'Too many requests, please try again later' },
 });
 app.use('/api/', limiter);
 
-// Auth-specific rate limiter (stricter)
+// Auth-specific rate limiter (stricter, but only counts FAILED attempts so
+// normal usage never locks a user out; guards against password brute force).
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 20,
+  max: parseInt(process.env.AUTH_RATE_LIMIT_MAX || '50', 10),
+  skipSuccessfulRequests: true,
+  standardHeaders: true,
+  legacyHeaders: false,
   message: { success: false, message: 'Too many authentication attempts, please try again later' },
 });
 app.use('/api/auth/', authLimiter);
