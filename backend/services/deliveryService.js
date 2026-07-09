@@ -15,8 +15,47 @@ const {
   sequelize,
 } = require('../models');
 const { generateId } = require('../utils/helpers');
-const { validateStatusTransition } = require('./requestService');
+const { validateStatusTransition, getStatusIndex } = require('./requestService');
 const otpService = require('./otpService');
+
+// Maps the delivery boy's fine-grained step (short code) to the customer-facing
+// long-form request status, so the customer's Status Timeline advances with
+// each delivery step.
+const DELIVERY_STEP_TO_REQUEST_STATUS = {
+  accepted: 'Delivery Boy Accepted',
+  reached_shop: 'Reached Shop',
+  picked_up: 'Picked Up From Shop',
+  out_for_delivery: 'Out For Delivery',
+  reached_customer: 'Reached Customer',
+  delivered: 'Delivered',
+};
+
+// Advance the linked customer_request.status forward to match a delivery step.
+// Never regresses an already-further status. Resolves the request via
+// request_id, falling back to the payment transaction's quotation.
+const syncRequestStatusForStep = async (assignment, step) => {
+  const targetStatus = DELIVERY_STEP_TO_REQUEST_STATUS[step];
+  if (!targetStatus) return;
+
+  let requestId = assignment.request_id;
+  if (!requestId && assignment.transaction_id) {
+    const txn = await PaymentTransaction.findByPk(assignment.transaction_id);
+    if (txn) {
+      const quo = await Quotation.findByPk(txn.quotation_id);
+      if (quo) requestId = quo.request_id;
+    }
+  }
+  if (!requestId) return;
+
+  const request = await CustomerRequest.findByPk(requestId);
+  if (!request) return;
+
+  // Only move forward through the timeline (index-based; earlier steps auto-complete).
+  if (getStatusIndex(targetStatus) > getStatusIndex(request.status)) {
+    request.status = targetStatus;
+    await request.save();
+  }
+};
 
 /**
  * Get confirmed requests that are ready for delivery assignment
@@ -215,6 +254,14 @@ const updateDeliveryStatus = async (assignmentId, newStatus, deliveryBoyId) => {
   }
 
   await assignment.save();
+
+  // Keep the customer-facing request status in sync so the customer's Status
+  // Timeline advances with each delivery step (Reached Shop ... Delivered).
+  try {
+    await syncRequestStatusForStep(assignment, newStatus);
+  } catch (err) {
+    console.error('syncRequestStatusForStep failed:', err.message);
+  }
 
   return assignment;
 };
