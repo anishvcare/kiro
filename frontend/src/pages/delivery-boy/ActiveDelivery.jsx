@@ -191,7 +191,7 @@ const ActiveDelivery = () => {
                 </span>
               </div>
               <div className="flex items-center justify-between mt-1">
-                <span className="text-xs text-gray-400">#{delivery.id?.slice(0, 8)}</span>
+                <span className="text-sm font-semibold text-gray-900">#{delivery.id?.slice(0, 8)}</span>
                 <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">
                   {delivery.status?.replace(/_/g, ' ')}
                 </span>
@@ -201,19 +201,8 @@ const ActiveDelivery = () => {
             {/* Store details */}
             <div className="px-4 py-3 border-b">
               <p className="text-xs text-gray-400 uppercase mb-1">Store Details</p>
-              <div className="flex items-center gap-2">
-                {shop.logo_url ? (
-                  <img src={mediaUrl(shop.logo_url)} alt={shop.name} className="w-9 h-9 rounded-full object-cover border" />
-                ) : (
-                  <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
-                    {(shop.name || 'S').charAt(0)}
-                  </div>
-                )}
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{shop.name || 'Shop'}</p>
-                  <p className="text-xs text-gray-500 truncate">{shop.address || delivery.pickup_address}</p>
-                </div>
-              </div>
+              <p className="text-sm font-medium text-gray-900">{shop.name || 'Shop'}</p>
+              <p className="text-xs text-gray-500">{shop.address || delivery.pickup_address}</p>
               <div className="flex gap-2 mt-2">
                 {shopPhone && (
                   <a href={`tel:${shopPhone}`} className="flex-1 text-center text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md py-1.5">Call</a>
@@ -227,21 +216,27 @@ const ActiveDelivery = () => {
             {/* Customer details */}
             <div className="px-4 py-3 border-b">
               <p className="text-xs text-gray-400 uppercase mb-1">Customer Contact Details</p>
-              <p className="text-sm font-medium text-gray-900">{customerName}</p>
+              <p className="text-base font-semibold text-gray-900">{customerName}</p>
               {customerPhone ? (
-                <a href={`tel:${customerPhone}`} className="text-sm text-blue-600 font-medium">{customerPhone}</a>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-sm font-medium text-gray-800">{customerPhone}</span>
+                  <a
+                    href={`tel:${customerPhone}`}
+                    className="inline-flex items-center gap-1 text-xs font-medium text-white bg-green-600 hover:bg-green-700 rounded-md px-3 py-1.5"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                    Call
+                  </a>
+                </div>
               ) : (
-                <p className="text-xs text-gray-400">Phone not available</p>
+                <p className="text-xs text-gray-400 mt-1">Phone not available</p>
               )}
-              <p className="text-xs text-gray-500 mt-0.5">{delivery.delivery_address || customer.default_address}</p>
-              <div className="flex gap-2 mt-2">
-                {customerPhone && (
-                  <a href={`tel:${customerPhone}`} className="flex-1 text-center text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md py-1.5">Call</a>
-                )}
-                {custDirUrl && (
-                  <a href={custDirUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md py-1.5">Directions</a>
-                )}
-              </div>
+              <p className="text-xs text-gray-500 mt-1">{delivery.delivery_address || customer.default_address}</p>
+              {custDirUrl && (
+                <a href={custDirUrl} target="_blank" rel="noopener noreferrer" className="block text-center text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md py-1.5 mt-2">Directions</a>
+              )}
             </div>
 
             {/* What the customer ordered */}
