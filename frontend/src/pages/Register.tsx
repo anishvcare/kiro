@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 import { useAuth } from '../context/AuthContext'
 import { authService } from '../services/auth.service'
 
@@ -9,6 +10,8 @@ export function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
@@ -84,31 +87,59 @@ export function Register() {
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={8}
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            placeholder="At least 8 characters"
-          />
+          <div className="relative mt-1">
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={8}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              placeholder="At least 8 characters"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <HiEyeOff className="h-5 w-5" />
+              ) : (
+                <HiEye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
         <div>
           <label htmlFor="password_confirmation" className="block text-sm font-medium text-gray-700">
             Confirm Password
           </label>
-          <input
-            id="password_confirmation"
-            type="password"
-            value={passwordConfirmation}
-            onChange={(e) => setPasswordConfirmation(e.target.value)}
-            required
-            minLength={8}
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            placeholder="Confirm your password"
-          />
+          <div className="relative mt-1">
+            <input
+              id="password_confirmation"
+              type={showPasswordConfirmation ? 'text' : 'password'}
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+              required
+              minLength={8}
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              placeholder="Confirm your password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPasswordConfirmation(!showPasswordConfirmation)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+              tabIndex={-1}
+            >
+              {showPasswordConfirmation ? (
+                <HiEyeOff className="h-5 w-5" />
+              ) : (
+                <HiEye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
         <button
           type="submit"

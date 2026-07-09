@@ -1,6 +1,7 @@
 import { useState, useCallback, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc'
+import { HiEye, HiEyeOff } from 'react-icons/hi'
 import { useAuth } from '../context/AuthContext'
 import { authService } from '../services/auth.service'
 
@@ -8,6 +9,7 @@ export function Login() {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
@@ -125,15 +127,29 @@ export function Login() {
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             Password
           </label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            placeholder="Enter your password"
-          />
+          <div className="relative mt-1">
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="block w-full rounded-lg border border-gray-300 px-3 py-2 pr-10 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
+              placeholder="Enter your password"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+              tabIndex={-1}
+            >
+              {showPassword ? (
+                <HiEyeOff className="h-5 w-5" />
+              ) : (
+                <HiEye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </div>
         <button
           type="submit"
