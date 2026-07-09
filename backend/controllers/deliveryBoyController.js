@@ -21,35 +21,82 @@ const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const deliveryService = require('../services/deliveryService');
 const otpService = require('../services/otpService');
 
-// Shared include tree that pulls the full order details for a delivery boy:
-// the request, its shop (+owner phone), the customer (+user), and the
-// quotation with items + the bill photo.
+// Reusable shop / customer include trees (owner phone + customer user phone).
+const SHOP_INCLUDE = {
+  model: Shop,
+  as: 'shop',
+  attributes: ['id', 'name', 'address', 'city', 'phone', 'latitude', 'longitude', 'logo_url'],
+  include: [{ model: User, as: 'owner', attributes: ['first_name', 'last_name', 'phone'] }],
+};
+const CUSTOMER_INCLUDE = {
+  model: Customer,
+  as: 'customer',
+  attributes: ['id', 'default_address'],
+  include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name', 'phone'] }],
+};
+
+// Shared include tree that pulls the full order details for a delivery boy.
+// Two independent paths so details resolve even when one link is missing:
+//   1) via `request`  -> shop / customer / quotations (+items)
+//   2) via `transaction` -> shop / customer / quotation (+items) [fallback for
+//      older assignments created before request_id existed]
 const ORDER_DETAIL_INCLUDE = [
   {
     model: CustomerRequest,
     as: 'request',
     include: [
-      {
-        model: Shop,
-        as: 'shop',
-        attributes: ['id', 'name', 'address', 'city', 'phone', 'latitude', 'longitude', 'logo_url'],
-        include: [{ model: User, as: 'owner', attributes: ['first_name', 'last_name', 'phone'] }],
-      },
-      {
-        model: Customer,
-        as: 'customer',
-        attributes: ['id', 'default_address'],
-        include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name', 'phone'] }],
-      },
+      SHOP_INCLUDE,
+      CUSTOMER_INCLUDE,
+      { model: Quotation, as: 'quotations', include: [{ model: QuotationItem, as: 'items' }] },
+    ],
+  },
+  {
+    model: PaymentTransaction,
+    as: 'transaction',
+    attributes: ['id', 'payment_method', 'status', 'amount'],
+    include: [
+      SHOP_INCLUDE,
+      CUSTOMER_INCLUDE,
       {
         model: Quotation,
-        as: 'quotations',
-        include: [{ model: QuotationItem, as: 'items' }],
+        as: 'quotation',
+        include: [
+          { model: QuotationItem, as: 'items' },
+          { model: CustomerRequest, as: 'request', attributes: ['id', 'request_text', 'delivery_address'] },
+        ],
       },
     ],
   },
-  { model: PaymentTransaction, as: 'transaction', attributes: ['id', 'payment_method', 'status', 'amount'] },
 ];
+
+/**
+ * Normalize an assignment so the frontend always finds order details under
+ * `assignment.request` (shop, customer, quotations, request_text). When the
+ * direct request link is missing/incomplete (older assignments), reconstruct
+ * it from the payment transaction chain (transaction -> shop/customer/quotation).
+ */
+const normalizeOrderDetails = (assignment) => {
+  const a = typeof assignment.toJSON === 'function' ? assignment.toJSON() : assignment;
+  const req = a.request;
+  const hasFullRequest = req && req.shop && req.customer;
+  if (hasFullRequest) return a;
+
+  const txn = a.transaction;
+  if (txn) {
+    const txnQuotation = txn.quotation || null;
+    a.request = {
+      id: req?.id || txnQuotation?.request?.id || null,
+      request_text: req?.request_text || txnQuotation?.request?.request_text || null,
+      delivery_address: req?.delivery_address || a.delivery_address || null,
+      shop: req?.shop || txn.shop || null,
+      customer: req?.customer || txn.customer || null,
+      quotations: (req?.quotations && req.quotations.length)
+        ? req.quotations
+        : (txnQuotation ? [txnQuotation] : []),
+    };
+  }
+  return a;
+};
 
 /**
  * Set online/offline status
@@ -104,7 +151,7 @@ const getAssignedDeliveries = asyncHandler(async (req, res) => {
     return apiResponse(res, 404, 'Delivery boy profile not found');
   }
 
-  const assignments = await DeliveryAssignment.findAll({
+  const rows = await DeliveryAssignment.findAll({
     where: {
       delivery_boy_id: boy.id,
       status: { [Op.notIn]: ['delivered', 'failed', 'returned'] },
@@ -112,6 +159,8 @@ const getAssignedDeliveries = asyncHandler(async (req, res) => {
     include: ORDER_DETAIL_INCLUDE,
     order: [['created_at', 'DESC']],
   });
+
+  const assignments = rows.map(normalizeOrderDetails);
 
   return apiResponse(res, 200, 'Assigned deliveries retrieved', { assignments });
 });
