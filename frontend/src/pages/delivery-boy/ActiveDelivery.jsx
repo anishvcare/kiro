@@ -181,43 +181,21 @@ const ActiveDelivery = () => {
 
       {delivery && (
         <>
-          {/* Delivery Info */}
-          <div className="bg-white rounded-lg shadow-sm border p-4">
-            <div className="flex justify-between items-start">
-              <h2 className="text-sm font-semibold text-gray-900">#{delivery.id?.slice(0, 8)}</h2>
-              <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">
-                {delivery.status?.replace(/_/g, ' ')}
-              </span>
-            </div>
-            <div className="mt-3 space-y-2 text-sm">
-              {delivery.pickup_address && (
-                <div className="flex items-start">
-                  <span className="w-2 h-2 bg-green-500 rounded-full mt-1.5 mr-2 flex-shrink-0" />
-                  <div>
-                    <p className="text-xs text-gray-400">Pickup</p>
-                    <p className="text-gray-700">{delivery.pickup_address}</p>
-                  </div>
-                </div>
-              )}
-              {delivery.delivery_address && (
-                <div className="flex items-start">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-1.5 mr-2 flex-shrink-0" />
-                  <div>
-                    <p className="text-xs text-gray-400">Delivery</p>
-                    <p className="text-gray-700">{delivery.delivery_address}</p>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Order Details */}
+          {/* Order Details (single unified card) */}
           <div className="bg-white rounded-lg shadow-sm border">
-            <div className="px-4 py-3 border-b flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">Order Details</h3>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 uppercase">
-                {paymentMethod === 'cod' ? 'COD' : 'UPI'}
-              </span>
+            <div className="px-4 py-3 border-b">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-gray-900">Order Details</h3>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 uppercase">
+                  {paymentMethod === 'cod' ? 'COD' : 'UPI'}
+                </span>
+              </div>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-xs text-gray-400">#{delivery.id?.slice(0, 8)}</span>
+                <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded-full">
+                  {delivery.status?.replace(/_/g, ' ')}
+                </span>
+              </div>
             </div>
 
             {/* Store details */}
@@ -250,7 +228,12 @@ const ActiveDelivery = () => {
             <div className="px-4 py-3 border-b">
               <p className="text-xs text-gray-400 uppercase mb-1">Customer Contact Details</p>
               <p className="text-sm font-medium text-gray-900">{customerName}</p>
-              <p className="text-xs text-gray-500">{delivery.delivery_address || customer.default_address}</p>
+              {customerPhone ? (
+                <a href={`tel:${customerPhone}`} className="text-sm text-blue-600 font-medium">{customerPhone}</a>
+              ) : (
+                <p className="text-xs text-gray-400">Phone not available</p>
+              )}
+              <p className="text-xs text-gray-500 mt-0.5">{delivery.delivery_address || customer.default_address}</p>
               <div className="flex gap-2 mt-2">
                 {customerPhone && (
                   <a href={`tel:${customerPhone}`} className="flex-1 text-center text-xs font-medium text-green-700 bg-green-50 border border-green-200 rounded-md py-1.5">Call</a>
