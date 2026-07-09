@@ -22,31 +22,35 @@ const deliveryService = require('../services/deliveryService');
 const otpService = require('../services/otpService');
 
 // Reusable shop / customer include trees (owner phone + customer user phone).
-const SHOP_INCLUDE = {
+// IMPORTANT: these are FACTORIES that return a fresh object each call. Sequelize
+// mutates include option objects while building a query, so the SAME object
+// reference must never be used in two branches of one query (it throws an
+// internal error). We use these twice (under `request` and under `transaction`).
+const shopInclude = () => ({
   model: Shop,
   as: 'shop',
   attributes: ['id', 'name', 'address', 'city', 'phone', 'latitude', 'longitude', 'logo_url'],
   include: [{ model: User, as: 'owner', attributes: ['first_name', 'last_name', 'phone'] }],
-};
-const CUSTOMER_INCLUDE = {
+});
+const customerInclude = () => ({
   model: Customer,
   as: 'customer',
   attributes: ['id', 'default_address'],
   include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name', 'phone'] }],
-};
+});
 
 // Shared include tree that pulls the full order details for a delivery boy.
 // Two independent paths so details resolve even when one link is missing:
 //   1) via `request`  -> shop / customer / quotations (+items)
 //   2) via `transaction` -> shop / customer / quotation (+items) [fallback for
 //      older assignments created before request_id existed]
-const ORDER_DETAIL_INCLUDE = [
+const buildOrderDetailInclude = () => [
   {
     model: CustomerRequest,
     as: 'request',
     include: [
-      SHOP_INCLUDE,
-      CUSTOMER_INCLUDE,
+      shopInclude(),
+      customerInclude(),
       { model: Quotation, as: 'quotations', include: [{ model: QuotationItem, as: 'items' }] },
     ],
   },
@@ -55,8 +59,8 @@ const ORDER_DETAIL_INCLUDE = [
     as: 'transaction',
     attributes: ['id', 'payment_method', 'status', 'amount'],
     include: [
-      SHOP_INCLUDE,
-      CUSTOMER_INCLUDE,
+      shopInclude(),
+      customerInclude(),
       {
         model: Quotation,
         as: 'quotation',
@@ -156,7 +160,7 @@ const getAssignedDeliveries = asyncHandler(async (req, res) => {
       delivery_boy_id: boy.id,
       status: { [Op.notIn]: ['delivered', 'failed', 'returned'] },
     },
-    include: ORDER_DETAIL_INCLUDE,
+    include: buildOrderDetailInclude(),
     order: [['created_at', 'DESC']],
   });
 
