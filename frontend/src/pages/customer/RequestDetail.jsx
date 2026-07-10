@@ -14,9 +14,14 @@ const RequestDetail = () => {
   const { isLoading: quotationLoading } = useSelector((state) => state.quotation);
 
   useEffect(() => {
-    if (id) {
+    if (!id) return;
+    dispatch(fetchRequestDetails(id));
+    // Poll so the Status Timeline advances live as the delivery boy progresses
+    // through each step (Reached Shop, Picked Up, ... Delivered).
+    const timer = setInterval(() => {
       dispatch(fetchRequestDetails(id));
-    }
+    }, 10000);
+    return () => clearInterval(timer);
   }, [dispatch, id]);
 
   const handleAcceptQuotation = async (quotationId) => {
