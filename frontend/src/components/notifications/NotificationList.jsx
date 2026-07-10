@@ -24,7 +24,12 @@ const NotificationList = ({ onClose }) => {
     const isChat = notification.reference_type === 'chat' || notification.type === 'chat';
     if (pathname.startsWith('/shop')) return isChat ? '/shop/chat' : rid ? `/shop/request/${rid}` : '/shop/requests';
     if (pathname.startsWith('/customer')) return isChat ? '/customer/chat' : rid ? `/customer/request/${rid}` : '/customer/requests';
-    if (pathname.startsWith('/delivery-agent')) return '/delivery-agent';
+    if (pathname.startsWith('/delivery-agent')) {
+      // Payment/settlement notifications -> dashboard (Payments & Settlements
+      // section); order-to-assign notifications -> the Assign Delivery page.
+      if (notification.type === 'payment') return '/delivery-agent';
+      return '/delivery-agent/assign';
+    }
     if (pathname.startsWith('/delivery-boy')) return '/delivery-boy';
     if (pathname.startsWith('/admin')) return '/admin/notifications';
     return null;

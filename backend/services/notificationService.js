@@ -101,6 +101,16 @@ const notifyStatusChange = async (request, newStatus, additionalData = {}) => {
       const { boyUserId } = await resolveDeliveryUserIds(request);
       await createNotification({ userId: boyUserId, title, message, type, data });
     };
+    // Before a boy is assigned there is no assignment yet, so an order that's
+    // ready to assign is broadcast to all delivery agents.
+    const notifyAllAgents = async (title, message, type = 'delivery') => {
+      const agents = await DeliveryAgent.findAll({ attributes: ['user_id'] });
+      await Promise.all(
+        agents.map((a) => (a.user_id
+          ? createNotification({ userId: a.user_id, title, message, type, data })
+          : null))
+      );
+    };
 
     switch (newStatus) {
       case 'Shop Received Request':
@@ -111,13 +121,13 @@ const notifyStatusChange = async (request, newStatus, additionalData = {}) => {
         break;
       case 'Customer Accepted Quote':
         await notifyShop('Quotation Accepted', 'The customer accepted your quotation.', 'quotation');
-        await notifyAgent('New Order To Assign', 'A customer accepted a quote. Please assign a delivery boy.', 'delivery');
+        await notifyAllAgents('New Order To Assign', 'A customer accepted a quote. Please assign a delivery boy.', 'delivery');
         break;
       case 'Customer Rejected Quote':
         await notifyShop('Quotation Rejected', 'The customer rejected your quotation.', 'quotation');
         break;
       case 'Delivery Agent Notified':
-        await notifyAgent('New Order To Assign', 'A new order is ready to be assigned to a delivery boy.', 'delivery');
+        await notifyAllAgents('New Order To Assign', 'A new order is ready to be assigned to a delivery boy.', 'delivery');
         break;
       case 'Delivery Boy Assigned':
         await notifyCustomer('Delivery Boy Assigned', 'A delivery boy has been assigned to your order.', 'delivery');
