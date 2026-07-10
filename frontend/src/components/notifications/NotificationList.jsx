@@ -4,14 +4,36 @@
  */
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { markAsRead, markAllAsRead } from '../../store/slices/notificationSlice';
 
 const NotificationList = ({ onClose }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { items, loading, unreadCount } = useSelector((state) => state.notification);
 
   const handleMarkRead = (notificationId) => {
     dispatch(markAsRead(notificationId));
+  };
+
+  // Where a notification should take the current user (based on the dashboard
+  // they're in). reference_id is always the related request id.
+  const targetFor = (notification) => {
+    const rid = notification.reference_id;
+    if (pathname.startsWith('/shop')) return rid ? `/shop/request/${rid}` : '/shop/requests';
+    if (pathname.startsWith('/customer')) return rid ? `/customer/request/${rid}` : '/customer/requests';
+    if (pathname.startsWith('/delivery-agent')) return '/delivery-agent';
+    if (pathname.startsWith('/delivery-boy')) return '/delivery-boy';
+    if (pathname.startsWith('/admin')) return '/admin/notifications';
+    return null;
+  };
+
+  const handleClick = (notification) => {
+    if (!notification.is_read) dispatch(markAsRead(notification.id));
+    const target = targetFor(notification);
+    if (onClose) onClose();
+    if (target) navigate(target);
   };
 
   const handleMarkAllRead = () => {
@@ -107,7 +129,7 @@ const NotificationList = ({ onClose }) => {
           items.map((notification) => (
             <div
               key={notification.id}
-              onClick={() => !notification.is_read && handleMarkRead(notification.id)}
+              onClick={() => handleClick(notification)}
               className={`flex items-start gap-3 px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors ${
                 !notification.is_read ? 'bg-blue-50/50' : ''
               }`}

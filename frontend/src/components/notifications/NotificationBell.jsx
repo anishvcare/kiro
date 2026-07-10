@@ -12,6 +12,8 @@ const NotificationBell = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const audioCtxRef = useRef(null);
+  const prevUnreadRef = useRef(null);
   const { unreadCount } = useSelector((state) => state.notification);
 
   // Load notifications on mount and poll for new ones (no websocket server, so
@@ -20,9 +22,44 @@ const NotificationBell = () => {
     dispatch(fetchNotifications({ limit: 10 }));
     const timer = setInterval(() => {
       dispatch(fetchNotifications({ limit: 10 }));
-    }, 30000);
+    }, 20000);
     return () => clearInterval(timer);
   }, [dispatch]);
+
+  // Play a short beep whenever the unread count increases (a new notification).
+  const playBeep = () => {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!audioCtxRef.current) audioCtxRef.current = new AudioCtx();
+      const ctx = audioCtxRef.current;
+      if (ctx.state === 'suspended') ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, ctx.currentTime);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.3);
+    } catch (e) {
+      /* audio not available; ignore */
+    }
+  };
+
+  useEffect(() => {
+    if (prevUnreadRef.current === null) {
+      // First load: don't beep for pre-existing unread notifications.
+      prevUnreadRef.current = unreadCount;
+      return;
+    }
+    if (unreadCount > prevUnreadRef.current) {
+      playBeep();
+    }
+    prevUnreadRef.current = unreadCount;
+  }, [unreadCount]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
