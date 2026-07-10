@@ -94,6 +94,11 @@ export const markReachedCustomer = async (assignmentId) => {
   return response.data.data;
 };
 
+export const markCashCollected = async (assignmentId) => {
+  const response = await api.put(`/delivery/boy/cash-collected/${assignmentId}`);
+  return response.data.data;
+};
+
 export const markDelivered = async (assignmentId) => {
   const response = await api.put(`/delivery/boy/delivered/${assignmentId}`);
   return response.data.data;
@@ -154,6 +159,7 @@ export default {
   markPickedUp,
   markOutForDelivery,
   markReachedCustomer,
+  markCashCollected,
   markDelivered,
   submitCashCollection,
   uploadDeliveryProof,

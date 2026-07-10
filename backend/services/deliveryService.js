@@ -233,6 +233,7 @@ const updateDeliveryStatus = async (assignmentId, newStatus, deliveryBoyId) => {
     'picked_up': 'picked_up',
     'out_for_delivery': 'picked_up',
     'reached_customer': 'in_transit',
+    'cash_collected': 'in_transit',
     'delivered': 'delivered',
   };
 

@@ -9,6 +9,7 @@ import {
   markPickedUpThunk,
   markOutForDeliveryThunk,
   markReachedCustomerThunk,
+  markCashCollectedThunk,
   markDeliveredThunk,
   setCurrentDelivery,
   clearError,
@@ -34,6 +35,7 @@ const DELIVERY_STEPS = [
   { key: 'picked_up', label: 'Picked Up', action: 'markPickedUp' },
   { key: 'out_for_delivery', label: 'Out For Delivery', action: 'markOutForDelivery' },
   { key: 'reached_customer', label: 'Reached Customer', action: 'markReachedCustomer' },
+  { key: 'cash_collected', label: 'Cash Collected', action: 'markCashCollected' },
   { key: 'delivered', label: 'Delivered', action: 'markDelivered' },
 ];
 
@@ -43,7 +45,7 @@ const statusToStepIndex = {
   'assigned': 0,
   'picked_up': 2,
   'in_transit': 3,
-  'delivered': 5,
+  'delivered': 6,
 };
 
 // Fine-grained delivery_step -> step index (primary source of truth).
@@ -53,7 +55,8 @@ const stepToIndex = {
   'picked_up': 2,
   'out_for_delivery': 3,
   'reached_customer': 4,
-  'delivered': 5,
+  'cash_collected': 5,
+  'delivered': 6,
 };
 
 const ActiveDelivery = () => {
@@ -105,6 +108,7 @@ const ActiveDelivery = () => {
       markPickedUp: () => dispatch(markPickedUpThunk(delivery.id)),
       markOutForDelivery: () => dispatch(markOutForDeliveryThunk(delivery.id)),
       markReachedCustomer: () => dispatch(markReachedCustomerThunk(delivery.id)),
+      markCashCollected: () => dispatch(markCashCollectedThunk(delivery.id)),
       markDelivered: () => dispatch(markDeliveredThunk(delivery.id)),
     };
     if (actions[step.action]) {
@@ -378,13 +382,39 @@ const ActiveDelivery = () => {
             )}
 
             {nextStep && delivery.status !== 'pending' && delivery.status !== 'delivered' && (
-              <button
-                onClick={() => handleAction(nextStep)}
-                disabled={busy}
-                className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300"
-              >
-                {busy ? 'Updating...' : nextStep.label}
-              </button>
+              nextStep.key === 'cash_collected' ? (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      onClick={() => navigate(`/delivery-boy/cash-collection?id=${delivery.id}`)}
+                      className="px-3 py-2 bg-orange-100 text-orange-700 text-sm font-medium rounded-lg hover:bg-orange-200"
+                    >
+                      Cash Collection
+                    </button>
+                    <button
+                      onClick={() => navigate(`/delivery-boy/proof?id=${delivery.id}`)}
+                      className="px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200"
+                    >
+                      Upload Proof
+                    </button>
+                  </div>
+                  <button
+                    onClick={() => handleAction(nextStep)}
+                    disabled={busy}
+                    className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300"
+                  >
+                    {busy ? 'Updating...' : 'Cash Collected'}
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => handleAction(nextStep)}
+                  disabled={busy}
+                  className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300"
+                >
+                  {busy ? 'Updating...' : nextStep.label}
+                </button>
+              )
             )}
 
             {delivery.status === 'delivered' && (
@@ -398,23 +428,6 @@ const ActiveDelivery = () => {
               </div>
             )}
 
-            {/* Links to cash collection and proof */}
-            {(delivery.status === 'in_transit' || delivery.status === 'delivered') && (
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={() => navigate(`/delivery-boy/cash-collection?id=${delivery.id}`)}
-                  className="px-3 py-2 bg-orange-100 text-orange-700 text-sm font-medium rounded-lg hover:bg-orange-200"
-                >
-                  Cash Collection
-                </button>
-                <button
-                  onClick={() => navigate(`/delivery-boy/proof?id=${delivery.id}`)}
-                  className="px-3 py-2 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200"
-                >
-                  Upload Proof
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Reject Dialog */}

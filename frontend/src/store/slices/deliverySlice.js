@@ -219,6 +219,18 @@ export const markReachedCustomerThunk = createAsyncThunk(
   }
 );
 
+export const markCashCollectedThunk = createAsyncThunk(
+  'delivery/markCashCollected',
+  async (assignmentId, thunkAPI) => {
+    try {
+      const data = await deliveryApi.markCashCollected(assignmentId);
+      return data.assignment;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to update status');
+    }
+  }
+);
+
 export const markDeliveredThunk = createAsyncThunk(
   'delivery/markDelivered',
   async (assignmentId, thunkAPI) => {
@@ -426,6 +438,10 @@ const deliverySlice = createSlice({
       .addCase(markReachedCustomerThunk.pending, (state) => { state.isLoading = true; })
       .addCase(markReachedCustomerThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload.assignment }; state.otpVerified = false; })
       .addCase(markReachedCustomerThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      // Mark Cash Collected
+      .addCase(markCashCollectedThunk.pending, (state) => { state.isLoading = true; })
+      .addCase(markCashCollectedThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; })
+      .addCase(markCashCollectedThunk.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
       // Mark Delivered
       .addCase(markDeliveredThunk.pending, (state) => { state.isLoading = true; })
       .addCase(markDeliveredThunk.fulfilled, (state, action) => { state.isLoading = false; state.currentDelivery = { ...(state.currentDelivery || {}), ...action.payload }; state.successMessage = 'Delivery completed!'; })

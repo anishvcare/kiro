@@ -34,6 +34,7 @@ router.put('/boy/reached-shop/:assignmentId', requireRole('delivery_boy'), deliv
 router.put('/boy/picked-up/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markPickedUp);
 router.put('/boy/out-for-delivery/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markOutForDelivery);
 router.put('/boy/reached-customer/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markReachedCustomer);
+router.put('/boy/cash-collected/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markCashCollected);
 router.put('/boy/delivered/:assignmentId', requireRole('delivery_boy'), deliveryBoyController.markDelivered);
 router.post('/boy/cash-collection', requireRole('delivery_boy'), deliveryBoyController.submitCashCollection);
 router.post('/boy/proof/:assignmentId', requireRole('delivery_boy'), uploadDeliveryProofImage, deliveryBoyController.uploadDeliveryProof);

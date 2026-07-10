@@ -338,6 +338,28 @@ const markReachedCustomer = asyncHandler(async (req, res) => {
 });
 
 /**
+ * Mark cash collected step (delivery progress). Advances delivery_step to
+ * 'cash_collected'. The actual cash amount is recorded separately via
+ * submitCashCollection.
+ * PUT /api/delivery/boy/cash-collected/:assignmentId
+ */
+const markCashCollected = asyncHandler(async (req, res) => {
+  const { assignmentId } = req.params;
+
+  const boy = await DeliveryBoy.findOne({ where: { user_id: req.user.id } });
+  if (!boy) {
+    return apiResponse(res, 404, 'Delivery boy profile not found');
+  }
+
+  try {
+    const assignment = await deliveryService.updateDeliveryStatus(assignmentId, 'cash_collected', boy.id);
+    return apiResponse(res, 200, 'Marked as cash collected', { assignment });
+  } catch (error) {
+    return apiResponse(res, 400, error.message);
+  }
+});
+
+/**
  * Mark as delivered
  * PUT /api/delivery/boy/delivered/:assignmentId
  */
@@ -607,6 +629,7 @@ module.exports = {
   markPickedUp,
   markOutForDelivery,
   markReachedCustomer,
+  markCashCollected,
   markDelivered,
   submitCashCollection,
   uploadDeliveryProof,
