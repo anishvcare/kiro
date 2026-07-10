@@ -13,6 +13,9 @@ const ChatList = ({ onSelectChat }) => {
 
   useEffect(() => {
     dispatch(fetchChatRooms());
+    // Poll so new conversations / last messages appear without a manual refresh.
+    const timer = setInterval(() => dispatch(fetchChatRooms()), 8000);
+    return () => clearInterval(timer);
   }, [dispatch]);
 
   const handleSelectChat = (chat) => {

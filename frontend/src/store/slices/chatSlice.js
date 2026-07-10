@@ -33,12 +33,28 @@ export const fetchMessages = createAsyncThunk(
 
 export const createChatRoom = createAsyncThunk(
   'chat/createRoom',
-  async ({ participantId, requestId }, { rejectWithValue }) => {
+  async ({ participantId, requestId, shopId }, { rejectWithValue }) => {
     try {
-      const response = await api.post('/chat/rooms', { participantId, requestId });
+      const response = await api.post('/chat/rooms', { participantId, requestId, shopId });
       return response.data.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to create chat');
+    }
+  }
+);
+
+export const sendChatMessage = createAsyncThunk(
+  'chat/sendChatMessage',
+  async ({ chatId, content, messageType = 'text', fileUrl }, { rejectWithValue }) => {
+    try {
+      const response = await api.post(`/chat/${chatId}/messages`, {
+        content,
+        message_type: messageType,
+        file_url: fileUrl,
+      });
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to send message');
     }
   }
 );
@@ -158,6 +174,14 @@ const chatSlice = createSlice({
       })
       .addCase(createChatRoom.fulfilled, (state, action) => {
         state.activeChat = action.payload.id;
+      })
+      .addCase(sendChatMessage.fulfilled, (state, action) => {
+        const msg = action.payload;
+        if (!msg || !msg.chat_id) return;
+        if (!state.messages[msg.chat_id]) state.messages[msg.chat_id] = [];
+        if (!state.messages[msg.chat_id].find((m) => m.id === msg.id)) {
+          state.messages[msg.chat_id].push(msg);
+        }
       });
   },
 });

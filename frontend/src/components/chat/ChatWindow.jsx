@@ -7,14 +7,14 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import MessageBubble from './MessageBubble';
 import {
-  addMessage,
-  setTyping,
-  markMessagesAsSeen,
   fetchMessages,
   uploadChatFile,
+  sendChatMessage,
   resetUnreadCount,
 } from '../../store/slices/chatSlice';
-import socketService from '../../services/socketService';
+
+// How often to poll for new messages (ms). No websocket server, so we poll.
+const POLL_INTERVAL = 4000;
 
 const ChatWindow = ({ chatId, onBack }) => {
   const dispatch = useDispatch();
@@ -22,7 +22,6 @@ const ChatWindow = ({ chatId, onBack }) => {
   const [isUploading, setIsUploading] = useState(false);
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
-  const typingTimeoutRef = useRef(null);
 
   const { messages, typingUsers, messagesLoading } = useSelector((state) => state.chat);
   const user = useSelector((state) => state.auth.user);
@@ -30,54 +29,17 @@ const ChatWindow = ({ chatId, onBack }) => {
   const chatMessages = messages[chatId] || [];
   const typingInChat = typingUsers[chatId] || [];
 
-  // Load messages and join chat room
+  // Load messages initially and poll for new ones (REST, no websocket).
   useEffect(() => {
-    if (chatId) {
+    if (!chatId) return;
+    dispatch(fetchMessages({ chatId }));
+    dispatch(resetUnreadCount(chatId));
+
+    const timer = setInterval(() => {
       dispatch(fetchMessages({ chatId }));
-      socketService.joinChat(chatId);
-      socketService.markMessagesSeen(chatId);
-      dispatch(resetUnreadCount(chatId));
+    }, POLL_INTERVAL);
 
-      return () => {
-        socketService.leaveChat(chatId);
-      };
-    }
-  }, [chatId, dispatch]);
-
-  // Listen for real-time events
-  useEffect(() => {
-    const socket = socketService.getSocket();
-    if (!socket) return;
-
-    const handleNewMessage = (message) => {
-      if (message.chat_id === chatId) {
-        dispatch(addMessage(message));
-        // Mark as seen since we are in the chat
-        socketService.markMessagesSeen(chatId);
-      }
-    };
-
-    const handleTyping = (data) => {
-      if (data.chatId === chatId) {
-        dispatch(setTyping(data));
-      }
-    };
-
-    const handleMessagesSeen = (data) => {
-      if (data.chatId === chatId) {
-        dispatch(markMessagesAsSeen({ chatId }));
-      }
-    };
-
-    socket.on('chat:newMessage', handleNewMessage);
-    socket.on('chat:typing', handleTyping);
-    socket.on('chat:messagesSeen', handleMessagesSeen);
-
-    return () => {
-      socket.off('chat:newMessage', handleNewMessage);
-      socket.off('chat:typing', handleTyping);
-      socket.off('chat:messagesSeen', handleMessagesSeen);
-    };
+    return () => clearInterval(timer);
   }, [chatId, dispatch]);
 
   // Scroll to bottom on new messages
@@ -86,17 +48,11 @@ const ChatWindow = ({ chatId, onBack }) => {
   }, [chatMessages.length]);
 
   const handleSend = useCallback(() => {
-    if (!input.trim()) return;
-
-    socketService.sendMessage({
-      chatId,
-      content: input.trim(),
-      messageType: 'text',
-    });
-
+    const text = input.trim();
+    if (!text) return;
     setInput('');
-    socketService.sendTyping(chatId, false);
-  }, [chatId, input]);
+    dispatch(sendChatMessage({ chatId, content: text, messageType: 'text' }));
+  }, [chatId, input, dispatch]);
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -107,19 +63,6 @@ const ChatWindow = ({ chatId, onBack }) => {
 
   const handleInputChange = (e) => {
     setInput(e.target.value);
-
-    // Send typing indicator
-    socketService.sendTyping(chatId, true);
-
-    // Clear previous timeout
-    if (typingTimeoutRef.current) {
-      clearTimeout(typingTimeoutRef.current);
-    }
-
-    // Stop typing after 2 seconds of inactivity
-    typingTimeoutRef.current = setTimeout(() => {
-      socketService.sendTyping(chatId, false);
-    }, 2000);
   };
 
   const handleFileUpload = async (e) => {
@@ -130,12 +73,12 @@ const ChatWindow = ({ chatId, onBack }) => {
     try {
       const result = await dispatch(uploadChatFile(file)).unwrap();
 
-      socketService.sendMessage({
+      await dispatch(sendChatMessage({
         chatId,
         content: file.name,
         messageType: result.message_type,
         fileUrl: result.file_url,
-      });
+      }));
     } catch (error) {
       console.error('File upload failed:', error);
     } finally {

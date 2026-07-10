@@ -3,7 +3,7 @@
  * REST endpoints for chat management
  */
 
-const { Chat, Message, User } = require('../models');
+const { Chat, Message, User, Shop } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const { Op } = require('sequelize');
 const path = require('path');
@@ -77,19 +77,24 @@ const getChatRooms = asyncHandler(async (req, res) => {
       let otherUser = null;
       try {
         otherUser = await User.findByPk(otherUserId, {
-          attributes: ['id', 'name', 'email', 'phone'],
+          attributes: ['id', 'first_name', 'last_name', 'email', 'phone'],
         });
       } catch (e) {
         // User may not exist
       }
+
+      const otherName = otherUser
+        ? `${otherUser.first_name || ''} ${otherUser.last_name || ''}`.trim() || otherUser.email
+        : 'Unknown User';
 
       return {
         id: chat.id,
         request_id: chat.request_id,
         participant: otherUser ? {
           id: otherUser.id,
-          name: otherUser.name,
+          name: otherName,
           email: otherUser.email,
+          phone: otherUser.phone,
         } : { id: otherUserId, name: 'Unknown User' },
         unread_count: unreadCount,
         last_message: lastMessage ? {
@@ -170,10 +175,23 @@ const uploadChatFile = asyncHandler(async (req, res) => {
  */
 const createChat = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const { participantId, requestId } = req.body;
+  let { participantId, requestId, shopId } = req.body;
+
+  // Allow starting a chat by shopId: resolve to the shop owner's user id.
+  if (!participantId && shopId) {
+    const shop = await Shop.findByPk(shopId);
+    if (!shop) {
+      return apiResponse(res, 404, 'Shop not found');
+    }
+    participantId = shop.owner_id;
+  }
 
   if (!participantId) {
-    return apiResponse(res, 400, 'Participant ID is required');
+    return apiResponse(res, 400, 'Participant ID or Shop ID is required');
+  }
+
+  if (participantId === userId) {
+    return apiResponse(res, 400, 'You cannot start a chat with yourself');
   }
 
   // Check if chat already exists between these users
@@ -197,12 +215,73 @@ const createChat = asyncHandler(async (req, res) => {
     });
   }
 
-  return apiResponse(res, 200, 'Chat created', { id: chat.id });
+  // Return participant info so the client can open the conversation immediately.
+  let otherUser = null;
+  try {
+    otherUser = await User.findByPk(participantId, {
+      attributes: ['id', 'first_name', 'last_name', 'email', 'phone'],
+    });
+  } catch (e) {
+    // ignore
+  }
+  const otherName = otherUser
+    ? `${otherUser.first_name || ''} ${otherUser.last_name || ''}`.trim() || otherUser.email
+    : 'Unknown User';
+
+  return apiResponse(res, 200, 'Chat created', {
+    id: chat.id,
+    request_id: chat.request_id,
+    participant: { id: participantId, name: otherName },
+  });
+});
+
+/**
+ * Send a message in a chat (REST). Persists the message and bumps the chat's
+ * last_message_at. Used by the polling-based chat (no websocket server).
+ */
+const sendMessage = asyncHandler(async (req, res) => {
+  const { chatId } = req.params;
+  const userId = req.user.id;
+  const { content, message_type = 'text', file_url } = req.body;
+
+  if ((!content || !content.trim()) && !file_url) {
+    return apiResponse(res, 400, 'Message content is required');
+  }
+
+  // Verify the sender is a participant in this chat.
+  const chat = await Chat.findOne({
+    where: {
+      id: chatId,
+      [Op.or]: [
+        { participant_one: userId },
+        { participant_two: userId },
+      ],
+    },
+  });
+  if (!chat) {
+    return apiResponse(res, 404, 'Chat not found');
+  }
+
+  const message = await Message.create({
+    id: generateId(),
+    chat_id: chatId,
+    sender_id: userId,
+    content: content ? content.trim() : '',
+    message_type,
+    file_url: file_url || null,
+    is_read: false,
+  });
+
+  chat.last_message_at = new Date();
+  await chat.save();
+
+  return apiResponse(res, 201, 'Message sent', message);
 });
 
 module.exports = {
   getChatRooms,
   getMessages,
+  sendMessage,
   uploadChatFile,
   createChat,
   upload,

@@ -3,12 +3,39 @@
  * Chat interface for customers to communicate with shops and delivery boys
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import ChatList from '../../components/chat/ChatList';
 import ChatWindow from '../../components/chat/ChatWindow';
+import { createChatRoom, fetchChatRooms } from '../../store/slices/chatSlice';
 
 const Chat = () => {
+  const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedChat, setSelectedChat] = useState(null);
+
+  // When arriving from a shop's "Chat" button (?shopId=...), create/open the
+  // conversation with that shop, then clear the param.
+  useEffect(() => {
+    const shopId = searchParams.get('shopId');
+    const requestId = searchParams.get('requestId') || undefined;
+    if (!shopId) return;
+    dispatch(createChatRoom({ shopId, requestId }))
+      .unwrap()
+      .then((chat) => {
+        setSelectedChat({ id: chat.id, participant: chat.participant });
+        dispatch(fetchChatRooms());
+      })
+      .catch(() => {})
+      .finally(() => {
+        const next = new URLSearchParams(searchParams);
+        next.delete('shopId');
+        next.delete('requestId');
+        setSearchParams(next, { replace: true });
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="h-[calc(100vh-120px)] flex bg-white rounded-lg shadow overflow-hidden">
