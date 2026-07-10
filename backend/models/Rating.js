@@ -20,6 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     transaction_id: {
       type: DataTypes.UUID,
     },
+    // The customer order this rating is for (so a customer rates a shop once per
+    // order and we can look up an existing rating).
+    request_id: {
+      type: DataTypes.UUID,
+      allowNull: true,
+    },
     score: {
       type: DataTypes.TINYINT,
       allowNull: false,

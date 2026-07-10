@@ -133,6 +133,17 @@ const reconcileSchema = async () => {
       console.error('Column migration (delivery_assignments.request_id) failed:', error.message);
     }
   }
+
+  // Shop ratings are linked to the order they came from so a customer rates a
+  // shop once per delivered order.
+  try {
+    await sequelize.query("ALTER TABLE ratings ADD COLUMN request_id CHAR(36) NULL");
+    console.log('Column migration: added ratings.request_id.');
+  } catch (error) {
+    if (!/duplicate column|exists/i.test(error.message)) {
+      console.error('Column migration (ratings.request_id) failed:', error.message);
+    }
+  }
 };
 
 // ONE-TIME recovery: reset every super_admin's password to the public demo

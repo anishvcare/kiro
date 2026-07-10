@@ -18,6 +18,7 @@ const settlementRoutes = require('./routes/settlements');
 const deliveryRoutes = require('./routes/delivery');
 const chatRoutes = require('./routes/chat');
 const notificationRoutes = require('./routes/notifications');
+const ratingRoutes = require('./routes/rating');
 const { apiResponse } = require('./utils/helpers');
 
 const app = express();
@@ -89,6 +90,7 @@ app.use('/api/settlements', settlementRoutes);
 app.use('/api/delivery', deliveryRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/ratings', ratingRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

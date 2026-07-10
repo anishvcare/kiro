@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { fetchRequestDetails, cancelRequest } from '../../store/slices/requestSlice';
 import { acceptQuotation, rejectQuotation } from '../../store/slices/quotationSlice';
 import StatusTimeline from '../../components/request/StatusTimeline';
 import QuotationCard from '../../components/quotation/QuotationCard';
+import { submitShopRating, getMyRatingForRequest } from '../../services/ratingService';
+
+const RATEABLE_STATUSES = ['Delivered', 'Payment Verified', 'Payment Settled To Shop', 'Completed'];
 
 const RequestDetail = () => {
   const dispatch = useDispatch();
@@ -12,6 +15,54 @@ const RequestDetail = () => {
   const { id } = useParams();
   const { currentRequest, timeline, isLoading, error } = useSelector((state) => state.request);
   const { isLoading: quotationLoading } = useSelector((state) => state.quotation);
+
+  // Shop rating + review state
+  const [myRating, setMyRating] = useState(null); // { score, comment } once submitted
+  const [score, setScore] = useState(0);
+  const [hoverScore, setHoverScore] = useState(0);
+  const [comment, setComment] = useState('');
+  const [ratingSubmitting, setRatingSubmitting] = useState(false);
+  const [ratingError, setRatingError] = useState('');
+
+  const canRate = currentRequest && RATEABLE_STATUSES.includes(currentRequest.status);
+  const shopId = currentRequest?.shop_id || currentRequest?.shop?.id;
+
+  // Load any existing rating for this order once it's rateable.
+  useEffect(() => {
+    if (!id || !canRate) return;
+    let active = true;
+    getMyRatingForRequest(id)
+      .then((data) => {
+        if (active && data && data.rating) {
+          setMyRating(data.rating);
+          setScore(data.rating.score || 0);
+          setComment(data.rating.comment || '');
+        }
+      })
+      .catch(() => {});
+    return () => { active = false; };
+  }, [id, canRate]);
+
+  const handleSubmitRating = async () => {
+    if (!score) {
+      setRatingError('Please select a star rating.');
+      return;
+    }
+    setRatingError('');
+    setRatingSubmitting(true);
+    try {
+      const data = await submitShopRating({ requestId: id, score, comment });
+      setMyRating(data.rating || { score, comment });
+    } catch (err) {
+      setRatingError(err.response?.data?.message || 'Failed to submit your rating.');
+    } finally {
+      setRatingSubmitting(false);
+    }
+  };
+
+  const handleMessageShop = () => {
+    if (shopId) navigate(`/customer/chat?shopId=${shopId}&requestId=${id}`);
+  };
 
   useEffect(() => {
     if (!id) return;
@@ -182,6 +233,79 @@ const RequestDetail = () => {
                   isCustomer={true}
                 />
               ))}
+            </div>
+          )}
+
+          {/* Rate the shop + message (after delivery) */}
+          {canRate && (
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-lg font-semibold text-gray-800">
+                  {myRating ? 'Your Rating' : 'Rate this shop'}
+                </h2>
+                {shopId && (
+                  <button
+                    onClick={handleMessageShop}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md px-3 py-1.5 hover:bg-blue-100"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    Message Shop
+                  </button>
+                )}
+              </div>
+
+              {/* Stars */}
+              <div className="flex items-center gap-1 mb-3">
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    onClick={() => !myRating && setScore(n)}
+                    onMouseEnter={() => !myRating && setHoverScore(n)}
+                    onMouseLeave={() => !myRating && setHoverScore(0)}
+                    disabled={!!myRating}
+                    className={myRating ? 'cursor-default' : 'cursor-pointer'}
+                    aria-label={`${n} star`}
+                  >
+                    <svg
+                      className={`w-8 h-8 ${(hoverScore || score) >= n ? 'text-yellow-400' : 'text-gray-300'}`}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+
+              {myRating ? (
+                <div>
+                  {myRating.comment && (
+                    <p className="text-sm text-gray-700 whitespace-pre-wrap">{myRating.comment}</p>
+                  )}
+                  <p className="text-xs text-green-600 mt-2">Thanks for your feedback!</p>
+                </div>
+              ) : (
+                <>
+                  <textarea
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    rows={3}
+                    placeholder="Share your experience with this shop (optional)"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                  {ratingError && <p className="text-xs text-red-600 mt-1">{ratingError}</p>}
+                  <button
+                    onClick={handleSubmitRating}
+                    disabled={ratingSubmitting}
+                    className="mt-3 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                  >
+                    {ratingSubmitting ? 'Submitting...' : 'Submit Rating'}
+                  </button>
+                </>
+              )}
             </div>
           )}
         </div>
