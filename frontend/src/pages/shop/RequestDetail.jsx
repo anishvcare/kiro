@@ -13,9 +13,13 @@ const ShopRequestDetail = () => {
   const { currentRequest, timeline, isLoading, error } = useSelector((state) => state.request);
 
   useEffect(() => {
-    if (id) {
+    if (!id) return;
+    dispatch(fetchRequestDetails(id));
+    // Poll so the Status Timeline advances live as the delivery boy progresses.
+    const timer = setInterval(() => {
       dispatch(fetchRequestDetails(id));
-    }
+    }, 10000);
+    return () => clearInterval(timer);
   }, [dispatch, id]);
 
   const handleMarkReceived = async () => {
