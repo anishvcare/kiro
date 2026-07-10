@@ -5,6 +5,7 @@
 
 const { Chat, Message, User, Shop } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
+const notificationService = require('../services/notificationService');
 const { Op } = require('sequelize');
 const path = require('path');
 const multer = require('multer');
@@ -274,6 +275,28 @@ const sendMessage = asyncHandler(async (req, res) => {
 
   chat.last_message_at = new Date();
   await chat.save();
+
+  // Notify the other participant of the new message (in-app bell + sound).
+  try {
+    const recipientId = chat.participant_one === userId ? chat.participant_two : chat.participant_one;
+    let senderName = 'Someone';
+    try {
+      const sender = await User.findByPk(userId, { attributes: ['first_name', 'last_name'] });
+      if (sender) senderName = `${sender.first_name || ''} ${sender.last_name || ''}`.trim() || 'Someone';
+    } catch (e) { /* ignore */ }
+    const preview = (content && content.trim())
+      ? content.trim().substring(0, 60)
+      : (message_type === 'image' ? 'Sent a photo' : 'Sent an attachment');
+    await notificationService.createNotification({
+      userId: recipientId,
+      title: `New message from ${senderName}`,
+      message: preview,
+      type: 'chat',
+      data: { chat_id: chat.id },
+    });
+  } catch (e) {
+    console.error('chat message notification failed:', e.message);
+  }
 
   return apiResponse(res, 201, 'Message sent', message);
 });

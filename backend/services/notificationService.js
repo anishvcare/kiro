@@ -30,8 +30,8 @@ const createNotification = async ({ userId, title, message, type = 'system', dat
       title,
       body: message,
       type,
-      reference_type: data.request_id ? 'request' : data.quotation_id ? 'quotation' : null,
-      reference_id: data.request_id || data.quotation_id || null,
+      reference_type: data.request_id ? 'request' : data.quotation_id ? 'quotation' : data.chat_id ? 'chat' : null,
+      reference_id: data.request_id || data.quotation_id || data.chat_id || null,
       is_read: false,
     });
     return notification;

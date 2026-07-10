@@ -21,8 +21,9 @@ const NotificationList = ({ onClose }) => {
   // they're in). reference_id is always the related request id.
   const targetFor = (notification) => {
     const rid = notification.reference_id;
-    if (pathname.startsWith('/shop')) return rid ? `/shop/request/${rid}` : '/shop/requests';
-    if (pathname.startsWith('/customer')) return rid ? `/customer/request/${rid}` : '/customer/requests';
+    const isChat = notification.reference_type === 'chat' || notification.type === 'chat';
+    if (pathname.startsWith('/shop')) return isChat ? '/shop/chat' : rid ? `/shop/request/${rid}` : '/shop/requests';
+    if (pathname.startsWith('/customer')) return isChat ? '/customer/chat' : rid ? `/customer/request/${rid}` : '/customer/requests';
     if (pathname.startsWith('/delivery-agent')) return '/delivery-agent';
     if (pathname.startsWith('/delivery-boy')) return '/delivery-boy';
     if (pathname.startsWith('/admin')) return '/admin/notifications';
