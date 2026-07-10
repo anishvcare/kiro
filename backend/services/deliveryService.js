@@ -232,6 +232,16 @@ const reassignDeliveryBoy = async (agentId, assignmentId, newDeliveryBoyId) => {
 
     await t.commit();
 
+    // Notify the newly assigned delivery boy (and customer) after commit.
+    try {
+      if (assignment.request_id) {
+        const request = await CustomerRequest.findByPk(assignment.request_id);
+        if (request) await notifyStatusChange(request, 'Delivery Boy Assigned');
+      }
+    } catch (e) {
+      console.error('notify (reassign) failed:', e.message);
+    }
+
     return assignment;
   } catch (error) {
     await t.rollback();
