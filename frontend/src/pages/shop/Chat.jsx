@@ -25,6 +25,7 @@ const Chat = () => {
         {selectedChat ? (
           <ChatWindow
             chatId={selectedChat.id}
+            title={selectedChat.participant?.name}
             onBack={() => setSelectedChat(null)}
           />
         ) : (

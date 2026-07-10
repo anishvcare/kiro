@@ -16,7 +16,7 @@ import {
 // How often to poll for new messages (ms). No websocket server, so we poll.
 const POLL_INTERVAL = 4000;
 
-const ChatWindow = ({ chatId, onBack }) => {
+const ChatWindow = ({ chatId, title, onBack }) => {
   const dispatch = useDispatch();
   const [input, setInput] = useState('');
   const [isUploading, setIsUploading] = useState(false);
@@ -92,21 +92,28 @@ const ChatWindow = ({ chatId, onBack }) => {
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Header */}
-      <div className="flex items-center gap-3 p-4 border-b bg-white">
+      <div className="flex items-center gap-3 p-3 border-b bg-white flex-shrink-0">
         {onBack && (
           <button
             onClick={onBack}
-            className="p-1 rounded-full hover:bg-gray-100"
+            className="p-1 rounded-full hover:bg-gray-100 md:hidden"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
         )}
-        <div className="flex-1">
-          <h3 className="font-semibold text-gray-900">Chat</h3>
-          {typingInChat.length > 0 && (
+        <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+          <span className="text-sm font-semibold text-blue-600">
+            {(title || 'C').charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-semibold text-gray-900 truncate">{title || 'Chat'}</h3>
+          {typingInChat.length > 0 ? (
             <p className="text-xs text-green-600">typing...</p>
+          ) : (
+            <p className="text-xs text-gray-400">Online chat</p>
           )}
         </div>
       </div>
@@ -148,13 +155,14 @@ const ChatWindow = ({ chatId, onBack }) => {
       )}
 
       {/* Input area */}
-      <div className="border-t p-3">
-        <div className="flex items-end gap-2">
+      <div className="border-t p-3 bg-white flex-shrink-0">
+        <div className="flex items-center gap-2">
           {/* File upload button */}
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
-            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+            className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors flex-shrink-0"
+            aria-label="Attach file"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
@@ -169,25 +177,24 @@ const ChatWindow = ({ chatId, onBack }) => {
           />
 
           {/* Text input */}
-          <div className="flex-1">
-            <textarea
-              value={input}
-              onChange={handleInputChange}
-              onKeyDown={handleKeyPress}
-              placeholder="Type a message..."
-              rows={1}
-              className="w-full resize-none rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-          </div>
+          <input
+            type="text"
+            value={input}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyPress}
+            placeholder="Type a message..."
+            className="flex-1 min-w-0 rounded-full border border-gray-300 px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
 
           {/* Send button */}
           <button
             onClick={handleSend}
             disabled={!input.trim() || isUploading}
-            className="p-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+            className="p-2.5 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+            aria-label="Send message"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M1.94 2.94a1.5 1.5 0 011.66-.32l14 6a1.5 1.5 0 010 2.76l-14 6A1.5 1.5 0 011.5 16V4a1.5 1.5 0 01.44-1.06zM3.5 5.1v3.65l6.6 1.25-6.6 1.25v3.65L15.6 10 3.5 5.1z" />
             </svg>
           </button>
         </div>
