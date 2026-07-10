@@ -27,6 +27,7 @@ const DELIVERY_STEP_TO_REQUEST_STATUS = {
   picked_up: 'Picked Up From Shop',
   out_for_delivery: 'Out For Delivery',
   reached_customer: 'Reached Customer',
+  cash_collected: 'Cash Collected',
   delivered: 'Delivered',
 };
 
