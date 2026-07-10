@@ -19,7 +19,17 @@ const NotificationBell = () => {
   const dropdownRef = useRef(null);
   const { unreadCount } = useSelector((state) => state.notification);
 
-  // Listen for real-time notifications
+  // Load notifications on mount and poll for new ones (no websocket server, so
+  // we poll to keep the unread badge up to date).
+  useEffect(() => {
+    dispatch(fetchNotifications({ limit: 10 }));
+    const timer = setInterval(() => {
+      dispatch(fetchNotifications({ limit: 10 }));
+    }, 30000);
+    return () => clearInterval(timer);
+  }, [dispatch]);
+
+  // Listen for real-time notifications (only if a socket is available)
   useEffect(() => {
     const socket = socketService.getSocket();
     if (!socket) return;

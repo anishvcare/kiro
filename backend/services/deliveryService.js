@@ -16,6 +16,7 @@ const {
 } = require('../models');
 const { generateId } = require('../utils/helpers');
 const { validateStatusTransition, getStatusIndex } = require('./requestService');
+const { notifyStatusChange } = require('./notificationService');
 const otpService = require('./otpService');
 
 // Maps the delivery boy's fine-grained step (short code) to the customer-facing
@@ -55,6 +56,12 @@ const syncRequestStatusForStep = async (assignment, step) => {
   if (getStatusIndex(targetStatus) > getStatusIndex(request.status)) {
     request.status = targetStatus;
     await request.save();
+    // In-app notifications for this delivery step (customer/shop/agent).
+    try {
+      await notifyStatusChange(request, targetStatus);
+    } catch (e) {
+      console.error('notify (delivery step) failed:', e.message);
+    }
   }
 };
 
@@ -163,6 +170,14 @@ const assignDeliveryBoy = async (agentId, requestId, deliveryBoyId, transactionI
     await deliveryBoy.save({ transaction: t });
 
     await t.commit();
+
+    // Notify customer + assigned delivery boy (after commit so the assignment
+    // is resolvable by the notification service).
+    try {
+      await notifyStatusChange(request, 'Delivery Boy Assigned');
+    } catch (e) {
+      console.error('notify (delivery boy assigned) failed:', e.message);
+    }
 
     return assignment;
   } catch (error) {

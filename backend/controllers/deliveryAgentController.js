@@ -19,6 +19,7 @@ const {
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const deliveryService = require('../services/deliveryService');
 const { validateStatusTransition } = require('../services/requestService');
+const { notifyStatusChange } = require('../services/notificationService');
 
 /**
  * Get confirmed requests ready for delivery assignment
@@ -372,6 +373,8 @@ const verifyPayment = asyncHandler(async (req, res) => {
   request.status = 'Payment Verified';
   await request.save();
 
+  try { await notifyStatusChange(request, 'Payment Verified'); } catch (e) { console.error('notify (payment verified) failed:', e.message); }
+
   return apiResponse(res, 200, 'Payment verified', { request });
 });
 
@@ -401,6 +404,8 @@ const settleToShop = asyncHandler(async (req, res) => {
 
   request.status = 'Payment Settled To Shop';
   await request.save();
+
+  try { await notifyStatusChange(request, 'Payment Settled To Shop'); } catch (e) { console.error('notify (payment settled) failed:', e.message); }
 
   // Record the settlement to the shop (best-effort; never blocks the status update).
   try {
