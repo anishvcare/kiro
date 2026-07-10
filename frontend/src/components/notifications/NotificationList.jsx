@@ -91,7 +91,7 @@ const NotificationList = ({ onClose }) => {
       </div>
 
       {/* Notification items */}
-      <div className="overflow-y-auto max-h-[320px]">
+      <div className="overflow-y-auto max-h-[65vh] sm:max-h-[320px]">
         {loading ? (
           <div className="flex justify-center p-6">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>

@@ -67,9 +67,9 @@ const NotificationBell = () => {
         )}
       </button>
 
-      {/* Dropdown */}
+      {/* Dropdown: full-width panel on phones, anchored dropdown on desktop */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 max-h-[400px] overflow-hidden">
+        <div className="fixed inset-x-2 top-16 sm:absolute sm:inset-x-auto sm:right-0 sm:top-full sm:mt-2 sm:w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
           <NotificationList onClose={() => setIsOpen(false)} />
         </div>
       )}
