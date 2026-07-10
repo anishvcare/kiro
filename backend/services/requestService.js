@@ -143,9 +143,9 @@ const getTransitionRole = (newStatus) => {
     'Reached Customer': 'delivery_boy',
     'Delivered': 'delivery_boy',
     'Cash Collected': 'delivery_boy',
-    'Payment Verified': 'system',
-    'Payment Settled To Shop': 'super_admin',
-    'Completed': 'system',
+    'Payment Verified': 'delivery_agent',
+    'Payment Settled To Shop': 'delivery_agent',
+    'Completed': 'shop_owner',
     'Cancelled': 'customer',
   };
 

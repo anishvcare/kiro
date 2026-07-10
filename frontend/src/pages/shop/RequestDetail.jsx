@@ -26,6 +26,13 @@ const ShopRequestDetail = () => {
     await dispatch(updateRequestStatus({ requestId: id, status: 'Shop Received Request' }));
   };
 
+  const handleConfirmPayment = async () => {
+    if (window.confirm('Confirm you have received the payment from the delivery agent? This completes the order.')) {
+      await dispatch(updateRequestStatus({ requestId: id, status: 'Completed' }));
+      dispatch(fetchRequestDetails(id));
+    }
+  };
+
   if (isLoading && !currentRequest) {
     return <div className="text-center py-12 text-gray-500">Loading request details...</div>;
   }
@@ -78,6 +85,14 @@ const ShopRequestDetail = () => {
                 className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
               >
                 Send Quotation
+              </button>
+            )}
+            {currentRequest.status === 'Payment Settled To Shop' && (
+              <button
+                onClick={handleConfirmPayment}
+                className="px-3 py-1.5 text-sm bg-green-600 text-white font-medium rounded hover:bg-green-700"
+              >
+                Confirm Payment &amp; Complete
               </button>
             )}
           </div>

@@ -109,6 +109,42 @@ export const fetchAgentSettlementReport = createAsyncThunk(
   }
 );
 
+export const fetchPendingSettlements = createAsyncThunk(
+  'delivery/fetchPendingSettlements',
+  async (_, thunkAPI) => {
+    try {
+      const data = await deliveryApi.getPendingSettlements();
+      return data.requests;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to fetch pending settlements');
+    }
+  }
+);
+
+export const verifyPaymentThunk = createAsyncThunk(
+  'delivery/verifyPayment',
+  async (requestId, thunkAPI) => {
+    try {
+      const data = await deliveryApi.verifyPayment(requestId);
+      return data.request;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to verify payment');
+    }
+  }
+);
+
+export const settleToShopThunk = createAsyncThunk(
+  'delivery/settleToShop',
+  async (requestId, thunkAPI) => {
+    try {
+      const data = await deliveryApi.settleToShop(requestId);
+      return data.request;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to settle to shop');
+    }
+  }
+);
+
 // ===== DELIVERY BOY THUNKS =====
 
 export const toggleOnlineStatus = createAsyncThunk(
@@ -323,6 +359,7 @@ const initialState = {
   boyPerformance: null,
   cashReport: null,
   settlementReport: null,
+  pendingSettlements: [],
 
   // Boy state
   isOnline: false,
@@ -398,6 +435,13 @@ const deliverySlice = createSlice({
       .addCase(fetchAgentSettlementReport.pending, (state) => { state.isLoading = true; })
       .addCase(fetchAgentSettlementReport.fulfilled, (state, action) => { state.isLoading = false; state.settlementReport = action.payload; })
       .addCase(fetchAgentSettlementReport.rejected, (state, action) => { state.isLoading = false; state.error = action.payload; })
+      // Pending settlements (agent payment verification / settle to shop)
+      .addCase(fetchPendingSettlements.fulfilled, (state, action) => { state.pendingSettlements = action.payload; })
+      .addCase(fetchPendingSettlements.rejected, (state, action) => { state.error = action.payload; })
+      .addCase(verifyPaymentThunk.fulfilled, (state) => { state.successMessage = 'Payment verified'; })
+      .addCase(verifyPaymentThunk.rejected, (state, action) => { state.error = action.payload; })
+      .addCase(settleToShopThunk.fulfilled, (state) => { state.successMessage = 'Payment settled to shop'; })
+      .addCase(settleToShopThunk.rejected, (state, action) => { state.error = action.payload; })
       // Toggle Online (uses a dedicated flag so other requests don't disable the toggle)
       .addCase(toggleOnlineStatus.pending, (state) => { state.statusLoading = true; state.error = null; })
       .addCase(toggleOnlineStatus.fulfilled, (state, action) => { state.statusLoading = false; state.isOnline = !!action.payload.is_available; })

@@ -11,12 +11,14 @@ const {
   CustomerRequest,
   CashCollection,
   SettlementTransaction,
+  Quotation,
   User,
   Shop,
   sequelize,
 } = require('../models');
 const { apiResponse, asyncHandler, generateId } = require('../utils/helpers');
 const deliveryService = require('../services/deliveryService');
+const { validateStatusTransition } = require('../services/requestService');
 
 /**
  * Get confirmed requests ready for delivery assignment
@@ -303,6 +305,126 @@ const getSettlementReport = asyncHandler(async (req, res) => {
   });
 });
 
+/**
+ * List orders handled by this agent that are awaiting payment verification or
+ * settlement to the shop (status Delivered or Payment Verified).
+ * GET /api/delivery/agent/pending-settlements
+ */
+const getPendingSettlements = asyncHandler(async (req, res) => {
+  const { Op } = require('sequelize');
+
+  const agent = await DeliveryAgent.findOne({ where: { user_id: req.user.id } });
+  if (!agent) {
+    return apiResponse(res, 403, 'Delivery agent profile not found');
+  }
+
+  // Requests this agent handled (via their assignments).
+  const assignments = await DeliveryAssignment.findAll({
+    where: { agent_id: agent.id, request_id: { [Op.ne]: null } },
+    attributes: ['request_id'],
+  });
+  const requestIds = [...new Set(assignments.map((a) => a.request_id).filter(Boolean))];
+  if (requestIds.length === 0) {
+    return apiResponse(res, 200, 'Pending settlements retrieved', { requests: [] });
+  }
+
+  const requests = await CustomerRequest.findAll({
+    where: {
+      id: { [Op.in]: requestIds },
+      status: { [Op.in]: ['Delivered', 'Payment Verified'] },
+    },
+    include: [
+      { model: Shop, as: 'shop', attributes: ['id', 'name', 'address', 'phone'] },
+      {
+        model: Quotation,
+        as: 'quotations',
+        attributes: ['id', 'total_amount', 'delivery_charge', 'final_amount', 'payment_method', 'status'],
+      },
+    ],
+    order: [['updated_at', 'DESC']],
+  });
+
+  return apiResponse(res, 200, 'Pending settlements retrieved', { requests });
+});
+
+/**
+ * Delivery agent verifies the payment for a delivered order.
+ * PUT /api/delivery/agent/verify-payment/:requestId  -> 'Payment Verified'
+ */
+const verifyPayment = asyncHandler(async (req, res) => {
+  const { requestId } = req.params;
+
+  const agent = await DeliveryAgent.findOne({ where: { user_id: req.user.id } });
+  if (!agent) {
+    return apiResponse(res, 403, 'Delivery agent profile not found');
+  }
+
+  const request = await CustomerRequest.findByPk(requestId);
+  if (!request) {
+    return apiResponse(res, 404, 'Request not found');
+  }
+
+  const validation = validateStatusTransition(request.status, 'Payment Verified');
+  if (!validation.valid) {
+    return apiResponse(res, 400, validation.message);
+  }
+
+  request.status = 'Payment Verified';
+  await request.save();
+
+  return apiResponse(res, 200, 'Payment verified', { request });
+});
+
+/**
+ * Delivery agent settles the collected payment to the shop.
+ * PUT /api/delivery/agent/settle-to-shop/:requestId  -> 'Payment Settled To Shop'
+ */
+const settleToShop = asyncHandler(async (req, res) => {
+  const { requestId } = req.params;
+
+  const agent = await DeliveryAgent.findOne({ where: { user_id: req.user.id } });
+  if (!agent) {
+    return apiResponse(res, 403, 'Delivery agent profile not found');
+  }
+
+  const request = await CustomerRequest.findByPk(requestId, {
+    include: [{ model: Quotation, as: 'quotations' }],
+  });
+  if (!request) {
+    return apiResponse(res, 404, 'Request not found');
+  }
+
+  const validation = validateStatusTransition(request.status, 'Payment Settled To Shop');
+  if (!validation.valid) {
+    return apiResponse(res, 400, validation.message);
+  }
+
+  request.status = 'Payment Settled To Shop';
+  await request.save();
+
+  // Record the settlement to the shop (best-effort; never blocks the status update).
+  try {
+    const quote = (request.quotations || []).find((q) => q.status === 'accepted') || (request.quotations || [])[0];
+    const amount = quote ? parseFloat(quote.total_amount || quote.final_amount || 0) : 0;
+    await SettlementTransaction.create({
+      id: generateId(),
+      from_type: 'delivery_agent',
+      from_id: agent.id,
+      to_type: 'shop',
+      to_id: request.shop_id,
+      amount,
+      reference_type: 'request',
+      reference_id: request.id,
+      status: 'completed',
+      notes: `Settled to shop for request ${request.id}`,
+    });
+  } catch (e) {
+    console.error('settleToShop settlement record failed:', e.message);
+  }
+
+  return apiResponse(res, 200, 'Payment settled to shop', { request });
+});
+
 module.exports = {
   getConfirmedRequests,
   assignDeliveryBoy,
@@ -313,4 +435,7 @@ module.exports = {
   verifyCashCollection,
   getCashReport,
   getSettlementReport,
+  getPendingSettlements,
+  verifyPayment,
+  settleToShop,
 };

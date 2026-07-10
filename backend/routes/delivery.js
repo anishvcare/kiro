@@ -23,6 +23,9 @@ router.get('/agent/performance/:deliveryBoyId', requireRole('delivery_agent'), d
 router.put('/agent/verify-cash/:collectionId', requireRole('delivery_agent'), deliveryAgentController.verifyCashCollection);
 router.get('/agent/cash-report', requireRole('delivery_agent'), deliveryAgentController.getCashReport);
 router.get('/agent/settlement-report', requireRole('delivery_agent'), deliveryAgentController.getSettlementReport);
+router.get('/agent/pending-settlements', requireRole('delivery_agent'), deliveryAgentController.getPendingSettlements);
+router.put('/agent/verify-payment/:requestId', requireRole('delivery_agent'), deliveryAgentController.verifyPayment);
+router.put('/agent/settle-to-shop/:requestId', requireRole('delivery_agent'), deliveryAgentController.settleToShop);
 
 // ===== DELIVERY BOY ROUTES =====
 router.get('/boy/status', requireRole('delivery_boy'), deliveryBoyController.getStatus);

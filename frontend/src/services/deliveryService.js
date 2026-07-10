@@ -47,6 +47,21 @@ export const getSettlementReport = async (params = {}) => {
   return response.data.data;
 };
 
+export const getPendingSettlements = async () => {
+  const response = await api.get('/delivery/agent/pending-settlements');
+  return response.data.data;
+};
+
+export const verifyPayment = async (requestId) => {
+  const response = await api.put(`/delivery/agent/verify-payment/${requestId}`);
+  return response.data.data;
+};
+
+export const settleToShop = async (requestId) => {
+  const response = await api.put(`/delivery/agent/settle-to-shop/${requestId}`);
+  return response.data.data;
+};
+
 // ===== DELIVERY BOY API CALLS =====
 
 export const setOnlineStatus = async (is_available) => {
@@ -150,6 +165,9 @@ export default {
   verifyCashCollection,
   getCashReport,
   getSettlementReport,
+  getPendingSettlements,
+  verifyPayment,
+  settleToShop,
   // Boy
   setOnlineStatus,
   getAssignedDeliveries,

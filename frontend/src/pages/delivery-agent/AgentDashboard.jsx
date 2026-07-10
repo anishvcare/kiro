@@ -5,12 +5,15 @@ import {
   fetchConfirmedRequests,
   fetchActiveDeliveries,
   fetchDeliveryBoyList,
+  fetchPendingSettlements,
+  verifyPaymentThunk,
+  settleToShopThunk,
 } from '../../store/slices/deliverySlice';
 import DeliveryCard from '../../components/delivery/DeliveryCard';
 
 const AgentDashboard = () => {
   const dispatch = useDispatch();
-  const { confirmedRequests, activeDeliveries, deliveryBoys, isLoading } = useSelector(
+  const { confirmedRequests, activeDeliveries, deliveryBoys, pendingSettlements, isLoading } = useSelector(
     (state) => state.delivery
   );
 
@@ -18,7 +21,23 @@ const AgentDashboard = () => {
     dispatch(fetchConfirmedRequests());
     dispatch(fetchActiveDeliveries());
     dispatch(fetchDeliveryBoyList());
+    dispatch(fetchPendingSettlements());
   }, [dispatch]);
+
+  const handleVerifyPayment = async (requestId) => {
+    await dispatch(verifyPaymentThunk(requestId));
+    dispatch(fetchPendingSettlements());
+  };
+
+  const handleSettleToShop = async (requestId) => {
+    await dispatch(settleToShopThunk(requestId));
+    dispatch(fetchPendingSettlements());
+  };
+
+  const amountOf = (request) => {
+    const q = (request.quotations || []).find((x) => x.status === 'accepted') || (request.quotations || [])[0];
+    return q ? parseFloat(q.total_amount || q.final_amount || 0).toFixed(2) : '0.00';
+  };
 
   const availableBoys = deliveryBoys?.filter((b) => b.is_available) || [];
   const busyBoys = deliveryBoys?.filter((b) => !b.is_available) || [];
@@ -89,6 +108,52 @@ const AgentDashboard = () => {
           </div>
         ) : (
           <p className="text-gray-500 text-center py-4">No confirmed requests pending assignment.</p>
+        )}
+      </div>
+
+      {/* Payments & Settlements */}
+      <div>
+        <h2 className="text-lg font-semibold text-gray-900 mb-3">
+          Payments &amp; Settlements ({pendingSettlements?.length || 0})
+        </h2>
+        {pendingSettlements?.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {pendingSettlements.map((request) => (
+              <div key={request.id} className="bg-white rounded-lg shadow-sm border p-4">
+                <div className="flex justify-between items-start mb-1">
+                  <h3 className="text-sm font-semibold text-gray-900">#{request.id?.slice(0, 8)}</h3>
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    request.status === 'Delivered' ? 'bg-blue-100 text-blue-700' : 'bg-emerald-100 text-emerald-700'
+                  }`}>
+                    {request.status}
+                  </span>
+                </div>
+                {request.shop && (
+                  <p className="text-sm text-gray-600">Shop: {request.shop.name}</p>
+                )}
+                <p className="text-sm text-gray-800 font-medium mt-1">Amount to settle: &#8377;{amountOf(request)}</p>
+
+                {request.status === 'Delivered' && (
+                  <button
+                    onClick={() => handleVerifyPayment(request.id)}
+                    className="mt-3 w-full text-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700"
+                  >
+                    Verify Payment
+                  </button>
+                )}
+                {request.status === 'Payment Verified' && (
+                  <button
+                    onClick={() => handleSettleToShop(request.id)}
+                    className="mt-3 w-full text-center px-3 py-2 bg-emerald-600 text-white text-sm font-medium rounded hover:bg-emerald-700"
+                  >
+                    Settle Payment To Shop
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-center py-4">No orders awaiting payment verification or settlement.</p>
         )}
       </div>
 
