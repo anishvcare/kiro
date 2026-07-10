@@ -5,13 +5,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  fetchNotifications,
-  addNotification,
-  setUnreadCount,
-} from '../../store/slices/notificationSlice';
+import { fetchNotifications } from '../../store/slices/notificationSlice';
 import NotificationList from './NotificationList';
-import socketService from '../../services/socketService';
 
 const NotificationBell = () => {
   const dispatch = useDispatch();
@@ -27,31 +22,6 @@ const NotificationBell = () => {
       dispatch(fetchNotifications({ limit: 10 }));
     }, 30000);
     return () => clearInterval(timer);
-  }, [dispatch]);
-
-  // Listen for real-time notifications (only if a socket is available)
-  useEffect(() => {
-    const socket = socketService.getSocket();
-    if (!socket) return;
-
-    // Get initial count
-    socketService.getNotificationCount();
-
-    const handleNewNotification = (notification) => {
-      dispatch(addNotification(notification));
-    };
-
-    const handleCountUpdate = (data) => {
-      dispatch(setUnreadCount(data.count));
-    };
-
-    socket.on('notification:new', handleNewNotification);
-    socket.on('notification:count', handleCountUpdate);
-
-    return () => {
-      socket.off('notification:new', handleNewNotification);
-      socket.off('notification:count', handleCountUpdate);
-    };
   }, [dispatch]);
 
   // Close dropdown when clicking outside
