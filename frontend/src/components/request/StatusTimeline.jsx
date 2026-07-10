@@ -21,7 +21,15 @@ const REQUEST_STATUSES = [
   'Cancelled',
 ];
 
-const StatusTimeline = ({ currentStatus, timeline }) => {
+// Back-office steps shown after delivery (hidden when endAtDelivered is set).
+const POST_DELIVERY_STATUSES = [
+  'Cash Collected',
+  'Payment Verified',
+  'Payment Settled To Shop',
+  'Completed',
+];
+
+const StatusTimeline = ({ currentStatus, timeline, endAtDelivered = false }) => {
   const isCancelled = currentStatus === 'Cancelled';
   const isRejected = currentStatus === 'Customer Rejected Quote';
 
@@ -58,7 +66,11 @@ const StatusTimeline = ({ currentStatus, timeline }) => {
       });
   };
 
-  const displayStatuses = getDisplayStatuses();
+  // When endAtDelivered is set (customer view), hide the back-office steps so the
+  // visible timeline ends at "Delivered".
+  const displayStatuses = getDisplayStatuses().filter(
+    (item) => !endAtDelivered || !POST_DELIVERY_STATUSES.includes(item.status)
+  );
 
   const getStatusColor = (item) => {
     if (item.cancelled) return 'bg-red-500 border-red-500';

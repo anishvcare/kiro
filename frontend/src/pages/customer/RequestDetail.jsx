@@ -192,6 +192,7 @@ const RequestDetail = () => {
             <StatusTimeline
               currentStatus={currentRequest.status}
               timeline={timeline}
+              endAtDelivered
             />
           </div>
         </div>
