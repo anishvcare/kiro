@@ -422,6 +422,25 @@ const settleToShop = asyncHandler(async (req, res) => {
     console.error('settleToShop settlement record failed:', e.message);
   }
 
+  // Mark the cash collection(s) for this order's delivery as settled, so the
+  // Cash Report status reflects the settled payment.
+  try {
+    const { Op } = require('sequelize');
+    const assignments = await DeliveryAssignment.findAll({
+      where: { request_id: request.id },
+      attributes: ['id'],
+    });
+    const assignmentIds = assignments.map((a) => a.id);
+    if (assignmentIds.length > 0) {
+      await CashCollection.update(
+        { settled: true, settled_at: new Date() },
+        { where: { delivery_assignment_id: { [Op.in]: assignmentIds }, settled: false } }
+      );
+    }
+  } catch (e) {
+    console.error('settleToShop cash-collection update failed:', e.message);
+  }
+
   return apiResponse(res, 200, 'Payment settled to shop', { request });
 });
 
