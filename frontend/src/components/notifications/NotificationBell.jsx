@@ -35,30 +35,34 @@ const NotificationBell = () => {
     return audioCtxRef.current;
   };
 
-  // Play a pleasant two-note "ding-dong" chime for a new notification.
+  // Play a longer, pleasant multi-note chime melody for a new notification.
   const playChime = () => {
     try {
       const ctx = getAudioCtx();
       if (!ctx) return;
       if (ctx.state === 'suspended') ctx.resume();
       const now = ctx.currentTime;
-      // Two notes: E6 then A6.
+      // A short rising melody that resolves, then a soft repeat (~2 seconds).
       const notes = [
-        { freq: 1318.51, at: 0 },
-        { freq: 1760.0, at: 0.16 },
+        { freq: 987.77, at: 0.0, dur: 0.35 },   // B5
+        { freq: 1318.51, at: 0.28, dur: 0.35 },  // E6
+        { freq: 1567.98, at: 0.56, dur: 0.35 },  // G6
+        { freq: 1760.0, at: 0.84, dur: 0.5 },    // A6
+        { freq: 1318.51, at: 1.3, dur: 0.4 },    // E6
+        { freq: 1760.0, at: 1.6, dur: 0.6 },     // A6 (final ring)
       ];
-      notes.forEach(({ freq, at }) => {
+      notes.forEach(({ freq, at, dur }) => {
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, now + at);
         gain.gain.setValueAtTime(0.0001, now + at);
         gain.gain.exponentialRampToValueAtTime(0.25, now + at + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + at + 0.4);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + at + dur);
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start(now + at);
-        osc.stop(now + at + 0.45);
+        osc.stop(now + at + dur + 0.05);
       });
     } catch (e) {
       /* audio not available; ignore */
