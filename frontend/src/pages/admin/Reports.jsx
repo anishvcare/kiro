@@ -57,9 +57,6 @@ const Reports = () => {
     return d.toISOString().split('T')[0];
   });
   const [endDate, setEndDate] = useState(() => new Date().toISOString().split('T')[0]);
-  const [autoRefresh, setAutoRefresh] = useState(true);
-  const [lastUpdated, setLastUpdated] = useState(null);
-
   // Keep the latest values available to the polling interval without resetting it.
   const paramsRef = useRef({ activeReport, startDate, endDate });
   paramsRef.current = { activeReport, startDate, endDate };
@@ -67,7 +64,6 @@ const Reports = () => {
   const fetchNow = useCallback(() => {
     const { activeReport: rt, startDate: s, endDate: e } = paramsRef.current;
     dispatch(fetchReportData({ reportType: rt, params: { start_date: s, end_date: e } }));
-    setLastUpdated(new Date());
   }, [dispatch]);
 
   // Load immediately when the report type or date range changes.
@@ -76,12 +72,11 @@ const Reports = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeReport, startDate, endDate]);
 
-  // Real-time auto-refresh.
+  // Keep data fresh in the background (real-time) without any visible controls.
   useEffect(() => {
-    if (!autoRefresh) return undefined;
     const timer = setInterval(fetchNow, REFRESH_INTERVAL);
     return () => clearInterval(timer);
-  }, [autoRefresh, fetchNow]);
+  }, [fetchNow]);
 
   const handleFetchReport = () => fetchNow();
 
@@ -89,41 +84,7 @@ const Reports = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-2">
-        <h1 className="text-2xl font-bold text-gray-900">Reports</h1>
-        <div className="flex items-center gap-3">
-          {autoRefresh && (
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-green-700">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
-              </span>
-              Live
-            </span>
-          )}
-          {lastUpdated && (
-            <span className="text-xs text-gray-400">
-              Updated {lastUpdated.toLocaleTimeString()}
-            </span>
-          )}
-          <button
-            onClick={() => setAutoRefresh((v) => !v)}
-            className={`px-3 py-1.5 text-xs font-medium rounded-md border ${
-              autoRefresh
-                ? 'bg-green-50 text-green-700 border-green-200'
-                : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-50'
-            }`}
-          >
-            {autoRefresh ? 'Auto-refresh: On' : 'Auto-refresh: Off'}
-          </button>
-          <button
-            onClick={fetchNow}
-            className="px-3 py-1.5 text-xs font-medium rounded-md bg-indigo-600 text-white hover:bg-indigo-700"
-          >
-            Refresh now
-          </button>
-        </div>
-      </div>
+      <h1 className="text-2xl font-bold text-gray-900">Reports</h1>
 
       {/* Report Type Tabs */}
       <div className="flex flex-wrap gap-2">

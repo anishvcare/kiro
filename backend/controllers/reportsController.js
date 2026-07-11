@@ -103,17 +103,31 @@ const getCashCollections = asyncHandler(async (req, res) => {
   const startDate = start_date ? new Date(start_date) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
   const endDate = end_date ? new Date(end_date) : new Date();
 
+  // NOTE: cash_collections has no created_at column; the date field is collected_at.
   const collections = await CashCollection.findAll({
     where: {
-      created_at: { [Op.between]: [startDate, endDate] },
+      collected_at: { [Op.between]: [startDate, endDate] },
     },
     include: [
       { model: DeliveryBoy, as: 'deliveryBoy', include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name'] }] },
     ],
-    order: [['created_at', 'DESC']],
+    order: [['collected_at', 'DESC']],
   });
 
-  return apiResponse(res, 200, 'Cash collections report', { data: collections, startDate, endDate });
+  const data = collections.map((c) => {
+    const boyUser = c.deliveryBoy && c.deliveryBoy.user;
+    const boyName = boyUser
+      ? `${boyUser.first_name || ''} ${boyUser.last_name || ''}`.trim()
+      : '';
+    return {
+      delivery_boy: boyName || 'Delivery Boy',
+      amount: parseFloat(c.amount) || 0,
+      collected_at: c.collected_at,
+      status: c.settled ? 'Settled' : 'Pending',
+    };
+  });
+
+  return apiResponse(res, 200, 'Cash collections report', { data, startDate, endDate });
 });
 
 /**
@@ -135,7 +149,14 @@ const getUpiPayments = asyncHandler(async (req, res) => {
     order: [['created_at', 'DESC']],
   });
 
-  return apiResponse(res, 200, 'UPI payments report', { data: payments, startDate, endDate });
+  const data = payments.map((p) => ({
+    amount: p.transaction ? parseFloat(p.transaction.amount) || 0 : 0,
+    status: p.status || (p.transaction && p.transaction.status) || '-',
+    upi_reference: p.upi_ref_number || p.upi_id || '-',
+    date: p.created_at,
+  }));
+
+  return apiResponse(res, 200, 'UPI payments report', { data, startDate, endDate });
 });
 
 /**
