@@ -26,37 +26,69 @@ const NotificationBell = () => {
     return () => clearInterval(timer);
   }, [dispatch]);
 
-  // Play a short beep whenever the unread count increases (a new notification).
-  const playBeep = () => {
-    try {
+  const getAudioCtx = () => {
+    if (!audioCtxRef.current) {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      if (!audioCtxRef.current) audioCtxRef.current = new AudioCtx();
-      const ctx = audioCtxRef.current;
+      if (!AudioCtx) return null;
+      audioCtxRef.current = new AudioCtx();
+    }
+    return audioCtxRef.current;
+  };
+
+  // Play a pleasant two-note "ding-dong" chime for a new notification.
+  const playChime = () => {
+    try {
+      const ctx = getAudioCtx();
+      if (!ctx) return;
       if (ctx.state === 'suspended') ctx.resume();
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(880, ctx.currentTime);
-      gain.gain.setValueAtTime(0.15, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.3);
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-      osc.stop(ctx.currentTime + 0.3);
+      const now = ctx.currentTime;
+      // Two notes: E6 then A6.
+      const notes = [
+        { freq: 1318.51, at: 0 },
+        { freq: 1760.0, at: 0.16 },
+      ];
+      notes.forEach(({ freq, at }) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + at);
+        gain.gain.setValueAtTime(0.0001, now + at);
+        gain.gain.exponentialRampToValueAtTime(0.25, now + at + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + at + 0.4);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now + at);
+        osc.stop(now + at + 0.45);
+      });
     } catch (e) {
       /* audio not available; ignore */
     }
   };
 
+  // Browsers block audio until the user has interacted with the page. Unlock
+  // (resume) the AudioContext on the first click/tap/keypress so notification
+  // sounds then play automatically — no page refresh needed.
+  useEffect(() => {
+    const unlock = () => {
+      const ctx = getAudioCtx();
+      if (ctx && ctx.state === 'suspended') ctx.resume();
+    };
+    window.addEventListener('pointerdown', unlock, { once: true });
+    window.addEventListener('keydown', unlock, { once: true });
+    return () => {
+      window.removeEventListener('pointerdown', unlock);
+      window.removeEventListener('keydown', unlock);
+    };
+  }, []);
+
   useEffect(() => {
     if (prevUnreadRef.current === null) {
-      // First load: don't beep for pre-existing unread notifications.
+      // First load: don't chime for pre-existing unread notifications.
       prevUnreadRef.current = unreadCount;
       return;
     }
     if (unreadCount > prevUnreadRef.current) {
-      playBeep();
+      playChime();
     }
     prevUnreadRef.current = unreadCount;
   }, [unreadCount]);
