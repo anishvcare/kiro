@@ -11,6 +11,23 @@ const fmtCurrency = (v) =>
 // Column keys that represent money amounts (rendered as INR currency).
 const CURRENCY_KEYS = new Set(['total_amount', 'totalamount', 'amount', 'revenue', 'income', 'final_amount', 'delivery_charge']);
 
+// Column keys that represent date/time values (rendered in a simple format).
+const DATE_KEYS = new Set(['collected_at', 'created_at', 'date', 'paid_at', 'settled_at', 'updated_at']);
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/;
+
+// Format a date/time value simply, e.g. "10 Jul 2026, 10:39 AM".
+const fmtDateTime = (val) => {
+  const d = new Date(val);
+  if (Number.isNaN(d.getTime())) return String(val);
+  return d.toLocaleString('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+};
+
 // Render a table cell readably: currency for amount columns, readable text for
 // nested objects (e.g. a shop object) instead of raw JSON.
 const formatCell = (key, val) => {
@@ -30,6 +47,9 @@ const formatCell = (key, val) => {
   }
   if (CURRENCY_KEYS.has(String(key).toLowerCase())) {
     return fmtCurrency(val);
+  }
+  if (DATE_KEYS.has(String(key).toLowerCase()) || (typeof val === 'string' && ISO_DATE_RE.test(val))) {
+    return fmtDateTime(val);
   }
   return String(val);
 };
