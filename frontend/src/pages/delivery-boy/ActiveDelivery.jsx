@@ -11,6 +11,7 @@ import {
   markReachedCustomerThunk,
   markCashCollectedThunk,
   markDeliveredThunk,
+  verifyOTPThunk,
   setCurrentDelivery,
   clearError,
   clearSuccess,
@@ -71,6 +72,8 @@ const ActiveDelivery = () => {
   const [rejectReason, setRejectReason] = useState('');
   const [showReject, setShowReject] = useState(false);
   const [busy, setBusy] = useState(false); // dedicated loading for step actions
+  const [otpInput, setOtpInput] = useState(''); // customer OTP to confirm delivery
+  const [otpError, setOtpError] = useState('');
 
   useEffect(() => {
     if (!assignedDeliveries || assignedDeliveries.length === 0) {
@@ -118,6 +121,27 @@ const ActiveDelivery = () => {
 
   const handleAccept = () => {
     if (delivery && !busy) runAction(dispatch(acceptDeliveryThunk(delivery.id)));
+  };
+
+  // Delivery boy enters the OTP the customer reads out, then completes delivery.
+  const handleVerifyAndDeliver = async () => {
+    setOtpError('');
+    const code = (otpInput || '').trim();
+    if (code.length !== 6) {
+      setOtpError('Enter the 6-digit OTP from the customer.');
+      return;
+    }
+    if (!delivery || busy) return;
+    setBusy(true);
+    try {
+      await dispatch(verifyOTPThunk({ assignmentId: delivery.id, otp: code })).unwrap();
+      await dispatch(markDeliveredThunk(delivery.id));
+      setOtpInput('');
+    } catch (e) {
+      setOtpError(typeof e === 'string' ? e : 'Invalid or expired OTP. Please try again.');
+    } finally {
+      setBusy(false);
+    }
   };
 
   const handleReject = () => {
@@ -404,6 +428,32 @@ const ActiveDelivery = () => {
                     className="w-full px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:bg-gray-300"
                   >
                     {busy ? 'Updating...' : 'Cash Collected'}
+                  </button>
+                </div>
+              ) : nextStep.key === 'delivered' ? (
+                <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-3">
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">Confirm Delivery with OTP</p>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      Ask the customer for their 6-digit delivery OTP and enter it below to complete the delivery.
+                    </p>
+                  </div>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    maxLength={6}
+                    value={otpInput}
+                    onChange={(e) => setOtpInput(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                    placeholder="Enter OTP"
+                    className="w-full text-center tracking-[0.4em] text-lg font-semibold border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  {otpError && <p className="text-xs text-red-600">{otpError}</p>}
+                  <button
+                    onClick={handleVerifyAndDeliver}
+                    disabled={busy || otpInput.length !== 6}
+                    className="w-full px-4 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 disabled:bg-gray-300"
+                  >
+                    {busy ? 'Verifying...' : 'Verify OTP & Complete Delivery'}
                   </button>
                 </div>
               ) : (
