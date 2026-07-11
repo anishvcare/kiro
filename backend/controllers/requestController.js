@@ -141,14 +141,34 @@ const getCustomerRequests = asyncHandler(async (req, res) => {
         as: 'quotations',
         attributes: ['id', 'total_amount', 'delivery_charge', 'final_amount', 'status', 'created_at'],
       },
+      {
+        model: DeliveryAssignment,
+        as: 'deliveryAssignments',
+        attributes: ['id', 'status', 'delivery_step', 'created_at'],
+      },
     ],
     order: [['created_at', 'DESC']],
     limit: parseInt(limit),
     offset: parseInt(offset),
   });
 
+  // Expose the latest delivery assignment as `deliveryAssignment` so the list
+  // can offer a "Track Delivery" link.
+  const requestsJson = requests.map((r) => {
+    const j = r.toJSON();
+    const list = j.deliveryAssignments || [];
+    const latest = list.slice().sort(
+      (a, b) => new Date(b.created_at) - new Date(a.created_at)
+    )[0] || null;
+    j.deliveryAssignment = latest
+      ? { id: latest.id, status: latest.status, delivery_step: latest.delivery_step }
+      : null;
+    delete j.deliveryAssignments;
+    return j;
+  });
+
   return apiResponse(res, 200, 'Requests retrieved successfully', {
-    requests,
+    requests: requestsJson,
     pagination: {
       total: count,
       page: parseInt(page),
@@ -245,28 +265,36 @@ const getRequestDetails = asyncHandler(async (req, res) => {
   // Get status timeline
   const timeline = getStatusTimeline(request.status);
 
-  // Find the live delivery assignment (accepted quotation -> payment -> assignment) so the
-  // customer can track their delivery boy on the map.
+  // Find the live delivery assignment so the customer can track their delivery
+  // boy on the map. Prefer the direct request_id link (works for COD orders that
+  // have no payment transaction); fall back to the quotation -> payment chain.
   let deliveryAssignment = null;
   try {
-    const acceptedQuotation = (request.quotations || []).find((q) => q.status === 'accepted');
-    if (acceptedQuotation) {
-      const payment = await PaymentTransaction.findOne({ where: { quotation_id: acceptedQuotation.id } });
-      if (payment) {
-        const assignment = await DeliveryAssignment.findOne({ where: { transaction_id: payment.id } });
-        if (assignment) {
-          deliveryAssignment = {
-            id: assignment.id,
-            status: assignment.status,
-            pickup_address: assignment.pickup_address,
-            pickup_latitude: assignment.pickup_latitude,
-            pickup_longitude: assignment.pickup_longitude,
-            delivery_address: assignment.delivery_address,
-            delivery_latitude: assignment.delivery_latitude,
-            delivery_longitude: assignment.delivery_longitude,
-          };
+    let assignment = await DeliveryAssignment.findOne({
+      where: { request_id: request.id },
+      order: [['created_at', 'DESC']],
+    });
+    if (!assignment) {
+      const acceptedQuotation = (request.quotations || []).find((q) => q.status === 'accepted');
+      if (acceptedQuotation) {
+        const payment = await PaymentTransaction.findOne({ where: { quotation_id: acceptedQuotation.id } });
+        if (payment) {
+          assignment = await DeliveryAssignment.findOne({ where: { transaction_id: payment.id } });
         }
       }
+    }
+    if (assignment) {
+      deliveryAssignment = {
+        id: assignment.id,
+        status: assignment.status,
+        delivery_step: assignment.delivery_step,
+        pickup_address: assignment.pickup_address,
+        pickup_latitude: assignment.pickup_latitude,
+        pickup_longitude: assignment.pickup_longitude,
+        delivery_address: assignment.delivery_address,
+        delivery_latitude: assignment.delivery_latitude,
+        delivery_longitude: assignment.delivery_longitude,
+      };
     }
   } catch (e) {
     deliveryAssignment = null;

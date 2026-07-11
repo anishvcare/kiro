@@ -120,11 +120,24 @@ const MyRequests = () => {
               <span className="text-xs text-gray-400">
                 {new Date(request.created_at || request.createdAt).toLocaleDateString()}
               </span>
-              {request.quotations && request.quotations.length > 0 && (
-                <span className="text-xs text-blue-600 font-medium">
-                  {request.quotations.length} quotation(s)
-                </span>
-              )}
+              <div className="flex items-center gap-3">
+                {request.quotations && request.quotations.length > 0 && (
+                  <span className="text-xs text-blue-600 font-medium">
+                    {request.quotations.length} quotation(s)
+                  </span>
+                )}
+                {request.deliveryAssignment && !['delivered', 'failed', 'returned'].includes(request.deliveryAssignment.status) && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); navigate(`/customer/track/${request.deliveryAssignment.id}`); }}
+                    className="inline-flex items-center gap-1 text-xs font-medium text-white bg-indigo-600 rounded-md px-2.5 py-1 hover:bg-indigo-700"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                    </svg>
+                    Track Delivery
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         ))}
