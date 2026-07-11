@@ -8,6 +8,7 @@ const {
   CashCollection,
   UpiPaymentLog,
   DeliveryBoy,
+  Customer,
   Shop,
   User,
   sequelize,
@@ -110,16 +111,30 @@ const getCashCollections = asyncHandler(async (req, res) => {
     },
     include: [
       { model: DeliveryBoy, as: 'deliveryBoy', include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name'] }] },
+      {
+        model: DeliveryAssignment,
+        as: 'assignment',
+        attributes: ['id', 'request_id'],
+        include: [
+          {
+            model: CustomerRequest,
+            as: 'request',
+            attributes: ['id'],
+            include: [{ model: Shop, as: 'shop', attributes: ['name'] }],
+          },
+        ],
+      },
     ],
     order: [['collected_at', 'DESC']],
   });
 
   const data = collections.map((c) => {
     const boyUser = c.deliveryBoy && c.deliveryBoy.user;
-    const boyName = boyUser
-      ? `${boyUser.first_name || ''} ${boyUser.last_name || ''}`.trim()
-      : '';
+    const boyName = boyUser ? `${boyUser.first_name || ''} ${boyUser.last_name || ''}`.trim() : '';
+    const request = c.assignment && c.assignment.request;
     return {
+      order: request && request.id ? `#${request.id.slice(0, 8)}` : '-',
+      shop: request && request.shop ? request.shop.name : '-',
       delivery_boy: boyName || 'Delivery Boy',
       amount: parseFloat(c.amount) || 0,
       collected_at: c.collected_at,
@@ -144,17 +159,32 @@ const getUpiPayments = asyncHandler(async (req, res) => {
       created_at: { [Op.between]: [startDate, endDate] },
     },
     include: [
-      { model: PaymentTransaction, as: 'transaction', attributes: ['amount', 'status'] },
+      {
+        model: PaymentTransaction,
+        as: 'transaction',
+        attributes: ['amount', 'status'],
+        include: [
+          { model: Customer, as: 'customer', attributes: ['id'], include: [{ model: User, as: 'user', attributes: ['first_name', 'last_name'] }] },
+          { model: Shop, as: 'shop', attributes: ['name'] },
+        ],
+      },
     ],
     order: [['created_at', 'DESC']],
   });
 
-  const data = payments.map((p) => ({
-    amount: p.transaction ? parseFloat(p.transaction.amount) || 0 : 0,
-    status: p.status || (p.transaction && p.transaction.status) || '-',
-    upi_reference: p.upi_ref_number || p.upi_id || '-',
-    date: p.created_at,
-  }));
+  const data = payments.map((p) => {
+    const txn = p.transaction;
+    const custUser = txn && txn.customer && txn.customer.user;
+    const customerName = custUser ? `${custUser.first_name || ''} ${custUser.last_name || ''}`.trim() : '';
+    return {
+      amount: txn ? parseFloat(txn.amount) || 0 : 0,
+      customer: customerName || '-',
+      shop: txn && txn.shop ? txn.shop.name : '-',
+      upi_reference: p.upi_ref_number || p.upi_id || '-',
+      status: p.status || (txn && txn.status) || '-',
+      date: p.created_at,
+    };
+  });
 
   return apiResponse(res, 200, 'UPI payments report', { data, startDate, endDate });
 });
