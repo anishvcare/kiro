@@ -10,9 +10,11 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-
 import {
   setCurrentPosition,
   setTracking,
-  trackingStopped,
 } from '../../store/slices/locationSlice';
-import socketService from '../../services/socketService';
+import { getLatestLocation } from '../../services/trackingService';
+
+// How often to poll the delivery boy's latest position (ms).
+const POLL_INTERVAL = 5000;
 
 // Map center updater component
 const MapCenterUpdater = ({ position }) => {
@@ -31,41 +33,34 @@ const LiveTrackingMap = ({ assignmentId, pickup, dropoff }) => {
     (state) => state.location
   );
 
-  // Subscribe to location updates
+  // Poll the delivery boy's latest location (REST + polling; no websocket).
   useEffect(() => {
-    if (!assignmentId) return;
+    if (!assignmentId) return undefined;
 
-    const socket = socketService.getSocket();
-    if (!socket) return;
-
-    socketService.subscribeToDelivery(assignmentId);
-    dispatch(setTracking(true));
-
-    const handleLocationUpdate = (data) => {
-      if (data.assignmentId === assignmentId) {
-        dispatch(setCurrentPosition(data));
+    let active = true;
+    const poll = async () => {
+      try {
+        const loc = await getLatestLocation(assignmentId);
+        if (active && loc && loc.latitude != null) {
+          dispatch(setCurrentPosition({
+            latitude: Number(loc.latitude),
+            longitude: Number(loc.longitude),
+            speed: loc.speed != null ? Number(loc.speed) : null,
+            timestamp: loc.timestamp || loc.recorded_at,
+          }));
+          dispatch(setTracking(true));
+        }
+      } catch (e) {
+        /* ignore transient errors; keep polling */
       }
     };
 
-    const handleCurrentLocation = (data) => {
-      if (data.assignmentId === assignmentId) {
-        dispatch(setCurrentPosition(data));
-      }
-    };
-
-    const handleTrackingStopped = () => {
-      dispatch(trackingStopped());
-    };
-
-    socket.on('location:updated', handleLocationUpdate);
-    socket.on('location:current', handleCurrentLocation);
-    socket.on('location:trackingStopped', handleTrackingStopped);
+    poll();
+    const timer = setInterval(poll, POLL_INTERVAL);
 
     return () => {
-      socketService.unsubscribeFromDelivery(assignmentId);
-      socket.off('location:updated', handleLocationUpdate);
-      socket.off('location:current', handleCurrentLocation);
-      socket.off('location:trackingStopped', handleTrackingStopped);
+      active = false;
+      clearInterval(timer);
       dispatch(setTracking(false));
     };
   }, [assignmentId, dispatch]);

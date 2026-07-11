@@ -1,35 +1,41 @@
 /**
  * LocationUpdater Component
- * Used by delivery boy to broadcast GPS location
+ * Used by the delivery boy to share GPS location. Captures position via the
+ * browser Geolocation API and POSTs it to the backend on an interval (REST +
+ * polling; no websocket server).
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import socketService from '../../services/socketService';
+import { postLocation } from '../../services/trackingService';
+
+// How often to send the latest position to the server while sharing (ms).
+const SEND_INTERVAL = 5000;
 
 const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
   const [isActive, setIsActive] = useState(false);
   const [lastPosition, setLastPosition] = useState(null);
   const [error, setError] = useState(null);
   const [sentCount, setSentCount] = useState(0);
-  const [connected, setConnected] = useState(false);
   const watchIdRef = useRef(null);
   const intervalRef = useRef(null);
+  const latestRef = useRef(null); // latest captured position (throttled send)
 
-  // Track socket connection status for visibility
-  useEffect(() => {
-    const t = setInterval(() => {
-      const s = socketService.getSocket();
-      setConnected(Boolean(s && s.connected));
-    }, 1000);
-    return () => clearInterval(t);
-  }, []);
+  const sendLatest = useCallback(async () => {
+    const pos = latestRef.current;
+    if (!pos || !assignmentId) return;
+    try {
+      await postLocation(assignmentId, pos);
+      setSentCount((c) => c + 1);
+    } catch (e) {
+      // Keep sharing; a transient failure shouldn't stop tracking.
+    }
+  }, [assignmentId]);
 
   const startTracking = useCallback(() => {
     if (!navigator.geolocation) {
       setError('Geolocation is not supported by your browser');
       return;
     }
-
     if (!assignmentId) {
       setError('No active delivery assignment');
       return;
@@ -38,61 +44,47 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
     setError(null);
     setIsActive(true);
 
-    // Watch position with high accuracy
     watchIdRef.current = navigator.geolocation.watchPosition(
       (position) => {
         const locationData = {
-          assignmentId,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
           accuracy: position.coords.accuracy,
-          speed: position.coords.speed ? position.coords.speed * 3.6 : null, // Convert m/s to km/h
+          speed: position.coords.speed ? position.coords.speed * 3.6 : null, // m/s -> km/h
           heading: position.coords.heading,
         };
-
+        latestRef.current = locationData;
         setLastPosition(locationData);
-        socketService.updateLocation(locationData);
-        setSentCount((c) => c + 1);
-
-        if (onLocationUpdate) {
-          onLocationUpdate(locationData);
-        }
+        if (onLocationUpdate) onLocationUpdate(locationData);
       },
       (err) => {
         setError(`Location error: ${err.message}`);
       },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 5000,
-      }
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 5000 }
     );
-  }, [assignmentId, onLocationUpdate]);
+
+    // Send the first fix quickly, then on a steady interval.
+    setTimeout(sendLatest, 1500);
+    intervalRef.current = setInterval(sendLatest, SEND_INTERVAL);
+  }, [assignmentId, onLocationUpdate, sendLatest]);
 
   const stopTracking = useCallback(() => {
     if (watchIdRef.current !== null) {
       navigator.geolocation.clearWatch(watchIdRef.current);
       watchIdRef.current = null;
     }
-
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-
-    socketService.stopTracking(assignmentId);
     setIsActive(false);
-  }, [assignmentId]);
+  }, []);
 
   // Cleanup on unmount
   useEffect(() => {
     return () => {
-      if (watchIdRef.current !== null) {
-        navigator.geolocation.clearWatch(watchIdRef.current);
-      }
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
+      if (watchIdRef.current !== null) navigator.geolocation.clearWatch(watchIdRef.current);
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, []);
 
@@ -100,18 +92,12 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
     <div className="bg-white rounded-lg shadow p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-semibold text-gray-900">Location Sharing</h3>
-        <div className="flex items-center gap-2">
-          <span className={`flex items-center gap-1 text-xs ${connected ? 'text-green-600' : 'text-gray-400'}`}>
-            <span className={`w-2 h-2 rounded-full ${connected ? 'bg-green-500' : 'bg-gray-400'}`}></span>
-            {connected ? 'Connected' : 'Connecting...'}
+        {isActive && (
+          <span className="flex items-center gap-1 text-xs text-green-600">
+            <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            Sharing live
           </span>
-          {isActive && (
-            <span className="flex items-center gap-1 text-xs text-green-600">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              Active
-            </span>
-          )}
-        </div>
+        )}
       </div>
 
       {error && (
@@ -123,7 +109,7 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
       {lastPosition && (
         <div className="mb-3 text-xs text-gray-500">
           <p>Lat: {lastPosition.latitude.toFixed(6)}, Lng: {lastPosition.longitude.toFixed(6)}</p>
-          {lastPosition.speed && <p>Speed: {Math.round(lastPosition.speed)} km/h</p>}
+          {lastPosition.speed != null && <p>Speed: {Math.round(lastPosition.speed)} km/h</p>}
           <p className="text-green-600">Location updates sent: {sentCount}</p>
         </div>
       )}
@@ -139,6 +125,12 @@ const LocationUpdater = ({ assignmentId, onLocationUpdate }) => {
       >
         {isActive ? 'Stop Sharing Location' : 'Start Sharing Location'}
       </button>
+
+      {!isActive && (
+        <p className="text-[11px] text-gray-400 mt-2">
+          Tap to share your live location with the customer during delivery.
+        </p>
+      )}
     </div>
   );
 };
